@@ -586,3 +586,7 @@ button {
     font-size: 14px;
 
 }
+
+.area-arquivados {
+    display: none;
+}
