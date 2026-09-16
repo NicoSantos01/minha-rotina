@@ -1516,6 +1516,13 @@ document.getElementById(
 
 
 // ==========================================
+// VARIÁVEL DE EDIÇÃO
+// ==========================================
+
+let habitoEditando = null;
+
+
+// ==========================================
 // NOVO HÁBITO
 // ==========================================
 
@@ -1631,8 +1638,6 @@ document.getElementById(
 // ==========================================
 // SALVAR HÁBITO
 // ==========================================
-
-let habitoEditando = null;
 
 document.getElementById(
     "salvarHabito"
