@@ -1552,6 +1552,48 @@ document.getElementById(
 );
 
 // ==========================================
+// CANCELAR NOVO HÁBITO
+// ==========================================
+
+document.getElementById(
+    "cancelarHabito"
+).addEventListener(
+    "click",
+    () => {
+
+        input.value = "";
+
+        modal.classList.remove(
+            "ativo"
+        );
+
+        habitoEditando = null;
+
+    }
+);
+
+modal.addEventListener(
+    "click",
+    (evento) => {
+
+        if (
+            evento.target === modal
+        ) {
+
+            input.value = "";
+
+            modal.classList.remove(
+                "ativo"
+            );
+
+            habitoEditando = null;
+
+        }
+
+    }
+);
+
+// ==========================================
 // ARQUIVADOS
 // ==========================================
 
