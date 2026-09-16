@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Minha Rotina</title>
+	
+	<link rel="stylesheet" href="style.css">
+	<link rel="manifest" href="manifest.json">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <h1>Minha Rotina</h1>
+
+    <p id="dataAtual"></p>
+
+    <!-- ========================= -->
+    <!-- DASHBOARD -->
+    <!-- ========================= -->
+
+    <div class="dashboard">
+
+      <div class="card-estatistica">
+
+          <span class="icone">🔥</span>
+
+          <strong id="sequenciaGeral">
+              0
+          </strong>
+
+          <small>
+              Sequência
+          </small>
+
+    </div>
+
+
+    <div class="card-estatistica">
+
+        <span class="icone">🏆</span>
+
+        <strong id="recordeGeral">
+            0
+        </strong>
+
+        <small>
+            Recorde
+        </small>
+
+    </div>
+
+
+    <div class="card-estatistica">
+
+        <span class="icone">📅</span>
+
+        <strong id="diasCumpridos">
+            0
+        </strong>
+
+        <small>
+            Dias cumpridos
+        </small>
+
+    </div>
+
+
+    <div class="card-estatistica">
+
+        <span class="icone">📊</span>
+
+        <strong id="aproveitamento">
+            0%
+        </strong>
+
+        <small>
+            Aproveitamento
+        </small>
+
+    </div>
+
+</div>
+
+
+  <!-- ========================= -->
+  <!-- ESTA SEMANA -->
+  <!-- ========================= -->
+  
+  <div class="semana">
+  
+      <h2>Esta semana</h2>
+  
+      <div
+          id="semanaAtual"
+          class="dias-semana-dashboard">
+      </div>
+  
+      <div
+          id="progressoSemana"
+          class="progresso-semana">
+      </div>
+  
+  </div>
+
+    <div class="progresso">
+        <strong id="progressText">0%</strong>
+
+        <div class="barra">
+            <div id="progressBar"></div>
+        </div>
+    </div>
+
+
+    <!-- NAVEGAÇÃO -->
+
+    <div class="navegacao">
+
+        <button id="btnHoje">
+            Hoje
+        </button>
+
+        <button id="btnHistorico">
+            Histórico
+        </button>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- TELA DE HOJE -->
+    <!-- ========================= -->
+
+    <section id="telaHoje">
+
+        <h2>Hábitos de hoje</h2>
+
+        <div id="listaHabitos"></div>
+
+        <button id="btnNovoHabito">
+            + Novo hábito
+        </button>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- TELA DE HISTÓRICO -->
+    <!-- ========================= -->
+
+    <section id="telaHistorico">
+
+        <div class="historico-header">
+
+            <button id="mesAnterior">
+                ‹
+            </button>
+
+            <h2 id="mesAtual"></h2>
+
+            <button id="mesProximo">
+                ›
+            </button>
+
+        </div>
+
+
+        <!-- CALENDÁRIO -->
+
+        <div class="calendario">
+
+            <div class="dias-semana">
+
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
+
+            </div>
+
+            <div
+                id="diasCalendario"
+                class="dias-calendario">
+            </div>
+
+        </div>
+
+
+        <!-- DETALHES DO DIA -->
+
+        <div
+            id="detalhesDia"
+            class="detalhes-dia">
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- MODAL -->
+<!-- ========================= -->
+
+<div id="modal" class="modal">
+
+    <div class="modal-box">
+
+        <h2>Novo hábito</h2>
+
+        <input
+            id="nomeHabito"
+            type="text"
+            placeholder="Ex: Estudar programação"
+        >
+
+        <label for="categoriaHabito">
+            Categoria
+        </label>
+
+        <select id="categoriaHabito">
+
+            <option value="Saúde">
+                🏋️ Saúde
+            </option>
+
+            <option value="Estudos">
+                📚 Estudos
+            </option>
+
+            <option value="Finanças">
+                💰 Finanças
+            </option>
+
+            <option value="Pessoal">
+                🧠 Pessoal
+            </option>
+
+            <option value="Trabalho">
+                💼 Trabalho
+            </option>
+
+        </select>
+
+        <button id="salvarHabito">
+            Salvar
+        </button>
+
+    </div>
+
+</div>
+
+	<script src="script.js"></script>
+
+</body>
+
+</html>
