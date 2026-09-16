@@ -34,6 +34,12 @@ const diasCalendario =
 const detalhesDia =
     document.getElementById("detalhesDia");
 
+// ==========================================
+// VARIÁVEL DE EDIÇÃO
+// ==========================================
+
+let habitoEditando = null;
+
 
 // ==========================================
 // DATA DE HOJE
@@ -832,6 +838,10 @@ function renderizar() {
             
                     <div class="nome">
                         ${habito.nome}
+                    
+                        <div class="categoria">
+                            ${habito.categoria}
+                        </div>
                     </div>
             
                     <div class="estatisticas-habito">
@@ -857,6 +867,14 @@ function renderizar() {
                 </div>
             
                 <div class="acoes-habito">
+
+                    <button class="subir-habito">
+                        ↑
+                    </button>
+                
+                    <button class="descer-habito">
+                        ↓
+                    </button>
 
                     <button class="editar-habito">
                         ✏️
@@ -980,11 +998,70 @@ function renderizar() {
           
               }
           );
-          
-            lista.appendChild(div);
 
-        }
-    );
+          div.querySelector(
+              ".subir-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  const indice =
+                      habitos.indexOf(habito);
+          
+                  if (indice > 0) {
+          
+                      [
+                          habitos[indice - 1],
+                          habitos[indice]
+                      ] = [
+                          habitos[indice],
+                          habitos[indice - 1]
+                      ];
+          
+                      salvarHabitos();
+          
+                      renderizar();
+          
+                  }
+          
+              }
+          );
+
+          div.querySelector(
+              ".descer-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  const indice =
+                      habitos.indexOf(habito);
+          
+                  if (
+                      indice <
+                      habitos.length - 1
+                  ) {
+          
+                      [
+                          habitos[indice],
+                          habitos[indice + 1]
+                      ] = [
+                          habitos[indice + 1],
+                          habitos[indice]
+                      ];
+          
+                      salvarHabitos();
+          
+                      renderizar();
+          
+                  }
+          
+              }
+          );   
+              
+                lista.appendChild(div);
+    
+            }
+        );
 
     atualizarProgresso();
 
@@ -1513,13 +1590,6 @@ document.getElementById(
 
     }
 );
-
-
-// ==========================================
-// VARIÁVEL DE EDIÇÃO
-// ==========================================
-
-let habitoEditando = null;
 
 
 // ==========================================
