@@ -591,3 +591,18 @@ button {
 .area-arquivados {
     display: none;
 }
+
+/* ==========================================
+   AÇÕES DO HÁBITO
+========================================== */
+
+.acoes-habito {
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
+}
+
+.acoes-habito button {
+    margin-top: 0;
+    padding: 6px 8px;
+}
