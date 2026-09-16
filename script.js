@@ -787,6 +787,10 @@ function renderizar() {
     habitos.forEach(
         (habito, index) => {
 
+            if (habito.arquivado) {
+                return;
+            }
+
             const concluidoHoje =
                 habito.conclucoes &&
                 habito.conclucoes[hoje];
@@ -816,7 +820,6 @@ function renderizar() {
 
 
             div.innerHTML = `
-            
                 <button
                     class="check ${
                         concluidoHoje
@@ -825,7 +828,7 @@ function renderizar() {
                     }">
                 </button>
             
-                <div>
+                <div class="conteudo-habito">
             
                     <div class="nome">
                         ${habito.nome}
@@ -853,6 +856,21 @@ function renderizar() {
             
                 </div>
             
+                <div class="acoes-habito">
+
+                    <button class="editar-habito">
+                        ✏️
+                    </button>
+                
+                    <button class="arquivar-habito">
+                        📦
+                    </button>
+                
+                    <button class="excluir-habito">
+                        🗑️
+                    </button>
+                
+                </div>
             `;
 
             div.querySelector(
@@ -889,12 +907,84 @@ function renderizar() {
                 }
             );
 
+          // EDITAR HÁBITO
+          div.querySelector(
+              ".editar-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  habitoEditando = habito;
+          
+                  input.value =
+                      habito.nome || "";
+          
+                  categoria.value =
+                      habito.categoria || "Pessoal";
+          
+                  document.getElementById(
+                      "tituloModal"
+                  ).textContent =
+                      "Editar hábito";
+          
+                  modal.classList.add(
+                      "ativo"
+                  );
+          
+              }
+          );
 
+          // ARQUIVAR HÁBITO
+          div.querySelector(
+              ".arquivar-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  habito.arquivado = true;
+          
+                  salvarHabitos();
+          
+                  renderizar();
+          
+              }
+          );
+
+          // EXCLUIR HÁBITO
+          div.querySelector(
+              ".excluir-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  const confirmar =
+                      confirm(
+                          `Tem certeza que deseja excluir "${habito.nome}"?`
+                      );
+          
+                  if (!confirmar) {
+                      return;
+                  }
+          
+                  habitos =
+                      habitos.filter(
+                          item =>
+                              item.id !== habito.id
+                      );
+          
+                  salvarHabitos();
+          
+                  renderizar();
+          
+                  renderizarCalendario();
+          
+              }
+          );
+          
             lista.appendChild(div);
 
         }
     );
-
 
     atualizarProgresso();
 
@@ -902,6 +992,68 @@ function renderizar() {
 
 }
 
+function renderizarArquivados() {
+
+    const listaArquivados =
+        document.getElementById(
+            "listaArquivados"
+        );
+
+    listaArquivados.innerHTML = "";
+
+    habitos.forEach(
+        (habito) => {
+
+            if (!habito.arquivado) {
+                return;
+            }
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "habito";
+
+            div.innerHTML = `
+                <div class="conteudo-habito">
+
+                    <div class="nome">
+                        ${habito.nome}
+                    </div>
+
+                </div>
+
+                <div class="acoes-habito">
+
+                    <button class="desarquivar-habito">
+                        ↩️
+                    </button>
+
+                </div>
+            `;
+
+          div.querySelector(
+              ".desarquivar-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  habito.arquivado = false;
+          
+                  salvarHabitos();
+          
+                  renderizar();
+          
+                  renderizarArquivados();
+          
+              }
+          );
+
+            listaArquivados.appendChild(div);
+
+        }
+    );
+}
 
 // ==========================================
 // PROGRESSO
@@ -1373,6 +1525,23 @@ document.getElementById(
     "click",
     () => {
 
+        // Garante que estamos criando
+        // um hábito novo
+        habitoEditando = null;
+
+        // Limpa o campo
+        input.value = "";
+
+        // Volta a categoria para a primeira opção
+        categoria.selectedIndex = 0;
+
+        // Volta o título do modal
+        document.getElementById(
+            "tituloModal"
+        ).textContent =
+            "Novo hábito";
+
+        // Abre o modal
         modal.classList.add(
             "ativo"
         );
@@ -1382,10 +1551,46 @@ document.getElementById(
     }
 );
 
+// ==========================================
+// ARQUIVADOS
+// ==========================================
+
+document.getElementById(
+    "btnArquivados"
+).addEventListener(
+    "click",
+    () => {
+
+        const area =
+            document.getElementById(
+                "areaArquivados"
+            );
+
+        if (
+            area.style.display === "none" ||
+            area.style.display === ""
+        ) {
+
+            area.style.display =
+                "block";
+
+            renderizarArquivados();
+
+        } else {
+
+            area.style.display =
+                "none";
+
+        }
+
+    }
+);
 
 // ==========================================
-// SALVAR NOVO HÁBITO
+// SALVAR HÁBITO
 // ==========================================
+
+let habitoEditando = null;
 
 document.getElementById(
     "salvarHabito"
@@ -1396,41 +1601,60 @@ document.getElementById(
         const nome =
             input.value.trim();
 
-
         if (nome === "") {
-
             return;
+        }
+
+        // EDITANDO UM HÁBITO EXISTENTE
+        if (habitoEditando) {
+
+            habitoEditando.nome =
+                nome;
+
+            habitoEditando.categoria =
+                categoria.value;
+
+            habitoEditando =
+                null;
 
         }
 
+        // CRIANDO UM NOVO HÁBITO
+        else {
 
-        habitos.push({
+            habitos.push({
 
-            id:
-                Date.now(),
-        
-            nome:
-                nome,
-        
-            categoria:
-                categoria.value,
-        
-            conclucoes:
-                {}
-        
-        });
+                id:
+                    Date.now(),
 
+                nome:
+                    nome,
+
+                categoria:
+                    categoria.value,
+
+                arquivado:
+                    false,
+
+                conclucoes:
+                    {}
+
+            });
+
+        }
 
         salvarHabitos();
 
-
         input.value = "";
-
 
         modal.classList.remove(
             "ativo"
         );
 
+        document.getElementById(
+            "tituloModal"
+        ).textContent =
+            "Novo hábito";
 
         renderizar();
 
@@ -1438,7 +1662,6 @@ document.getElementById(
 
     }
 );
-
 
 // ==========================================
 // INICIALIZAÇÃO
