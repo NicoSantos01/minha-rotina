@@ -1067,6 +1067,10 @@ function renderizar() {
 
     atualizarDashboard();
 
+    atualizarInicio();
+
+    atualizarHabitosInicio();
+
 }
 
 function renderizarArquivados() {
@@ -1167,6 +1171,10 @@ function atualizarProgresso() {
     ).textContent =
         `${porcentagem}%`;
 
+    document.getElementById(
+        "inicioProgresso"
+    ).textContent =
+        `${porcentagem}%`;
 
     document.getElementById(
         "progressBar"
@@ -1857,6 +1865,123 @@ document.querySelectorAll(
 
                 telasModulos[tela].style.display =
                     "block";
+
+            }
+        );
+
+    }
+);
+
+function atualizarInicio() {
+
+    let maiorSequencia = 0;
+
+    habitos.forEach(
+        habito => {
+
+            const sequencia =
+                calcularSequenciaAtual(habito);
+
+            if (sequencia > maiorSequencia) {
+
+                maiorSequencia =
+                    sequencia;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "inicioSequencia"
+    ).textContent =
+        maiorSequencia;
+
+}
+function atualizarHabitosInicio() {
+
+    const container =
+        document.getElementById(
+            "inicioHabitos"
+        );
+
+    container.innerHTML = "";
+
+    habitos.forEach(
+        habito => {
+
+            if (habito.arquivado) {
+                return;
+            }
+
+            const concluido =
+                habito.conclucoes &&
+                habito.conclucoes[dataHoje()];
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "habito-inicio";
+
+            if (concluido) {
+
+                item.classList.add(
+                    "concluido"
+                );
+
+            }
+
+            item.innerHTML = `
+                <span class="check-inicio">
+                    ${concluido ? "✓" : "○"}
+                </span>
+            
+                <div class="conteudo-inicio">
+            
+                    <span class="nome-inicio">
+                        ${habito.nome}
+                    </span>
+            
+                    <span class="categoria-inicio">
+                        ${habito.categoria}
+                    </span>
+            
+                </div>
+            `;
+
+            container.appendChild(item);
+
+        }
+    );
+
+}
+
+document.querySelectorAll(
+    ".card-modulo-inicio"
+).forEach(
+    card => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                const modulo =
+                    card.dataset.modulo;
+
+
+                const botao =
+                    document.querySelector(
+                        `.item-navegacao[data-tela="${modulo}"]`
+                    );
+
+
+                if (botao) {
+
+                    botao.click();
+
+                }
 
             }
         );
