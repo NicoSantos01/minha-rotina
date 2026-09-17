@@ -2008,6 +2008,41 @@ const formularioRefeicao = document.getElementById(
     "formularioRefeicao"
 );
 
+const modalRefeicao = document.getElementById(
+    "modalRefeicao"
+);
+
+const botaoCancelarRefeicao =
+    document.getElementById("cancelarRefeicao");
+
+botaoCancelarRefeicao.addEventListener(
+    "click",
+    () => {
+
+        modalRefeicao.style.display =
+            "none";
+
+    }
+);
+
+modalRefeicao.addEventListener(
+    "click",
+    (evento) => {
+
+        if (
+            evento.target === modalRefeicao
+        ) {
+
+            modalRefeicao.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+console.log("Modal refeição:", modalRefeicao);
+
 const tituloRefeicao = document.getElementById(
     "tituloRefeicao"
 );
@@ -2038,8 +2073,8 @@ document.querySelectorAll(
                 tituloRefeicao.textContent =
                     nomeRefeicao[refeicao];
 
-                formularioRefeicao.style.display =
-                    "block";
+                modalRefeicao.style.display =
+                    "flex";
 
             }
         );
@@ -2190,7 +2225,8 @@ botaoSalvarRefeicao.addEventListener("click", () => {
 
     listaAlimentosRefeicao.innerHTML = "";
 
-    formularioRefeicao.style.display = "none";
+    modalRefeicao.style.display =
+    "none";
 
 });
 
@@ -2583,12 +2619,22 @@ document
 
             const ficha =
                 fichasTreino[treino];
-
-            alert(
-                `Treino: ${ficha.nome}\n\n` +
-                `Descrição: ${ficha.descricao}\n\n` +
-                `Exercícios: ${ficha.exercicios.length}`
-            );
+            
+            document.getElementById(
+                "nomeFichaTreino"
+            ).textContent = ficha.nome;
+            
+            document.getElementById(
+                "descricaoFichaTreino"
+            ).textContent = ficha.descricao;
+            
+            document.getElementById(
+                "modalTreino"
+            ).style.display = "none";
+            
+            document.getElementById(
+                "fichaTreino"
+            ).style.display = "flex";
 
         }
     );
