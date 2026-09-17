@@ -1071,6 +1071,8 @@ function renderizar() {
 
     atualizarHabitosInicio();
 
+    atualizarTreinoHoje();
+
 }
 
 function renderizarArquivados() {
@@ -2384,3 +2386,209 @@ document.querySelectorAll(
 
     }
 );
+
+// PARTE DE TREINO
+function atualizarTreinoHoje() {
+
+    const diaSemana =
+        new Date().getDay();
+
+    const treinosSemana = {
+
+        1: {
+            nome: "Push",
+            descricao: "Peito, Ombros e Tríceps"
+        },
+
+        2: {
+            nome: "Pull",
+            descricao: "Costas e Bíceps"
+        },
+
+        3: {
+            nome: "Lower A",
+            descricao: "Quadríceps"
+        },
+
+        4: {
+            nome: "Upper",
+            descricao: "Parte superior completa"
+        },
+
+        5: {
+            nome: "Lower B",
+            descricao: "Posterior"
+        }
+
+    };
+
+    const treino =
+        treinosSemana[diaSemana];
+
+    const container =
+        document.getElementById(
+            "treinoHojeInicio"
+        );
+
+    if (!treino) {
+
+        container.innerHTML = `
+            <p>😴 Hoje é dia de descanso.</p>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = `
+        <strong>${treino.nome}</strong>
+        <p>${treino.descricao}</p>
+    `;
+
+}
+
+document
+    .getElementById("treinoHojeInicio")
+    .addEventListener(
+        "click",
+        () => {
+
+            const diaSemana =
+                new Date().getDay();
+
+            const treinosSemana = {
+
+                1: "Push",
+                2: "Pull",
+                3: "Lower A",
+                4: "Upper",
+                5: "Lower B"
+
+            };
+
+            const treino =
+                treinosSemana[diaSemana];
+
+            if (!treino) {
+                return;
+            }
+
+            document.getElementById(
+                "modalNomeTreino"
+            ).textContent =
+                treino;
+
+            document.getElementById(
+                "modalTreino"
+            ).style.display =
+                "flex";
+
+        }
+    );
+
+const modalTreino =
+    document.getElementById("modalTreino");
+
+document
+    .getElementById("btnCancelarTreino")
+    .addEventListener(
+        "click",
+        () => {
+
+            modalTreino.style.display =
+                "none";
+
+        }
+    );
+
+modalTreino.addEventListener(
+    "click",
+    (evento) => {
+
+        if (
+            evento.target === modalTreino
+        ) {
+
+            modalTreino.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+const fichasTreino = {
+
+    push: {
+
+        nome: "Push",
+        descricao: "Peito, Ombros e Tríceps",
+
+        exercicios: [
+
+            {
+                nome: "Supino reto com halter",
+                grupo: "Peito",
+                series: 4,
+                repeticoes: "6-8",
+                carga: 16
+            }
+
+        ]
+
+    },
+
+    upper: {
+
+        nome: "Upper",
+        descricao: "Parte superior completa",
+
+        exercicios: [
+
+            {
+                nome: "Supino inclinado",
+                grupo: "Peito",
+                series: 3,
+                repeticoes: "8-10",
+                carga: 16
+            }
+
+        ]
+
+    }
+
+};
+
+document
+    .getElementById("btnVisualizarFicha")
+    .addEventListener(
+        "click",
+        () => {
+
+            const diaSemana =
+                new Date().getDay();
+
+            const treinosSemana = {
+
+                1: "push",
+                2: "pull",
+                3: "lowerA",
+                4: "upper",
+                5: "lowerB"
+
+            };
+
+            const treino =
+                treinosSemana[diaSemana];
+
+            const ficha =
+                fichasTreino[treino];
+
+            alert(
+                `Treino: ${ficha.nome}\n\n` +
+                `Descrição: ${ficha.descricao}\n\n` +
+                `Exercícios: ${ficha.exercicios.length}`
+            );
+
+        }
+    );
