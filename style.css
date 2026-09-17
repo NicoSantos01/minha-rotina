@@ -606,3 +606,47 @@ button {
     margin-top: 0;
     padding: 6px 8px;
 }
+
+/* ==========================================
+   NAVEGAÇÃO PRINCIPAL DO APP
+========================================== */
+
+.cabecalho {
+    margin-bottom: 20px;
+}
+
+.cabecalho h1 {
+    margin-bottom: 5px;
+}
+
+.cabecalho p {
+    margin-top: 0;
+}
+
+.navegacao-app {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+}
+
+.item-navegacao {
+    flex: 0 0 auto;
+    margin-top: 0;
+    padding: 10px 14px;
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.item-navegacao:hover {
+    background: #e5e7eb;
+}
+
+.item-navegacao.ativo {
+    background: #111827;
+    color: white;
+    border-color: #111827;
+}
