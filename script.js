@@ -1789,3 +1789,77 @@ mostrarData();
 renderizar();
 
 renderizarCalendario();
+
+document.querySelectorAll(
+    ".item-navegacao"
+).forEach(
+    botao => {
+
+        botao.addEventListener(
+            "click",
+            () => {
+
+                document.querySelectorAll(
+                    ".item-navegacao"
+                ).forEach(
+                    item => {
+                        item.classList.remove(
+                            "ativo"
+                        );
+                    }
+                );
+
+                botao.classList.add(
+                    "ativo"
+                );
+
+            }
+        );
+
+    }
+);
+
+const telasModulos = {
+    inicio: document.getElementById("telaInicio"),
+    habitos: document.getElementById("telaHabitos"),
+    alimentacao: document.getElementById("telaAlimentacao"),
+    financas: document.getElementById("telaFinancas"),
+    treino: document.getElementById("telaTreino"),
+    estudos: document.getElementById("telaEstudos"),
+    trabalho: document.getElementById("telaTrabalho")
+};
+
+
+document.querySelectorAll(
+    ".item-navegacao"
+).forEach(
+    botao => {
+
+        botao.addEventListener(
+            "click",
+            () => {
+
+                const tela =
+                    botao.dataset.tela;
+
+
+                Object.values(
+                    telasModulos
+                ).forEach(
+                    modulo => {
+
+                        modulo.style.display =
+                            "none";
+
+                    }
+                );
+
+
+                telasModulos[tela].style.display =
+                    "block";
+
+            }
+        );
+
+    }
+);
