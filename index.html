@@ -21,9 +21,59 @@
 
 <div class="app">
 
+    <div class="cabecalho">
+
     <h1>Minha Rotina</h1>
 
     <p id="dataAtual"></p>
+
+</div>
+
+<nav class="navegacao-app">
+
+    <button
+        class="item-navegacao"
+        data-tela="inicio">
+        🏠 Início
+    </button>
+    
+    <button
+        class="item-navegacao ativo"
+        data-tela="habitos">
+        ✅ Hábitos
+    </button>
+    
+    <button
+        class="item-navegacao"
+        data-tela="alimentacao">
+        🍽️ Alimentação
+    </button>
+    
+    <button
+        class="item-navegacao"
+        data-tela="financas">
+        💰 Finanças
+    </button>
+    
+    <button
+        class="item-navegacao"
+        data-tela="treino">
+        🏋️ Treino
+    </button>
+    
+    <button
+        class="item-navegacao"
+        data-tela="estudos">
+        📚 Estudos
+    </button>
+    
+    <button
+        class="item-navegacao"
+        data-tela="trabalho">
+        💼 Trabalho
+    </button>
+
+</nav>
 
     <!-- ========================= -->
     <!-- DASHBOARD -->
@@ -136,10 +186,91 @@
 
     </div>
 
+<!-- ========================= -->
+<!-- TELAS DOS MÓDULOS -->
+<!-- ========================= -->
 
-    <!-- ========================= -->
-    <!-- TELA DE HOJE -->
-    <!-- ========================= -->
+<section id="telaInicio" class="tela-modulo">
+
+    <h2>🏠 Início</h2>
+
+    <p>
+        Sua central pessoal.
+    </p>
+
+</section>
+
+
+<section id="telaHabitos" class="tela-modulo">
+
+    <!-- O conteúdo atual de hábitos ficará aqui -->
+
+</section>
+
+
+<section id="telaAlimentacao" class="tela-modulo">
+
+    <h2>🍽️ Alimentação</h2>
+
+    <p>
+        Em breve...
+    </p>
+
+</section>
+
+
+<section id="telaFinancas" class="tela-modulo">
+
+    <h2>💰 Finanças</h2>
+
+    <p>
+        Em breve...
+    </p>
+
+</section>
+
+
+<section id="telaTreino" class="tela-modulo">
+
+    <h2>🏋️ Treino</h2>
+
+    <p>
+        Em breve...
+    </p>
+
+</section>
+
+
+<section id="telaEstudos" class="tela-modulo">
+
+    <h2>📚 Estudos</h2>
+
+    <p>
+        Em breve...
+    </p>
+
+</section>
+
+
+<section id="telaTrabalho" class="tela-modulo">
+
+    <h2>💼 Trabalho</h2>
+
+    <p>
+        Em breve...
+    </p>
+
+</section>
+
+<!-- ========================= -->
+<!-- TELA DE HÁBITOS -->
+<!-- ========================= -->
+
+<section id="telaHabitos" class="tela-modulo">
+
+  <!-- ========================= -->
+  <!-- TELA DE HOJE -->
+  <!-- ========================= -->
 
     <section id="telaHoje">
 
@@ -150,9 +281,9 @@
         <div id="areaArquivados" class="area-arquivados">
 
             <h2>📦 Hábitos arquivados</h2>
-        
+
             <div id="listaArquivados"></div>
-        
+
         </div>
 
         <button id="btnNovoHabito">
@@ -164,9 +295,7 @@
         </button>
 
     </section>
-
-
-    <!-- ========================= -->
+  <!-- ========================= -->
     <!-- TELA DE HISTÓRICO -->
     <!-- ========================= -->
 
@@ -220,9 +349,8 @@
 
     </section>
 
-</div>
-
-
+</section>
+  
 <!-- ========================= -->
 <!-- MODAL -->
 <!-- ========================= -->
