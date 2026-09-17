@@ -650,3 +650,246 @@ button {
     color: white;
     border-color: #111827;
 }
+
+/* ==========================================
+   TELA INÍCIO
+========================================== */
+
+.inicio-cabecalho {
+    margin-bottom: 25px;
+}
+
+.inicio-cabecalho h2 {
+    margin-bottom: 5px;
+}
+
+.inicio-cabecalho p {
+    margin-top: 0;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   RESUMO DA HOME
+========================================== */
+
+.resumo-inicio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.card-inicio {
+    padding: 18px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.icone-inicio {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.card-inicio strong {
+    font-size: 28px;
+}
+
+.card-inicio small {
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+
+/* ==========================================
+   BLOCOS DA HOME
+========================================== */
+
+.bloco-inicio {
+    padding: 18px;
+    margin-bottom: 15px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.bloco-inicio h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.bloco-inicio p {
+    margin-bottom: 0;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 500px) {
+
+    .resumo-inicio {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+/* ==========================================
+   HÁBITOS NA HOME
+========================================== */
+
+.habito-inicio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.habito-inicio:last-child {
+    border-bottom: none;
+}
+
+.check-inicio {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #aaa;
+    border-radius: 50%;
+
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.habito-inicio.concluido .check-inicio {
+    background: #111827;
+    color: white;
+    border-color: #111827;
+}
+
+.conteudo-inicio {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.nome-inicio {
+    font-size: 15px;
+}
+
+.categoria-inicio {
+    font-size: 12px;
+    color: #777;
+}
+
+.habito-inicio.concluido .nome-inicio {
+    text-decoration: line-through;
+    color: #999;
+}
+
+/* ==========================================
+   MÓDULOS NA HOME
+========================================== */
+
+.modulos-inicio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.card-modulo-inicio {
+    margin-top: 0;
+
+    padding: 15px;
+
+    background: #f9fafb;
+    color: #111827;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-align: left;
+}
+
+.card-modulo-inicio span {
+    font-size: 22px;
+}
+
+.card-modulo-inicio strong {
+    font-size: 14px;
+}
+
+.card-modulo-inicio:hover {
+    background: #f3f4f6;
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 500px) {
+
+    .modulos-inicio {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.tela-modulo {
+    display: none;
+}
+
+#telaHabitos {
+    display: block;
+}
+
+.check {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    padding: 0;
+    margin: 0;
+
+    background: white;
+    border: 2px solid #999;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.check.completed {
+    background: #111827;
+    border-color: #111827;
+}
+
+.check.completed::after {
+    content: "✓";
+    color: white;
+    font-weight: bold;
+}
