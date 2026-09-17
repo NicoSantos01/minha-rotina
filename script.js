@@ -1837,6 +1837,15 @@ const telasModulos = {
     trabalho: document.getElementById("telaTrabalho")
 };
 
+Object.values(
+    telasModulos
+).forEach(
+    modulo => {
+        modulo.style.display = "none";
+    }
+);
+
+telasModulos.inicio.style.display = "block";
 
 document.querySelectorAll(
     ".item-navegacao"
@@ -1982,6 +1991,393 @@ document.querySelectorAll(
                     botao.click();
 
                 }
+
+            }
+        );
+
+    }
+);
+
+let refeicaoAtual = null;
+
+let alimentosRefeicao = [];
+
+const formularioRefeicao = document.getElementById(
+    "formularioRefeicao"
+);
+
+const tituloRefeicao = document.getElementById(
+    "tituloRefeicao"
+);
+
+document.querySelectorAll(
+    ".card-refeicao"
+).forEach(
+    card => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                const refeicao =
+                    card.dataset.refeicao;
+
+                refeicaoAtual = refeicao;
+
+                const nomeRefeicao = {
+                    cafe: "Café da manhã",
+                    lanche: "Lanche da manhã",
+                    almoco: "Almoço",
+                    pre_treino: "Pré-treino",
+                    jantar: "Jantar",
+                    ceia: "Ceia"
+                };
+
+                tituloRefeicao.textContent =
+                    nomeRefeicao[refeicao];
+
+                formularioRefeicao.style.display =
+                    "block";
+
+            }
+        );
+
+    }
+);
+
+const botaoSalvarRefeicao = document.getElementById(
+    "salvarRefeicao"
+);
+
+const campoComidaRefeicao = document.getElementById(
+    "comidaRefeicao"
+);
+
+const botaoAdicionarAlimento = document.getElementById(
+    "adicionarAlimento"
+);
+
+const listaAlimentosRefeicao = document.getElementById(
+    "listaAlimentosRefeicao"
+);
+
+botaoAdicionarAlimento.addEventListener("click", () => {
+
+    const alimento =
+        campoComidaRefeicao.value.trim();
+
+    if (alimento === "") {
+        alert("Digite um alimento.");
+        return;
+    }
+
+    alimentosRefeicao.push(alimento);
+
+    campoComidaRefeicao.value = "";
+
+    listaAlimentosRefeicao.innerHTML = "";
+
+    alimentosRefeicao.forEach((alimento, indice) => {
+
+        const item =
+            document.createElement("div");
+    
+        item.className =
+            "item-alimento";
+    
+        item.innerHTML = `
+            <span>• ${alimento}</span>
+    
+            <span
+                class="remover-alimento"
+                data-indice="${indice}">
+                ×
+            </span>
+        `;
+    
+        listaAlimentosRefeicao.appendChild(item);
+    
+    });
+
+});
+
+listaAlimentosRefeicao.addEventListener(
+    "click",
+    evento => {
+
+        if (
+            !evento.target.classList.contains(
+                "remover-alimento"
+            )
+        ) {
+            return;
+        }
+
+        const indice =
+            Number(
+                evento.target.dataset.indice
+            );
+
+        alimentosRefeicao.splice(
+            indice,
+            1
+        );
+
+        listaAlimentosRefeicao.innerHTML = "";
+
+        alimentosRefeicao.forEach(
+            (alimento, indice) => {
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "item-alimento";
+
+                item.innerHTML = `
+                    <span>• ${alimento}</span>
+
+                    <span
+                        class="remover-alimento"
+                        data-indice="${indice}">
+                        ×
+                    </span>
+                `;
+
+                listaAlimentosRefeicao.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+);
+
+botaoSalvarRefeicao.addEventListener("click", () => {
+
+    if (alimentosRefeicao.length === 0) {
+        alert("Adicione pelo menos um alimento.");
+        return;
+    }
+
+    const hoje = dataHoje();
+
+    let alimentacao = JSON.parse(
+        localStorage.getItem("alimentacao")
+    ) || {};
+
+    if (!alimentacao[hoje]) {
+        alimentacao[hoje] = {};
+    }
+
+    alimentacao[hoje][refeicaoAtual] = alimentosRefeicao;
+
+    localStorage.setItem(
+        "alimentacao",
+        JSON.stringify(alimentacao)
+    );
+
+    atualizarResumosAlimentacao();
+
+    alert("Refeição salva!");
+
+    alimentosRefeicao = [];
+
+    campoComidaRefeicao.value = "";
+
+    listaAlimentosRefeicao.innerHTML = "";
+
+    formularioRefeicao.style.display = "none";
+
+});
+
+const listasAlimentacao = {
+    cafe: "listaCafe",
+    lanche: "listaLanche",
+    almoco: "listaAlmoco",
+    pre_treino: "listaPreTreino",
+    jantar: "listaJantar",
+    ceia: "listaCeia"
+};
+
+function atualizarResumosAlimentacao() {
+
+    const hoje = dataHoje();
+
+    const alimentacao = JSON.parse(
+        localStorage.getItem("alimentacao")
+    ) || {};
+
+    const refeicoesHoje =
+        alimentacao[hoje] || {};
+
+    const resumos = {
+        cafe: "Comece o dia com uma boa refeição.",
+        lanche: "Uma opção rápida para o meio da manhã.",
+        almoco: "Registre sua principal refeição do dia.",
+        pre_treino: "Energia para o seu treino.",
+        jantar: "Registre sua refeição da noite.",
+        ceia: "Uma opção antes de dormir, se necessário."
+    };
+
+    const elementos = {
+        cafe: document.getElementById("resumoCafe"),
+        lanche: document.getElementById("resumoLanche"),
+        almoco: document.getElementById("resumoAlmoco"),
+        pre_treino: document.getElementById("resumoPreTreino"),
+        jantar: document.getElementById("resumoJantar"),
+        ceia: document.getElementById("resumoCeia")
+    };
+
+    Object.keys(elementos).forEach(
+        refeicao => {
+    
+            const alimentos =
+                refeicoesHoje[refeicao];
+    
+            if (alimentos) {
+    
+                elementos[refeicao].textContent =
+                    `✓ ${alimentos.length} ${
+                        alimentos.length === 1
+                            ? "item"
+                            : "itens"
+                    } registrado${alimentos.length === 1 ? "" : "s"}`
+    
+            } else {
+    
+                elementos[refeicao].textContent =
+                    resumos[refeicao];
+    
+            }
+    
+        }
+    );
+
+Object.keys(listasAlimentacao).forEach(
+    refeicao => {
+
+        const lista =
+            document.getElementById(
+                listasAlimentacao[refeicao]
+            );
+
+        lista.innerHTML = "";
+
+        const alimentos =
+            refeicoesHoje[refeicao];
+        
+        if (!alimentos) {
+            return;
+        }
+        
+        const listaAlimentos =
+            Array.isArray(alimentos)
+                ? alimentos
+                : [alimentos];
+        
+        listaAlimentos.forEach((alimento, indice) => {
+
+            const item =
+                document.createElement("div");
+        
+            item.className = "item-alimento";
+        
+            item.innerHTML = `
+                <span>• ${alimento}</span>
+        
+                <span
+                    class="remover-alimento"
+                    data-indice="${indice}">
+                    ×
+                </span>
+            `;
+        
+            lista.appendChild(item);
+        
+        });
+
+    }
+);
+
+}
+
+atualizarResumosAlimentacao();
+
+document.querySelectorAll(
+    ".lista-alimentos"
+).forEach(
+    lista => {
+
+        lista.addEventListener(
+            "click",
+            evento => {
+
+                if (
+                    !evento.target.classList.contains(
+                        "remover-alimento"
+                    )
+                ) {
+                    return;
+                }
+
+                const indice =
+                    Number(
+                        evento.target.dataset.indice
+                    );
+
+                const refeicao =
+                    Object.keys(
+                        listasAlimentacao
+                    ).find(
+                        chave =>
+                            listasAlimentacao[chave] ===
+                            lista.id
+                    );
+
+                const hoje =
+                    dataHoje();
+
+                let alimentacao =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "alimentacao"
+                        )
+                    ) || {};
+
+                const alimentosSalvos =
+                    alimentacao[hoje][refeicao];
+                
+                const listaAlimentos =
+                    Array.isArray(alimentosSalvos)
+                        ? alimentosSalvos
+                        : [alimentosSalvos];
+                
+                listaAlimentos.splice(
+                    indice,
+                    1
+                );
+                
+                if (listaAlimentos.length === 0) {
+                
+                    delete alimentacao[hoje][refeicao];
+                
+                } else {
+                
+                    alimentacao[hoje][refeicao] =
+                        listaAlimentos;
+                
+                }
+
+                localStorage.setItem(
+                    "alimentacao",
+                    JSON.stringify(
+                        alimentacao
+                    )
+                );
+
+                atualizarResumosAlimentacao();
 
             }
         );
