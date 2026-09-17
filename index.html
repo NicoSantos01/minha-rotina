@@ -32,13 +32,13 @@
 <nav class="navegacao-app">
 
     <button
-        class="item-navegacao"
+        class="item-navegacao ativo"
         data-tela="inicio">
         🏠 Início
     </button>
     
     <button
-        class="item-navegacao ativo"
+        class="item-navegacao"
         data-tela="habitos">
         ✅ Hábitos
     </button>
@@ -418,11 +418,126 @@
 
 <section id="telaAlimentacao" class="tela-modulo">
 
-    <h2>🍽️ Alimentação</h2>
+    <div class="modulo-cabecalho">
+        <h2>🍽️ Alimentação</h2>
+        <p>Organize suas refeições do dia.</p>
+    </div>
 
-    <p>
-        Em breve...
-    </p>
+    <div class="refeicoes">
+
+        <div class="card-refeicao" data-refeicao="cafe">
+
+            <span class="icone-refeicao">🍳</span>
+        
+            <div>
+                <h3>Café da manhã</h3>
+        
+                <p id="resumoCafe">
+                    Comece o dia com uma boa refeição.
+                </p>
+        
+                <div id="listaCafe" class="lista-alimentos"></div>
+              
+            </div>
+        
+        </div>
+
+        <div class="card-refeicao" data-refeicao="lanche">
+          
+            <span class="icone-refeicao">🍌</span>
+            <div>
+                <h3>Lanche da manhã</h3>
+                <p id="resumoLanche">
+                    Uma opção rápida para o meio da manhã.
+                </p>
+
+              <div id="listaLanche" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="almoco">
+          
+            <span class="icone-refeicao">🍛</span>
+            <div>
+                <h3>Almoço</h3>
+                <p id="resumoAlmoco">
+                    Registre sua principal refeição do dia.
+                </p>
+
+              <div id="listaAlmoco" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="pre_treino">
+          
+            <span class="icone-refeicao">🥪</span>
+            <div>
+                <h3>Pré-treino</h3>
+                <p id="resumoPreTreino">
+                    Energia para o seu treino.
+                </p>
+
+              <div id="listaPreTreino" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="jantar">
+          
+            <span class="icone-refeicao">🍽️</span>
+            <div>
+                <h3>Jantar</h3>
+                <p id="resumoJantar">
+                    Registre sua refeição da noite.
+                </p>
+
+              <div id="listaJantar" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="ceia">
+          
+            <span class="icone-refeicao">🌙</span>
+            <div>
+                <h3>Ceia</h3>
+                <p id="resumoCeia">
+                    Uma opção antes de dormir, se necessário.
+                </p>
+
+              <div id="listaCeia" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+    </div>
+
+  <div id="formularioRefeicao" class="formulario-refeicao">
+
+      <h3 id="tituloRefeicao">Café da manhã</h3>
+  
+      <label for="comidaRefeicao">
+          O que você comeu?
+      </label>
+      
+      <input
+          type="text"
+          id="comidaRefeicao"
+          placeholder="Ex: 1 ovo">
+
+      <div id="listaAlimentosRefeicao"></div>
+
+      <button id="adicionarAlimento">
+          + Adicionar alimento
+      </button>
+      
+      <button id="salvarRefeicao">
+          Salvar refeição
+      </button>
+  
+  </div>
 
 </section>
 
