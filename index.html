@@ -523,28 +523,36 @@
 
     </div>
 
-  <div id="formularioRefeicao" class="formulario-refeicao">
+  <div id="modalRefeicao" class="modal-refeicao">
 
-      <h3 id="tituloRefeicao">Café da manhã</h3>
+    <div id="formularioRefeicao" class="formulario-refeicao">
+
+          <h3 id="tituloRefeicao">Café da manhã</h3>
   
-      <label for="comidaRefeicao">
-          O que você comeu?
-      </label>
-      
-      <input
-          type="text"
-          id="comidaRefeicao"
-          placeholder="Ex: 1 ovo">
+          <label for="comidaRefeicao">
+              O que você comeu?
+          </label>
+  
+          <input
+              type="text"
+              id="comidaRefeicao"
+              placeholder="Ex: 1 ovo">
+  
+          <div id="listaAlimentosRefeicao"></div>
+  
+          <button id="adicionarAlimento">
+              + Adicionar alimento
+          </button>
+  
+          <button id="salvarRefeicao">
+              Salvar refeição
+          </button>
 
-      <div id="listaAlimentosRefeicao"></div>
-
-      <button id="adicionarAlimento">
-          + Adicionar alimento
-      </button>
-      
-      <button id="salvarRefeicao">
-          Salvar refeição
-      </button>
+          <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+              Cancelar
+          </button>
+  
+      </div>
   
   </div>
 
@@ -599,6 +607,82 @@
     </div>
 
 <!-- MODO DE TREINO -->
+<div id="fichaTreino" class="ficha-treino">
+
+    <div class="ficha-treino-caixa">
+
+        <div class="ficha-treino-cabecalho">
+
+            <button id="voltarListaTreinos">
+                ← Voltar
+            </button>
+
+            <div>
+                <h2 id="nomeFichaTreino">Push</h2>
+
+                <p id="descricaoFichaTreino">
+                    Peito, Ombros e Tríceps
+                </p>
+            </div>
+
+        </div>
+
+        <div class="grupo-muscular">
+
+            <h3>PEITO</h3>
+
+            <div class="exercicio-ficha">
+
+                <strong>
+                    Supino reto com halter
+                </strong>
+
+                <div class="campos-ficha">
+
+                    <div>
+                        <label>Séries</label>
+                        <input
+                            type="number"
+                            value="4"
+                            min="1">
+                    </div>
+
+                    <span>×</span>
+
+                    <div>
+                        <label>Repetições</label>
+                        <input
+                            type="text"
+                            value="6-8">
+                    </div>
+
+                    <div>
+                        <label>Carga</label>
+
+                        <div class="campo-carga">
+
+                            <input
+                                type="number"
+                                value="16"
+                                min="0"
+                                step="0.5">
+
+                            <span>kg</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  
     <div id="modoTreino" class="modo-treino">
 
         <div class="modo-treino-cabecalho">
@@ -720,11 +804,11 @@
 
         </div>
 
-    </div>
+          <button id="finalizarTreino" class="btn-finalizar-treino">
+              🏁 Finalizar treino
+          </button>
 
-    <button id="finalizarTreino" class="btn-finalizar-treino">
-        🏁 Finalizar treino
-    </button>
+    </div>
 
 </div>
 
@@ -749,68 +833,6 @@
     <p>
         Em breve...
     </p>
-
-</section>
-
-<!-- ========================= -->
-<!-- TELA DE HÁBITOS -->
-<!-- ========================= -->
-
-<section id="telaHabitos" class="tela-modulo">
-  
-  <!-- ========================= -->
-    <!-- TELA DE HISTÓRICO -->
-    <!-- ========================= -->
-
-    <section id="telaHistorico">
-
-        <div class="historico-header">
-
-            <button id="mesAnterior">
-                ‹
-            </button>
-
-            <h2 id="mesAtual"></h2>
-
-            <button id="mesProximo">
-                ›
-            </button>
-
-        </div>
-
-
-        <!-- CALENDÁRIO -->
-
-        <div class="calendario">
-
-            <div class="dias-semana">
-
-                <span>Dom</span>
-                <span>Seg</span>
-                <span>Ter</span>
-                <span>Qua</span>
-                <span>Qui</span>
-                <span>Sex</span>
-                <span>Sáb</span>
-
-            </div>
-
-            <div
-                id="diasCalendario"
-                class="dias-calendario">
-            </div>
-
-        </div>
-
-
-        <!-- DETALHES DO DIA -->
-
-        <div
-            id="detalhesDia"
-            class="detalhes-dia">
-        </div>
-
-    </section>
 
 </section>
   
