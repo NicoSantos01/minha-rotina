@@ -240,6 +240,15 @@
 
     </div>
 
+    <div class="bloco-inicio">
+  
+        <h3>🏋️ Treino de hoje</h3>
+    
+        <div id="treinoHojeInicio" class="treino-hoje-inicio">
+            <p>Carregando treino...</p>
+        </div>
+  
+    </div>
 
     <div class="bloco-inicio">
 
@@ -555,11 +564,169 @@
 
 <section id="telaTreino" class="tela-modulo">
 
-    <h2>🏋️ Treino</h2>
+    <div class="modulo-cabecalho">
+        <h2>🏋️ Treino</h2>
+        <p>Organize e acompanhe seus treinos.</p>
+    </div>
 
-    <p>
-        Em breve...
-    </p>
+    <div id="listaTreinos">
+
+        <div class="card-treino" data-treino="push">
+            <h3>Push</h3>
+            <p>Peito, Ombros e Tríceps</p>
+        </div>
+
+        <div class="card-treino" data-treino="pull">
+            <h3>Pull</h3>
+            <p>Costas e Bíceps</p>
+        </div>
+
+        <div class="card-treino" data-treino="lowerA">
+            <h3>Lower A</h3>
+            <p>Quadríceps</p>
+        </div>
+
+        <div class="card-treino" data-treino="upper">
+            <h3>Upper</h3>
+            <p>Parte superior completa</p>
+        </div>
+
+        <div class="card-treino" data-treino="lowerB">
+            <h3>Lower B</h3>
+            <p>Posterior</p>
+        </div>
+
+    </div>
+
+<!-- MODO DE TREINO -->
+    <div id="modoTreino" class="modo-treino">
+
+        <div class="modo-treino-cabecalho">
+    
+            <button id="voltarTreinos">
+                ← Voltar
+            </button>
+    
+            <div>
+                <h2 id="nomeTreinoAtivo">Push</h2>
+                <p id="dataTreinoAtivo"></p>
+            </div>
+    
+        </div>
+    
+        <div class="progresso-treino">
+            <span id="progressoTreinoTexto">
+                0/7 exercícios
+            </span>
+    
+            <div class="barra-progresso-treino">
+                <div id="barraProgressoTreino"></div>
+            </div>
+        </div>
+    
+        <div id="listaExerciciosTreino">
+    
+            <div class="exercicio-treino ativo">
+    
+                <div class="cabecalho-exercicio">
+                    <div>
+                        <span class="status-exercicio">◐</span>
+    
+                        <strong>
+                            Supino reto com halter
+                        </strong>
+                    </div>
+                </div>
+    
+                <p class="planejado-exercicio">
+                    Planejado: 4 × 6–8
+                </p>
+    
+                <p class="ultimo-treino">
+                    Último: 16 kg · 8/8/7/6
+                </p>
+    
+                <div class="area-series">
+    
+                    <div class="serie">
+                        <span>Série 1</span>
+                        <span>16 kg × 8 reps</span>
+                    </div>
+    
+                    <div class="serie">
+                        <span>Série 2</span>
+                        <span>16 kg × 8 reps</span>
+                    </div>
+    
+                    <div class="serie">
+                        <span>Série 3</span>
+                        <span>18 kg × 7 reps</span>
+                    </div>
+    
+                    <div class="serie">
+                        <span>Série 4</span>
+                        <span>18 kg × 6 reps</span>
+                    </div>
+    
+                </div>
+    
+                <button class="btn-concluir-exercicio">
+                    ✓ Concluir exercício
+                </button>
+    
+            </div>
+    
+            <div class="exercicio-treino bloqueado">
+    
+                <div class="cabecalho-exercicio">
+                    <div>
+                        <span class="status-exercicio">🔒</span>
+    
+                        <strong>
+                            Supino inclinado com halteres
+                        </strong>
+                    </div>
+                </div>
+    
+                <p class="planejado-exercicio">
+                    Planejado: 3 × 8–10
+                </p>
+    
+                <p class="aguardando-exercicio">
+                    Aguardando exercício anterior
+                </p>
+    
+            </div>
+    
+            <div class="exercicio-treino bloqueado">
+    
+                <div class="cabecalho-exercicio">
+                    <div>
+                        <span class="status-exercicio">🔒</span>
+    
+                        <strong>
+                            Crucifixo unilateral na polia
+                        </strong>
+                    </div>
+                </div>
+    
+                <p class="planejado-exercicio">
+                    Planejado: 3 × 12–15
+                </p>
+    
+                <p class="aguardando-exercicio">
+                    Aguardando exercício anterior
+                </p>
+
+        </div>
+
+    </div>
+
+    <button id="finalizarTreino" class="btn-finalizar-treino">
+        🏁 Finalizar treino
+    </button>
+
+</div>
 
 </section>
 
@@ -715,6 +882,34 @@
         </button>
 
         <button id="cancelarHabito">
+            Cancelar
+        </button>
+
+    </div>
+
+</div>
+
+<!-- AQUI ENTRA O MODAL DO TREINO -->
+
+<div id="modalTreino" class="modal-treino">
+
+    <div class="modal-treino-caixa">
+
+        <h2 id="modalNomeTreino">Push</h2>
+
+        <p>
+            O que você deseja fazer?
+        </p>
+
+        <button id="btnVisualizarFicha">
+            👁️ Visualizar / Editar ficha
+        </button>
+
+        <button id="btnIniciarTreino">
+            ▶️ Iniciar treino
+        </button>
+
+        <button id="btnCancelarTreino" class="btn-cancelar-treino">
             Cancelar
         </button>
 
