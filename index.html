@@ -192,18 +192,226 @@
 
 <section id="telaInicio" class="tela-modulo">
 
-    <h2>🏠 Início</h2>
+    <div class="inicio-cabecalho">
 
-    <p>
-        Sua central pessoal.
-    </p>
+        <h2>🏠 Início</h2>
+
+        <p>
+            Sua central pessoal.
+        </p>
+
+    </div>
+
+
+    <div class="resumo-inicio">
+
+        <div class="card-inicio">
+
+            <span class="icone-inicio">
+                🔥
+            </span>
+
+            <strong id="inicioSequencia">
+                0
+            </strong>
+
+            <small>
+                Sequência
+            </small>
+
+        </div>
+
+
+        <div class="card-inicio">
+
+            <span class="icone-inicio">
+                ✅
+            </span>
+
+            <strong id="inicioProgresso">
+                0%
+            </strong>
+
+            <small>
+                Hoje
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="bloco-inicio">
+
+        <h3>
+            📋 Hoje
+        </h3>
+    
+        <div id="inicioHabitos">
+        </div>
+    
+    </div>
+
+
+    <div class="bloco-inicio">
+
+        <h3>
+            📌 Seus módulos
+        </h3>
+    
+        <div class="modulos-inicio">
+
+            <button 
+              class="card-modulo-inicio" 
+              data-modulo="habitos">
+              
+                <span>✅</span>
+              
+                  <strong>
+                    Hábitos
+                  </strong>
+              
+            </button>
+    
+            <button
+                class="card-modulo-inicio"
+                data-modulo="alimentacao">
+    
+                <span>🍽️</span>
+    
+                <strong>
+                    Alimentação
+                </strong>
+    
+            </button>
+    
+    
+            <button
+                class="card-modulo-inicio"
+                data-modulo="financas">
+    
+                <span>💰</span>
+    
+                <strong>
+                    Finanças
+                </strong>
+    
+            </button>
+    
+    
+            <button
+                class="card-modulo-inicio"
+                data-modulo="treino">
+    
+                <span>🏋️</span>
+    
+                <strong>
+                    Treino
+                </strong>
+    
+            </button>
+    
+    
+            <button
+                class="card-modulo-inicio"
+                data-modulo="estudos">
+    
+                <span>📚</span>
+    
+                <strong>
+                    Estudos
+                </strong>
+    
+            </button>
+    
+    
+            <button
+                class="card-modulo-inicio"
+                data-modulo="trabalho">
+    
+                <span>💼</span>
+    
+                <strong>
+                    Trabalho
+                </strong>
+    
+            </button>
+    
+        </div>
+    
+    </div>
 
 </section>
 
 
 <section id="telaHabitos" class="tela-modulo">
 
-    <!-- O conteúdo atual de hábitos ficará aqui -->
+    <section id="telaHoje">
+
+        <h2>Hábitos de hoje</h2>
+
+        <div id="listaHabitos"></div>
+
+        <div id="areaArquivados" class="area-arquivados">
+
+            <h2>📦 Hábitos arquivados</h2>
+
+            <div id="listaArquivados"></div>
+
+        </div>
+
+        <button id="btnNovoHabito">
+            + Novo hábito
+        </button>
+
+        <button id="btnArquivados">
+            📦 Arquivados
+        </button>
+
+    </section>
+
+
+    <section id="telaHistorico">
+
+        <div class="historico-header">
+
+            <button id="mesAnterior">‹</button>
+
+            <h2 id="mesAtual"></h2>
+
+            <button id="mesProximo">›</button>
+
+        </div>
+
+
+        <div class="calendario">
+
+            <div class="dias-semana">
+
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
+
+            </div>
+
+            <div
+                id="diasCalendario"
+                class="dias-calendario">
+            </div>
+
+        </div>
+
+
+        <div
+            id="detalhesDia"
+            class="detalhes-dia">
+        </div>
+
+    </section>
 
 </section>
 
@@ -267,34 +475,7 @@
 <!-- ========================= -->
 
 <section id="telaHabitos" class="tela-modulo">
-
-  <!-- ========================= -->
-  <!-- TELA DE HOJE -->
-  <!-- ========================= -->
-
-    <section id="telaHoje">
-
-        <h2>Hábitos de hoje</h2>
-
-        <div id="listaHabitos"></div>
-
-        <div id="areaArquivados" class="area-arquivados">
-
-            <h2>📦 Hábitos arquivados</h2>
-
-            <div id="listaArquivados"></div>
-
-        </div>
-
-        <button id="btnNovoHabito">
-            + Novo hábito
-        </button>
-
-        <button id="btnArquivados">
-            📦 Arquivados
-        </button>
-
-    </section>
+  
   <!-- ========================= -->
     <!-- TELA DE HISTÓRICO -->
     <!-- ========================= -->
@@ -425,7 +606,7 @@
     </div>
 
 </div>
-
+	
 	<script src="script.js"></script>
 
 </body>
