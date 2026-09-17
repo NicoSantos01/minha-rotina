@@ -49,15 +49,6 @@ h1 {
     border-bottom: 1px solid #eee;
 }
 
-.check {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    border: 2px solid #aaa;
-    background: white;
-    cursor: pointer;
-}
-
 .check.completed {
     background: #111827;
     border-color: #111827;
@@ -859,7 +850,7 @@ button {
     display: none;
 }
 
-#telaHabitos {
+#telaInicio {
     display: block;
 }
 
@@ -892,4 +883,108 @@ button {
     content: "✓";
     color: white;
     font-weight: bold;
+}
+
+.modulo-cabecalho {
+    margin-bottom: 25px;
+}
+
+.modulo-cabecalho h2 {
+    margin-bottom: 5px;
+}
+
+.modulo-cabecalho p {
+    margin-top: 0;
+    color: #6b7280;
+}
+
+.refeicoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-refeicao {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 18px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.icone-refeicao {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f9fafb;
+    border-radius: 10px;
+
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.card-refeicao h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+}
+
+.card-refeicao p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.formulario-refeicao {
+    display: none;
+
+    margin-top: 20px;
+    padding: 18px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.formulario-refeicao h3 {
+    margin-top: 0;
+}
+
+.formulario-refeicao label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.formulario-refeicao button {
+    margin-top: 12px;
+}
+
+#listaAlimentosRefeicao {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.item-alimento {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.remover-alimento {
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 2px 5px;
 }
