@@ -20,922 +20,805 @@
 <body>
 
 <div class="app">
+  
+  <div class="cabecalho">
+  
+      <nav class="navegacao-app">
+  
+          <button
+              id="btnMenu"
+              class="btn-menu">
+              ☰ MENU
+          </button>
+      
+          <div id="menuModulos" class="menu-modulos">
+      
+              <button
+                  id="btnVoltarMenu"
+                  class="btn-voltar-menu">
+                  ← Voltar
+              </button>
+      
+              <button
+                  class="item-navegacao"
+                  data-tela="habitos">
+                  ✅ Hábitos
+              </button>
+      
+              <button
+                  class="item-navegacao"
+                  data-tela="treino">
+                  🏋️ Treino
+              </button>
+      
+              <button
+                  class="item-navegacao"
+                  data-tela="alimentacao">
+                  🍽️ Alimentação
+              </button>
+      
+              <button
+                  class="item-navegacao"
+                  data-tela="estudos">
+                  📚 Estudos
+              </button>
+      
+              <button
+                  class="item-navegacao"
+                  data-tela="trabalho">
+                  💼 Trabalho
+              </button>
+      
+              <button
+                  class="item-navegacao"
+                  data-tela="financas">
+                  💰 Finanças
+              </button>
+      
+          </div>
+      
+      </nav>
 
-    <div class="cabecalho">
+    <div class="titulo-dashboard">
 
-    <h1>Minha Rotina</h1>
-
-    <p id="dataAtual"></p>
-
-</div>
-
-<nav class="navegacao-app">
-
-    <button
-        class="item-navegacao ativo"
-        data-tela="inicio">
-        🏠 Início
-    </button>
-    
-    <button
-        class="item-navegacao"
-        data-tela="habitos">
-        ✅ Hábitos
-    </button>
-    
-    <button
-        class="item-navegacao"
-        data-tela="alimentacao">
-        🍽️ Alimentação
-    </button>
-    
-    <button
-        class="item-navegacao"
-        data-tela="financas">
-        💰 Finanças
-    </button>
-    
-    <button
-        class="item-navegacao"
-        data-tela="treino">
-        🏋️ Treino
-    </button>
-    
-    <button
-        class="item-navegacao"
-        data-tela="estudos">
-        📚 Estudos
-    </button>
-    
-    <button
-        class="item-navegacao"
-        data-tela="trabalho">
-        💼 Trabalho
-    </button>
-
-</nav>
-
-    <!-- ========================= -->
-    <!-- DASHBOARD -->
-    <!-- ========================= -->
-
-    <div class="dashboard">
-
-      <div class="card-estatistica">
-
-          <span class="icone">🔥</span>
-
-          <strong id="sequenciaGeral">
-              0
-          </strong>
-
-          <small>
-              Sequência
-          </small>
-
+            <h1>
+              <button id="btnDashboard" class="btn-dashboard-icon">🏠</button>
+              <span id="tituloDashboard">DASHBOARD</span>
+            </h1>
+          
     </div>
 
+    <div id="cabecalhoDashboard">
 
-    <div class="card-estatistica">
+      <p id="dataAtual"></p>
+    
+        <div class="dashboard">
+      
+            <div class="card-estatistica">
+      
+                <span class="icone">🔥</span>
+      
+                <strong id="sequenciaGeral">
+                    0
+                </strong>
+      
+                <small>
+                    Sequência
+                </small>
 
-        <span class="icone">🏆</span>
+            </div>
 
-        <strong id="recordeGeral">
-            0
-        </strong>
-
-        <small>
-            Recorde
-        </small>
-
-    </div>
-
-
-    <div class="card-estatistica">
-
-        <span class="icone">📅</span>
-
-        <strong id="diasCumpridos">
-            0
-        </strong>
-
-        <small>
-            Dias cumpridos
-        </small>
-
-    </div>
-
-
-    <div class="card-estatistica">
-
-        <span class="icone">📊</span>
-
-        <strong id="aproveitamento">
-            0%
-        </strong>
-
-        <small>
-            Aproveitamento
-        </small>
-
-    </div>
-
-</div>
-
-
-  <!-- ========================= -->
-  <!-- ESTA SEMANA -->
-  <!-- ========================= -->
-  
-  <div class="semana">
-  
-      <h2>Esta semana</h2>
-  
-      <div
-          id="semanaAtual"
-          class="dias-semana-dashboard">
-      </div>
-  
-      <div
-          id="progressoSemana"
-          class="progresso-semana">
-      </div>
-  
-  </div>
-
-    <div class="progresso">
-        <strong id="progressText">0%</strong>
-
-        <div class="barra">
-            <div id="progressBar"></div>
+            <div class="card-estatistica">
+      
+                <span class="icone">🏆</span>
+        
+                <strong id="recordeGeral">
+                    0
+                </strong>
+        
+                <small>
+                    Recorde
+                </small>
+        
+            </div>
+    
+            <div class="card-estatistica">
+      
+                <span class="icone">📅</span>
+        
+                <strong id="diasCumpridos">
+                    0
+                </strong>
+        
+                <small>
+                    Dias cumpridos
+                </small>
+        
+            </div>
+    
+            <div class="card-estatistica">
+        
+                <span class="icone">📊</span>
+        
+                <strong id="aproveitamento">
+                    0%
+                </strong>
+        
+                <small>
+                    Aproveitamento
+                </small>
+        
+            </div>
+          
         </div>
-    </div>
-
-
-    <!-- NAVEGAÇÃO -->
-
-    <div class="navegacao">
-
-        <button id="btnHoje">
-            Hoje
-        </button>
-
-        <button id="btnHistorico">
-            Histórico
-        </button>
 
     </div>
+      
+  </div>
 
 <!-- ========================= -->
 <!-- TELAS DOS MÓDULOS -->
 <!-- ========================= -->
-
-<section id="telaInicio" class="tela-modulo">
+  
+  <section id="telaInicio" class="tela-modulo">
 
     <div class="inicio-cabecalho">
-
-        <h2>🏠 Início</h2>
-
-        <p>
-            Sua central pessoal.
-        </p>
-
+        <h2>🏠 Dashboard</h2>
+        <p>Sua central pessoal.</p>
     </div>
 
+    <div class="dashboard-principal">
 
-    <div class="resumo-inicio">
+        <div class="bloco-dashboard">
+            <div class="titulo-bloco-dashboard">
+                <h3>🏋️ Treino de hoje</h3>
+            </div>
 
-        <div class="card-inicio">
-
-            <span class="icone-inicio">
-                🔥
-            </span>
-
-            <strong id="inicioSequencia">
-                0
-            </strong>
-
-            <small>
-                Sequência
-            </small>
-
+            <div id="treinoHojeInicio" class="treino-hoje-inicio">
+                <p>Carregando treino...</p>
+            </div>
         </div>
 
+        <div class="bloco-dashboard">
+            <div class="titulo-bloco-dashboard">
+                <h3>📅 Hoje</h3>
+            </div>
 
-        <div class="card-inicio">
-
-            <span class="icone-inicio">
-                ✅
-            </span>
-
-            <strong id="inicioProgresso">
-                0%
-            </strong>
-
-            <small>
-                Hoje
-            </small>
-
+            <div id="eventosHoje" class="eventos-hoje">
+                <p>Nenhum compromisso para hoje.</p>
+            </div>
         </div>
 
     </div>
 
-    <div class="bloco-inicio">
+    <div class="bloco-dashboard">
+        <div class="titulo-bloco-dashboard">
+            <h3>🍽️ Alimentação</h3>
+        </div>
+
+        <div id="resumoAlimentacaoDashboard">
+            <p>Resumo da alimentação de hoje.</p>
+        </div>
+    </div>
+
+    <div class="bloco-dashboard">
+        <div class="titulo-bloco-dashboard">
+            <h3>📚 Estudos</h3>
+        </div>
+
+        <div id="resumoEstudosDashboard">
+            <p>Resumo dos seus estudos.</p>
+        </div>
+    </div>
+
+    <div class="bloco-dashboard">
+        <div class="titulo-bloco-dashboard">
+            <h3>💼 Trabalho</h3>
+        </div>
+
+        <div id="resumoTrabalhoDashboard">
+            <p>Resumo do trabalho de hoje.</p>
+        </div>
+    </div>
+
+    <div class="bloco-dashboard">
+        <div class="titulo-bloco-dashboard">
+            <h3>💰 Finanças</h3>
+        </div>
+
+        <div id="resumoFinancasDashboard">
+            <p>Resumo financeiro do mês.</p>
+        </div>
+    </div>
+
+</section>
   
-        <h3>🏋️ Treino de hoje</h3>
-    
-        <div id="treinoHojeInicio" class="treino-hoje-inicio">
-            <p>Carregando treino...</p>
-        </div>
   
-    </div>
-
-    <div class="bloco-inicio">
-
-        <h3>
-            📋 Hoje
-        </h3>
+  <section id="telaHabitos" class="tela-modulo">
+  
+      <section id="telaHoje">
+  
+          <h2>Hábitos de hoje</h2>
+  
+          <div id="listaHabitos"></div>
+  
+          <div id="areaArquivados" class="area-arquivados">
+  
+              <h2>📦 Hábitos arquivados</h2>
+  
+              <div id="listaArquivados"></div>
+  
+          </div>
+  
+          <button id="btnNovoHabito">
+              + Novo hábito
+          </button>
+  
+          <button id="btnArquivados">
+              📦 Arquivados
+          </button>
+  
+      </section>
+  
+  
+      <section id="telaHistorico">
+  
+          <div class="historico-header">
+  
+              <button id="mesAnterior">‹</button>
+  
+              <h2 id="mesAtual"></h2>
+  
+              <button id="mesProximo">›</button>
+  
+          </div>
+  
+  
+          <div class="calendario">
+  
+              <div class="dias-semana">
+  
+                  <span>Dom</span>
+                  <span>Seg</span>
+                  <span>Ter</span>
+                  <span>Qua</span>
+                  <span>Qui</span>
+                  <span>Sex</span>
+                  <span>Sáb</span>
+  
+              </div>
+  
+              <div
+                  id="diasCalendario"
+                  class="dias-calendario">
+              </div>
+  
+          </div>
+  
+  
+          <div
+              id="detalhesDia"
+              class="detalhes-dia">
+          </div>
+  
+      </section>
+  
+  </section>
+  
+  
+  <section id="telaAlimentacao" class="tela-modulo">
+  
+      <div class="modulo-cabecalho">
+          <h2>🍽️ Alimentação</h2>
+          <p>Organize suas refeições do dia.</p>
+      </div>
+  
+      <div class="refeicoes">
+  
+          <div class="card-refeicao" data-refeicao="cafe">
+  
+              <span class="icone-refeicao">🍳</span>
+          
+              <div>
+                  <h3>Café da manhã</h3>
+          
+                  <p id="resumoCafe">
+                      Comece o dia com uma boa refeição.
+                  </p>
+          
+                  <div id="listaCafe" class="lista-alimentos"></div>
+                
+              </div>
+          
+          </div>
+  
+          <div class="card-refeicao" data-refeicao="lanche">
+            
+              <span class="icone-refeicao">🍌</span>
+              <div>
+                  <h3>Lanche da manhã</h3>
+                  <p id="resumoLanche">
+                      Uma opção rápida para o meio da manhã.
+                  </p>
+  
+                <div id="listaLanche" class="lista-alimentos"></div>
+                
+              </div>
+          </div>
+  
+          <div class="card-refeicao" data-refeicao="almoco">
+            
+              <span class="icone-refeicao">🍛</span>
+              <div>
+                  <h3>Almoço</h3>
+                  <p id="resumoAlmoco">
+                      Registre sua principal refeição do dia.
+                  </p>
+  
+                <div id="listaAlmoco" class="lista-alimentos"></div>
+                
+              </div>
+          </div>
+  
+          <div class="card-refeicao" data-refeicao="pre_treino">
+            
+              <span class="icone-refeicao">🥪</span>
+              <div>
+                  <h3>Pré-treino</h3>
+                  <p id="resumoPreTreino">
+                      Energia para o seu treino.
+                  </p>
+  
+                <div id="listaPreTreino" class="lista-alimentos"></div>
+                
+              </div>
+          </div>
+  
+          <div class="card-refeicao" data-refeicao="jantar">
+            
+              <span class="icone-refeicao">🍽️</span>
+              <div>
+                  <h3>Jantar</h3>
+                  <p id="resumoJantar">
+                      Registre sua refeição da noite.
+                  </p>
+  
+                <div id="listaJantar" class="lista-alimentos"></div>
+                
+              </div>
+          </div>
+  
+          <div class="card-refeicao" data-refeicao="ceia">
+            
+              <span class="icone-refeicao">🌙</span>
+              <div>
+                  <h3>Ceia</h3>
+                  <p id="resumoCeia">
+                      Uma opção antes de dormir, se necessário.
+                  </p>
+  
+                <div id="listaCeia" class="lista-alimentos"></div>
+                
+              </div>
+          </div>
+  
+      </div>
+  
+    <div id="modalRefeicao" class="modal-refeicao">
+  
+      <div id="formularioRefeicao" class="formulario-refeicao">
+  
+            <h3 id="tituloRefeicao">Café da manhã</h3>
     
-        <div id="inicioHabitos">
+            <label for="comidaRefeicao">
+                O que você comeu?
+            </label>
+    
+            <input
+                type="text"
+                id="comidaRefeicao"
+                placeholder="Ex: 1 ovo">
+    
+            <div id="listaAlimentosRefeicao"></div>
+    
+            <button id="adicionarAlimento">
+                + Adicionar alimento
+            </button>
+    
+            <button id="salvarRefeicao">
+                Salvar refeição
+            </button>
+  
+            <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+                Cancelar
+            </button>
+    
         </div>
     
     </div>
-
-
-    <div class="bloco-inicio">
-
-        <h3>
-            📌 Seus módulos
-        </h3>
-    
-        <div class="modulos-inicio">
-
-            <button 
-              class="card-modulo-inicio" 
-              data-modulo="habitos">
-              
-                <span>✅</span>
-              
+  
+  </section>
+  
+  
+  <section id="telaFinancas" class="tela-modulo">
+  
+      <h2>💰 Finanças</h2>
+  
+      <p>
+          Em breve...
+      </p>
+  
+  </section>
+  
+  
+  <section id="telaTreino" class="tela-modulo">
+  
+      <div class="modulo-cabecalho">
+          <h2>🏋️ Treino</h2>
+          <p>Organize e acompanhe seus treinos.</p>
+      </div>
+  
+      <div id="listaTreinos">
+  
+          <div class="card-treino" data-treino="push">
+              <h3>Push</h3>
+              <p>Peito, Ombros e Tríceps</p>
+          </div>
+  
+          <div class="card-treino" data-treino="pull">
+              <h3>Pull</h3>
+              <p>Costas e Bíceps</p>
+          </div>
+  
+          <div class="card-treino" data-treino="lowerA">
+              <h3>Lower A</h3>
+              <p>Quadríceps</p>
+          </div>
+  
+          <div class="card-treino" data-treino="upper">
+              <h3>Upper</h3>
+              <p>Parte superior completa</p>
+          </div>
+  
+          <div class="card-treino" data-treino="lowerB">
+              <h3>Lower B</h3>
+              <p>Posterior</p>
+          </div>
+  
+      </div>
+  
+  <!-- MODO DE TREINO -->
+  <div id="fichaTreino" class="ficha-treino">
+  
+      <div class="ficha-treino-caixa">
+  
+          <div class="ficha-treino-cabecalho">
+  
+              <button id="voltarListaTreinos">
+                  ← Voltar
+              </button>
+  
+              <div>
+                  <h2 id="nomeFichaTreino">Push</h2>
+  
+                  <p id="descricaoFichaTreino">
+                      Peito, Ombros e Tríceps
+                  </p>
+              </div>
+  
+          </div>
+  
+          <div class="grupo-muscular">
+  
+              <h3>PEITO</h3>
+  
+              <div class="exercicio-ficha">
+  
                   <strong>
-                    Hábitos
+                      Supino reto com halter
                   </strong>
-              
-            </button>
-    
-            <button
-                class="card-modulo-inicio"
-                data-modulo="alimentacao">
-    
-                <span>🍽️</span>
-    
-                <strong>
-                    Alimentação
-                </strong>
-    
-            </button>
-    
-    
-            <button
-                class="card-modulo-inicio"
-                data-modulo="financas">
-    
-                <span>💰</span>
-    
-                <strong>
-                    Finanças
-                </strong>
-    
-            </button>
-    
-    
-            <button
-                class="card-modulo-inicio"
-                data-modulo="treino">
-    
-                <span>🏋️</span>
-    
-                <strong>
-                    Treino
-                </strong>
-    
-            </button>
-    
-    
-            <button
-                class="card-modulo-inicio"
-                data-modulo="estudos">
-    
-                <span>📚</span>
-    
-                <strong>
-                    Estudos
-                </strong>
-    
-            </button>
-    
-    
-            <button
-                class="card-modulo-inicio"
-                data-modulo="trabalho">
-    
-                <span>💼</span>
-    
-                <strong>
-                    Trabalho
-                </strong>
-    
-            </button>
-    
-        </div>
-    
-    </div>
-
-</section>
-
-
-<section id="telaHabitos" class="tela-modulo">
-
-    <section id="telaHoje">
-
-        <h2>Hábitos de hoje</h2>
-
-        <div id="listaHabitos"></div>
-
-        <div id="areaArquivados" class="area-arquivados">
-
-            <h2>📦 Hábitos arquivados</h2>
-
-            <div id="listaArquivados"></div>
-
-        </div>
-
-        <button id="btnNovoHabito">
-            + Novo hábito
-        </button>
-
-        <button id="btnArquivados">
-            📦 Arquivados
-        </button>
-
-    </section>
-
-
-    <section id="telaHistorico">
-
-        <div class="historico-header">
-
-            <button id="mesAnterior">‹</button>
-
-            <h2 id="mesAtual"></h2>
-
-            <button id="mesProximo">›</button>
-
-        </div>
-
-
-        <div class="calendario">
-
-            <div class="dias-semana">
-
-                <span>Dom</span>
-                <span>Seg</span>
-                <span>Ter</span>
-                <span>Qua</span>
-                <span>Qui</span>
-                <span>Sex</span>
-                <span>Sáb</span>
-
-            </div>
-
-            <div
-                id="diasCalendario"
-                class="dias-calendario">
-            </div>
-
-        </div>
-
-
-        <div
-            id="detalhesDia"
-            class="detalhes-dia">
-        </div>
-
-    </section>
-
-</section>
-
-
-<section id="telaAlimentacao" class="tela-modulo">
-
-    <div class="modulo-cabecalho">
-        <h2>🍽️ Alimentação</h2>
-        <p>Organize suas refeições do dia.</p>
-    </div>
-
-    <div class="refeicoes">
-
-        <div class="card-refeicao" data-refeicao="cafe">
-
-            <span class="icone-refeicao">🍳</span>
-        
-            <div>
-                <h3>Café da manhã</h3>
-        
-                <p id="resumoCafe">
-                    Comece o dia com uma boa refeição.
-                </p>
-        
-                <div id="listaCafe" class="lista-alimentos"></div>
-              
-            </div>
-        
-        </div>
-
-        <div class="card-refeicao" data-refeicao="lanche">
-          
-            <span class="icone-refeicao">🍌</span>
-            <div>
-                <h3>Lanche da manhã</h3>
-                <p id="resumoLanche">
-                    Uma opção rápida para o meio da manhã.
-                </p>
-
-              <div id="listaLanche" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="almoco">
-          
-            <span class="icone-refeicao">🍛</span>
-            <div>
-                <h3>Almoço</h3>
-                <p id="resumoAlmoco">
-                    Registre sua principal refeição do dia.
-                </p>
-
-              <div id="listaAlmoco" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="pre_treino">
-          
-            <span class="icone-refeicao">🥪</span>
-            <div>
-                <h3>Pré-treino</h3>
-                <p id="resumoPreTreino">
-                    Energia para o seu treino.
-                </p>
-
-              <div id="listaPreTreino" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="jantar">
-          
-            <span class="icone-refeicao">🍽️</span>
-            <div>
-                <h3>Jantar</h3>
-                <p id="resumoJantar">
-                    Registre sua refeição da noite.
-                </p>
-
-              <div id="listaJantar" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="ceia">
-          
-            <span class="icone-refeicao">🌙</span>
-            <div>
-                <h3>Ceia</h3>
-                <p id="resumoCeia">
-                    Uma opção antes de dormir, se necessário.
-                </p>
-
-              <div id="listaCeia" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-    </div>
-
-  <div id="modalRefeicao" class="modal-refeicao">
-
-    <div id="formularioRefeicao" class="formulario-refeicao">
-
-          <h3 id="tituloRefeicao">Café da manhã</h3>
   
-          <label for="comidaRefeicao">
-              O que você comeu?
-          </label>
+                  <div class="campos-ficha">
+  
+                      <div>
+                          <label>Séries</label>
+                          <input
+                              type="number"
+                              value="4"
+                              min="1">
+                      </div>
+  
+                      <span>×</span>
+  
+                      <div>
+                          <label>Repetições</label>
+                          <input
+                              type="text"
+                              value="6-8">
+                      </div>
+  
+                      <div>
+                          <label>Carga</label>
+  
+                          <div class="campo-carga">
+  
+                              <input
+                                  type="number"
+                                  value="16"
+                                  min="0"
+                                  step="0.5">
+  
+                              <span>kg</span>
+  
+                          </div>
+  
+                      </div>
+  
+                  </div>
+  
+              </div>
+  
+          </div>
+  
+      </div>
+  
+  </div>
+    
+      <div id="modoTreino" class="modo-treino">
+  
+          <div class="modo-treino-cabecalho">
+      
+              <button id="voltarTreinos">
+                  ← Voltar
+              </button>
+      
+              <div>
+                  <h2 id="nomeTreinoAtivo">Push</h2>
+                  <p id="dataTreinoAtivo"></p>
+              </div>
+      
+          </div>
+      
+          <div class="progresso-treino">
+              <span id="progressoTreinoTexto">
+                  0/7 exercícios
+              </span>
+      
+              <div class="barra-progresso-treino">
+                  <div id="barraProgressoTreino"></div>
+              </div>
+          </div>
+      
+          <div id="listaExerciciosTreino">
+      
+              <div class="exercicio-treino ativo">
+      
+                  <div class="cabecalho-exercicio">
+                      <div>
+                          <span class="status-exercicio">◐</span>
+      
+                          <strong>
+                              Supino reto com halter
+                          </strong>
+                      </div>
+                  </div>
+      
+                  <p class="planejado-exercicio">
+                      Planejado: 4 × 6–8
+                  </p>
+      
+                  <p class="ultimo-treino">
+                      Último: 16 kg · 8/8/7/6
+                  </p>
+      
+                  <div class="area-series">
+      
+                      <div class="serie">
+                          <span>Série 1</span>
+                          <span>16 kg × 8 reps</span>
+                      </div>
+      
+                      <div class="serie">
+                          <span>Série 2</span>
+                          <span>16 kg × 8 reps</span>
+                      </div>
+      
+                      <div class="serie">
+                          <span>Série 3</span>
+                          <span>18 kg × 7 reps</span>
+                      </div>
+      
+                      <div class="serie">
+                          <span>Série 4</span>
+                          <span>18 kg × 6 reps</span>
+                      </div>
+      
+                  </div>
+      
+                  <button class="btn-concluir-exercicio">
+                      ✓ Concluir exercício
+                  </button>
+      
+              </div>
+      
+              <div class="exercicio-treino bloqueado">
+      
+                  <div class="cabecalho-exercicio">
+                      <div>
+                          <span class="status-exercicio">🔒</span>
+      
+                          <strong>
+                              Supino inclinado com halteres
+                          </strong>
+                      </div>
+                  </div>
+      
+                  <p class="planejado-exercicio">
+                      Planejado: 3 × 8–10
+                  </p>
+      
+                  <p class="aguardando-exercicio">
+                      Aguardando exercício anterior
+                  </p>
+      
+              </div>
+      
+              <div class="exercicio-treino bloqueado">
+      
+                  <div class="cabecalho-exercicio">
+                      <div>
+                          <span class="status-exercicio">🔒</span>
+      
+                          <strong>
+                              Crucifixo unilateral na polia
+                          </strong>
+                      </div>
+                  </div>
+      
+                  <p class="planejado-exercicio">
+                      Planejado: 3 × 12–15
+                  </p>
+      
+                  <p class="aguardando-exercicio">
+                      Aguardando exercício anterior
+                  </p>
+  
+          </div>
+  
+            <button id="finalizarTreino" class="btn-finalizar-treino">
+                🏁 Finalizar treino
+            </button>
+  
+      </div>
+  
+  </div>
+  
+  </section>
+  
+  
+  <section id="telaEstudos" class="tela-modulo">
+  
+      <h2>📚 Estudos</h2>
+  
+      <p>
+          Em breve...
+      </p>
+  
+  </section>
+  
+  
+  <section id="telaTrabalho" class="tela-modulo">
+  
+      <h2>💼 Trabalho</h2>
+  
+      <p>
+          Em breve...
+      </p>
+  
+  </section>
+    
+  <!-- ========================= -->
+  <!-- MODAL -->
+  <!-- ========================= -->
+  
+  <div id="modal" class="modal">
+  
+      <div class="modal-box">
+  
+          <h2 id="tituloModal">Novo hábito</h2>
   
           <input
+              id="nomeHabito"
               type="text"
-              id="comidaRefeicao"
-              placeholder="Ex: 1 ovo">
+              placeholder="Ex: Estudar programação"
+          >
   
-          <div id="listaAlimentosRefeicao"></div>
+          <label for="categoriaHabito">
+              Categoria
+          </label>
   
-          <button id="adicionarAlimento">
-              + Adicionar alimento
+          <select id="categoriaHabito">
+  
+              <option value="Saúde">
+                  🏋️ Saúde
+              </option>
+  
+              <option value="Estudos">
+                  📚 Estudos
+              </option>
+  
+              <option value="Finanças">
+                  💰 Finanças
+              </option>
+  
+              <option value="Pessoal">
+                  🧠 Pessoal
+              </option>
+  
+              <option value="Trabalho">
+                  💼 Trabalho
+              </option>
+              <option value="Alimentação">
+                  🍽️ Alimentação
+              </option>
+              
+              <option value="Social">
+                  👥 Social
+              </option>
+              
+              <option value="Metas">
+                  🎯 Metas
+              </option>
+              
+              <option value="Espiritualidade">
+                  🙏 Espiritualidade
+              </option>
+              
+              <option value="Hobbies">
+                  🎨 Hobbies
+              </option>
+  
+          </select>
+  
+          <button id="salvarHabito">
+              Salvar
           </button>
   
-          <button id="salvarRefeicao">
-              Salvar refeição
-          </button>
-
-          <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+          <button id="cancelarHabito">
               Cancelar
           </button>
   
       </div>
   
   </div>
-
-</section>
-
-
-<section id="telaFinancas" class="tela-modulo">
-
-    <h2>💰 Finanças</h2>
-
-    <p>
-        Em breve...
-    </p>
-
-</section>
-
-
-<section id="telaTreino" class="tela-modulo">
-
-    <div class="modulo-cabecalho">
-        <h2>🏋️ Treino</h2>
-        <p>Organize e acompanhe seus treinos.</p>
-    </div>
-
-    <div id="listaTreinos">
-
-        <div class="card-treino" data-treino="push">
-            <h3>Push</h3>
-            <p>Peito, Ombros e Tríceps</p>
-        </div>
-
-        <div class="card-treino" data-treino="pull">
-            <h3>Pull</h3>
-            <p>Costas e Bíceps</p>
-        </div>
-
-        <div class="card-treino" data-treino="lowerA">
-            <h3>Lower A</h3>
-            <p>Quadríceps</p>
-        </div>
-
-        <div class="card-treino" data-treino="upper">
-            <h3>Upper</h3>
-            <p>Parte superior completa</p>
-        </div>
-
-        <div class="card-treino" data-treino="lowerB">
-            <h3>Lower B</h3>
-            <p>Posterior</p>
-        </div>
-
-    </div>
-
-<!-- MODO DE TREINO -->
-<div id="fichaTreino" class="ficha-treino">
-
-    <div class="ficha-treino-caixa">
-
-        <div class="ficha-treino-cabecalho">
-
-            <button id="voltarListaTreinos">
-                ← Voltar
-            </button>
-
-            <div>
-                <h2 id="nomeFichaTreino">Push</h2>
-
-                <p id="descricaoFichaTreino">
-                    Peito, Ombros e Tríceps
-                </p>
-            </div>
-
-        </div>
-
-        <div class="grupo-muscular">
-
-            <h3>PEITO</h3>
-
-            <div class="exercicio-ficha">
-
-                <strong>
-                    Supino reto com halter
-                </strong>
-
-                <div class="campos-ficha">
-
-                    <div>
-                        <label>Séries</label>
-                        <input
-                            type="number"
-                            value="4"
-                            min="1">
-                    </div>
-
-                    <span>×</span>
-
-                    <div>
-                        <label>Repetições</label>
-                        <input
-                            type="text"
-                            value="6-8">
-                    </div>
-
-                    <div>
-                        <label>Carga</label>
-
-                        <div class="campo-carga">
-
-                            <input
-                                type="number"
-                                value="16"
-                                min="0"
-                                step="0.5">
-
-                            <span>kg</span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
   
-    <div id="modoTreino" class="modo-treino">
-
-        <div class="modo-treino-cabecalho">
-    
-            <button id="voltarTreinos">
-                ← Voltar
-            </button>
-    
-            <div>
-                <h2 id="nomeTreinoAtivo">Push</h2>
-                <p id="dataTreinoAtivo"></p>
-            </div>
-    
-        </div>
-    
-        <div class="progresso-treino">
-            <span id="progressoTreinoTexto">
-                0/7 exercícios
-            </span>
-    
-            <div class="barra-progresso-treino">
-                <div id="barraProgressoTreino"></div>
-            </div>
-        </div>
-    
-        <div id="listaExerciciosTreino">
-    
-            <div class="exercicio-treino ativo">
-    
-                <div class="cabecalho-exercicio">
-                    <div>
-                        <span class="status-exercicio">◐</span>
-    
-                        <strong>
-                            Supino reto com halter
-                        </strong>
-                    </div>
-                </div>
-    
-                <p class="planejado-exercicio">
-                    Planejado: 4 × 6–8
-                </p>
-    
-                <p class="ultimo-treino">
-                    Último: 16 kg · 8/8/7/6
-                </p>
-    
-                <div class="area-series">
-    
-                    <div class="serie">
-                        <span>Série 1</span>
-                        <span>16 kg × 8 reps</span>
-                    </div>
-    
-                    <div class="serie">
-                        <span>Série 2</span>
-                        <span>16 kg × 8 reps</span>
-                    </div>
-    
-                    <div class="serie">
-                        <span>Série 3</span>
-                        <span>18 kg × 7 reps</span>
-                    </div>
-    
-                    <div class="serie">
-                        <span>Série 4</span>
-                        <span>18 kg × 6 reps</span>
-                    </div>
-    
-                </div>
-    
-                <button class="btn-concluir-exercicio">
-                    ✓ Concluir exercício
-                </button>
-    
-            </div>
-    
-            <div class="exercicio-treino bloqueado">
-    
-                <div class="cabecalho-exercicio">
-                    <div>
-                        <span class="status-exercicio">🔒</span>
-    
-                        <strong>
-                            Supino inclinado com halteres
-                        </strong>
-                    </div>
-                </div>
-    
-                <p class="planejado-exercicio">
-                    Planejado: 3 × 8–10
-                </p>
-    
-                <p class="aguardando-exercicio">
-                    Aguardando exercício anterior
-                </p>
-    
-            </div>
-    
-            <div class="exercicio-treino bloqueado">
-    
-                <div class="cabecalho-exercicio">
-                    <div>
-                        <span class="status-exercicio">🔒</span>
-    
-                        <strong>
-                            Crucifixo unilateral na polia
-                        </strong>
-                    </div>
-                </div>
-    
-                <p class="planejado-exercicio">
-                    Planejado: 3 × 12–15
-                </p>
-    
-                <p class="aguardando-exercicio">
-                    Aguardando exercício anterior
-                </p>
-
-        </div>
-
-          <button id="finalizarTreino" class="btn-finalizar-treino">
-              🏁 Finalizar treino
+  <!-- AQUI ENTRA O MODAL DO TREINO -->
+  
+  <div id="modalTreino" class="modal-treino">
+  
+      <div class="modal-treino-caixa">
+  
+          <h2 id="modalNomeTreino">Push</h2>
+  
+          <p>
+              O que você deseja fazer?
+          </p>
+  
+          <button id="btnVisualizarFicha">
+              👁️ Visualizar / Editar ficha
           </button>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<section id="telaEstudos" class="tela-modulo">
-
-    <h2>📚 Estudos</h2>
-
-    <p>
-        Em breve...
-    </p>
-
-</section>
-
-
-<section id="telaTrabalho" class="tela-modulo">
-
-    <h2>💼 Trabalho</h2>
-
-    <p>
-        Em breve...
-    </p>
-
-</section>
   
-<!-- ========================= -->
-<!-- MODAL -->
-<!-- ========================= -->
-
-<div id="modal" class="modal">
-
-    <div class="modal-box">
-
-        <h2 id="tituloModal">Novo hábito</h2>
-
-        <input
-            id="nomeHabito"
-            type="text"
-            placeholder="Ex: Estudar programação"
-        >
-
-        <label for="categoriaHabito">
-            Categoria
-        </label>
-
-        <select id="categoriaHabito">
-
-            <option value="Saúde">
-                🏋️ Saúde
-            </option>
-
-            <option value="Estudos">
-                📚 Estudos
-            </option>
-
-            <option value="Finanças">
-                💰 Finanças
-            </option>
-
-            <option value="Pessoal">
-                🧠 Pessoal
-            </option>
-
-            <option value="Trabalho">
-                💼 Trabalho
-            </option>
-            <option value="Alimentação">
-                🍽️ Alimentação
-            </option>
-            
-            <option value="Social">
-                👥 Social
-            </option>
-            
-            <option value="Metas">
-                🎯 Metas
-            </option>
-            
-            <option value="Espiritualidade">
-                🙏 Espiritualidade
-            </option>
-            
-            <option value="Hobbies">
-                🎨 Hobbies
-            </option>
-
-        </select>
-
-        <button id="salvarHabito">
-            Salvar
-        </button>
-
-        <button id="cancelarHabito">
-            Cancelar
-        </button>
-
-    </div>
-
-</div>
-
-<!-- AQUI ENTRA O MODAL DO TREINO -->
-
-<div id="modalTreino" class="modal-treino">
-
-    <div class="modal-treino-caixa">
-
-        <h2 id="modalNomeTreino">Push</h2>
-
-        <p>
-            O que você deseja fazer?
-        </p>
-
-        <button id="btnVisualizarFicha">
-            👁️ Visualizar / Editar ficha
-        </button>
-
-        <button id="btnIniciarTreino">
-            ▶️ Iniciar treino
-        </button>
-
-        <button id="btnCancelarTreino" class="btn-cancelar-treino">
-            Cancelar
-        </button>
-
-    </div>
+          <button id="btnIniciarTreino">
+              ▶️ Iniciar treino
+          </button>
+  
+          <button id="btnCancelarTreino" class="btn-cancelar-treino">
+              Cancelar
+          </button>
+  
+      </div>
+  
+  </div>
 
 </div>
 	
