@@ -2555,44 +2555,396 @@ modalTreino.addEventListener(
 const fichasTreino = {
 
     push: {
-
         nome: "Push",
         descricao: "Peito, Ombros e Tríceps",
 
-        exercicios: [
+        grupos: {
 
-            {
-                nome: "Supino reto com halter",
-                grupo: "Peito",
-                series: 4,
-                repeticoes: "6-8",
-                carga: 16
-            }
+            "PEITO": [
+                {
+                    nome: "Supino reto com halter",
+                    series: 4,
+                    repeticoes: "6-8"
+                },
+                {
+                    nome: "Supino inclinado com halteres",
+                    series: 3,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Crucifixo unilateral na polia",
+                    series: 3,
+                    repeticoes: "12-15"
+                }
+            ],
 
-        ]
+            "OMBROS": [
+                {
+                    nome: "Desenvolvimento com halteres",
+                    series: 3,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Elevação lateral",
+                    series: 4,
+                    repeticoes: "12-15"
+                }
+            ],
 
+            "TRÍCEPS": [
+                {
+                    nome: "Tríceps corda",
+                    series: 3,
+                    repeticoes: "10-12"
+                },
+                {
+                    nome: "Tríceps francês",
+                    series: 2,
+                    repeticoes: "12-15"
+                }
+            ]
+        }
+    },
+
+    pull: {
+        nome: "Pull",
+        descricao: "Costas e Bíceps",
+
+        grupos: {
+
+            "COSTAS": [
+                {
+                    nome: "Puxada alta",
+                    series: 4,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Remada curvada",
+                    series: 4,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Remada baixa",
+                    series: 3,
+                    repeticoes: "10-12"
+                },
+                {
+                    nome: "Pulldown com braços retos",
+                    series: 3,
+                    repeticoes: "12-15"
+                }
+            ],
+
+            "OMBRO POSTERIOR": [
+                {
+                    nome: "Face pull",
+                    series: 3,
+                    repeticoes: "15"
+                }
+            ],
+
+            "BÍCEPS": [
+                {
+                    nome: "Rosca direta",
+                    series: 3,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Rosca martelo",
+                    series: 3,
+                    repeticoes: "10-12"
+                }
+            ]
+        }
+    },
+
+    lowerA: {
+        nome: "Lower A",
+        descricao: "Quadríceps",
+
+        grupos: {
+
+            "PERNAS": [
+                {
+                    nome: "Agachamento livre",
+                    series: 4,
+                    repeticoes: "6-8"
+                },
+                {
+                    nome: "Stiff",
+                    series: 4,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Leg Press",
+                    series: 4,
+                    repeticoes: "10"
+                },
+                {
+                    nome: "Afundo com halteres ou no Smith",
+                    series: 3,
+                    repeticoes: "10 por perna"
+                },
+                {
+                    nome: "Panturrilha em pé",
+                    series: 5,
+                    repeticoes: "15"
+                }
+            ],
+
+            "ABDÔMEN": [
+                {
+                    nome: "Prancha",
+                    series: 3,
+                    repeticoes: "30-60 segundos"
+                }
+            ]
+        }
     },
 
     upper: {
-
         nome: "Upper",
         descricao: "Parte superior completa",
 
-        exercicios: [
+        grupos: {
 
-            {
-                nome: "Supino inclinado",
-                grupo: "Peito",
-                series: 3,
-                repeticoes: "8-10",
-                carga: 16
-            }
+            "PEITO": [
+                {
+                    nome: "Supino inclinado",
+                    series: 3,
+                    repeticoes: "8-10"
+                }
+            ],
 
-        ]
+            "COSTAS": [
+                {
+                    nome: "Barra fixa ou puxada alta",
+                    series: 3,
+                    repeticoes: "8-10"
+                },
+                {
+                    nome: "Remada unilateral",
+                    series: 3,
+                    repeticoes: "10"
+                }
+            ],
 
+            "OMBROS": [
+                {
+                    nome: "Desenvolvimento com halteres",
+                    series: 3,
+                    repeticoes: "10"
+                },
+                {
+                    nome: "Elevação lateral",
+                    series: 3,
+                    repeticoes: "15"
+                }
+            ],
+
+            "BRAÇOS": [
+                {
+                    nome: "Rosca direta",
+                    series: 3,
+                    repeticoes: "10"
+                },
+                {
+                    nome: "Tríceps corda",
+                    series: 3,
+                    repeticoes: "10"
+                }
+            ]
+        }
+    },
+
+    lowerB: {
+        nome: "Lower B",
+        descricao: "Posterior",
+
+        grupos: {
+
+            "PERNAS": [
+                {
+                    nome: "Afundo no Smith",
+                    series: 3,
+                    repeticoes: "10-12 por perna"
+                },
+                {
+                    nome: "Flexora sentada",
+                    series: 4,
+                    repeticoes: "10-12"
+                },
+                {
+                    nome: "Cadeira extensora",
+                    series: 3,
+                    repeticoes: "12"
+                },
+                {
+                    nome: "Panturrilha sentada",
+                    series: 5,
+                    repeticoes: "15"
+                }
+            ],
+
+            "ABDÔMEN": [
+                {
+                    nome: "Abdômen na polia",
+                    series: 3,
+                    repeticoes: "15"
+                }
+            ]
+        }
     }
 
 };
+
+function abrirFichaTreino(treino) {
+
+    const ficha =
+        fichasTreino[treino];
+    
+    if (!ficha || !ficha.grupos) {
+        console.error(
+            "Ficha de treino inválida:",
+            treino,
+            ficha
+        );
+        return;
+    }
+
+    document.getElementById(
+        "nomeFichaTreino"
+    ).textContent =
+        ficha.nome;
+
+    document.getElementById(
+        "descricaoFichaTreino"
+    ).textContent =
+        ficha.descricao;
+
+    const container =
+        document.getElementById(
+            "conteudoFichaTreino"
+        );
+
+    container.innerHTML = "";
+
+    Object.entries(
+        ficha.grupos
+    ).forEach(
+        ([grupo, exercicios]) => {
+
+            const grupoElemento =
+                document.createElement("div");
+
+            grupoElemento.className =
+                "grupo-muscular";
+
+            grupoElemento.innerHTML = `
+                <h3>
+                    ${grupo}
+                </h3>
+            `;
+
+            exercicios.forEach(
+                exercicio => {
+
+                    const exercicioElemento =
+                        document.createElement("div");
+
+                    exercicioElemento.className =
+                        "exercicio-ficha";
+
+                    exercicioElemento.innerHTML = `
+                        <strong>
+                            ${exercicio.nome}
+                        </strong>
+
+                        <div class="campos-ficha">
+
+                            <div>
+                                <label>
+                                    Séries
+                                </label>
+
+                                <input
+                                    type="number"
+                                    value="${exercicio.series}"
+                                    min="1">
+                            </div>
+
+                            <span>×</span>
+
+                            <div>
+                                <label>
+                                    Repetições
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="${exercicio.repeticoes}">
+                            </div>
+
+                            <div>
+                                <label>
+                                    Carga
+                                </label>
+
+                                <div class="campo-carga">
+
+                                    <input
+                                        type="number"
+                                        value="0"
+                                        min="0"
+                                        step="0.5">
+
+                                    <span>kg</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                    grupoElemento.appendChild(
+                        exercicioElemento
+                    );
+
+                }
+            );
+
+            container.appendChild(
+                grupoElemento
+            );
+
+        }
+    );
+
+    document.getElementById(
+        "fichaTreino"
+    ).style.display = "flex";
+}
+
+document.querySelectorAll(
+    ".card-treino"
+).forEach(
+    card => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                const treino =
+                    card.dataset.treino;
+
+                abrirFichaTreino(treino);
+
+            }
+        );
+
+    }
+);
 
 document
     .getElementById("btnVisualizarFicha")
@@ -2616,24 +2968,17 @@ document
             const treino =
                 treinosSemana[diaSemana];
 
-            const ficha =
-                fichasTreino[treino];
-            
-            document.getElementById(
-                "nomeFichaTreino"
-            ).textContent = ficha.nome;
-            
-            document.getElementById(
-                "descricaoFichaTreino"
-            ).textContent = ficha.descricao;
-            
+            if (!treino) {
+                return;
+            }
+
             document.getElementById(
                 "modalTreino"
             ).style.display = "none";
-            
-            document.getElementById(
-                "fichaTreino"
-            ).style.display = "flex";
+
+            abrirFichaTreino(
+                treino
+            );
 
         }
     );
