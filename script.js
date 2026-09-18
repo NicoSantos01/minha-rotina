@@ -282,8 +282,6 @@ function atualizarDashboard() {
 
     atualizarAproveitamento();
 
-    atualizarSemana();
-
 }
 
 
@@ -1063,14 +1061,8 @@ function renderizar() {
             }
         );
 
-    atualizarProgresso();
-
     atualizarDashboard();
-
-    atualizarInicio();
-
-    atualizarHabitosInicio();
-
+    
     atualizarTreinoHoje();
 
 }
@@ -1546,62 +1538,6 @@ document.getElementById(
     }
 );
 
-
-// ==========================================
-// BOTÃO HOJE
-// ==========================================
-
-document.getElementById(
-    "btnHoje"
-).addEventListener(
-    "click",
-    () => {
-
-        telaHoje.style.display =
-            "block";
-
-        telaHistorico.style.display =
-            "none";
-
-    }
-);
-
-
-// ==========================================
-// BOTÃO HISTÓRICO
-// ==========================================
-
-document.getElementById(
-    "btnHistorico"
-).addEventListener(
-    "click",
-    () => {
-
-        telaHoje.style.display =
-            "none";
-
-        telaHistorico.style.display =
-            "block";
-
-
-        mesVisualizado =
-            new Date(
-                new Date().getFullYear(),
-                new Date().getMonth(),
-                1
-            );
-
-
-        diaSelecionado =
-            dataHoje();
-
-
-        renderizarCalendario();
-
-    }
-);
-
-
 // ==========================================
 // NOVO HÁBITO
 // ==========================================
@@ -1800,6 +1736,11 @@ renderizar();
 
 renderizarCalendario();
 
+// ==========================================
+// NAVEGAÇÃO — INÍCIO
+// ==========================================
+
+// ATIVA O BOTÃO SELECIONADO
 document.querySelectorAll(
     ".item-navegacao"
 ).forEach(
@@ -1829,6 +1770,7 @@ document.querySelectorAll(
     }
 );
 
+// DEFINE AS TELAS DOS MÓDULOS
 const telasModulos = {
     inicio: document.getElementById("telaInicio"),
     habitos: document.getElementById("telaHabitos"),
@@ -1839,6 +1781,7 @@ const telasModulos = {
     trabalho: document.getElementById("telaTrabalho")
 };
 
+// ESCONDE TODOS OS MÓDULOS
 Object.values(
     telasModulos
 ).forEach(
@@ -1847,8 +1790,10 @@ Object.values(
     }
 );
 
+// ABRE O DASHBOARD AO INICIAR
 telasModulos.inicio.style.display = "block";
 
+// TROCA ENTRE OS MÓDULOS
 document.querySelectorAll(
     ".item-navegacao"
 ).forEach(
@@ -1861,7 +1806,6 @@ document.querySelectorAll(
                 const tela =
                     botao.dataset.tela;
 
-
                 Object.values(
                     telasModulos
                 ).forEach(
@@ -1873,9 +1817,18 @@ document.querySelectorAll(
                     }
                 );
 
-
                 telasModulos[tela].style.display =
                     "block";
+
+                // Esconde o conteúdo exclusivo do Dashboard
+                document.getElementById(
+                    "cabecalhoDashboard"
+                ).style.display = "none";
+
+                // Esconde somente o texto DASHBOARD
+                document.getElementById(
+                    "tituloDashboard"
+                ).style.display = "none";
 
             }
         );
@@ -1883,6 +1836,52 @@ document.querySelectorAll(
     }
 );
 
+const btnMenu = document.getElementById("btnMenu");
+const menuModulos = document.getElementById("menuModulos");
+
+btnMenu.addEventListener("click", () => {
+    menuModulos.classList.add("aberto");
+});
+
+const btnVoltarMenu = document.getElementById("btnVoltarMenu");
+
+btnVoltarMenu.addEventListener("click", () => {
+    menuModulos.classList.remove("aberto");
+});
+
+document.addEventListener("click", (evento) => {
+    const clicouDentroDoMenu = menuModulos.contains(evento.target);
+    const clicouNoBotaoMenu = btnMenu.contains(evento.target);
+
+    if (
+        menuModulos.classList.contains("aberto") &&
+        !clicouDentroDoMenu &&
+        !clicouNoBotaoMenu
+    ) {
+        menuModulos.classList.remove("aberto");
+    }
+});
+
+const btnDashboard =
+    document.getElementById("btnDashboard");
+
+btnDashboard.addEventListener("click", () => {
+
+    Object.values(telasModulos).forEach(modulo => {
+        modulo.style.display = "none";
+    });
+
+    telasModulos.inicio.style.display = "block";
+
+    document.getElementById("cabecalhoDashboard").style.display = "block";
+    document.getElementById("tituloDashboard").style.display = "inline";
+
+    menuModulos.classList.remove("aberto");
+});
+
+// ==========================================
+// DASHBOARD
+// ==========================================
 function atualizarInicio() {
 
     let maiorSequencia = 0;
