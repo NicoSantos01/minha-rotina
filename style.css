@@ -1459,7 +1459,8 @@ button:hover {
 @media (max-width: 700px) {
 
     .dashboard-principal {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
 }
