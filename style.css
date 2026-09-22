@@ -1075,7 +1075,6 @@ button:hover {
 /* ==========================================
    TREINO
 ========================================== */
-
 #listaTreinos {
     display: flex;
     flex-direction: column;
@@ -1280,6 +1279,31 @@ button:hover {
     max-width: 400px;
 }
 
+/* BOTÕES DO MODAL DE TREINO */
+.modal-treino-caixa button {
+    display: block;
+    width: 100%;
+
+    border: none;
+    background: none;
+
+    padding: 12px 0;
+    margin: 0;
+
+    text-align: left;
+
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-treino-caixa button:hover {
+    background: #f3f4f6;
+}
+
+.modal-treino-caixa .btn-cancelar-treino {
+    margin-top: 10px;
+}
+
 .ficha-treino {
     display: none;
     position: fixed;
@@ -1417,10 +1441,10 @@ button:hover {
 }
 
 .eventos-hoje,
-.resumo-alimentacao-dashboard,
-.resumo-estudos-dashboard,
-.resumo-trabalho-dashboard,
-.resumo-financas-dashboard {
+#resumoAlimentacaoDashboard,
+#resumoEstudosDashboard,
+#resumoTrabalhoDashboard,
+#resumoFinancasDashboard {
     min-height: 50px;
 }
 
