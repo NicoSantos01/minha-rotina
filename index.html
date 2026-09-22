@@ -159,296 +159,301 @@
 <!-- ========================= -->
 <!-- TELAS DOS MÓDULOS -->
 <!-- ========================= -->
+<section id="telaInicio" class="tela-modulo">
+
+  <div class="inicio-cabecalho">
+      <h2>🏠 Dashboard</h2>
+      <p>Sua central pessoal.</p>
+  </div>
+
+  <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+          <h3>🌱 Hábitos</h3>
+      </div>
   
-  <section id="telaInicio" class="tela-modulo">
+      <div id="resumoHabitosDashboard">
+          <p>Resumo dos hábitos de hoje.</p>
+      </div>
+  </div>
 
-    <div class="inicio-cabecalho">
-        <h2>🏠 Dashboard</h2>
-        <p>Sua central pessoal.</p>
-    </div>
+  <div class="dashboard-principal">
 
-    <div class="dashboard-principal">
+      <div class="bloco-dashboard">
+          <div class="titulo-bloco-dashboard">
+              <h3>🏋️ Treino de hoje</h3>
+          </div>
 
-        <div class="bloco-dashboard">
-            <div class="titulo-bloco-dashboard">
-                <h3>🏋️ Treino de hoje</h3>
-            </div>
+          <div id="treinoHojeInicio" class="treino-hoje-inicio">
+              <p>Carregando treino...</p>
+          </div>
+      </div>
 
-            <div id="treinoHojeInicio" class="treino-hoje-inicio">
-                <p>Carregando treino...</p>
-            </div>
-        </div>
+      <div class="bloco-dashboard">
+          <div class="titulo-bloco-dashboard">
+              <h3>📅 Hoje</h3>
+          </div>
 
-        <div class="bloco-dashboard">
-            <div class="titulo-bloco-dashboard">
-                <h3>📅 Hoje</h3>
-            </div>
+          <div id="eventosHoje" class="eventos-hoje">
+              <p>Nenhum compromisso para hoje.</p>
+          </div>
+      </div>
 
-            <div id="eventosHoje" class="eventos-hoje">
-                <p>Nenhum compromisso para hoje.</p>
-            </div>
-        </div>
+  </div>
 
-    </div>
+  <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+          <h3>🍽️ Alimentação</h3>
+      </div>
 
-    <div class="bloco-dashboard">
-        <div class="titulo-bloco-dashboard">
-            <h3>🍽️ Alimentação</h3>
-        </div>
+      <div id="resumoAlimentacaoDashboard">
+          <p>Resumo da alimentação de hoje.</p>
+      </div>
+  </div>
 
-        <div id="resumoAlimentacaoDashboard">
-            <p>Resumo da alimentação de hoje.</p>
-        </div>
-    </div>
+  <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+          <h3>📚 Estudos</h3>
+      </div>
 
-    <div class="bloco-dashboard">
-        <div class="titulo-bloco-dashboard">
-            <h3>📚 Estudos</h3>
-        </div>
+      <div id="resumoEstudosDashboard">
+          <p>Resumo dos seus estudos.</p>
+      </div>
+  </div>
 
-        <div id="resumoEstudosDashboard">
-            <p>Resumo dos seus estudos.</p>
-        </div>
-    </div>
+  <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+          <h3>💼 Trabalho</h3>
+      </div>
 
-    <div class="bloco-dashboard">
-        <div class="titulo-bloco-dashboard">
-            <h3>💼 Trabalho</h3>
-        </div>
+      <div id="resumoTrabalhoDashboard">
+          <p>Resumo do trabalho de hoje.</p>
+      </div>
+  </div>
 
-        <div id="resumoTrabalhoDashboard">
-            <p>Resumo do trabalho de hoje.</p>
-        </div>
-    </div>
+  <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+          <h3>💰 Finanças</h3>
+      </div>
 
-    <div class="bloco-dashboard">
-        <div class="titulo-bloco-dashboard">
-            <h3>💰 Finanças</h3>
-        </div>
-
-        <div id="resumoFinancasDashboard">
-            <p>Resumo financeiro do mês.</p>
-        </div>
-    </div>
+      <div id="resumoFinancasDashboard">
+          <p>Resumo financeiro do mês.</p>
+      </div>
+  </div>
 
 </section>
   
-  
-  <section id="telaHabitos" class="tela-modulo">
-  
-      <section id="telaHoje">
-  
-          <h2>Hábitos de hoje</h2>
-  
-          <div id="listaHabitos"></div>
-  
-          <div id="areaArquivados" class="area-arquivados">
-  
-              <h2>📦 Hábitos arquivados</h2>
-  
-              <div id="listaArquivados"></div>
-  
-          </div>
-  
-          <button id="btnNovoHabito">
-              + Novo hábito
-          </button>
-  
-          <button id="btnArquivados">
-              📦 Arquivados
-          </button>
-  
-      </section>
-  
-  
-      <section id="telaHistorico">
-  
-          <div class="historico-header">
-  
-              <button id="mesAnterior">‹</button>
-  
-              <h2 id="mesAtual"></h2>
-  
-              <button id="mesProximo">›</button>
-  
-          </div>
-  
-  
-          <div class="calendario">
-  
-              <div class="dias-semana">
-  
-                  <span>Dom</span>
-                  <span>Seg</span>
-                  <span>Ter</span>
-                  <span>Qua</span>
-                  <span>Qui</span>
-                  <span>Sex</span>
-                  <span>Sáb</span>
-  
-              </div>
-  
-              <div
-                  id="diasCalendario"
-                  class="dias-calendario">
-              </div>
-  
-          </div>
-  
-  
-          <div
-              id="detalhesDia"
-              class="detalhes-dia">
-          </div>
-  
-      </section>
-  
-  </section>
-  
-  
-  <section id="telaAlimentacao" class="tela-modulo">
-  
-      <div class="modulo-cabecalho">
-          <h2>🍽️ Alimentação</h2>
-          <p>Organize suas refeições do dia.</p>
-      </div>
-  
-      <div class="refeicoes">
-  
-          <div class="card-refeicao" data-refeicao="cafe">
-  
-              <span class="icone-refeicao">🍳</span>
-          
-              <div>
-                  <h3>Café da manhã</h3>
-          
-                  <p id="resumoCafe">
-                      Comece o dia com uma boa refeição.
-                  </p>
-          
-                  <div id="listaCafe" class="lista-alimentos"></div>
-                
-              </div>
-          
-          </div>
-  
-          <div class="card-refeicao" data-refeicao="lanche">
-            
-              <span class="icone-refeicao">🍌</span>
-              <div>
-                  <h3>Lanche da manhã</h3>
-                  <p id="resumoLanche">
-                      Uma opção rápida para o meio da manhã.
-                  </p>
-  
-                <div id="listaLanche" class="lista-alimentos"></div>
-                
-              </div>
-          </div>
-  
-          <div class="card-refeicao" data-refeicao="almoco">
-            
-              <span class="icone-refeicao">🍛</span>
-              <div>
-                  <h3>Almoço</h3>
-                  <p id="resumoAlmoco">
-                      Registre sua principal refeição do dia.
-                  </p>
-  
-                <div id="listaAlmoco" class="lista-alimentos"></div>
-                
-              </div>
-          </div>
-  
-          <div class="card-refeicao" data-refeicao="pre_treino">
-            
-              <span class="icone-refeicao">🥪</span>
-              <div>
-                  <h3>Pré-treino</h3>
-                  <p id="resumoPreTreino">
-                      Energia para o seu treino.
-                  </p>
-  
-                <div id="listaPreTreino" class="lista-alimentos"></div>
-                
-              </div>
-          </div>
-  
-          <div class="card-refeicao" data-refeicao="jantar">
-            
-              <span class="icone-refeicao">🍽️</span>
-              <div>
-                  <h3>Jantar</h3>
-                  <p id="resumoJantar">
-                      Registre sua refeição da noite.
-                  </p>
-  
-                <div id="listaJantar" class="lista-alimentos"></div>
-                
-              </div>
-          </div>
-  
-          <div class="card-refeicao" data-refeicao="ceia">
-            
-              <span class="icone-refeicao">🌙</span>
-              <div>
-                  <h3>Ceia</h3>
-                  <p id="resumoCeia">
-                      Uma opção antes de dormir, se necessário.
-                  </p>
-  
-                <div id="listaCeia" class="lista-alimentos"></div>
-                
-              </div>
-          </div>
-  
-      </div>
-  
-    <div id="modalRefeicao" class="modal-refeicao">
-  
-      <div id="formularioRefeicao" class="formulario-refeicao">
-  
-            <h3 id="tituloRefeicao">Café da manhã</h3>
-    
-            <label for="comidaRefeicao">
-                O que você comeu?
-            </label>
-    
-            <input
-                type="text"
-                id="comidaRefeicao"
-                placeholder="Ex: 1 ovo">
-    
-            <div id="listaAlimentosRefeicao"></div>
-    
-            <button id="adicionarAlimento">
-                + Adicionar alimento
-            </button>
-    
-            <button id="salvarRefeicao">
-                Salvar refeição
-            </button>
-  
-            <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
-                Cancelar
-            </button>
-    
+<section id="telaHabitos" class="tela-modulo">
+
+    <section id="telaHoje">
+
+        <h2>Sistema de Rotina</h2>
+
+        <div id="listaHabitos"></div>
+
+        <div id="areaArquivados" class="area-arquivados">
+
+            <h2>📦 Hábitos arquivados</h2>
+
+            <div id="listaArquivados"></div>
+
         </div>
-    
+
+        <button id="btnNovoHabito">
+            + Novo hábito
+        </button>
+
+        <button id="btnArquivados">
+            📦 Arquivados
+        </button>
+
+    </section>
+
+    <section id="telaHistorico">
+
+        <div class="historico-header">
+
+            <button id="mesAnterior">‹</button>
+
+            <h2 id="mesAtual"></h2>
+
+            <button id="mesProximo">›</button>
+
+        </div>
+
+
+        <div class="calendario">
+
+            <div class="dias-semana">
+
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
+
+            </div>
+
+            <div
+                id="diasCalendario"
+                class="dias-calendario">
+            </div>
+
+        </div>
+
+
+        <div
+            id="detalhesDia"
+            class="detalhes-dia">
+        </div>
+
+    </section>
+
+</section>
+  
+<section id="telaAlimentacao" class="tela-modulo">
+
+    <div class="modulo-cabecalho">
+        <h2>🍽️ Alimentação</h2>
+        <p>Organize suas refeições do dia.</p>
     </div>
+
+    <div class="refeicoes">
+
+        <div class="card-refeicao" data-refeicao="cafe">
+
+            <span class="icone-refeicao">🍳</span>
+        
+            <div>
+                <h3>Café da manhã</h3>
+        
+                <p id="resumoCafe">
+                    Comece o dia com uma boa refeição.
+                </p>
+        
+                <div id="listaCafe" class="lista-alimentos"></div>
+              
+            </div>
+        
+        </div>
+
+        <div class="card-refeicao" data-refeicao="lanche">
+          
+            <span class="icone-refeicao">🍌</span>
+            <div>
+                <h3>Lanche da manhã</h3>
+                <p id="resumoLanche">
+                    Uma opção rápida para o meio da manhã.
+                </p>
+
+              <div id="listaLanche" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="almoco">
+          
+            <span class="icone-refeicao">🍛</span>
+            <div>
+                <h3>Almoço</h3>
+                <p id="resumoAlmoco">
+                    Registre sua principal refeição do dia.
+                </p>
+
+              <div id="listaAlmoco" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="pre_treino">
+          
+            <span class="icone-refeicao">🥪</span>
+            <div>
+                <h3>Pré-treino</h3>
+                <p id="resumoPreTreino">
+                    Energia para o seu treino.
+                </p>
+
+              <div id="listaPreTreino" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="jantar">
+          
+            <span class="icone-refeicao">🍽️</span>
+            <div>
+                <h3>Jantar</h3>
+                <p id="resumoJantar">
+                    Registre sua refeição da noite.
+                </p>
+
+              <div id="listaJantar" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+        <div class="card-refeicao" data-refeicao="ceia">
+          
+            <span class="icone-refeicao">🌙</span>
+            <div>
+                <h3>Ceia</h3>
+                <p id="resumoCeia">
+                    Uma opção antes de dormir, se necessário.
+                </p>
+
+              <div id="listaCeia" class="lista-alimentos"></div>
+              
+            </div>
+        </div>
+
+    </div>
+
+  <div id="modalRefeicao" class="modal-refeicao">
+
+    <div id="formularioRefeicao" class="formulario-refeicao">
+
+          <h3 id="tituloRefeicao">Café da manhã</h3>
   
-  </section>
+          <label for="comidaRefeicao">
+              O que você comeu?
+          </label>
   
+          <input
+              type="text"
+              id="comidaRefeicao"
+              placeholder="Ex: 1 ovo">
   
-  <section id="telaFinancas" class="tela-modulo">
+          <div id="listaAlimentosRefeicao"></div>
   
-      <h2>💰 Finanças</h2>
+          <button id="adicionarAlimento">
+              + Adicionar alimento
+          </button>
   
-      <p>
-          Em breve...
-      </p>
+          <button id="salvarRefeicao">
+              Salvar refeição
+          </button>
+
+          <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+              Cancelar
+          </button>
   
-  </section>
+      </div>
+  
+  </div>
+
+</section>
+  
+<section id="telaFinancas" class="tela-modulo">
+
+    <h2>💰 Finanças</h2>
+
+    <p>
+        Em breve...
+    </p>
+
+</section>
   
   
   <section id="telaTreino" class="tela-modulo">
@@ -751,9 +756,8 @@
   </div>
   
   <!-- AQUI ENTRA O MODAL DO TREINO -->
-  
   <div id="modalTreino" class="modal-treino">
-  
+
       <div class="modal-treino-caixa">
   
           <h2 id="modalNomeTreino">Push</h2>
@@ -763,11 +767,15 @@
           </p>
   
           <button id="btnVisualizarFicha">
-              👁️ Visualizar / Editar ficha
+              Visualizar ficha
+          </button>
+  
+          <button id="btnEditarFicha">
+              Editar ficha
           </button>
   
           <button id="btnIniciarTreino">
-              ▶️ Iniciar treino
+              Iniciar treino
           </button>
   
           <button id="btnCancelarTreino" class="btn-cancelar-treino">
