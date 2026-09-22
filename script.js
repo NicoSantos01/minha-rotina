@@ -1793,6 +1793,10 @@ Object.values(
 // ABRE O DASHBOARD AO INICIAR
 telasModulos.inicio.style.display = "block";
 
+// ELEMENTOS DO MENU
+const btnMenu = document.getElementById("btnMenu");
+const menuModulos = document.getElementById("menuModulos");
+
 // TROCA ENTRE OS MÓDULOS
 document.querySelectorAll(
     ".item-navegacao"
@@ -1820,6 +1824,9 @@ document.querySelectorAll(
                 telasModulos[tela].style.display =
                     "block";
 
+                // Fecha o menu lateral
+                menuModulos.classList.remove("aberto");
+
                 // Esconde o conteúdo exclusivo do Dashboard
                 document.getElementById(
                     "cabecalhoDashboard"
@@ -1835,9 +1842,6 @@ document.querySelectorAll(
 
     }
 );
-
-const btnMenu = document.getElementById("btnMenu");
-const menuModulos = document.getElementById("menuModulos");
 
 btnMenu.addEventListener("click", () => {
     menuModulos.classList.add("aberto");
