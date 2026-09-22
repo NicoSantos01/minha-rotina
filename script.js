@@ -34,6 +34,12 @@ const diasCalendario =
 const detalhesDia =
     document.getElementById("detalhesDia");
 
+const resumoHabitosDashboard =
+    document.getElementById("resumoHabitosDashboard");
+
+const resumoAlimentacaoDashboard =
+    document.getElementById("resumoAlimentacaoDashboard");
+
 // ==========================================
 // VARIÁVEL DE EDIÇÃO
 // ==========================================
@@ -88,11 +94,427 @@ function salvarHabitos() {
 
 }
 
+// ==========================================
+// SISTEMA DE DIAS
+// ==========================================
+
+let dias =
+    JSON.parse(localStorage.getItem("dias")) || [];
+
+
+// ==========================================
+// SALVAR DIAS
+// ==========================================
+
+function salvarDias() {
+
+    localStorage.setItem(
+        "dias",
+        JSON.stringify(dias)
+    );
+
+}
+
+
+// ==========================================
+// OBTER DIA
+// ==========================================
+
+function obterDia(data) {
+
+    let dia =
+        dias.find(
+            item => item.data === data
+        );
+
+    if (!dia) {
+
+        dia = {
+
+            data: data,
+
+            manha: {},
+
+            tarde: {},
+
+            noite: {}
+
+        };
+
+        dias.push(dia);
+
+        salvarDias();
+
+    }
+
+    return dia;
+
+}
+
+// Cria o registro do dia atual
+obterDia(dataHoje());
+
+// ==========================================
+// RESUMO DE HÁBITOS DO DIA
+// ==========================================
+
+function obterHabitosDoDia(data) {
+
+  console.log("OBTER HÁBITOS FOI EXECUTADA");
+  console.log("Data recebida:", data);
+  console.log("Hábitos existentes:", habitos);
+
+  // aqui vamos consultar "habitos"
+  const habitosDoDia =
+        habitos.filter(
+            habito =>
+                !habito.arquivado
+        );
+
+    const total =
+        habitosDoDia.length;
+
+    const concluidos =
+        habitosDoDia.filter(
+            habito =>
+                habito.conclucoes &&
+                habito.conclucoes[data]
+        ).length;
+
+    const percentual =
+        total === 0
+            ? 0
+            : Math.round(
+                (concluidos / total) * 100
+            );
+
+    return {
+
+        total: total,
+
+        concluidos: concluidos,
+
+        percentual: percentual,
+
+        lista: habitosDoDia
+
+    };
+
+}
+
+// ==========================================
+// RESUMO DE ALIMENTAÇÃO DO DIA
+// ==========================================
+
+function obterAlimentacaoDoDia(data) {
+
+    const alimentacao =
+        JSON.parse(
+            localStorage.getItem("alimentacao")
+        ) || {};
+
+    const refeicoesHoje =
+        alimentacao[data] || {};
+
+    const refeicoesRegistradas =
+        Object.keys(refeicoesHoje).filter(
+            refeicao =>
+                Array.isArray(refeicoesHoje[refeicao]) &&
+                refeicoesHoje[refeicao].length > 0
+        );
+
+    const totalRefeicoes =
+        refeicoesRegistradas.length;
+
+    const totalItens =
+        refeicoesRegistradas.reduce(
+            (total, refeicao) =>
+                total + refeicoesHoje[refeicao].length,
+            0
+        );
+
+    return {
+        registrada:
+            totalRefeicoes > 0,
+
+        refeicoes:
+            totalRefeicoes,
+
+        itens:
+            totalItens,
+
+        dados:
+            refeicoesHoje
+    };
+}
+
+// ==========================================
+// RESUMO DE TREINO DO DIA
+// ==========================================
+
+function obterTreinoDoDia(data) {
+
+    const treinoDoDia =
+        treinos.find(
+            item => item.data === data
+        );
+
+    if (!treinoDoDia) {
+
+        return {
+            registrado: false,
+            dados: null
+        };
+
+    }
+
+    return {
+        registrado: true,
+        dados: treinoDoDia
+    };
+
+}
+
+// ==========================================
+// RESUMO DE ESTUDOS DO DIA
+// ==========================================
+
+function obterEstudosDoDia(data) {
+
+    const estudosDoDia =
+        estudos.find(
+            item => item.data === data
+        );
+
+    if (!estudosDoDia) {
+
+        return {
+            registrado: false,
+            dados: null
+        };
+
+    }
+
+    return {
+        registrado: true,
+        dados: estudosDoDia
+    };
+
+}
+
+ // ==========================================
+// RESUMO DE TRABALHO DO DIA
+// ==========================================
+
+function obterTrabalhoDoDia(data) {
+
+    const trabalhosDoDia =
+        trabalhos.filter(
+            trabalho =>
+                trabalho.data === data
+        );
+
+    return {
+
+        registrado:
+            trabalhosDoDia.length > 0,
+
+        total:
+            trabalhosDoDia.length,
+
+        lista:
+            trabalhosDoDia
+
+    };
+
+}
+
+// ==========================================
+// RESUMO DE FINANÇAS DO DIA
+// ==========================================
+
+function obterFinancasDoDia(data) {
+
+    const transacoesDoDia =
+        transacoes.filter(
+            transacao =>
+                transacao.data === data
+        );
+
+    const entradas =
+        transacoesDoDia
+            .filter(
+                transacao =>
+                    transacao.tipo === "entrada"
+            )
+            .reduce(
+                (total, transacao) =>
+                    total + Number(transacao.valor || 0),
+                0
+            );
+
+    const saidas =
+        transacoesDoDia
+            .filter(
+                transacao =>
+                    transacao.tipo === "saida"
+            )
+            .reduce(
+                (total, transacao) =>
+                    total + Number(transacao.valor || 0),
+                0
+            );
+
+    const saldo =
+        entradas - saidas;
+
+    return {
+
+        registrado:
+            transacoesDoDia.length > 0,
+
+        total:
+            transacoesDoDia.length,
+
+        entradas:
+            entradas,
+
+        saidas:
+            saidas,
+
+        saldo:
+            saldo,
+
+        lista:
+            transacoesDoDia
+
+    };
+
+}
+
+// ==========================================
+// RESUMO DE TEMPO DE TELA DO DIA
+// ==========================================
+
+function obterTempoDeTelaDoDia(data) {
+
+    const dia =
+        obterDia(data);
+
+    const tempoDeTela =
+        dia.tempoDeTela;
+
+    if (!tempoDeTela) {
+
+        return {
+            registrado: false,
+            dados: null
+        };
+
+    }
+
+    return {
+        registrado: true,
+        dados: tempoDeTela
+    };
+
+}
+
+// ==========================================
+// RESUMO COMPLETO DO DIA
+// ==========================================
+
+function obterResumoDoDia(data) {
+
+    return {
+
+        data: data,
+
+        habitos:
+            obterHabitosDoDia(data),
+
+        alimentacao:
+            obterAlimentacaoDoDia(data),
+
+        treino:
+            obterTreinoDoDia(data),
+
+        estudos:
+            obterEstudosDoDia(data),
+
+        trabalho:
+            obterTrabalhoDoDia(data),
+
+        financas:
+            obterFinancasDoDia(data),
+
+        tempoDeTela:
+            obterTempoDeTelaDoDia(data)
+
+    };
+
+}
+
+// ==========================================
+// DASHBOARD — RESUMO DE HÁBITOS
+// ==========================================
+function atualizarHabitosDashboard() {
+
+    const resumo =
+        obterHabitosDoDia(dataHoje());
+
+    resumoHabitosDashboard.innerHTML = `
+
+        <strong>
+            ${resumo.concluidos} de ${resumo.total} concluídos
+        </strong>
+
+        <p>
+            ${resumo.percentual}%
+        </p>
+
+    `;
+
+}
+
+atualizarHabitosDashboard();
+
+// ==========================================
+// DASHBOARD — RESUMO DE ALIMENTAÇÃO
+// ==========================================
+function atualizarAlimentacaoDashboard() {
+
+    const resumo =
+        obterAlimentacaoDoDia(dataHoje());
+
+    if (!resumo.registrada) {
+
+        resumoAlimentacaoDashboard.innerHTML = `
+            <p>Nenhuma alimentação registrada hoje.</p>
+        `;
+
+        return;
+
+    }
+
+    resumoAlimentacaoDashboard.innerHTML = `
+        <strong>
+            ${resumo.refeicoes} refeições registradas
+        </strong>
+
+        <p>
+            ${resumo.itens} itens registrados
+        </p>
+    `;
+
+}
+
+atualizarAlimentacaoDashboard();
+
 
 // ==========================================
 // MOSTRAR DATA ATUAL
 // ==========================================
-
 function mostrarData() {
 
     const hoje =
@@ -1870,7 +2292,6 @@ const btnDashboard =
     document.getElementById("btnDashboard");
 
 btnDashboard.addEventListener("click", () => {
-
     Object.values(telasModulos).forEach(modulo => {
         modulo.style.display = "none";
     });
@@ -1881,6 +2302,8 @@ btnDashboard.addEventListener("click", () => {
     document.getElementById("tituloDashboard").style.display = "inline";
 
     menuModulos.classList.remove("aberto");
+
+    atualizarAlimentacaoDashboard();
 });
 
 // ==========================================
@@ -2529,16 +2952,42 @@ const modalTreino =
     document.getElementById("modalTreino");
 
 document
-    .getElementById("btnCancelarTreino")
-    .addEventListener(
-        "click",
-        () => {
+  .getElementById("btnCancelarTreino")
+  .addEventListener(
+      "click",
+      () => {
 
-            modalTreino.style.display =
-                "none";
+          modalTreino.style.display =
+              "none";
 
-        }
-    );
+      }
+  );
+
+document
+  .getElementById("voltarListaTreinos")
+  .addEventListener(
+      "click",
+      () => {
+
+          document.getElementById(
+              "fichaTreino"
+          ).style.display = "none";
+
+          document.getElementById(
+              "modalTreino"
+          ).style.display = "none";
+
+          Object.values(telasModulos).forEach(
+              modulo => {
+                  modulo.style.display = "none";
+              }
+          );
+
+          telasModulos.treino.style.display =
+              "block";
+
+      }
+  );
 
 modalTreino.addEventListener(
     "click",
@@ -2802,11 +3251,12 @@ const fichasTreino = {
 
 };
 
-function abrirFichaTreino(treino) {
+
+function abrirFichaTreino(treino, modoEdicao = false) {
 
     const ficha =
         fichasTreino[treino];
-    
+
     if (!ficha || !ficha.grupos) {
         console.error(
             "Ficha de treino inválida:",
@@ -2874,7 +3324,8 @@ function abrirFichaTreino(treino) {
                                 <input
                                     type="number"
                                     value="${exercicio.series}"
-                                    min="1">
+                                    min="1"
+                                    ${modoEdicao ? "" : "disabled"}>
                             </div>
 
                             <span>×</span>
@@ -2886,7 +3337,8 @@ function abrirFichaTreino(treino) {
 
                                 <input
                                     type="text"
-                                    value="${exercicio.repeticoes}">
+                                    value="${exercicio.repeticoes}"
+                                    ${modoEdicao ? "" : "disabled"}>
                             </div>
 
                             <div>
@@ -2900,7 +3352,8 @@ function abrirFichaTreino(treino) {
                                         type="number"
                                         value="0"
                                         min="0"
-                                        step="0.5">
+                                        step="0.5"
+                                        ${modoEdicao ? "" : "disabled"}>
 
                                     <span>kg</span>
 
@@ -2929,6 +3382,7 @@ function abrirFichaTreino(treino) {
         "fichaTreino"
     ).style.display = "flex";
 }
+
 
 document.querySelectorAll(
     ".card-treino"
@@ -2982,6 +3436,44 @@ document
 
             abrirFichaTreino(
                 treino
+            );
+
+        }
+    );
+
+document
+    .getElementById("btnEditarFicha")
+    .addEventListener(
+        "click",
+        () => {
+
+            const diaSemana =
+                new Date().getDay();
+
+            const treinosSemana = {
+
+                1: "push",
+                2: "pull",
+                3: "lowerA",
+                4: "upper",
+                5: "lowerB"
+
+            };
+
+            const treino =
+                treinosSemana[diaSemana];
+
+            if (!treino) {
+                return;
+            }
+
+            document.getElementById(
+                "modalTreino"
+            ).style.display = "none";
+
+            abrirFichaTreino(
+                treino,
+                true
             );
 
         }
