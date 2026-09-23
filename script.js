@@ -3478,3 +3478,1253 @@ document
 
         }
     );
+
+// ========================================
+// MÓDULO ESTUDOS — MODAL
+// ========================================
+
+console.log("ESTUDOS FOI CARREGADO");
+
+const btnNovoEstudo = document.getElementById("btnNovoEstudo");
+const modalEstudo = document.getElementById("modalEstudo");
+const cancelarEstudo = document.getElementById("cancelarEstudo");
+const tipoEstudo = document.getElementById("tipoEstudo");
+const camposFaculdade = document.getElementById("camposFaculdade");
+
+// Abrir modal
+btnNovoEstudo.addEventListener("click", () => {
+    modalEstudo.classList.add("ativo");
+});
+
+// Fechar modal pelo botão Cancelar
+cancelarEstudo.addEventListener("click", () => {
+    modalEstudo.classList.remove("ativo");
+});
+
+// Fechar clicando fora da caixa
+modalEstudo.addEventListener("click", (evento) => {
+
+    if (evento.target === modalEstudo) {
+        modalEstudo.classList.remove("ativo");
+    }
+
+});
+
+// Mostrar/esconder campos específicos da faculdade
+tipoEstudo.addEventListener("change", () => {
+
+    if (tipoEstudo.value === "faculdade") {
+
+        camposFaculdade.style.display = "block";
+
+    } else {
+
+        camposFaculdade.style.display = "none";
+
+    }
+
+});
+
+// ========================================
+// MÓDULO ESTUDOS — SALVAR ESTUDO
+// ========================================
+
+const salvarEstudo = document.getElementById("salvarEstudo");
+const nomeEstudo = document.getElementById("nomeEstudo");
+const cursoFaculdade = document.getElementById("cursoFaculdade");
+const semestreFaculdade = document.getElementById("semestreFaculdade");
+const listaEstudos = document.getElementById("listaEstudos");
+
+// Carregar estudos salvos
+let estudos = JSON.parse(localStorage.getItem("estudos")) || [];
+
+
+// Mostrar estudos na tela
+function renderizarEstudos() {
+
+    listaEstudos.innerHTML = "";
+
+    if (estudos.length === 0) {
+
+        listaEstudos.innerHTML = `
+            <p class="estado-vazio-estudos">
+                Você ainda não cadastrou nenhum estudo.
+            </p>
+        `;
+
+        return;
+    }
+
+    estudos.forEach((estudo) => {
+        const card = document.createElement("div");
+        card.className = "card-estudo";
+    
+        card.addEventListener("click", () => {
+            abrirDetalheEstudo(estudo.id);
+        });
+
+        let icone = "📚";
+
+        if (estudo.tipo === "faculdade") {
+            icone = "🎓";
+        }
+
+        if (estudo.tipo === "curso") {
+            icone = "💻";
+        }
+
+        if (estudo.tipo === "certificacao") {
+            icone = "🏆";
+        }
+
+        if (estudo.tipo === "pessoal") {
+            icone = "🧠";
+        }
+
+        card.innerHTML = `
+            <div class="card-estudo-cabecalho">
+
+                <span class="icone-estudo">
+                    ${icone}
+                </span>
+
+                <div>
+
+                    <h3>
+                        ${estudo.nome}
+                    </h3>
+
+                    ${
+                        estudo.tipo === "faculdade"
+                        ? `
+                            <p>
+                                ${estudo.curso}
+                            </p>
+
+                            <small>
+                                ${estudo.semestre}
+                            </small>
+                          `
+                        : `
+                            <p>
+                                ${estudo.tipo}
+                            </p>
+                          `
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="progresso-estudo">
+
+                <div class="barra-progresso-estudo">
+                    <div
+                        style="width: ${estudo.progresso}%">
+                    </div>
+                </div>
+
+                <span>
+                    ${estudo.progresso}%
+                </span>
+
+            </div>
+        `;
+
+        listaEstudos.appendChild(card);
+
+    });
+}
+
+// ========================================
+// MÓDULO ESTUDOS — DETALHE DO ESTUDO
+// ========================================
+
+const detalheEstudo = document.getElementById("detalheEstudo");
+const conteudoDetalheEstudo = document.getElementById("conteudoDetalheEstudo");
+const btnVoltarEstudos = document.getElementById("btnVoltarEstudos");
+const modalMateria =
+document.getElementById("modalMateria");
+const nomeMateria =
+document.getElementById("nomeMateria");
+const salvarMateria =
+document.getElementById("salvarMateria");
+const cancelarMateria =
+document.getElementById("cancelarMateria");
+const modalConteudo =
+document.getElementById("modalConteudo");
+const nomeConteudo =
+document.getElementById("nomeConteudo");
+const statusConteudo =
+document.getElementById("statusConteudo");
+const salvarConteudo =
+document.getElementById("salvarConteudo");
+const cancelarConteudo =
+document.getElementById("cancelarConteudo");
+const excluirConteudo =
+document.getElementById("excluirConteudo");
+const modalAtividade =
+document.getElementById("modalAtividade");
+const nomeAtividade =
+document.getElementById("nomeAtividade");
+const dataAtividade =
+document.getElementById("dataAtividade");
+const statusAtividade =
+document.getElementById("statusAtividade");
+const dashboardAtividade =
+document.getElementById("dashboardAtividade");
+const salvarAtividade =
+document.getElementById("salvarAtividade");
+const cancelarAtividade =
+document.getElementById("cancelarAtividade");
+const excluirAtividade =
+document.getElementById("excluirAtividade");
+
+let estudoSelecionadoId = null;
+let materiaSelecionadaId = null;
+let conteudoSelecionadoId = null;
+let atividadeSelecionadaId = null;
+
+// CANCELAR CONTEÚDO
+
+cancelarConteudo.addEventListener("click", () => {
+
+    modalConteudo.classList.remove("ativo");
+
+});
+
+// CANCELAR ATIVIDADE
+
+cancelarAtividade.addEventListener("click", () => {
+
+    modalAtividade.classList.remove("ativo");
+
+});
+
+
+// FECHAR CLICANDO FORA
+
+modalConteudo.addEventListener("click", (evento) => {
+
+    if (evento.target === modalConteudo) {
+
+        modalConteudo.classList.remove("ativo");
+
+    }
+
+});
+
+// FECHAR ATIVIDADE CLICANDO FORA
+
+modalAtividade.addEventListener("click", (evento) => {
+
+    if (evento.target === modalAtividade) {
+
+        modalAtividade.classList.remove("ativo");
+
+    }
+
+});
+
+function abrirDetalheEstudo(id) {
+
+    const estudo = estudos.find((item) => item.id === id);
+
+    if (!estudo) {
+        return;
+    }
+
+    estudoSelecionadoId = id;
+
+    conteudoDetalheEstudo.innerHTML = `
+        <div class="cabecalho-detalhe-estudo">
+
+            <h2>
+                ${estudo.tipo === "faculdade" ? "🎓" : "📚"}
+                ${estudo.nome}
+            </h2>
+
+            ${
+                estudo.tipo === "faculdade"
+                ? `
+                    <p>${estudo.curso}</p>
+                    <small>${estudo.semestre}</small>
+                `
+                : `
+                    <p>${estudo.tipo}</p>
+                `
+            }
+
+        </div>
+
+        <div class="progresso-detalhe-estudo">
+
+            <strong>📊 Progresso geral</strong>
+
+            <div class="progresso-estudo">
+
+                <div class="barra-progresso-estudo">
+                    <div style="width: ${estudo.progresso}%"></div>
+                </div>
+
+                <span>${estudo.progresso}%</span>
+
+            </div>
+
+        </div>
+
+        ${
+            estudo.tipo === "faculdade"
+            ? `
+                <div class="bloco-estudos">
+        
+                    <div class="titulo-bloco-estudos">
+                        <h3>📚 Matérias</h3>
+                    </div>
+        
+                    ${
+                        estudo.materias.length === 0
+                        ? `
+                            <p class="estado-vazio-estudos">
+                                Nenhuma matéria cadastrada.
+                            </p>
+                          `
+                        : `
+                            <div class="lista-materias-estudo">
+        
+                                ${estudo.materias.map((materia) => `
+                                    
+                                  <div
+      class="card-materia-estudo"
+      onclick="abrirDetalheMateria(${materia.id})"
+  >
+  
+      <div>
+          <strong>📚 ${materia.nome}</strong>
+  
+          <small>
+              Progresso: ${materia.progresso}%
+          </small>
+      </div>
+  
+      <div class="progresso-estudo">
+  
+          <div class="barra-progresso-estudo">
+              <div style="width: ${materia.progresso}%"></div>
+          </div>
+  
+          <span>${materia.progresso}%</span>
+  
+      </div>
+  
+  </div>
+        
+                                `).join("")}
+        
+                            </div>
+                          `
+                    }
+        
+                    <button id="btnNovaMateria">
+                        + Adicionar matéria
+                    </button>
+        
+                </div>
+            `
+            : ""
+        }
+    `;
+
+  
+
+    // Mostra o detalhe
+    detalheEstudo.classList.add("ativo");
+
+  const btnNovaMateria = document.getElementById("btnNovaMateria");
+  
+    if (btnNovaMateria) {
+    
+        btnNovaMateria.addEventListener("click", () => {
+    
+            nomeMateria.value = "";
+    
+            modalMateria.classList.add("ativo");
+    
+        });
+    
+    }
+}
+
+// ========================================
+// MÓDULO ESTUDOS — DETALHE DA MATÉRIA
+// ========================================
+
+function abrirDetalheMateria(id) {
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === id
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    materiaSelecionadaId = id;
+
+    conteudoDetalheEstudo.innerHTML = `
+
+        <div class="cabecalho-detalhe-estudo">
+
+            <h2>📚 ${materia.nome}</h2>
+
+            <p>${estudo.nome}</p>
+
+        </div>
+
+        <div class="progresso-detalhe-estudo">
+
+            <strong>📊 Progresso da matéria</strong>
+
+            <div class="progresso-estudo">
+
+                <div class="barra-progresso-estudo">
+
+                    <div style="width: ${materia.progresso}%"></div>
+
+                </div>
+
+                <span>
+                    ${materia.progresso}%
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="bloco-estudos">
+
+          <div class="titulo-bloco-estudos">
+            <h3>📖 Conteúdos</h3>
+          </div>
+        
+            ${
+              materia.conteudos.length === 0
+              ? `
+                <p class="estado-vazio-estudos">
+                    Nenhum conteúdo cadastrado.
+                </p>
+                  `
+                : `
+                  <div class="lista-conteudos-estudo">
+      
+                    ${materia.conteudos.map((conteudo) => `
+    
+                      <div 
+                        class="card-conteudo-estudo"
+                        onclick="abrirEdicaoConteudo(${conteudo.id})"
+                        >
+  
+                        <strong>
+                            📖 ${conteudo.nome}
+                        </strong>
+
+                        <small>
+                          ${
+                              conteudo.status === "nao_iniciado"
+                              ? "⚪ Não iniciado"
+                              : conteudo.status === "em_andamento"
+                              ? "🟡 Em andamento"
+                              : "🟢 Concluído"
+                          }
+                        </small>
+  
+                      </div>
+    
+                    `).join("")}
+      
+                  </div>
+                `
+            }
+        
+          <button id="btnNovoConteudo">
+            + Adicionar conteúdo
+          </button>
+        
+        </div>
+
+        <div class="bloco-estudos">
+
+          <div class="titulo-bloco-estudos">
+            <h3>📝 Atividades</h3>
+          </div>
+      
+          ${
+            materia.atividades.length === 0
+            ? `
+              <p class="estado-vazio-estudos">
+                Nenhuma atividade cadastrada.
+              </p>
+            `
+            : `
+                <div class="lista-atividades-estudo">
+          
+                  ${materia.atividades.map((atividade) => `
+          
+                  <div
+                    class="card-conteudo-estudo"
+                    onclick="abrirEdicaoAtividade(${atividade.id})"
+                  >
+          
+                    <strong>
+                        📝 ${atividade.nome}
+                    </strong>
+
+                    <small>
+                        📅 ${
+                            atividade.data.split("-").reverse().join("/")
+                        }
+                    </small>
+
+                    <small>
+                        ${
+                            atividade.status === "pendente"
+                            ? "🟡 Pendente"
+                            : "🟢 Concluída"
+                        }
+                    </small>
+          
+                  </div>
+          
+                      `).join("")}
+          
+                </div>
+              `
+          }
+      
+          <button id="btnNovaAtividade">
+            + Adicionar atividade
+          </button>
+        
+        </div>
+
+    `;
+
+  const btnNovoConteudo =
+    document.getElementById("btnNovoConteudo");
+
+  if (btnNovoConteudo) {
+    
+    btnNovoConteudo.addEventListener("click", () => {
+
+      conteudoSelecionadoId = null;
+
+      nomeConteudo.value = "";
+
+      statusConteudo.value = "nao_iniciado";
+
+      excluirConteudo.style.display = "none";
+
+      modalConteudo.classList.add("ativo");
+
+    });
+    
+  }
+
+  const btnNovaAtividade =
+    document.getElementById("btnNovaAtividade");
+
+  if (btnNovaAtividade) {
+  
+    btnNovaAtividade.addEventListener("click", () => {
+
+        nomeAtividade.value = "";
+
+        dataAtividade.value = "";
+
+        statusAtividade.value = "pendente";
+
+        dashboardAtividade.value = "sim";
+
+        excluirAtividade.style.display = "none";
+
+        modalAtividade.classList.add("ativo");
+
+    });
+
+  }
+}
+
+// ========================================
+// EDITAR ATIVIDADE
+// ========================================
+
+function abrirEdicaoAtividade(id) {
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === materiaSelecionadaId
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    const atividade = materia.atividades.find(
+        (item) => item.id === id
+    );
+
+    if (!atividade) {
+        return;
+    }
+
+    atividadeSelecionadaId = id;
+
+    excluirAtividade.style.display = "block";
+
+    nomeAtividade.value = atividade.nome;
+
+    dataAtividade.value = atividade.data;
+
+    statusAtividade.value = atividade.status;
+
+    dashboardAtividade.value =
+        atividade.mostrarDashboard
+        ? "sim"
+        : "nao";
+
+    modalAtividade.classList.add("ativo");
+
+}
+
+// ========================================
+// CHECAGEM
+// ========================================
+
+console.log("CHEGUEI NAS PRÓXIMAS ATIVIDADES");
+
+// ========================================
+// BUSCAR PRÓXIMAS ATIVIDADES
+// ========================================
+
+function obterProximasAtividades() {
+
+    const atividades = [];
+
+    console.log("ESTUDOS SALVOS:", estudos);
+
+    estudos.forEach((estudo) => {
+
+        estudo.materias.forEach((materia) => {
+
+            materia.atividades.forEach((atividade) => {
+
+                if (atividade.status !== "concluida") {
+
+                    atividades.push({
+
+                        ...atividade,
+
+                        estudoNome: estudo.nome,
+
+                        materiaNome: materia.nome
+
+                    });
+
+                }
+
+            });
+
+        });
+
+    });
+
+    atividades.sort((a, b) => {
+
+        return a.data.localeCompare(b.data);
+
+    });
+
+    return atividades;
+
+}
+
+// ========================================
+// RENDERIZAR PRÓXIMAS ATIVIDADES
+// ========================================
+
+function renderizarProximasAtividades() {
+
+    console.log("ENTREI NA FUNÇÃO RENDERIZAR");
+
+    const container =
+        document.getElementById("proximasAtividadesEstudos");
+
+    console.log("CONTAINER:", container);
+
+    if (!container) {
+        return;
+    }
+
+    const atividades = obterProximasAtividades();
+
+    console.log("ATIVIDADES ENCONTRADAS:", atividades);
+
+    if (atividades.length === 0) {
+
+        container.innerHTML = `
+            <p class="estado-vazio-estudos">
+                Nenhuma atividade próxima.
+            </p>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = atividades.map((atividade) => `
+
+        <div class="card-conteudo-estudo">
+
+            <strong>
+                📝 ${atividade.nome}
+            </strong>
+
+            <small>
+                📚 ${atividade.materiaNome}
+            </small>
+
+            <small>
+                📅 ${
+                    atividade.data
+                    .split("-")
+                    .reverse()
+                    .join("/")
+                }
+            </small>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+
+// ========================================
+// EDITAR CONTEÚDO
+// ========================================
+
+function abrirEdicaoConteudo(id) {
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === materiaSelecionadaId
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    const conteudo = materia.conteudos.find(
+        (item) => item.id === id
+    );
+
+    if (!conteudo) {
+        return;
+    }
+
+    conteudoSelecionadoId = id;
+
+    nomeConteudo.value = conteudo.nome;
+
+    statusConteudo.value = conteudo.status;
+
+    excluirConteudo.style.display = "block";
+
+    modalConteudo.classList.add("ativo");
+
+}
+
+// VOLTAR PARA MEUS ESTUDOS
+
+btnVoltarEstudos.addEventListener("click", () => {
+
+    if (materiaSelecionadaId !== null) {
+
+        materiaSelecionadaId = null;
+
+        abrirDetalheEstudo(estudoSelecionadoId);
+
+        return;
+    }
+
+    detalheEstudo.classList.remove("ativo");
+
+});
+
+
+// Criar novo estudo
+salvarEstudo.addEventListener("click", () => {
+
+    const nome = nomeEstudo.value.trim();
+
+    if (!nome) {
+
+        alert("Digite o nome do estudo.");
+
+        return;
+    }
+
+
+    if (
+        tipoEstudo.value === "faculdade" &&
+        !cursoFaculdade.value.trim()
+    ) {
+
+        alert("Digite o nome do curso.");
+
+        return;
+    }
+
+
+    if (
+        tipoEstudo.value === "faculdade" &&
+        !semestreFaculdade.value.trim()
+    ) {
+
+        alert("Digite o semestre.");
+
+        return;
+    }
+
+
+    const novoEstudo = {
+
+        id: Date.now(),
+
+        nome: nome,
+
+        tipo: tipoEstudo.value,
+
+        curso:
+            tipoEstudo.value === "faculdade"
+            ? cursoFaculdade.value.trim()
+            : "",
+
+        semestre:
+            tipoEstudo.value === "faculdade"
+            ? semestreFaculdade.value.trim()
+            : "",
+
+        progresso: 0,
+
+        materias: [],
+
+        atividades: []
+
+    };
+
+
+    estudos.push(novoEstudo);
+
+
+    localStorage.setItem(
+        "estudos",
+        JSON.stringify(estudos)
+    );
+
+
+    renderizarEstudos();
+
+
+    // Fechar modal
+    modalEstudo.classList.remove("ativo");
+
+
+    // Limpar formulário
+    nomeEstudo.value = "";
+    cursoFaculdade.value = "";
+    semestreFaculdade.value = "";
+
+});
+
+
+// Renderizar ao carregar
+renderizarEstudos();
+
+
+// CANCELAR MATÉRIA
+
+cancelarMateria.addEventListener("click", () => {
+
+    modalMateria.classList.remove("ativo");
+
+});
+
+// FECHAR CLICANDO FORA
+
+modalMateria.addEventListener("click", (evento) => {
+
+    if (evento.target === modalMateria) {
+
+        modalMateria.classList.remove("ativo");
+
+    }
+
+});
+
+// SALVAR MATÉRIA
+salvarMateria.addEventListener("click", () => {
+
+    const nome = nomeMateria.value.trim();
+
+    if (!nome) {
+
+        alert("Digite o nome da matéria.");
+
+        return;
+
+    }
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+
+        return;
+
+    }
+
+    const novaMateria = {
+
+        id: Date.now(),
+
+        nome: nome,
+
+        progresso: 0,
+
+        conteudos: [],
+
+        atividades: []
+
+    };
+
+    estudo.materias.push(novaMateria);
+
+    localStorage.setItem(
+        "estudos",
+        JSON.stringify(estudos)
+    );
+
+    modalMateria.classList.remove("ativo");
+
+    abrirDetalheEstudo(estudoSelecionadoId);
+
+});
+
+// ========================================
+// SALVAR CONTEÚDO
+// ========================================
+
+salvarConteudo.addEventListener("click", () => {
+
+    const nome = nomeConteudo.value.trim();
+
+    if (!nome) {
+        alert("Digite o nome do conteúdo.");
+        return;
+    }
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === materiaSelecionadaId
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    // EDITANDO CONTEÚDO EXISTENTE
+    if (conteudoSelecionadoId !== null) {
+
+        const conteudo = materia.conteudos.find(
+            (item) => item.id === conteudoSelecionadoId
+        );
+
+        if (!conteudo) {
+            return;
+        }
+
+        conteudo.nome = nome;
+        conteudo.status = statusConteudo.value;
+
+    }
+
+    // CRIANDO NOVO CONTEÚDO
+    else {
+
+        const novoConteudo = {
+            id: Date.now(),
+            nome: nome,
+            status: statusConteudo.value
+        };
+
+        materia.conteudos.push(novoConteudo);
+
+    }
+
+    localStorage.setItem(
+        "estudos",
+        JSON.stringify(estudos)
+    );
+
+    modalConteudo.classList.remove("ativo");
+
+    conteudoSelecionadoId = null;
+
+    abrirDetalheMateria(materiaSelecionadaId);
+
+});
+
+// ========================================
+// SALVAR ATIVIDADE
+// ========================================
+
+salvarAtividade.addEventListener("click", () => {
+
+    const nome = nomeAtividade.value.trim();
+    const data = dataAtividade.value;
+
+    if (!nome) {
+
+        alert("Digite o nome da atividade.");
+
+        return;
+
+    }
+
+    if (!data) {
+
+        alert("Informe a data da atividade.");
+
+        return;
+
+    }
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === materiaSelecionadaId
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    // EDITANDO ATIVIDADE EXISTENTE
+
+    if (atividadeSelecionadaId !== null) {
+
+        const atividade = materia.atividades.find(
+            (item) => item.id === atividadeSelecionadaId
+        );
+
+        if (!atividade) {
+            return;
+        }
+
+        atividade.nome = nome;
+
+        atividade.data = data;
+
+        atividade.status = statusAtividade.value;
+
+        atividade.mostrarDashboard =
+            dashboardAtividade.value === "sim";
+
+    }
+
+    // CRIANDO NOVA ATIVIDADE
+
+    else {
+
+        const novaAtividade = {
+
+            id: Date.now(),
+
+            nome: nome,
+
+            data: data,
+
+            status: statusAtividade.value,
+
+            mostrarDashboard:
+                dashboardAtividade.value === "sim"
+
+        };
+
+        materia.atividades.push(novaAtividade);
+
+    }
+
+    localStorage.setItem(
+        "estudos",
+        JSON.stringify(estudos)
+    );
+
+    renderizarProximasAtividades();
+
+    modalAtividade.classList.remove("ativo");
+
+    atividadeSelecionadaId = null;
+
+    abrirDetalheMateria(materiaSelecionadaId);
+
+});
+
+// ========================================
+// EXCLUIR ATIVIDADE
+// ========================================
+
+excluirAtividade.addEventListener("click", () => {
+
+    if (atividadeSelecionadaId === null) {
+        return;
+    }
+
+    const confirmar = confirm(
+        "Tem certeza que deseja excluir esta atividade?"
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === materiaSelecionadaId
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    materia.atividades = materia.atividades.filter(
+        (item) => item.id !== atividadeSelecionadaId
+    );
+
+    localStorage.setItem(
+        "estudos",
+        JSON.stringify(estudos)
+    );
+
+    renderizarProximasAtividades();
+
+    modalAtividade.classList.remove("ativo");
+
+    atividadeSelecionadaId = null;
+
+    abrirDetalheMateria(materiaSelecionadaId);
+
+});
+
+// ========================================
+// EXCLUIR CONTEÚDO
+// ========================================
+
+excluirConteudo.addEventListener("click", () => {
+
+    if (conteudoSelecionadoId === null) {
+        return;
+    }
+
+    const confirmar = confirm(
+        "Tem certeza que deseja excluir este conteúdo?"
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    const estudo = estudos.find(
+        (item) => item.id === estudoSelecionadoId
+    );
+
+    if (!estudo) {
+        return;
+    }
+
+    const materia = estudo.materias.find(
+        (item) => item.id === materiaSelecionadaId
+    );
+
+    if (!materia) {
+        return;
+    }
+
+    materia.conteudos = materia.conteudos.filter(
+        (item) => item.id !== conteudoSelecionadoId
+    );
+
+    localStorage.setItem(
+        "estudos",
+        JSON.stringify(estudos)
+    );
+
+    modalConteudo.classList.remove("ativo");
+
+    conteudoSelecionadoId = null;
+
+    abrirDetalheMateria(materiaSelecionadaId);
+
+});
+
+// ========================================
+// TESTE — PRÓXIMAS ATIVIDADES
+// ========================================
+
+console.log("TESTE PRÓXIMAS ATIVIDADES");
+
+renderizarProximasAtividades();
