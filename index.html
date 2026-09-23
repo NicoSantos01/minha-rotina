@@ -658,15 +658,339 @@
   
   </section>
   
-  
+<!-- ESTUDO -->
   <section id="telaEstudos" class="tela-modulo">
+
+    <div class="modulo-cabecalho">
+        <h2>📚 Estudos</h2>
+        <p>Organize seus estudos e acompanhe seu progresso.</p>
+    </div>
+
+    <!-- PRÓXIMAS ATIVIDADES -->
+    <div class="bloco-estudos">
+
+        <div class="titulo-bloco-estudos">
+            <h3>🔔 Próximas atividades</h3>
+        </div>
+
+        <div id="proximasAtividadesEstudos">
+
+            <p class="estado-vazio-estudos">
+                Nenhuma atividade próxima.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEUS ESTUDOS -->
+    <div class="bloco-estudos">
+
+        <div class="titulo-bloco-estudos">
+            <h3>📚 Meus estudos</h3>
+        </div>
+
+        <div id="listaEstudos">
+
+            <p class="estado-vazio-estudos">
+                Você ainda não cadastrou nenhum estudo.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADICIONAR ESTUDO -->
+    <button id="btnNovoEstudo" class="btn-novo-estudo">
+        + Adicionar estudo
+    </button>
+
+    <!-- DETALHE DO ESTUDO -->
+    <div id="detalheEstudo" class="detalhe-estudo">
+
+        <div class="caixa-detalhe-estudo">
+    
+            <button id="btnVoltarEstudos" class="btn-voltar-estudos">
+                ← Voltar
+            </button>
+    
+            <div id="conteudoDetalheEstudo">
+    
+                <h2>📚 Estudo</h2>
+    
+            </div>
+    
+        </div>
+    
+    </div>
+
+
+    <!-- MODAL NOVO ESTUDO -->
+    <div id="modalEstudo" class="modal-estudo">
+
+        <div class="modal-estudo-caixa">
+
+            <h2>Novo estudo</h2>
+
+            <label for="nomeEstudo">
+                Nome
+            </label>
+
+            <input
+                type="text"
+                id="nomeEstudo"
+                placeholder="Ex: Sistemas de Informação"
+            >
+
+
+            <label for="tipoEstudo">
+                Tipo
+            </label>
+
+            <select id="tipoEstudo">
+
+                <option value="faculdade">
+                    🎓 Faculdade
+                </option>
+
+                <option value="curso">
+                    💻 Curso
+                </option>
+
+                <option value="certificacao">
+                    🏆 Certificação
+                </option>
+
+                <option value="pessoal">
+                    🧠 Estudo pessoal
+                </option>
+
+                <option value="outro">
+                    📚 Outro
+                </option>
+
+            </select>
+
+
+            <!-- CAMPOS DA FACULDADE -->
+            <div id="camposFaculdade" class="campos-tipo-estudo">
+
+                <label for="cursoFaculdade">
+                    Curso
+                </label>
+
+                <input
+                    type="text"
+                    id="cursoFaculdade"
+                    placeholder="Ex: Sistemas de Informação"
+                >
+
+
+                <label for="semestreFaculdade">
+                    Semestre
+                </label>
+
+                <input
+                    type="text"
+                    id="semestreFaculdade"
+                    placeholder="Ex: 2026/2"
+                >
+
+            </div>
+
+
+            <div class="acoes-modal-estudo">
+
+                <button id="salvarEstudo">
+                    Criar
+                </button>
+
+                <button
+                    id="cancelarEstudo"
+                    class="btn-cancelar-estudo">
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+     <!-- MODAL NOVA MATÉRIA -->
+      <div id="modalMateria" class="modal-estudo">
+      
+          <div class="modal-estudo-caixa">
+      
+              <h2>Nova matéria</h2>
+      
+              <label for="nomeMateria">
+                  Nome
+              </label>
+      
+              <input
+                  type="text"
+                  id="nomeMateria"
+                  placeholder="Ex: Banco de Dados"
+              >
+      
+              <div class="acoes-modal-estudo">
+      
+                  <button id="salvarMateria">
+                      Salvar
+                  </button>
+      
+                  <button
+                      id="cancelarMateria"
+                      class="btn-cancelar-estudo">
+                      Cancelar
+                  </button>
+      
+              </div>
+      
+          </div>
+      
+      </div>
+
+      <!-- MODAL NOVO CONTEÚDO -->
+      <div id="modalConteudo" class="modal-estudo">
+      
+          <div class="modal-estudo-caixa">
+      
+              <h2>Novo conteúdo</h2>
+      
+              <label for="nomeConteudo">
+                  Nome
+              </label>
+      
+              <input
+                  type="text"
+                  id="nomeConteudo"
+                  placeholder="Ex: Modelagem de Dados"
+              >
+      
+              <label for="statusConteudo">
+                  Status
+              </label>
+      
+              <select id="statusConteudo">
+      
+                  <option value="nao_iniciado">
+                      Não iniciado
+                  </option>
+      
+                  <option value="em_andamento">
+                      Em andamento
+                  </option>
+      
+                  <option value="concluido">
+                      Concluído
+                  </option>
+      
+              </select>
+      
+              <div class="acoes-modal-estudo">
+                <button id="salvarConteudo">Salvar</button>
+            
+                <button id="excluirConteudo" class="btn-cancelar-estudo">
+                    🗑️ Excluir
+                </button>
+            
+                <button id="cancelarConteudo" class="btn-cancelar-estudo">
+                    Cancelar
+                </button>
+              </div>
+      
+          </div>
+      
+      </div>
+
+    <!-- MODAL NOVA ATIVIDADE -->
+      <div id="modalAtividade" class="modal-estudo">
+      
+        <div class="modal-estudo-caixa">
+    
+          <h2>Nova atividade</h2>
   
-      <h2>📚 Estudos</h2>
+          <label for="nomeAtividade">
+            Nome
+          </label>
   
-      <p>
-          Em breve...
-      </p>
+          <input
+            type="text"
+            id="nomeAtividade"
+            placeholder="Ex: Prova de Banco de Dados"
+          >
   
+          <label for="dataAtividade">
+            Data
+          </label>
+  
+          <input
+            type="date"
+            id="dataAtividade"
+          >
+  
+          <label for="statusAtividade">
+            Status
+          </label>
+  
+          <select id="statusAtividade">
+  
+            <option value="pendente">
+              Pendente
+            </option>
+
+            <option value="concluida">
+              Concluída
+            </option>
+  
+          </select>
+  
+          <label for="dashboardAtividade">
+            Mostrar no Dashboard
+          </label>
+  
+          <select id="dashboardAtividade">
+  
+            <option value="sim">
+              Sim
+            </option>
+
+            <option value="nao">
+              Não
+            </option>
+  
+          </select>
+  
+          <div class="acoes-modal-estudo">
+  
+            <button id="salvarAtividade">
+              Salvar
+            </button>
+
+            <button
+              id="excluirAtividade"
+              class="btn-cancelar-estudo"
+            >
+              🗑️ Excluir
+            </button>
+
+            <button
+              id="cancelarAtividade"
+              class="btn-cancelar-estudo"
+            >
+              Cancelar
+            </button>
+  
+          </div>
+    
+        </div>
+      
+      </div>
+
   </section>
   
   
