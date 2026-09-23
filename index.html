@@ -246,25 +246,457 @@
 
     <section id="telaHoje">
 
-        <h2>Sistema de Rotina</h2>
-
-        <div id="listaHabitos"></div>
-
-        <div id="areaArquivados" class="area-arquivados">
-
-            <h2>📦 Hábitos arquivados</h2>
-
-            <div id="listaArquivados"></div>
-
-        </div>
-
-        <button id="btnNovoHabito">
-            + Novo hábito
-        </button>
-
-        <button id="btnArquivados">
-            📦 Arquivados
-        </button>
+      <div class="habitos-cabecalho">
+  
+          <h2>🌅 Manhã</h2>
+  
+          <p>
+              Sua rotina básica antes de sair para trabalhar.
+          </p>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- ACORDAR -->
+      <!-- ========================= -->
+  
+      <div class="bloco-habitos">
+  
+          <div class="item-habito-rotina">
+  
+              <div class="item-habito-conteudo">
+  
+                  <span class="icone-habito">
+                      ☑️
+                  </span>
+  
+                  <div>
+  
+                      <strong>
+                          Acordar cedo
+                      </strong>
+  
+                      <p id="statusAcordarCedo">
+                          Selecione seu horário de despertar.
+                      </p>
+  
+                  </div>
+  
+              </div>
+  
+          </div>
+  
+  
+          <div class="item-habito-rotina">
+  
+              <div class="item-habito-conteudo">
+  
+                  <span class="icone-habito">
+                      ⏰
+                  </span>
+  
+                  <div>
+  
+                      <strong>
+                          Horário que acordei
+                      </strong>
+  
+                      <select id="horarioAcordei">
+  
+                          <option value="">
+                              Selecione o horário
+                          </option>
+  
+                          <option value="05:00">05:00</option>
+                          <option value="05:30">05:30</option>
+                          <option value="06:00">06:00</option>
+                          <option value="06:30">06:30</option>
+                          <option value="07:00">07:00</option>
+                          <option value="07:30">07:30</option>
+                          <option value="08:00">08:00</option>
+                          <option value="08:30">08:30</option>
+                          <option value="09:00">09:00</option>
+                          <option value="09:30">09:30</option>
+                          <option value="10:00">10:00</option>
+  
+                      </select>
+  
+                  </div>
+  
+              </div>
+  
+          </div>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- SONO -->
+      <!-- ========================= -->
+  
+      <div class="bloco-habitos">
+  
+          <div class="titulo-bloco-habitos">
+  
+              <h3>😴 Sono</h3>
+  
+          </div>
+  
+  
+          <div class="sono-habitos">
+  
+              <div>
+  
+                  <label for="horarioDeitei">
+                      Deitei às
+                  </label>
+  
+                  <input
+                      type="time"
+                      id="horarioDeitei"
+                  >
+  
+              </div>
+  
+  
+              <div>
+  
+                  <label for="horarioSonoAcordei">
+                      Acordei às
+                  </label>
+  
+                  <input
+                      type="time"
+                      id="horarioSonoAcordei"
+                  >
+  
+              </div>
+  
+          </div>
+  
+  
+          <div class="resultado-sono">
+  
+              <strong id="duracaoSono">
+                  Sono: —
+              </strong>
+  
+              <p id="avaliacaoSono">
+                  Informe seus horários para calcular sua recuperação.
+              </p>
+  
+          </div>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- CUIDADOS DA MANHÃ -->
+      <!-- ========================= -->
+  
+      <div class="bloco-habitos">
+  
+          <div class="titulo-bloco-habitos">
+  
+              <h3>🧼 Cuidados da manhã</h3>
+  
+              <span id="contadorCuidados">
+                  0/13
+              </span>
+  
+          </div>
+  
+  
+          <div class="barra-habitos">
+  
+              <div id="barraCuidados"></div>
+  
+          </div>
+  
+  
+          <div class="porcentagem-habitos">
+  
+              <span id="porcentagemCuidados">
+                  0%
+              </span>
+  
+              <span id="metaCuidados">
+              </span>
+  
+          </div>
+  
+  
+          <div id="listaCuidadosManha" class="lista-cuidados">
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="banho"
+                  >
+  
+                  <span>🚿 Banho</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="escovar_dentes"
+                  >
+  
+                  <span>🪥 Escovar os dentes</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="rosto"
+                  >
+  
+                  <span>🧴 Cuidar do rosto</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="desodorante"
+                  >
+  
+                  <span>🧼 Desodorante</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="cabelo"
+                  >
+  
+                  <span>💇 Arrumar o cabelo</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="barba"
+                  >
+  
+                  <span>🪒 Barba</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="vestir"
+                  >
+  
+                  <span>👕 Me vestir</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="perfume"
+                  >
+  
+                  <span>🌸 Perfume</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="organizar_mochila"
+                  >
+  
+                  <span>🎒 Organizar mochila</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="chaves"
+                  >
+  
+                  <span>🔑 Conferir chaves/documentos</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="agua"
+                  >
+  
+                  <span>💧 Separar água</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="cama"
+                  >
+  
+                  <span>🛏️ Arrumar a cama</span>
+  
+              </label>
+  
+  
+              <label class="cuidado-habito">
+  
+                  <input
+                      type="checkbox"
+                      value="sair"
+                  >
+  
+                  <span>🚪 Preparar para sair</span>
+  
+              </label>
+  
+          </div>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- CAFÉ DA MANHÃ -->
+      <!-- ========================= -->
+  
+      <div class="bloco-habitos">
+  
+          <div class="item-habito-conteudo">
+  
+              <span class="icone-habito">
+                  ☕
+              </span>
+  
+              <div>
+  
+                  <strong>
+                      Café da manhã
+                  </strong>
+  
+                  <p id="statusCafeManha">
+                      Nenhum café registrado.
+                  </p>
+  
+              </div>
+  
+          </div>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- LEITURA -->
+      <!-- ========================= -->
+  
+      <div class="bloco-habitos">
+  
+          <div class="titulo-bloco-habitos">
+  
+              <h3>📖 Leitura</h3>
+  
+          </div>
+  
+  
+          <div id="listaLivrosLeitura">
+  
+              <p class="estado-vazio-habitos">
+                  Nenhum livro registrado hoje.
+              </p>
+  
+          </div>
+  
+  
+          <button id="btnAdicionarLivro" class="btn-habito-secundario">
+              + Adicionar livro
+          </button>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- TRABALHO -->
+      <!-- ========================= -->
+  
+      <div class="bloco-habitos">
+  
+          <div class="item-habito-conteudo">
+  
+              <span class="icone-habito">
+                  💼
+              </span>
+  
+              <div>
+  
+                  <strong>
+                      Trabalho
+                  </strong>
+  
+                  <p id="statusTrabalhoManha">
+                      Nenhuma empresa registrada.
+                  </p>
+  
+              </div>
+  
+          </div>
+  
+      </div>
+  
+  
+      <!-- ========================= -->
+      <!-- ARQUIVADOS -->
+      <!-- ========================= -->
+  
+      <div id="areaArquivados" class="area-arquivados">
+  
+          <h2>📦 Hábitos arquivados</h2>
+  
+          <div id="listaArquivados"></div>
+  
+      </div>
+  
+  
+      <button id="btnNovoHabito">
+          + Novo hábito
+      </button>
+  
+  
+      <button id="btnArquivados">
+          📦 Arquivados
+      </button>
 
     </section>
 
