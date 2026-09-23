@@ -1492,3 +1492,221 @@ button:hover {
     }
 
 }
+
+/* ========================================
+   ESTUDOS
+   ======================================== */
+
+.bloco-estudos {
+    margin-bottom: 20px;
+}
+
+.titulo-bloco-estudos {
+    margin-bottom: 10px;
+}
+
+.estado-vazio-estudos {
+    opacity: 0.7;
+}
+
+/* MODAL DETALHE DO ESTUDO */
+
+.detalhe-estudo {
+    display: none;
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.detalhe-estudo.ativo {
+    display: flex;
+}
+
+.caixa-detalhe-estudo {
+    width: min(90%, 500px);
+    max-height: 85vh;
+    overflow-y: auto;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: white;
+}
+
+.btn-voltar-estudos {
+    margin-bottom: 20px;
+}
+
+.cabecalho-detalhe-estudo {
+    margin-bottom: 20px;
+}
+
+.cabecalho-detalhe-estudo h2 {
+    margin-bottom: 5px;
+}
+
+.progresso-detalhe-estudo {
+    margin-top: 20px;
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #f5f5f5;
+}
+
+
+/* BOTÃO NOVO ESTUDO */
+
+.btn-novo-estudo {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+/* MODAL */
+
+.modal-estudo {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.modal-estudo.ativo {
+    display: flex;
+}
+
+.modal-estudo-caixa {
+    width: min(90%, 420px);
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: white;
+}
+
+.modal-estudo-caixa label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+.modal-estudo-caixa input,
+.modal-estudo-caixa select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.campos-tipo-estudo {
+    display: block;
+}
+
+.acoes-modal-estudo {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.acoes-modal-estudo button {
+    flex: 1;
+}
+
+.btn-cancelar-estudo {
+    opacity: 0.8;
+}
+
+/* CARDS DE ESTUDO */
+
+.card-estudo {
+    padding: 15px;
+    margin-bottom: 12px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+.card-estudo-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icone-estudo {
+    font-size: 28px;
+}
+
+.card-estudo h3 {
+    margin: 0;
+}
+
+.card-estudo p {
+    margin: 4px 0;
+}
+
+.card-estudo small {
+    opacity: 0.7;
+}
+
+.progresso-estudo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.barra-progresso-estudo {
+    flex: 1;
+
+    height: 8px;
+
+    background: #ddd;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.barra-progresso-estudo div {
+    height: 100%;
+}
+
+.progresso-estudo span {
+    font-size: 13px;
+}
+
+.card-materia-estudo {
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+
+.card-materia-estudo:hover {
+    opacity: 0.85;
+}
+
+.card-materia-estudo small {
+    display: block;
+    margin-top: 4px;
+    opacity: 0.7;
+}
