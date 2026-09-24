@@ -1053,7 +1053,6 @@ function atualizarAproveitamento() {
 // SEMANA ATUAL
 // ==========================================
 
-// atualizarSemana();
 function atualizarSemana() {
 
     const container =
@@ -1203,6 +1202,292 @@ function atualizarSemana() {
 // ==========================================
 // RENDERIZAR HÁBITOS DE HOJE
 // ==========================================
+
+function renderizar() {
+
+    lista.innerHTML = "";
+
+    const hoje =
+        dataHoje();
+
+    habitos.forEach(
+        (habito, index) => {
+
+            if (habito.arquivado) {
+                return;
+            }
+
+            const concluidoHoje =
+                habito.conclucoes &&
+                habito.conclucoes[hoje];
+
+
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "habito";
+
+
+            if (concluidoHoje) {
+
+                div.classList.add(
+                    "completed"
+                );
+
+            }
+
+            const sequenciaAtual =
+              calcularSequenciaAtual(habito);
+
+            const maiorSequencia =
+              calcularMaiorSequencia(habito);
+
+
+            div.innerHTML = `
+                <button
+                    class="check ${
+                        concluidoHoje
+                            ? "completed"
+                            : ""
+                    }">
+                </button>
+            
+                <div class="conteudo-habito">
+            
+                    <div class="nome">
+                        ${habito.nome}
+                    
+                        <div class="categoria">
+                            ${habito.categoria}
+                        </div>
+                    </div>
+            
+                    <div class="estatisticas-habito">
+            
+                        <span class="estatistica">
+                            🔥 ${sequenciaAtual} dia${
+                                sequenciaAtual !== 1
+                                    ? "s"
+                                    : ""
+                            }
+                        </span>
+            
+                        <span class="estatistica">
+                            🏆 ${maiorSequencia} dia${
+                                maiorSequencia !== 1
+                                    ? "s"
+                                    : ""
+                            }
+                        </span>
+            
+                    </div>
+            
+                </div>
+            
+                <div class="acoes-habito">
+
+                    <button class="subir-habito">
+                        ↑
+                    </button>
+                
+                    <button class="descer-habito">
+                        ↓
+                    </button>
+
+                    <button class="editar-habito">
+                        ✏️
+                    </button>
+                
+                    <button class="arquivar-habito">
+                        📦
+                    </button>
+                
+                    <button class="excluir-habito">
+                        🗑️
+                    </button>
+                
+                </div>
+            `;
+
+            div.querySelector(
+                ".check"
+            ).addEventListener(
+                "click",
+                () => {
+
+                    if (!habito.conclucoes) {
+
+                        habito.conclucoes = {};
+
+                    }
+
+
+                    if (
+                        habito.conclucoes[hoje]
+                    ) {
+
+                        delete habito.conclucoes[hoje];
+
+                    } else {
+
+                        habito.conclucoes[hoje] =
+                            true;
+
+                    }
+
+
+                    salvarHabitos();
+
+                    renderizar();
+
+                }
+            );
+
+          // EDITAR HÁBITO
+          div.querySelector(
+              ".editar-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  habitoEditando = habito;
+          
+                  input.value =
+                      habito.nome || "";
+          
+                  categoria.value =
+                      habito.categoria || "Pessoal";
+          
+                  document.getElementById(
+                      "tituloModal"
+                  ).textContent =
+                      "Editar hábito";
+          
+                  modal.classList.add(
+                      "ativo"
+                  );
+          
+              }
+          );
+
+          // ARQUIVAR HÁBITO
+          div.querySelector(
+              ".arquivar-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  habito.arquivado = true;
+          
+                  salvarHabitos();
+          
+                  renderizar();
+          
+              }
+          );
+
+          // EXCLUIR HÁBITO
+          div.querySelector(
+              ".excluir-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  const confirmar =
+                      confirm(
+                          `Tem certeza que deseja excluir "${habito.nome}"?`
+                      );
+          
+                  if (!confirmar) {
+                      return;
+                  }
+          
+                  habitos =
+                      habitos.filter(
+                          item =>
+                              item.id !== habito.id
+                      );
+          
+                  salvarHabitos();
+          
+                  renderizar();
+          
+                  renderizarCalendario();
+          
+              }
+          );
+
+          div.querySelector(
+              ".subir-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  const indice =
+                      habitos.indexOf(habito);
+          
+                  if (indice > 0) {
+          
+                      [
+                          habitos[indice - 1],
+                          habitos[indice]
+                      ] = [
+                          habitos[indice],
+                          habitos[indice - 1]
+                      ];
+          
+                      salvarHabitos();
+          
+                      renderizar();
+          
+                  }
+          
+              }
+          );
+
+          div.querySelector(
+              ".descer-habito"
+          ).addEventListener(
+              "click",
+              () => {
+          
+                  const indice =
+                      habitos.indexOf(habito);
+          
+                  if (
+                      indice <
+                      habitos.length - 1
+                  ) {
+          
+                      [
+                          habitos[indice],
+                          habitos[indice + 1]
+                      ] = [
+                          habitos[indice + 1],
+                          habitos[indice]
+                      ];
+          
+                      salvarHabitos();
+          
+                      renderizar();
+          
+                  }
+          
+              }
+          );   
+              
+                lista.appendChild(div);
+    
+            }
+        );
+
+    atualizarDashboard();
+    
+    atualizarTreinoHoje();
+
+}
 
 function renderizarArquivados() {
 
@@ -1868,6 +2153,8 @@ document.getElementById(
 // ==========================================
 
 mostrarData();
+
+renderizar();
 
 renderizarCalendario();
 
@@ -4441,3 +4728,1034 @@ excluirConteudo.addEventListener("click", () => {
 console.log("TESTE PRÓXIMAS ATIVIDADES");
 
 renderizarProximasAtividades();
+
+
+
+
+// ==========================================
+// FINANÇAS
+// ==========================================
+
+let transacoes =
+    JSON.parse(localStorage.getItem("transacoes")) || [];
+
+let transacaoEditando = null;
+
+const btnNovaTransacao =
+document.getElementById("btnNovaTransacao");
+const modalTransacao =
+document.getElementById("modalTransacao");
+const salvarTransacao =
+document.getElementById("salvarTransacao");
+const cancelarTransacao =
+document.getElementById("cancelarTransacao");
+const tipoTransacao =
+document.getElementById("tipoTransacao");
+const descricaoTransacao =
+document.getElementById("descricaoTransacao");
+const valorTransacao =
+document.getElementById("valorTransacao");
+const categoriaTransacao =
+document.getElementById("categoriaTransacao");
+const dataTransacao =
+document.getElementById("dataTransacao");
+const listaTransacoes =
+document.getElementById("listaTransacoes");
+
+btnNovaTransacao.addEventListener("click", () => {
+
+    modalTransacao.classList.add("ativo");
+
+});
+
+
+cancelarTransacao.addEventListener("click", () => {
+
+    modalTransacao.classList.remove("ativo");
+
+    transacaoEditando = null;
+
+});
+
+// ==========================================
+// SALVAR TRANSAÇÃO
+// ==========================================
+
+salvarTransacao.addEventListener("click", () => {
+
+    const tipo = tipoTransacao.value;
+    const descricao = descricaoTransacao.value.trim();
+    const valor = Number(valorTransacao.value);
+    const categoria = categoriaTransacao.value;
+    const data = dataTransacao.value;
+
+  if (transacaoEditando !== null) {
+
+    const transacao =
+        transacoes.find(
+            item => item.id === transacaoEditando
+        );
+
+
+    if (transacao) {
+
+        transacao.tipo = tipo;
+        transacao.descricao = descricao;
+        transacao.valor = valor;
+        transacao.categoria = categoria;
+        transacao.data = data;
+
+    }
+
+
+    localStorage.setItem(
+        "transacoes",
+        JSON.stringify(transacoes)
+    );
+
+
+    transacaoEditando = null;
+
+
+    modalTransacao.classList.remove("ativo");
+
+
+    descricaoTransacao.value = "";
+    valorTransacao.value = "";
+    dataTransacao.value = "";
+
+
+    renderizarTransacoes();
+    atualizarResumoFinanceiro();
+
+    return;
+}
+
+    // Verificar campos obrigatórios
+    if (!descricao || !valor || !data) {
+
+        alert("Preencha todos os campos.");
+
+        return;
+
+    }
+
+
+    const novaTransacao = {
+
+        id: Date.now(),
+
+        tipo: tipo,
+
+        descricao: descricao,
+
+        valor: valor,
+
+        categoria: categoria,
+
+        data: data
+
+    };
+
+
+    transacoes.push(novaTransacao);
+
+
+    localStorage.setItem(
+        "transacoes",
+        JSON.stringify(transacoes)
+    );
+
+
+    modalTransacao.classList.remove("ativo");
+
+
+    // Limpar formulário
+
+    descricaoTransacao.value = "";
+
+    valorTransacao.value = "";
+
+    dataTransacao.value = "";
+
+  
+    renderizarTransacoes();
+    atualizarResumoFinanceiro();
+
+});
+
+// ==========================================
+// RENDERIZAR TRANSAÇÕES
+// ==========================================
+
+function renderizarTransacoes() {
+
+    listaTransacoes.innerHTML = "";
+
+
+    if (transacoes.length === 0) {
+
+        listaTransacoes.innerHTML = `
+            <p class="estado-vazio-financeiro">
+                Nenhuma movimentação registrada.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    transacoes.forEach(transacao => {
+
+        const item = document.createElement("div");
+
+        item.className =
+            `transacao ${transacao.tipo}`;
+
+
+        item.innerHTML = `
+
+            <div class="transacao-info">
+
+                <span class="transacao-descricao">
+                    ${transacao.descricao}
+                </span>
+
+                <span class="transacao-categoria">
+                    ${transacao.categoria}
+                </span>
+
+                <span class="transacao-data">
+                    ${transacao.data}
+                </span>
+
+            </div>
+
+
+            <span class="transacao-valor">
+
+                ${transacao.tipo === "entrada" ? "+" : "-"}
+                R$ ${transacao.valor.toFixed(2).replace(".", ",")}
+
+            </span>
+
+
+            <div class="acoes-transacao">
+
+              <button
+                  class="btn-editar-transacao"
+                  data-id="${transacao.id}"
+                  title="Editar">
+          
+                  ✏️
+          
+              </button>
+          
+          
+              <button
+                  class="btn-excluir-transacao"
+                  data-id="${transacao.id}"
+                  title="Excluir">
+          
+                  🗑️
+          
+              </button>
+            
+            </div>
+
+        `;
+
+
+        listaTransacoes.appendChild(item);
+
+    });
+
+    document
+      .querySelectorAll(".btn-editar-transacao")
+      .forEach(botao => {
+  
+          botao.addEventListener("click", () => {
+  
+              const id =
+                  Number(botao.dataset.id);
+  
+  
+              const transacao =
+                  transacoes.find(
+                      item => item.id === id
+                  );
+  
+  
+              if (!transacao) {
+                  return;
+              }
+  
+  
+              transacaoEditando = id;
+  
+  
+              tipoTransacao.value =
+                  transacao.tipo;
+  
+              descricaoTransacao.value =
+                  transacao.descricao;
+  
+              valorTransacao.value =
+                  transacao.valor;
+  
+              categoriaTransacao.value =
+                  transacao.categoria;
+  
+              dataTransacao.value =
+                  transacao.data;
+  
+  
+              modalTransacao.classList.add("ativo");
+  
+          });
+  
+      });
+    
+    document
+      .querySelectorAll(".btn-excluir-transacao")
+      .forEach(botao => {
+
+          botao.addEventListener("click", () => {
+
+              const id =
+                  Number(botao.dataset.id);
+
+
+              transacoes =
+                  transacoes.filter(
+                      transacao =>
+                          transacao.id !== id
+                  );
+
+
+              localStorage.setItem(
+                  "transacoes",
+                  JSON.stringify(transacoes)
+              );
+
+
+              renderizarTransacoes();
+
+              atualizarResumoFinanceiro();
+
+          });
+
+      });
+
+}
+
+// ==========================================
+// ATUALIZAR RESUMO FINANCEIRO
+// ==========================================
+
+function atualizarResumoFinanceiro() {
+
+    let totalEntradas = 0;
+    let totalSaidas = 0;
+
+
+    transacoes.forEach(transacao => {
+
+        if (transacao.tipo === "entrada") {
+
+            totalEntradas += transacao.valor;
+
+        }
+
+
+        if (transacao.tipo === "saida") {
+
+            totalSaidas += transacao.valor;
+
+        }
+
+    });
+
+
+    const saldo = totalEntradas - totalSaidas;
+
+
+    document.getElementById("totalEntradas").textContent =
+        `R$ ${totalEntradas.toFixed(2).replace(".", ",")}`;
+
+
+    document.getElementById("totalSaidas").textContent =
+        `R$ ${totalSaidas.toFixed(2).replace(".", ",")}`;
+
+
+    document.getElementById("saldoFinanceiro").textContent =
+        `R$ ${saldo.toFixed(2).replace(".", ",")}`;
+
+}
+
+renderizarTransacoes();
+atualizarResumoFinanceiro();
+
+// ==========================================
+// CONTAS
+// ==========================================
+
+let contas =
+JSON.parse(localStorage.getItem("contas")) || [];
+let contaEditando = null;
+
+const btnNovaConta =
+document.getElementById("btnNovaConta");
+const modalConta =
+document.getElementById("modalConta");
+const salvarConta =
+document.getElementById("salvarConta");
+const cancelarConta =
+document.getElementById("cancelarConta");
+const descricaoConta =
+document.getElementById("descricaoConta");
+const valorConta =
+document.getElementById("valorConta");
+const categoriaConta =
+document.getElementById("categoriaConta");
+const vencimentoConta =
+document.getElementById("vencimentoConta");
+const pagaConta =
+document.getElementById("pagaConta");
+const listaContas =
+document.getElementById("listaContas");
+
+
+// ==========================================
+// ABRIR MODAL
+// ==========================================
+
+btnNovaConta.addEventListener("click", () => {
+
+    modalConta.classList.add("ativo");
+
+});
+
+
+// ==========================================
+// CANCELAR
+// ==========================================
+
+cancelarConta.addEventListener("click", () => {
+
+    modalConta.classList.remove("ativo");
+
+    contaEditando = null;
+
+});
+
+
+// ==========================================
+// SALVAR CONTA
+// ==========================================
+
+salvarConta.addEventListener("click", () => {
+
+    const descricao =
+        descricaoConta.value.trim();
+
+    const valor =
+        Number(valorConta.value);
+
+    const categoria =
+        categoriaConta.value;
+
+    const vencimento =
+        vencimentoConta.value;
+
+    const paga =
+        pagaConta.checked;
+
+
+    // Verificar campos obrigatórios
+
+    if (!descricao || !valor || !vencimento) {
+
+        alert("Preencha todos os campos.");
+
+        return;
+
+    }
+
+    if (contaEditando !== null) {
+
+        const conta =
+            contas.find(
+                item => item.id === contaEditando
+            );
+    
+        if (conta) {
+    
+            conta.descricao = descricao;
+            conta.valor = valor;
+            conta.categoria = categoria;
+            conta.vencimento = vencimento;
+            conta.paga = paga;
+    
+        }
+    
+        localStorage.setItem(
+            "contas",
+            JSON.stringify(contas)
+        );
+    
+        contaEditando = null;
+    
+        modalConta.classList.remove("ativo");
+    
+        descricaoConta.value = "";
+        valorConta.value = "";
+        vencimentoConta.value = "";
+        pagaConta.checked = false;
+    
+        renderizarContas();
+        atualizarResumoContas();
+    
+        return;
+    }
+
+
+    const novaConta = {
+
+        id: Date.now(),
+
+        descricao: descricao,
+
+        valor: valor,
+
+        categoria: categoria,
+
+        vencimento: vencimento,
+
+        paga: paga
+
+    };
+
+
+    contas.push(novaConta);
+
+
+    localStorage.setItem(
+        "contas",
+        JSON.stringify(contas)
+    );
+
+
+    modalConta.classList.remove("ativo");
+
+
+    // Limpar formulário
+
+    descricaoConta.value = "";
+
+    valorConta.value = "";
+
+    vencimentoConta.value = "";
+
+    pagaConta.checked = false;
+
+
+    renderizarContas();
+
+});
+
+// ==========================================
+// RENDERIZAR CONTAS
+// ==========================================
+
+function renderizarContas() {
+
+    listaContas.innerHTML = "";
+
+
+    if (contas.length === 0) {
+
+        listaContas.innerHTML = `
+
+            <p class="estado-vazio-financeiro">
+                Nenhuma conta cadastrada.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+    const hoje = new Date();
+
+    hoje.setHours(0, 0, 0, 0);
+  
+    contas.forEach(conta => {
+
+        let statusTexto;
+        let classeStatus;
+    
+    
+        if (conta.paga) {
+    
+            statusTexto = "🟢 Paga";
+            classeStatus = "paga";
+    
+        } else {
+    
+            const vencimento =
+                new Date(conta.vencimento + "T00:00:00");
+    
+    
+            if (vencimento < hoje) {
+    
+                statusTexto = "🔴 Atrasada";
+                classeStatus = "atrasada";
+    
+            } else {
+    
+                statusTexto = "🟡 Pendente";
+                classeStatus = "pendente";
+    
+            }
+    
+        }
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "conta";
+
+
+        item.innerHTML = `
+
+            <div class="conta-info">
+
+                <span class="conta-descricao">
+                    ${conta.descricao}
+                </span>
+
+                <span class="conta-detalhes">
+                    ${conta.categoria}
+                    •
+                    R$ ${conta.valor.toFixed(2).replace(".", ",")}
+                    •
+                    Vencimento: ${conta.vencimento}
+                </span>
+
+            </div>
+
+              <div class="acoes-conta">
+
+                  <span class="status-conta ${classeStatus}">
+                      ${statusTexto}
+                  </span>
+              
+                  <label class="checkbox-pagar-conta">
+              
+                      <input
+                          type="checkbox"
+                          class="checkbox-conta-paga"
+                          data-id="${conta.id}"
+                          ${conta.paga ? "checked" : ""}
+                      >
+              
+                      Pago
+              
+                  </label>
+              
+                  <button
+                      class="btn-editar-conta"
+                      data-id="${conta.id}"
+                      title="Editar">
+                      ✏️
+                  </button>
+              
+                  <button
+                      class="btn-excluir-conta"
+                      data-id="${conta.id}"
+                      title="Excluir">
+                      🗑️
+                  </button>
+              
+              </div>
+
+        `;
+
+
+        listaContas.appendChild(item);
+
+    });
+
+        // listener do checkbox
+        document
+            .querySelectorAll(".checkbox-conta-paga")
+            .forEach(checkbox => {
+    
+                checkbox.addEventListener("change", () => {
+    
+                    const id =
+                        Number(checkbox.dataset.id);
+    
+    
+                    const conta =
+                        contas.find(
+                            item => item.id === id
+                        );
+    
+    
+                    if (!conta) {
+                        return;
+                    }
+    
+    
+                    conta.paga =
+                        checkbox.checked;
+    
+    
+                    localStorage.setItem(
+                        "contas",
+                        JSON.stringify(contas)
+                    );
+    
+    
+                    renderizarContas();
+                    atualizarResumoContas();
+    
+                });
+    
+            });
+
+        // listener do editar
+        document
+            .querySelectorAll(".btn-editar-conta")
+            .forEach(botao => {
+        
+                botao.addEventListener("click", () => {
+        
+                    const id =
+                        Number(botao.dataset.id);
+        
+                    const conta =
+                        contas.find(
+                            item => item.id === id
+                        );
+        
+                    if (!conta) {
+                        return;
+                    }
+        
+                    contaEditando = id;
+        
+                    descricaoConta.value =
+                        conta.descricao;
+        
+                    valorConta.value =
+                        conta.valor;
+        
+                    categoriaConta.value =
+                        conta.categoria;
+        
+                    vencimentoConta.value =
+                        conta.vencimento;
+        
+                    pagaConta.checked =
+                        conta.paga;
+        
+                    modalConta.classList.add("ativo");
+        
+                });
+        
+            });
+
+        // listener do excluir
+        document
+            .querySelectorAll(".btn-excluir-conta")
+            .forEach(botao => {
+          
+                botao.addEventListener("click", () => {
+          
+                    const id =
+                        Number(botao.dataset.id);
+          
+                    const confirmar =
+                        confirm("Deseja excluir esta conta?");
+          
+                    if (!confirmar) {
+                        return;
+                    }
+          
+                    contas =
+                        contas.filter(
+                            conta => conta.id !== id
+                        );
+          
+                    localStorage.setItem(
+                        "contas",
+                        JSON.stringify(contas)
+                    );
+          
+                    renderizarContas();
+                    atualizarResumoContas();
+          
+                });
+          
+            });
+  
+
+}
+
+renderizarContas();
+atualizarResumoContas();
+
+// ==========================================
+// ATUALIZAR RESUMO DAS CONTAS
+// ==========================================
+
+function atualizarResumoContas() {
+
+    let atrasadas = 0;
+    let pendentes = 0;
+    let pagas = 0;
+
+
+    const hoje = new Date();
+
+    hoje.setHours(0, 0, 0, 0);
+
+
+    contas.forEach(conta => {
+
+        if (conta.paga) {
+
+            pagas++;
+
+            return;
+
+        }
+
+
+        const vencimento =
+            new Date(conta.vencimento + "T00:00:00");
+
+
+        if (vencimento < hoje) {
+
+            atrasadas++;
+
+        } else {
+
+            pendentes++;
+
+        }
+
+    });
+
+
+    document.getElementById("contasAtrasadas").textContent =
+        `🔴 ${atrasadas} atrasadas`;
+
+
+    document.getElementById("contasPendentes").textContent =
+        `🟡 ${pendentes} pendentes`;
+
+
+    document.getElementById("contasPagas").textContent =
+        `🟢 ${pagas} pagas`;
+
+}
+
+
+
+
+// ==========================================
+// TRABALHO - JORNADA
+// ==========================================
+
+let jornadaTrabalho =
+    JSON.parse(localStorage.getItem("jornadaTrabalho")) || {};
+
+const entradaTrabalho =
+    document.getElementById("entradaTrabalho");
+
+const saidaTrabalho =
+    document.getElementById("saidaTrabalho");
+
+const statusTrabalho =
+    document.getElementById("statusTrabalho");
+
+const btnIniciarJornada =
+    document.getElementById("btnIniciarJornada");
+
+const btnFinalizarJornada =
+    document.getElementById("btnFinalizarJornada");
+
+
+// ==========================================
+// DATA DE HOJE
+// ==========================================
+
+function obterDataHoje() {
+
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+
+    const mes =
+        String(hoje.getMonth() + 1).padStart(2, "0");
+
+    const dia =
+        String(hoje.getDate()).padStart(2, "0");
+
+    return `${ano}-${mes}-${dia}`;
+}
+
+
+// ==========================================
+// FORMATAR HORÁRIO
+// ==========================================
+
+function formatarHorario(data) {
+
+    if (!data) {
+        return "—";
+    }
+
+    const horario =
+        new Date(data);
+
+    return horario.toLocaleTimeString(
+        "pt-BR",
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+}
+
+
+// ==========================================
+// INICIAR JORNADA
+// ==========================================
+
+btnIniciarJornada.addEventListener("click", () => {
+
+    const hoje = obterDataHoje();
+
+    if (jornadaTrabalho.data === hoje &&
+        jornadaTrabalho.entrada) {
+
+        return;
+    }
+
+    jornadaTrabalho = {
+
+        data: hoje,
+
+        entrada: new Date().toISOString(),
+
+        saida: null
+
+    };
+
+    localStorage.setItem(
+        "jornadaTrabalho",
+        JSON.stringify(jornadaTrabalho)
+    );
+
+    renderizarJornada();
+
+});
+
+
+// ==========================================
+// FINALIZAR JORNADA
+// ==========================================
+
+btnFinalizarJornada.addEventListener("click", () => {
+
+    const hoje = obterDataHoje();
+
+    if (jornadaTrabalho.data !== hoje ||
+        !jornadaTrabalho.entrada) {
+
+        alert("Inicie a jornada primeiro.");
+
+        return;
+    }
+
+    if (jornadaTrabalho.saida) {
+        return;
+    }
+
+    jornadaTrabalho.saida =
+        new Date().toISOString();
+
+    localStorage.setItem(
+        "jornadaTrabalho",
+        JSON.stringify(jornadaTrabalho)
+    );
+
+    renderizarJornada();
+
+});
+
+
+// ==========================================
+// RENDERIZAR JORNADA
+// ==========================================
+
+function renderizarJornada() {
+
+    const hoje = obterDataHoje();
+
+    if (jornadaTrabalho.data !== hoje) {
+
+        entradaTrabalho.textContent = "—";
+        saidaTrabalho.textContent = "—";
+        statusTrabalho.textContent =
+            "⚪ Não iniciada";
+
+        return;
+    }
+
+    entradaTrabalho.textContent =
+        formatarHorario(
+            jornadaTrabalho.entrada
+        );
+
+    saidaTrabalho.textContent =
+        formatarHorario(
+            jornadaTrabalho.saida
+        );
+
+    if (!jornadaTrabalho.entrada) {
+
+        statusTrabalho.textContent =
+            "⚪ Não iniciada";
+
+    } else if (!jornadaTrabalho.saida) {
+
+        statusTrabalho.textContent =
+            "🟡 Em andamento";
+
+    } else {
+
+        statusTrabalho.textContent =
+            "🟢 Finalizada";
+
+    }
+
+}
+
+
+// ==========================================
+// CARREGAR JORNADA
+// ==========================================
+
+renderizarJornada();
