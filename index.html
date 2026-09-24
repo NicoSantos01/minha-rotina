@@ -246,457 +246,25 @@
 
     <section id="telaHoje">
 
-      <div class="habitos-cabecalho">
-  
-          <h2>🌅 Manhã</h2>
-  
-          <p>
-              Sua rotina básica antes de sair para trabalhar.
-          </p>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- ACORDAR -->
-      <!-- ========================= -->
-  
-      <div class="bloco-habitos">
-  
-          <div class="item-habito-rotina">
-  
-              <div class="item-habito-conteudo">
-  
-                  <span class="icone-habito">
-                      ☑️
-                  </span>
-  
-                  <div>
-  
-                      <strong>
-                          Acordar cedo
-                      </strong>
-  
-                      <p id="statusAcordarCedo">
-                          Selecione seu horário de despertar.
-                      </p>
-  
-                  </div>
-  
-              </div>
-  
-          </div>
-  
-  
-          <div class="item-habito-rotina">
-  
-              <div class="item-habito-conteudo">
-  
-                  <span class="icone-habito">
-                      ⏰
-                  </span>
-  
-                  <div>
-  
-                      <strong>
-                          Horário que acordei
-                      </strong>
-  
-                      <select id="horarioAcordei">
-  
-                          <option value="">
-                              Selecione o horário
-                          </option>
-  
-                          <option value="05:00">05:00</option>
-                          <option value="05:30">05:30</option>
-                          <option value="06:00">06:00</option>
-                          <option value="06:30">06:30</option>
-                          <option value="07:00">07:00</option>
-                          <option value="07:30">07:30</option>
-                          <option value="08:00">08:00</option>
-                          <option value="08:30">08:30</option>
-                          <option value="09:00">09:00</option>
-                          <option value="09:30">09:30</option>
-                          <option value="10:00">10:00</option>
-  
-                      </select>
-  
-                  </div>
-  
-              </div>
-  
-          </div>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- SONO -->
-      <!-- ========================= -->
-  
-      <div class="bloco-habitos">
-  
-          <div class="titulo-bloco-habitos">
-  
-              <h3>😴 Sono</h3>
-  
-          </div>
-  
-  
-          <div class="sono-habitos">
-  
-              <div>
-  
-                  <label for="horarioDeitei">
-                      Deitei às
-                  </label>
-  
-                  <input
-                      type="time"
-                      id="horarioDeitei"
-                  >
-  
-              </div>
-  
-  
-              <div>
-  
-                  <label for="horarioSonoAcordei">
-                      Acordei às
-                  </label>
-  
-                  <input
-                      type="time"
-                      id="horarioSonoAcordei"
-                  >
-  
-              </div>
-  
-          </div>
-  
-  
-          <div class="resultado-sono">
-  
-              <strong id="duracaoSono">
-                  Sono: —
-              </strong>
-  
-              <p id="avaliacaoSono">
-                  Informe seus horários para calcular sua recuperação.
-              </p>
-  
-          </div>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- CUIDADOS DA MANHÃ -->
-      <!-- ========================= -->
-  
-      <div class="bloco-habitos">
-  
-          <div class="titulo-bloco-habitos">
-  
-              <h3>🧼 Cuidados da manhã</h3>
-  
-              <span id="contadorCuidados">
-                  0/13
-              </span>
-  
-          </div>
-  
-  
-          <div class="barra-habitos">
-  
-              <div id="barraCuidados"></div>
-  
-          </div>
-  
-  
-          <div class="porcentagem-habitos">
-  
-              <span id="porcentagemCuidados">
-                  0%
-              </span>
-  
-              <span id="metaCuidados">
-              </span>
-  
-          </div>
-  
-  
-          <div id="listaCuidadosManha" class="lista-cuidados">
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="banho"
-                  >
-  
-                  <span>🚿 Banho</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="escovar_dentes"
-                  >
-  
-                  <span>🪥 Escovar os dentes</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="rosto"
-                  >
-  
-                  <span>🧴 Cuidar do rosto</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="desodorante"
-                  >
-  
-                  <span>🧼 Desodorante</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="cabelo"
-                  >
-  
-                  <span>💇 Arrumar o cabelo</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="barba"
-                  >
-  
-                  <span>🪒 Barba</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="vestir"
-                  >
-  
-                  <span>👕 Me vestir</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="perfume"
-                  >
-  
-                  <span>🌸 Perfume</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="organizar_mochila"
-                  >
-  
-                  <span>🎒 Organizar mochila</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="chaves"
-                  >
-  
-                  <span>🔑 Conferir chaves/documentos</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="agua"
-                  >
-  
-                  <span>💧 Separar água</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="cama"
-                  >
-  
-                  <span>🛏️ Arrumar a cama</span>
-  
-              </label>
-  
-  
-              <label class="cuidado-habito">
-  
-                  <input
-                      type="checkbox"
-                      value="sair"
-                  >
-  
-                  <span>🚪 Preparar para sair</span>
-  
-              </label>
-  
-          </div>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- CAFÉ DA MANHÃ -->
-      <!-- ========================= -->
-  
-      <div class="bloco-habitos">
-  
-          <div class="item-habito-conteudo">
-  
-              <span class="icone-habito">
-                  ☕
-              </span>
-  
-              <div>
-  
-                  <strong>
-                      Café da manhã
-                  </strong>
-  
-                  <p id="statusCafeManha">
-                      Nenhum café registrado.
-                  </p>
-  
-              </div>
-  
-          </div>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- LEITURA -->
-      <!-- ========================= -->
-  
-      <div class="bloco-habitos">
-  
-          <div class="titulo-bloco-habitos">
-  
-              <h3>📖 Leitura</h3>
-  
-          </div>
-  
-  
-          <div id="listaLivrosLeitura">
-  
-              <p class="estado-vazio-habitos">
-                  Nenhum livro registrado hoje.
-              </p>
-  
-          </div>
-  
-  
-          <button id="btnAdicionarLivro" class="btn-habito-secundario">
-              + Adicionar livro
-          </button>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- TRABALHO -->
-      <!-- ========================= -->
-  
-      <div class="bloco-habitos">
-  
-          <div class="item-habito-conteudo">
-  
-              <span class="icone-habito">
-                  💼
-              </span>
-  
-              <div>
-  
-                  <strong>
-                      Trabalho
-                  </strong>
-  
-                  <p id="statusTrabalhoManha">
-                      Nenhuma empresa registrada.
-                  </p>
-  
-              </div>
-  
-          </div>
-  
-      </div>
-  
-  
-      <!-- ========================= -->
-      <!-- ARQUIVADOS -->
-      <!-- ========================= -->
-  
-      <div id="areaArquivados" class="area-arquivados">
-  
-          <h2>📦 Hábitos arquivados</h2>
-  
-          <div id="listaArquivados"></div>
-  
-      </div>
-  
-  
-      <button id="btnNovoHabito">
-          + Novo hábito
-      </button>
-  
-  
-      <button id="btnArquivados">
-          📦 Arquivados
-      </button>
+        <h2>Sistema de Rotina</h2>
+
+        <div id="listaHabitos"></div>
+
+        <div id="areaArquivados" class="area-arquivados">
+
+            <h2>📦 Hábitos arquivados</h2>
+
+            <div id="listaArquivados"></div>
+
+        </div>
+
+        <button id="btnNovoHabito">
+            + Novo hábito
+        </button>
+
+        <button id="btnArquivados">
+            📦 Arquivados
+        </button>
 
     </section>
 
@@ -877,13 +445,411 @@
 
 </section>
   
+<!-- ========================= -->
+<!-- MODULO DE FINANÇAS (TELA) -->
+<!-- ========================= -->
 <section id="telaFinancas" class="tela-modulo">
 
-    <h2>💰 Finanças</h2>
+    <div class="modulo-cabecalho">
 
-    <p>
-        Em breve...
-    </p>
+        <h2>💰 Finanças</h2>
+
+        <p>
+            Organize suas entradas e saídas.
+        </p>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- RESUMO FINANCEIRO -->
+    <!-- ========================= -->
+
+    <div class="resumo-financeiro">
+
+        <div class="card-financeiro saldo">
+
+            <span class="icone-financeiro">
+                💰
+            </span>
+
+            <div>
+
+                <small>
+                    Saldo
+                </small>
+
+                <strong id="saldoFinanceiro">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-financeiro entrada">
+
+            <span class="icone-financeiro">
+                🟢
+            </span>
+
+            <div>
+
+                <small>
+                    Entradas
+                </small>
+
+                <strong id="totalEntradas">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-financeiro saida">
+
+            <span class="icone-financeiro">
+                🔴
+            </span>
+
+            <div>
+
+                <small>
+                    Saídas
+                </small>
+
+                <strong id="totalSaidas">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MOVIMENTAÇÕES -->
+    <!-- ========================= -->
+
+    <div class="bloco-financeiro">
+
+        <div class="titulo-bloco-financeiro">
+            <h3>📅 Contas</h3>
+        </div>
+    
+        <div class="resumo-contas">
+    
+            <span id="contasAtrasadas">
+                🔴 0 atrasadas
+            </span>
+    
+            <span id="contasPendentes">
+                🟡 0 pendentes
+            </span>
+    
+            <span id="contasPagas">
+                🟢 0 pagas
+            </span>
+    
+        </div>
+    
+        <div id="listaContas" class="lista-contas">
+    
+            <p class="estado-vazio-financeiro">
+                Nenhuma conta cadastrada.
+            </p>
+    
+        </div>
+    
+    </div>
+    
+    <button id="btnNovaConta" class="btn-nova-transacao">
+        + Nova conta
+    </button>
+    
+    <div id="modalConta" class="modal-transacao">
+    
+        <div class="modal-transacao-caixa">
+    
+            <h2>Nova conta</h2>
+    
+            <label for="descricaoConta">
+                Descrição
+            </label>
+    
+            <input
+                type="text"
+                id="descricaoConta"
+                placeholder="Ex: Internet"
+            >
+    
+            <label for="valorConta">
+                Valor
+            </label>
+    
+            <input
+                type="number"
+                id="valorConta"
+                placeholder="0,00"
+                step="0.01"
+                min="0"
+            >
+    
+            <label for="categoriaConta">
+                Categoria
+            </label>
+    
+            <select id="categoriaConta">
+    
+                <option value="Alimentação">
+                    🍽️ Alimentação
+                </option>
+    
+                <option value="Transporte">
+                    🛵 Transporte
+                </option>
+    
+                <option value="Moradia">
+                    🏠 Moradia
+                </option>
+    
+                <option value="Lazer">
+                    🎮 Lazer
+                </option>
+    
+                <option value="Estudos">
+                    📚 Estudos
+                </option>
+    
+                <option value="Saúde">
+                    🏥 Saúde
+                </option>
+    
+                <option value="Trabalho">
+                    💼 Trabalho
+                </option>
+
+                <option value="Internet">
+                    🛜 Internet
+                </option>
+    
+                <option value="Outros">
+                    📦 Outros
+                </option>
+    
+            </select>
+    
+            <label for="vencimentoConta">
+                Vencimento
+            </label>
+    
+            <input
+                type="date"
+                id="vencimentoConta"
+            >
+    
+            <label class="checkbox-conta">
+    
+                <input
+                    type="checkbox"
+                    id="pagaConta"
+                >
+    
+                Conta já está paga
+    
+            </label>
+    
+            <div class="acoes-modal-financeiro">
+    
+                <button id="salvarConta">
+                    Salvar
+                </button>
+    
+                <button
+                    id="cancelarConta"
+                    class="btn-cancelar-financeiro"
+                >
+                    Cancelar
+                </button>
+    
+            </div>
+    
+        </div>
+    
+    </div>
+  
+    <div class="bloco-financeiro">
+
+        <div class="titulo-bloco-financeiro">
+
+            <h3>
+                📋 Movimentações
+            </h3>
+
+        </div>
+
+
+        <div
+            id="listaTransacoes"
+            class="lista-transacoes">
+
+            <p class="estado-vazio-financeiro">
+                Nenhuma movimentação registrada.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- NOVA MOVIMENTAÇÃO -->
+    <!-- ========================= -->
+
+    <button
+        id="btnNovaTransacao"
+        class="btn-nova-transacao">
+
+        + Nova movimentação
+
+    </button>
+
+
+    <!-- ========================= -->
+    <!-- MODAL NOVA TRANSAÇÃO -->
+    <!-- ========================= -->
+
+    <div
+        id="modalTransacao"
+        class="modal-transacao">
+
+        <div class="modal-transacao-caixa">
+
+            <h2>
+                Nova movimentação
+            </h2>
+
+
+            <label for="tipoTransacao">
+                Tipo
+            </label>
+
+            <select id="tipoTransacao">
+
+                <option value="entrada">
+                    🟢 Entrada
+                </option>
+
+                <option value="saida">
+                    🔴 Saída
+                </option>
+
+            </select>
+
+
+            <label for="descricaoTransacao">
+                Descrição
+            </label>
+
+            <input
+                type="text"
+                id="descricaoTransacao"
+                placeholder="Ex: Mercado"
+            >
+
+
+            <label for="valorTransacao">
+                Valor
+            </label>
+
+            <input
+                type="number"
+                id="valorTransacao"
+                placeholder="0,00"
+                step="0.01"
+                min="0"
+            >
+
+
+            <label for="categoriaTransacao">
+                Categoria
+            </label>
+
+            <select id="categoriaTransacao">
+
+                <option value="Alimentação">
+                    🍽️ Alimentação
+                </option>
+
+                <option value="Transporte">
+                    🛵 Transporte
+                </option>
+
+                <option value="Moradia">
+                    🏠 Moradia
+                </option>
+
+                <option value="Lazer">
+                    🎮 Lazer
+                </option>
+
+                <option value="Estudos">
+                    📚 Estudos
+                </option>
+
+                <option value="Saúde">
+                    🧘 Saúde/Cuidado
+                </option>
+
+                <option value="Trabalho">
+                    💼 Trabalho
+                </option>
+
+                <option value="Internet">
+                    🛜 Internet
+                </option>
+
+                <option value="Outros">
+                    📦 Outros
+                </option>
+
+            </select>
+
+
+            <label for="dataTransacao">
+                Data
+            </label>
+
+            <input
+                type="date"
+                id="dataTransacao"
+            >
+
+
+            <div class="acoes-modal-financeiro">
+
+                <button id="salvarTransacao">
+                    Salvar
+                </button>
+
+                <button
+                    id="cancelarTransacao"
+                    class="btn-cancelar-financeiro">
+
+                    Cancelar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
   
@@ -1427,12 +1393,141 @@
   
   
   <section id="telaTrabalho" class="tela-modulo">
+
+      <div class="modulo-cabecalho">
   
-      <h2>💼 Trabalho</h2>
+          <h2>💼 Trabalho</h2>
   
-      <p>
-          Em breve...
-      </p>
+          <p>
+              Organize sua jornada, tarefas e registros profissionais.
+          </p>
+  
+      </div>
+  
+  
+      <!-- ==========================================
+           JORNADA
+      =========================================== -->
+  
+      <div class="bloco-trabalho">
+  
+          <div class="titulo-bloco-trabalho">
+  
+              <h3>🕐 Jornada</h3>
+  
+          </div>
+  
+          <div class="jornada-trabalho">
+  
+              <div class="item-jornada">
+  
+                  <span>Entrada</span>
+  
+                  <strong id="entradaTrabalho">
+                      —
+                  </strong>
+  
+              </div>
+  
+              <div class="item-jornada">
+  
+                  <span>Saída</span>
+  
+                  <strong id="saidaTrabalho">
+                      —
+                  </strong>
+  
+              </div>
+  
+              <div class="item-jornada">
+  
+                  <span>Status</span>
+  
+                  <strong id="statusTrabalho">
+                      ⚪ Não iniciada
+                  </strong>
+  
+              </div>
+  
+          </div>
+  
+          <div class="acoes-jornada">
+  
+              <button id="btnIniciarJornada">
+                  Iniciar jornada
+              </button>
+  
+              <button
+                  id="btnFinalizarJornada"
+                  class="btn-secundario-trabalho"
+              >
+                  Finalizar jornada
+              </button>
+  
+          </div>
+  
+      </div>
+  
+  
+      <!-- ==========================================
+           TAREFAS
+      =========================================== -->
+  
+      <div class="bloco-trabalho">
+  
+          <div class="titulo-bloco-trabalho">
+  
+              <h3>📋 Tarefas de hoje</h3>
+  
+          </div>
+  
+          <div
+              id="listaTarefasTrabalho"
+              class="lista-tarefas-trabalho"
+          >
+  
+              <p class="estado-vazio-trabalho">
+                  Nenhuma tarefa cadastrada.
+              </p>
+  
+          </div>
+  
+          <button
+              id="btnNovaTarefaTrabalho"
+              class="btn-nova-tarefa-trabalho"
+          >
+              + Nova tarefa
+          </button>
+  
+      </div>
+  
+  
+      <!-- ==========================================
+           ANOTAÇÕES
+      =========================================== -->
+  
+      <div class="bloco-trabalho">
+  
+          <div class="titulo-bloco-trabalho">
+  
+              <h3>📝 Anotações</h3>
+  
+          </div>
+  
+          <textarea
+              id="anotacaoTrabalho"
+              class="anotacao-trabalho"
+              placeholder="Registre algo importante sobre seu dia..."
+          ></textarea>
+  
+          <button
+              id="btnSalvarAnotacaoTrabalho"
+              class="btn-salvar-anotacao-trabalho"
+          >
+              Salvar anotação
+          </button>
+  
+      </div>
   
   </section>
     
