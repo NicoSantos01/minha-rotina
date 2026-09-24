@@ -1710,3 +1710,518 @@ button:hover {
     margin-top: 4px;
     opacity: 0.7;
 }
+
+/* ==========================================
+   FINANÇAS
+========================================== */
+
+.resumo-financeiro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.card-financeiro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 18px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.icone-financeiro {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f9fafb;
+    border-radius: 10px;
+
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.card-financeiro small {
+    display: block;
+    margin-bottom: 4px;
+
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.card-financeiro strong {
+    display: block;
+    font-size: 20px;
+}
+
+
+/* ==========================================
+   BLOCO DE MOVIMENTAÇÕES
+========================================== */
+
+.bloco-financeiro {
+    padding: 20px;
+    margin-bottom: 15px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.titulo-bloco-financeiro h3 {
+    margin: 0 0 15px 0;
+}
+
+.lista-transacoes {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ==========================================
+   TRANSAÇÃO
+========================================== */
+
+.transacao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.transacao:last-child {
+    border-bottom: none;
+}
+
+.transacao-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.transacao-descricao {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.transacao-categoria {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.transacao-data {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.transacao-valor {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.transacao.entrada .transacao-valor {
+    color: #15803d;
+}
+
+.transacao.saida .transacao-valor {
+    color: #dc2626;
+}
+
+
+/* ==========================================
+   ESTADO VAZIO
+========================================== */
+
+.estado-vazio-financeiro {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   BOTÃO NOVA TRANSAÇÃO
+========================================== */
+
+.btn-nova-transacao {
+    width: 100%;
+    margin-top: 0;
+}
+
+
+/* ==========================================
+   MODAL FINANCEIRO
+========================================== */
+
+.modal-transacao {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.modal-transacao.ativo {
+    display: flex;
+}
+
+.modal-transacao-caixa {
+    width: 90%;
+    max-width: 420px;
+
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    box-sizing: border-box;
+}
+
+.modal-transacao-caixa h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modal-transacao-caixa label {
+    display: block;
+
+    margin-top: 12px;
+    margin-bottom: 6px;
+
+    font-size: 14px;
+}
+
+.modal-transacao-caixa input,
+.modal-transacao-caixa select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    background: white;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+}
+
+.acoes-modal-financeiro {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.acoes-modal-financeiro button {
+    flex: 1;
+}
+
+.btn-cancelar-financeiro {
+    opacity: 0.8;
+}
+
+
+/* ==========================================
+   FINANÇAS - MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .resumo-financeiro {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .card-financeiro {
+        padding: 15px;
+    }
+
+    .card-financeiro strong {
+        font-size: 18px;
+    }
+
+    .bloco-financeiro {
+        padding: 15px;
+    }
+
+    .transacao {
+        gap: 10px;
+    }
+
+    .transacao-valor {
+        white-space: nowrap;
+    }
+
+}
+
+/* ==========================================
+   AÇÕES DA TRANSAÇÃO
+========================================== */
+
+.btn-excluir-transacao {
+    margin: 0;
+    padding: 6px 8px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.btn-excluir-transacao:hover {
+    background: #f3f4f6;
+}
+
+/* ==========================================
+   CONTAS
+========================================== */
+
+.resumo-contas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.resumo-contas span {
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.lista-contas {
+    display: flex;
+    flex-direction: column;
+}
+
+.conta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.conta:last-child {
+    border-bottom: none;
+}
+
+.conta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.conta-descricao {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.conta-detalhes {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.status-conta {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.conta.pendente .status-conta {
+    color: #ca8a04;
+}
+
+.conta.atrasada .status-conta {
+    color: #dc2626;
+}
+
+.conta.paga .status-conta {
+    color: #15803d;
+}
+
+.checkbox-conta {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px !important;
+    cursor: pointer;
+}
+
+.checkbox-conta input {
+    width: auto !important;
+}
+
+/* ==========================================
+   CHECKBOX DE CONTA
+========================================== */
+
+.acoes-conta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.checkbox-pagar-conta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.checkbox-pagar-conta input {
+    width: auto;
+}
+
+/* ==========================================
+   AÇÕES DAS CONTAS
+========================================== */
+
+.btn-editar-conta,
+.btn-excluir-conta {
+    margin: 0;
+    padding: 6px 8px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-editar-conta:hover,
+.btn-excluir-conta:hover {
+    background: #f3f4f6;
+}
+
+
+/* ==========================================
+   TRABALHO
+========================================== */
+
+.bloco-trabalho {
+    padding: 20px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.titulo-bloco-trabalho h3 {
+    margin: 0 0 15px 0;
+}
+
+.jornada-trabalho {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.item-jornada {
+    padding: 14px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.item-jornada span {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.item-jornada strong {
+    font-size: 15px;
+}
+
+.acoes-jornada {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.acoes-jornada button {
+    flex: 1;
+}
+
+.btn-secundario-trabalho {
+    opacity: 0.8;
+}
+
+.lista-tarefas-trabalho {
+    display: flex;
+    flex-direction: column;
+}
+
+.estado-vazio-trabalho {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.btn-nova-tarefa-trabalho {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.anotacao-trabalho {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.btn-salvar-anotacao-trabalho {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+
+    .jornada-trabalho {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes-jornada {
+        flex-direction: column;
+    }
+
+}
