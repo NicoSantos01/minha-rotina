@@ -19,6 +19,27 @@
 
 <body>
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Minha Rotina</title>
+	
+	<link rel="stylesheet" href="style.css">
+	<link rel="manifest" href="manifest.json">
+
+</head>
+
+<body>
+
 <div class="app">
   
   <div class="cabecalho">
@@ -871,19 +892,321 @@
 
 </section>
 
-  <!-- ========================= -->
+<!-- ========================= -->
 <!-- MÓDULO DE METAS -->
 <!-- ========================= -->
 
 <section id="telaMetas" class="tela-modulo">
 
     <div class="modulo-cabecalho">
-
         <h2>🎯 Metas</h2>
+        <p>Defina, acompanhe e conquiste seus objetivos.</p>
+    </div>
 
-        <p>
-            Defina, acompanhe e conquiste seus objetivos.
-        </p>
+    <div class="metas-acoes">
+        <button id="btnNovaMeta" class="btn-principal">
+            + Nova meta
+        </button>
+    </div>
+
+    <div id="listaMetas">
+        <!-- Metas serão carregadas aqui -->
+    </div>
+
+</section>
+
+
+<!-- MODAL NOVA META -->
+
+<div id="modalNovaMeta" class="modal">
+    <div class="modal-conteudo">
+
+        <h2>🎯 Nova meta</h2>
+
+        <label for="nomeMeta">Nome da meta</label>
+        <input
+            type="text"
+            id="nomeMeta"
+            placeholder="Ex: Ganhar 10 kg"
+        >
+
+        <label for="descricaoMeta">Descrição</label>
+        <textarea
+            id="descricaoMeta"
+            placeholder="Descreva o que você quer alcançar..."
+        ></textarea>
+
+        <label for="tipoMeta">📊 Tipo de progresso</label>
+
+        <select id="tipoMeta">
+
+            <option value="numero">
+                Número
+            </option>
+
+            <option value="porcentagem">
+                Porcentagem
+            </option>
+
+            <option value="etapas">
+                Etapas
+            </option>
+
+            <option value="quantidade">
+                Quantidade
+            </option>
+
+        </select>
+
+        <!-- CAMPOS DE NÚMERO -->
+
+        <div id="camposNumeroMeta">
+
+            <label for="valorAtualMeta">
+                Valor atual
+            </label>
+
+            <input
+                type="number"
+                id="valorAtualMeta"
+                step="0.01"
+                placeholder="Ex: 45.5"
+            >
+
+            <label for="valorObjetivoMeta">
+                Valor objetivo
+            </label>
+
+            <input
+                type="number"
+                id="valorObjetivoMeta"
+                step="0.01"
+                placeholder="Ex: 55.5"
+            >
+
+            <label for="unidadeMeta">
+                Unidade
+            </label>
+
+            <input
+                type="text"
+                id="unidadeMeta"
+                placeholder="Ex: kg, R$, horas..."
+            >
+
+        </div>
+
+
+        <!-- CAMPO PORCENTAGEM -->
+
+        <div id="campoPorcentagemMeta" style="display: none;">
+
+            <label for="porcentagemMeta">
+                Progresso atual (%)
+            </label>
+
+            <input
+                type="number"
+                id="porcentagemMeta"
+                min="0"
+                max="100"
+                placeholder="0"
+            >
+
+        </div>
+
+
+        <!-- CAMPOS QUANTIDADE -->
+
+        <div id="camposQuantidadeMeta" style="display: none;">
+
+            <label for="quantidadeAtualMeta">
+                Quantidade atual
+            </label>
+
+            <input
+                type="number"
+                id="quantidadeAtualMeta"
+                min="0"
+                placeholder="Ex: 4"
+            >
+
+            <label for="quantidadeObjetivoMeta">
+                Quantidade objetivo
+            </label>
+
+            <input
+                type="number"
+                id="quantidadeObjetivoMeta"
+                min="1"
+                placeholder="Ex: 12"
+            >
+
+            <label for="unidadeQuantidadeMeta">
+                Unidade
+            </label>
+
+            <input
+                type="text"
+                id="unidadeQuantidadeMeta"
+                placeholder="Ex: livros, cursos..."
+            >
+
+        </div>
+
+
+        <!-- PRAZO -->
+
+        <label for="prazoMeta">
+            📅 Prazo
+        </label>
+
+        <input
+            type="date"
+            id="prazoMeta"
+        >
+
+
+        <!-- STATUS -->
+
+        <label for="statusMeta">
+            🟢 Status
+        </label>
+
+        <select id="statusMeta">
+
+            <option value="andamento">
+                Em andamento
+            </option>
+
+            <option value="pausada">
+                Pausada
+            </option>
+
+            <option value="concluida">
+                Concluída
+            </option>
+
+            <option value="cancelada">
+                Cancelada
+            </option>
+
+        </select>
+
+
+        <!-- ETAPAS -->
+
+        <label>
+            ☑️ Etapas
+        </label>
+
+        <div id="listaEtapasMeta"></div>
+
+        <button
+            type="button"
+            id="btnAdicionarEtapa"
+            class="btn-secundario"
+        >
+            + Adicionar etapa
+        </button>
+
+
+        <!-- RELACIONAMENTOS -->
+
+        <label>
+            🔗 Relacionar com
+        </label>
+
+        <div class="relacionamentos-meta">
+
+            <label>
+                <input type="checkbox" value="habitos">
+                Hábitos
+            </label>
+
+            <label>
+                <input type="checkbox" value="treino">
+                Treino
+            </label>
+
+            <label>
+                <input type="checkbox" value="alimentacao">
+                Alimentação
+            </label>
+
+            <label>
+                <input type="checkbox" value="estudos">
+                Estudos
+            </label>
+
+            <label>
+                <input type="checkbox" value="trabalho">
+                Trabalho
+            </label>
+
+            <label>
+                <input type="checkbox" value="financas">
+                Finanças
+            </label>
+
+            <label>
+                <input type="checkbox" value="leitura">
+                Leitura
+            </label>
+
+        </div>
+
+
+        <!-- ANOTAÇÕES -->
+
+        <label for="anotacoesMeta">
+            📝 Anotações
+        </label>
+
+        <textarea
+            id="anotacoesMeta"
+            placeholder="Alguma observação sobre essa meta..."
+        ></textarea>
+
+
+        <div class="modal-acoes">
+
+            <button
+                type="button"
+                id="btnCancelarMeta"
+                class="btn-secundario"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                id="btnCriarMeta"
+                class="btn-principal"
+            >
+                Criar meta
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ==========================================
+FICHA DA META
+========================================== -->
+
+<section id="fichaMeta" class="tela-modulo" style="display: none;">
+
+    <div class="ficha-meta-cabecalho">
+
+        <button id="btnVoltarMetas" class="btn-voltar">
+            ← Voltar
+        </button>
+
+        <div id="fichaMetaConteudo">
+            <!-- Conteúdo preenchido pelo JavaScript -->
+        </div>
 
     </div>
 
