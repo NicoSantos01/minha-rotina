@@ -2200,7 +2200,10 @@ const telasModulos = {
     financas: document.getElementById("telaFinancas"),
     treino: document.getElementById("telaTreino"),
     estudos: document.getElementById("telaEstudos"),
-    trabalho: document.getElementById("telaTrabalho")
+    trabalho: document.getElementById("telaTrabalho"),
+    metas: document.getElementById("telaMetas"),
+    saudeMental: document.getElementById("telaSaudeMental"),
+    leitura: document.getElementById("telaLeitura")
 };
 
 // ESCONDE TODOS OS MÓDULOS
@@ -2286,6 +2289,77 @@ document.addEventListener("click", (evento) => {
     ) {
         menuModulos.classList.remove("aberto");
     }
+});
+
+// ==========================================
+// GESTO DE ARRASTAR — MENU LATERAL
+// ==========================================
+
+let inicioToqueX = 0;
+let inicioToqueY = 0;
+
+const distanciaMinimaMenu = 60;
+
+document.addEventListener("touchstart", (evento) => {
+
+    const toque = evento.touches[0];
+
+    inicioToqueX = toque.clientX;
+    inicioToqueY = toque.clientY;
+
+});
+
+
+document.addEventListener("touchend", (evento) => {
+
+    const toque = evento.changedTouches[0];
+
+    const fimToqueX = toque.clientX;
+    const fimToqueY = toque.clientY;
+
+    const deslocamentoX =
+        fimToqueX - inicioToqueX;
+
+    const deslocamentoY =
+        fimToqueY - inicioToqueY;
+
+
+    // Ignora movimentos principalmente verticais
+    if (
+        Math.abs(deslocamentoX) <
+        Math.abs(deslocamentoY)
+    ) {
+        return;
+    }
+
+
+    // ==========================================
+    // ABRIR MENU
+    // ==========================================
+
+    if (
+        deslocamentoX >= distanciaMinimaMenu &&
+        inicioToqueX <= 40
+    ) {
+
+        menuModulos.classList.add("aberto");
+
+    }
+
+
+    // ==========================================
+    // FECHAR MENU
+    // ==========================================
+
+    if (
+        deslocamentoX <= -distanciaMinimaMenu &&
+        menuModulos.classList.contains("aberto")
+    ) {
+
+        menuModulos.classList.remove("aberto");
+
+    }
+
 });
 
 const btnDashboard =
