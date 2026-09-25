@@ -121,6 +121,11 @@ button:hover {
     margin-top: 0;
 }
 
+#btnMenu {
+    border: none;
+    background: transparent;
+}
+
 .menu-modulos {
     position: fixed;
     top: 0;
