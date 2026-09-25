@@ -5833,3 +5833,1224 @@ function renderizarJornada() {
 // ==========================================
 
 renderizarJornada();
+
+
+
+
+// ==========================================
+// METAS
+// ==========================================
+
+let metas =
+    JSON.parse(localStorage.getItem("metas")) || [];
+
+
+// ==========================================
+// ELEMENTOS
+// ==========================================
+
+const btnNovaMeta =
+    document.getElementById("btnNovaMeta");
+
+const modalNovaMeta =
+    document.getElementById("modalNovaMeta");
+
+const btnCancelarMeta =
+    document.getElementById("btnCancelarMeta");
+
+const btnCriarMeta =
+    document.getElementById("btnCriarMeta");
+
+const listaMetas =
+    document.getElementById("listaMetas");
+
+const tipoMeta =
+    document.getElementById("tipoMeta");
+
+const camposNumeroMeta =
+    document.getElementById("camposNumeroMeta");
+
+const campoPorcentagemMeta =
+    document.getElementById("campoPorcentagemMeta");
+
+const camposQuantidadeMeta =
+    document.getElementById("camposQuantidadeMeta");
+
+const btnAdicionarEtapa =
+    document.getElementById("btnAdicionarEtapa");
+
+const listaEtapasMeta =
+    document.getElementById("listaEtapasMeta");
+
+
+// ==========================================
+// ABRIR MODAL
+// ==========================================
+
+btnNovaMeta.addEventListener("click", () => {
+
+    modalNovaMeta.classList.add("aberto");
+
+});
+
+
+// ==========================================
+// FECHAR MODAL
+// ==========================================
+
+btnCancelarMeta.addEventListener("click", () => {
+
+    modalNovaMeta.classList.remove("aberto");
+
+});
+
+
+// ==========================================
+// TIPO DE PROGRESSO
+// ==========================================
+
+tipoMeta.addEventListener("change", () => {
+
+    const tipo = tipoMeta.value;
+
+    camposNumeroMeta.style.display =
+        tipo === "numero"
+            ? "block"
+            : "none";
+
+    campoPorcentagemMeta.style.display =
+        tipo === "porcentagem"
+            ? "block"
+            : "none";
+
+    camposQuantidadeMeta.style.display =
+        tipo === "quantidade"
+            ? "block"
+            : "none";
+
+});
+
+
+// ==========================================
+// ETAPAS
+// ==========================================
+
+btnAdicionarEtapa.addEventListener("click", () => {
+
+    const etapa = document.createElement("div");
+
+    etapa.className = "etapa-meta";
+
+    etapa.innerHTML = `
+        <input
+            type="text"
+            class="input-etapa-meta"
+            placeholder="Nome da etapa"
+        >
+
+        <button
+            type="button"
+            class="btn-remover-etapa"
+        >
+            ×
+        </button>
+    `;
+
+    etapa
+        .querySelector(".btn-remover-etapa")
+        .addEventListener("click", () => {
+
+            etapa.remove();
+
+        });
+
+    listaEtapasMeta.appendChild(etapa);
+
+});
+
+
+// ==========================================
+// CRIAR META
+// ==========================================
+
+btnCriarMeta.addEventListener("click", () => {
+
+    const nome =
+        document.getElementById("nomeMeta").value.trim();
+
+    if (!nome) {
+        alert("Digite o nome da meta.");
+        return;
+    }
+
+
+    const descricao =
+        document.getElementById("descricaoMeta").value.trim();
+
+    const tipo =
+        document.getElementById("tipoMeta").value;
+
+    const prazo =
+        document.getElementById("prazoMeta").value;
+
+    const status =
+        document.getElementById("statusMeta").value;
+
+
+    // ======================================
+    // ETAPAS
+    // ======================================
+
+    const etapas = [];
+
+    document
+        .querySelectorAll(".input-etapa-meta")
+        .forEach(input => {
+
+            const nomeEtapa =
+                input.value.trim();
+
+            if (nomeEtapa) {
+
+                etapas.push({
+                    nome: nomeEtapa,
+                    concluida: false
+                });
+
+            }
+
+        });
+
+
+    // ======================================
+    // RELACIONAMENTOS
+    // ======================================
+
+    const relacionados = [];
+
+    document
+        .querySelectorAll(".relacionamentos-meta input:checked")
+        .forEach(input => {
+
+            relacionados.push(input.value);
+
+        });
+
+
+    // ======================================
+    // PROGRESSO
+    // ======================================
+
+    const progresso = {
+
+        tipo: tipo,
+
+        valorAtual: null,
+
+        valorObjetivo: null,
+
+        unidade: "",
+
+        porcentagem: 0
+
+    };
+
+
+    if (tipo === "numero") {
+
+        progresso.valorAtual =
+            Number(
+                document
+                    .getElementById("valorAtualMeta")
+                    .value
+            ) || 0;
+
+        progresso.valorObjetivo =
+            Number(
+                document
+                    .getElementById("valorObjetivoMeta")
+                    .value
+            ) || 0;
+
+        progresso.unidade =
+            document
+                .getElementById("unidadeMeta")
+                .value
+                .trim();
+
+    }
+
+
+    if (tipo === "porcentagem") {
+
+        progresso.porcentagem =
+            Number(
+                document
+                    .getElementById("porcentagemMeta")
+                    .value
+            ) || 0;
+
+    }
+
+
+    if (tipo === "quantidade") {
+
+        progresso.valorAtual =
+            Number(
+                document
+                    .getElementById("quantidadeAtualMeta")
+                    .value
+            ) || 0;
+
+        progresso.valorObjetivo =
+            Number(
+                document
+                    .getElementById("quantidadeObjetivoMeta")
+                    .value
+            ) || 0;
+
+        progresso.unidade =
+            document
+                .getElementById("unidadeQuantidadeMeta")
+                .value
+                .trim();
+
+    }
+
+
+    // ======================================
+    // CRIAR META
+    // ======================================
+
+    const novaMeta = {
+
+        id: Date.now(),
+
+        nome: nome,
+
+        descricao: descricao,
+
+        progresso: progresso,
+
+        prazo: prazo,
+
+        status: status,
+
+        etapas: etapas,
+
+        relacionados: relacionados,
+
+        anotacoes:
+            document
+                .getElementById("anotacoesMeta")
+                .value
+                .trim(),
+
+        historico: [],
+
+        criadaEm:
+            new Date().toISOString()
+
+    };
+
+
+    // ======================================
+    // SALVAR
+    // ======================================
+
+    metas.push(novaMeta);
+
+    salvarMetas();
+
+
+    // ======================================
+    // LIMPAR
+    // ======================================
+
+    limparFormularioMeta();
+
+
+    // ======================================
+    // FECHAR MODAL
+    // ======================================
+
+    modalNovaMeta.classList.remove("aberto");
+
+
+    // ======================================
+    // ATUALIZAR LISTA
+    // ======================================
+
+    renderizarMetas();
+
+});
+
+
+// ==========================================
+// LIMPAR FORMULÁRIO
+// ==========================================
+
+function limparFormularioMeta() {
+
+    document.getElementById("nomeMeta").value = "";
+
+    document.getElementById("descricaoMeta").value = "";
+
+    document.getElementById("prazoMeta").value = "";
+
+    document.getElementById("anotacoesMeta").value = "";
+
+    document.getElementById("valorAtualMeta").value = "";
+
+    document.getElementById("valorObjetivoMeta").value = "";
+
+    document.getElementById("unidadeMeta").value = "";
+
+    document.getElementById("porcentagemMeta").value = "";
+
+    document.getElementById("quantidadeAtualMeta").value = "";
+
+    document.getElementById("quantidadeObjetivoMeta").value = "";
+
+    document.getElementById("unidadeQuantidadeMeta").value = "";
+
+    listaEtapasMeta.innerHTML = "";
+
+
+    document
+        .querySelectorAll(
+            ".relacionamentos-meta input"
+        )
+        .forEach(input => {
+
+            input.checked = false;
+
+        });
+
+
+    tipoMeta.value = "numero";
+
+    camposNumeroMeta.style.display = "block";
+
+    campoPorcentagemMeta.style.display = "none";
+
+    camposQuantidadeMeta.style.display = "none";
+
+}
+
+// ==========================================
+// RENDERIZAR METAS
+// ==========================================
+
+function renderizarMetas() {
+
+    listaMetas.innerHTML = "";
+
+    if (!Array.isArray(metas) || metas.length === 0) {
+
+        listaMetas.innerHTML = `
+            <p class="mensagem-vazia">
+                Você ainda não possui nenhuma meta.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    metas.forEach(meta => {
+
+        const card = document.createElement("div");
+
+        card.className = "card-meta";
+        card.dataset.metaId = meta.id;
+
+
+        // ======================================
+        // PROGRESSO
+        // ======================================
+
+        let porcentagem = 0;
+        let textoProgresso = "";
+
+
+        if (
+            meta.progresso &&
+            meta.progresso.tipo === "numero"
+        ) {
+
+            const atual =
+                Number(meta.progresso.valorAtual) || 0;
+
+            const objetivo =
+                Number(meta.progresso.valorObjetivo) || 0;
+
+            if (objetivo > 0) {
+                porcentagem = (atual / objetivo) * 100;
+            }
+
+            textoProgresso =
+                `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
+        }
+
+
+        else if (
+            meta.progresso &&
+            meta.progresso.tipo === "porcentagem"
+        ) {
+
+            porcentagem =
+                Number(meta.progresso.porcentagem) || 0;
+
+            textoProgresso =
+                `${porcentagem}%`;
+        }
+
+
+        else if (
+            meta.progresso &&
+            meta.progresso.tipo === "quantidade"
+        ) {
+
+            const atual =
+                Number(meta.progresso.valorAtual) || 0;
+
+            const objetivo =
+                Number(meta.progresso.valorObjetivo) || 0;
+
+            if (objetivo > 0) {
+                porcentagem = (atual / objetivo) * 100;
+            }
+
+            textoProgresso =
+                `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
+        }
+
+
+        else if (
+            meta.progresso &&
+            meta.progresso.tipo === "etapas"
+        ) {
+
+            const etapas =
+                Array.isArray(meta.etapas)
+                    ? meta.etapas
+                    : [];
+
+            const total =
+                etapas.length;
+
+            const concluidas =
+                etapas.filter(
+                    etapa => etapa.concluida
+                ).length;
+
+            if (total > 0) {
+                porcentagem =
+                    (concluidas / total) * 100;
+            }
+
+            textoProgresso =
+                `${concluidas} / ${total} etapas`;
+        }
+
+
+        porcentagem =
+            Math.max(
+                0,
+                Math.min(100, porcentagem)
+            );
+
+
+        // ======================================
+        // STATUS
+        // ======================================
+
+        let textoStatus =
+            "🟢 Em andamento";
+
+        if (meta.status === "pausada") {
+            textoStatus = "⏸️ Pausada";
+        }
+
+        if (meta.status === "concluida") {
+            textoStatus = "✅ Concluída";
+        }
+
+        if (meta.status === "cancelada") {
+            textoStatus = "❌ Cancelada";
+        }
+
+
+        // ======================================
+        // PRAZO
+        // ======================================
+
+        let textoPrazo =
+            "Sem prazo definido";
+
+        if (meta.prazo) {
+
+            const data =
+                new Date(meta.prazo + "T00:00:00");
+
+            textoPrazo =
+                data.toLocaleDateString("pt-BR");
+        }
+
+
+        // ======================================
+        // ETAPAS
+        // ======================================
+
+        const etapas =
+            Array.isArray(meta.etapas)
+                ? meta.etapas
+                : [];
+
+        const totalEtapas =
+            etapas.length;
+
+        const etapasConcluidas =
+            etapas.filter(
+                etapa => etapa.concluida
+            ).length;
+
+
+        // ======================================
+        // CARD
+        // ======================================
+
+        card.innerHTML = `
+
+            <div class="card-meta-topo">
+
+                <div>
+
+                    <h3>
+                        🎯 ${meta.nome}
+                    </h3>
+
+                    <p>
+                        ${meta.descricao || "Sem descrição."}
+                    </p>
+
+                </div>
+
+                <span class="status-meta">
+                    ${textoStatus}
+                </span>
+
+            </div>
+
+
+            <div class="progresso-meta">
+
+                <div class="progresso-meta-info">
+
+                    <strong>
+                        📊 ${textoProgresso}
+                    </strong>
+
+                    <span>
+                        ${Math.round(porcentagem)}%
+                    </span>
+
+                </div>
+
+
+                <div class="barra-progresso-meta">
+
+                    <div
+                        class="barra-progresso-meta-preenchida"
+                        style="width: ${porcentagem}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card-meta-informacoes">
+
+                <span>
+                    📅 ${textoPrazo}
+                </span>
+
+                <span>
+                    ☑️ ${etapasConcluidas}
+                    de ${totalEtapas} etapas
+                </span>
+
+            </div>
+
+        `;
+
+
+        listaMetas.appendChild(card);
+
+    });
+
+}
+
+
+// ==========================================
+// CARREGAR METAS
+// ==========================================
+
+renderizarMetas();
+
+// ==========================================
+// FICHA DA META
+// ==========================================
+
+const telaMetas =
+    document.getElementById("telaMetas");
+
+const fichaMeta =
+    document.getElementById("fichaMeta");
+
+const fichaMetaConteudo =
+    document.getElementById("fichaMetaConteudo");
+
+const btnVoltarMetas =
+    document.getElementById("btnVoltarMetas");
+
+let metaSelecionada = null;
+
+
+// ==========================================
+// ABRIR FICHA
+// ==========================================
+
+listaMetas.addEventListener("click", evento => {
+
+    const card =
+        evento.target.closest(".card-meta");
+
+    if (!card) {
+        return;
+    }
+
+    const idMeta =
+        Number(card.dataset.metaId);
+
+    const metaEncontrada =
+        metas.find(meta => meta.id === idMeta);
+
+    if (!metaEncontrada) {
+        console.error("Meta não encontrada:", idMeta);
+        return;
+    }
+
+    metaSelecionada = metaEncontrada;
+
+    abrirFichaMeta();
+
+});
+
+
+// ==========================================
+// ABRIR
+// ==========================================
+
+function abrirFichaMeta() {
+
+    if (!metaSelecionada) {
+        return;
+    }
+
+    telaMetas.style.display = "none";
+
+    fichaMeta.style.display = "block";
+
+    renderizarFichaMeta();
+
+}
+
+
+// ==========================================
+// VOLTAR
+// ==========================================
+
+btnVoltarMetas.addEventListener("click", () => {
+
+    fichaMeta.style.display = "none";
+
+    telaMetas.style.display = "block";
+
+    metaSelecionada = null;
+
+    renderizarMetas();
+
+});
+
+
+// ==========================================
+// RENDERIZAR FICHA
+// ==========================================
+
+function renderizarFichaMeta() {
+
+    const meta = metaSelecionada;
+
+    let porcentagem = 0;
+
+    let textoProgresso = "";
+
+
+    // ======================================
+    // PROGRESSO
+    // ======================================
+
+    if (meta.progresso.tipo === "numero") {
+
+        const atual =
+            Number(meta.progresso.valorAtual) || 0;
+
+        const objetivo =
+            Number(meta.progresso.valorObjetivo) || 0;
+
+        if (objetivo > 0) {
+
+            porcentagem =
+                (atual / objetivo) * 100;
+
+        }
+
+        textoProgresso =
+            `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
+
+    }
+
+
+    if (meta.progresso.tipo === "porcentagem") {
+
+        porcentagem =
+            Number(meta.progresso.porcentagem) || 0;
+
+        textoProgresso =
+            `${porcentagem}%`;
+
+    }
+
+
+    if (meta.progresso.tipo === "quantidade") {
+
+        const atual =
+            Number(meta.progresso.valorAtual) || 0;
+
+        const objetivo =
+            Number(meta.progresso.valorObjetivo) || 0;
+
+        if (objetivo > 0) {
+
+            porcentagem =
+                (atual / objetivo) * 100;
+
+        }
+
+        textoProgresso =
+            `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
+
+    }
+
+
+    if (meta.progresso.tipo === "etapas") {
+
+        const total =
+            meta.etapas.length;
+
+        const concluidas =
+            meta.etapas.filter(
+                etapa => etapa.concluida
+            ).length;
+
+        if (total > 0) {
+
+            porcentagem =
+                (concluidas / total) * 100;
+
+        }
+
+        textoProgresso =
+            `${concluidas} / ${total} etapas`;
+
+    }
+
+
+    porcentagem =
+        Math.max(
+            0,
+            Math.min(100, porcentagem)
+        );
+
+
+    // ======================================
+    // STATUS
+    // ======================================
+
+    let statusTexto = "🟢 Em andamento";
+
+    if (meta.status === "pausada") {
+        statusTexto = "⏸️ Pausada";
+    }
+
+    if (meta.status === "concluida") {
+        statusTexto = "✅ Concluída";
+    }
+
+    if (meta.status === "cancelada") {
+        statusTexto = "❌ Cancelada";
+    }
+
+
+    // ======================================
+    // PRAZO
+    // ======================================
+
+    let prazoTexto =
+        "Sem prazo definido";
+
+    if (meta.prazo) {
+
+        const data =
+            new Date(
+                meta.prazo + "T00:00:00"
+            );
+
+        prazoTexto =
+            data.toLocaleDateString("pt-BR");
+
+    }
+
+
+    // ======================================
+    // ETAPAS
+    // ======================================
+
+    let htmlEtapas = "";
+
+    if (meta.etapas.length === 0) {
+
+        htmlEtapas =
+            "<p>Nenhuma etapa adicionada.</p>";
+
+    } else {
+
+        meta.etapas.forEach((etapa, indice) => {
+
+            htmlEtapas += `
+
+                <label class="etapa-ficha">
+
+                    <input
+                        type="checkbox"
+                        ${etapa.concluida ? "checked" : ""}
+                        data-indice-etapa="${indice}"
+                    >
+
+                    <span>
+                        ${etapa.nome}
+                    </span>
+
+                </label>
+
+            `;
+
+        });
+
+    }
+
+
+    // ======================================
+    // RELACIONAMENTOS
+    // ======================================
+
+    const nomesRelacionados = {
+
+        habitos: "✅ Hábitos",
+
+        treino: "🏋️ Treino",
+
+        alimentacao: "🍽️ Alimentação",
+
+        estudos: "📚 Estudos",
+
+        trabalho: "💼 Trabalho",
+
+        financas: "💰 Finanças",
+
+        leitura: "📖 Leitura"
+
+    };
+
+
+    let htmlRelacionados = "";
+
+    meta.relacionados.forEach(relacionado => {
+
+        htmlRelacionados += `
+
+            <span class="relacionado-ficha">
+
+                ${nomesRelacionados[relacionado] || relacionado}
+
+            </span>
+
+        `;
+
+    });
+
+
+    if (!htmlRelacionados) {
+
+        htmlRelacionados =
+            "<p>Nenhum módulo relacionado.</p>";
+
+    }
+
+
+    // ======================================
+    // HTML
+    // ======================================
+
+    fichaMetaConteudo.innerHTML = `
+    
+        <div class="ficha-meta">
+    
+            <div class="ficha-meta-titulo">
+    
+                <div>
+    
+                    <h2>
+                        🎯 ${meta.nome}
+                    </h2>
+    
+                    <p class="ficha-meta-descricao">
+                        ${
+                            meta.descricao ||
+                            "Sem descrição."
+                        }
+                    </p>
+    
+                </div>
+    
+                <div class="ficha-meta-menu">
+    
+                    <button
+                        type="button"
+                        class="btn-menu-meta"
+                        id="btnMenuMeta"
+                        aria-label="Opções da meta"
+                    >
+                        ⋮
+                    </button>
+    
+                    <div
+                        class="menu-acoes-meta"
+                        id="menuAcoesMeta"
+                        style="display: none;"
+                    >
+    
+                        <button
+                            type="button"
+                            id="btnEditarMeta"
+                        >
+                            ✏️ Editar
+                        </button>
+    
+                        <button
+                            type="button"
+                            id="btnExcluirMeta"
+                        >
+                            🗑️ Excluir
+                        </button>
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+    
+            <!-- PROGRESSO -->
+    
+            <div class="ficha-meta-secao">
+    
+                <h3>📊 Progresso</h3>
+    
+                <div class="ficha-meta-progresso-info">
+    
+                    <strong>
+                        ${textoProgresso}
+                    </strong>
+    
+                    <span>
+                        ${Math.round(porcentagem)}%
+                    </span>
+    
+                </div>
+    
+                <div class="ficha-meta-barra">
+    
+                    <div
+                        class="ficha-meta-barra-preenchida"
+                        style="width: ${porcentagem}%"
+                    ></div>
+    
+                </div>
+    
+            </div>
+    
+    
+            <!-- PRAZO -->
+    
+            <div class="ficha-meta-secao">
+    
+                <h3>📅 Prazo</h3>
+    
+                <p>
+                    ${prazoTexto}
+                </p>
+    
+            </div>
+    
+    
+            <!-- ETAPAS -->
+    
+            <div class="ficha-meta-secao">
+    
+                <h3>☑️ Etapas</h3>
+    
+                <div>
+                    ${htmlEtapas}
+                </div>
+    
+            </div>
+    
+    
+            <!-- RELACIONADOS -->
+    
+            <div class="ficha-meta-secao">
+    
+                <h3>🔗 Relacionados</h3>
+    
+                <div class="relacionados-ficha">
+    
+                    ${htmlRelacionados}
+    
+                </div>
+    
+            </div>
+    
+    
+            <!-- ANOTAÇÕES -->
+    
+            <div class="ficha-meta-secao">
+    
+                <h3>📝 Anotações</h3>
+    
+                <p class="anotacoes-ficha">
+    
+                    ${
+                        meta.anotacoes ||
+                        "Nenhuma anotação."
+                    }
+    
+                </p>
+    
+            </div>
+    
+        </div>
+    
+    `;
+
+
+    // ======================================
+    // MENU DE OPÇÕES
+    // ======================================
+    
+    const btnMenuMeta =
+        document.getElementById("btnMenuMeta");
+    
+    const menuAcoesMeta =
+        document.getElementById("menuAcoesMeta");
+    
+    
+    btnMenuMeta.addEventListener("click", evento => {
+    
+        evento.stopPropagation();
+    
+        const aberto =
+            menuAcoesMeta.style.display === "block";
+    
+        menuAcoesMeta.style.display =
+            aberto ? "none" : "block";
+    
+    });
+    
+    
+    document.addEventListener("click", evento => {
+    
+        if (
+            !evento.target.closest(".ficha-meta-menu")
+        ) {
+    
+            menuAcoesMeta.style.display = "none";
+    
+        }
+    
+    });
+
+
+    // ======================================
+    // EVENTOS DAS ETAPAS
+    // ======================================
+
+    fichaMetaConteudo
+        .querySelectorAll(
+            "[data-indice-etapa]"
+        )
+        .forEach(checkbox => {
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    const indice =
+                        Number(
+                            checkbox.dataset
+                                .indiceEtapa
+                        );
+
+                    metaSelecionada
+                        .etapas[indice]
+                        .concluida =
+                            checkbox.checked;
+
+
+                    salvarMetas();
+
+                    renderizarFichaMeta();
+
+                }
+            );
+
+        });
+
+}
+
+
+// ==========================================
+// SALVAR METAS
+// ==========================================
+
+function salvarMetas() {
+
+    localStorage.setItem(
+        "metas",
+        JSON.stringify(metas)
+    );
+
+}
