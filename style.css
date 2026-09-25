@@ -74,32 +74,71 @@ button:hover {
     background: #f3f4f6;
 }
 
+/* ==========================================
+   MODAIS
+========================================== */
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+
+    background: rgba(0, 0, 0, 0.5);
+
     align-items: center;
     justify-content: center;
+
+    z-index: 9999;
 }
 
-.modal.ativo {
+.modal.aberto {
     display: flex;
 }
 
-.modal-box {
+.modal-conteudo {
     background: white;
+
     padding: 25px;
+
     border-radius: 12px;
+
     width: 90%;
-    max-width: 400px;
+    max-width: 500px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    box-sizing: border-box;
 }
 
-.modal-box input {
+.modal-conteudo input,
+.modal-conteudo textarea,
+.modal-conteudo select {
     width: 100%;
-    padding: 12px;
+
+    padding: 10px;
+
     box-sizing: border-box;
+
     font-size: 16px;
+
+    margin-bottom: 12px;
+}
+
+.modal-conteudo textarea {
+    min-height: 80px;
+
+    resize: vertical;
+}
+
+.modal-acoes {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
 }
 
 /* ==========================================
@@ -2229,4 +2268,279 @@ button:hover {
         flex-direction: column;
     }
 
+}
+
+
+
+
+/* ==========================================
+   CARDS DE METAS
+   ========================================== */
+
+.card-meta {
+    padding: 20px;
+    margin-bottom: 15px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.card-meta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================
+   TOPO
+   ========================================== */
+
+.card-meta-topo {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.card-meta h3 {
+    margin: 0 0 6px 0;
+}
+
+.card-meta p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+.status-meta {
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   PROGRESSO
+   ========================================== */
+
+.progresso-meta {
+    margin-top: 20px;
+}
+
+.progresso-meta-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.barra-progresso-meta {
+    width: 100%;
+    height: 9px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-progresso-meta-preenchida {
+    height: 100%;
+    background: #111827;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+
+/* ==========================================
+   INFORMAÇÕES
+   ========================================== */
+
+.card-meta-informacoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ==========================================
+   FICHA DA META
+   ========================================== */
+
+.ficha-meta-cabecalho {
+    margin-bottom: 25px;
+}
+
+.btn-voltar {
+    margin-bottom: 20px;
+    padding: 8px 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.ficha-meta {
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.ficha-meta-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.ficha-meta-titulo h2 {
+    margin: 0;
+}
+
+.ficha-meta-descricao {
+    margin-top: 10px;
+    color: #6b7280;
+}
+
+.ficha-meta-secao {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.ficha-meta-secao h3 {
+    margin: 0 0 15px 0;
+}
+
+.ficha-meta-progresso-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.ficha-meta-barra {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ficha-meta-barra-preenchida {
+    height: 100%;
+    background: #111827;
+    border-radius: 10px;
+}
+
+.etapa-ficha {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.etapa-ficha input {
+    width: 18px;
+    height: 18px;
+}
+
+.relacionados-ficha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.relacionado-ficha {
+    padding: 7px 12px;
+    background: #f3f4f6;
+    border-radius: 20px;
+}
+
+.anotacoes-ficha {
+    white-space: pre-wrap;
+    color: #4b5563;
+}
+
+.acoes-ficha-meta {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+/* ==========================================
+   MENU DA FICHA DA META
+   ========================================== */
+
+.ficha-meta-topo {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.btn-menu-meta {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.btn-menu-meta:hover {
+    background: #f3f4f6;
+}
+
+.menu-acoes-meta {
+    position: absolute;
+    top: 42px;
+    right: 0;
+
+    min-width: 150px;
+
+    padding: 6px;
+
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+    z-index: 100;
+}
+
+.menu-acoes-meta button {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+
+    text-align: left;
+
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.menu-acoes-meta button:hover {
+    background: #f3f4f6;
+}
+
+.ficha-meta-menu {
+    position: relative;
 }
