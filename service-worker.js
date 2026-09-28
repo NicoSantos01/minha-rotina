@@ -1,4 +1,4 @@
-const CACHE_NAME = "minha-rotina-v2";
+const CACHE_NAME = "minha-rotina-v3";
 
 const ARQUIVOS = [
     "./",
@@ -8,18 +8,32 @@ const ARQUIVOS = [
     "./manifest.json"
 ];
 
+
+// ==========================================
+// INSTALAÇÃO
+// ==========================================
+
 self.addEventListener("install", event => {
 
     event.waitUntil(
+
         caches.open(CACHE_NAME)
             .then(cache => {
+
                 return cache.addAll(ARQUIVOS);
+
             })
+
     );
 
     self.skipWaiting();
+
 });
 
+
+// ==========================================
+// ATIVAÇÃO
+// ==========================================
 
 self.addEventListener("activate", event => {
 
@@ -41,17 +55,54 @@ self.addEventListener("activate", event => {
     );
 
     self.clients.claim();
+
 });
 
 
+// ==========================================
+// REQUISIÇÕES
+// ==========================================
+
 self.addEventListener("fetch", event => {
+
+    if (event.request.method !== "GET") {
+        return;
+    }
 
     event.respondWith(
 
-        caches.match(event.request)
+        fetch(event.request)
             .then(resposta => {
 
-                return resposta || fetch(event.request);
+                return caches.open(CACHE_NAME)
+                    .then(cache => {
+
+                        cache.put(event.request, resposta.clone());
+
+                        return resposta;
+
+                    });
+
+            })
+            .catch(() => {
+
+                return caches.match(event.request)
+                    .then(resposta => {
+
+                        if (resposta) {
+                            return resposta;
+                        }
+
+                        // Se for uma navegação e estiver offline,
+                        // abre o index.html salvo no cache.
+
+                        if (event.request.mode === "navigate") {
+
+                            return caches.match("./index.html");
+
+                        }
+
+                    });
 
             })
 
