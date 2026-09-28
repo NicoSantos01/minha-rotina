@@ -1,11 +1,12 @@
-const CACHE_NAME = "minha-rotina-v3";
+const CACHE_NAME = "minha-rotina-v4";
 
 const ARQUIVOS = [
     "./",
     "./index.html",
     "./style.css",
     "./script.js",
-    "./manifest.json"
+    "./manifest.json",
+    "./icon.png"
 ];
 
 
