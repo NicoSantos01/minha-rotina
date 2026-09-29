@@ -268,6 +268,78 @@
 
         <h2>Sistema de Rotina</h2>
 
+        <!-- SONO -->
+        <div id="blocoSono">
+    
+            <div>
+                <label for="horaDormiu">
+                    🌙 Dormiu às
+                </label>
+    
+                <input
+                    type="time"
+                    id="horaDormiu"
+                >
+            </div>
+    
+            <div>
+                <label for="horaAcordou">
+                    ☀️ Acordou às
+                </label>
+    
+                <input
+                    type="time"
+                    id="horaAcordou"
+                >
+            </div>
+    
+            <div id="resultadoSono">
+                ⏱️ — 
+            </div>
+    
+            <div>
+                🎯 Meta: 8h
+            </div>
+    
+        </div>
+
+        <!-- HIGIENE DA MANHÃ -->
+        <div id="blocoHigieneManha">
+        
+            <button id="abrirHigieneManha">
+                0/13 concluídos
+            </button>
+        
+        </div>
+
+        <!-- ALIMENTAÇÃO -->
+        <div id="blocoAlimentacaoRotina">
+        
+            <div id="resumoAlimentacaoRotina">
+        
+                <div class="refeicao-rotina">
+                    <span>☕ Café da manhã</span>
+                    <span id="statusCafeRotina">—</span>
+                </div>
+        
+            </div>
+        
+        </div>
+
+        <!-- TRABALHO -->
+        <div id="blocoTrabalhoRotina">
+        
+            <div id="resumoTrabalhoRotina">
+        
+                <div class="trabalho-rotina">
+                    <span>💼 Jornada de trabalho</span>
+                    <span id="statusTrabalhoRotina">—</span>
+                </div>
+        
+            </div>
+        
+        </div>
+
         <div id="listaHabitos"></div>
 
         <div id="areaArquivados" class="area-arquivados">
@@ -287,6 +359,94 @@
         </button>
 
     </section>
+
+    <!-- MODAL HIGIENE DA MANHÃ -->
+    <div id="modalHigieneManha" class="modal">
+    
+        <div class="modal-box">
+    
+            <h2>☀️ Rotina da manhã</h2>
+    
+            <div id="listaHigieneManha">
+
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="copo">
+                    Copo d'água
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="cama">
+                    Arrumar a cama
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="cafe">
+                    Preparar o café da manhã
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="mochila">
+                    Organizar a mochila
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="banho">
+                    Tomar banho
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="roupa">
+                    Trocar de roupa
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="dentes">
+                    Escovar os dentes
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="perfume">
+                    Perfume
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="barba">
+                    Tônico para barba
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="labial">
+                    Protetor labial
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="dashboard">
+                    Dashboard
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="fretado">
+                    Pegar fretado
+                </label>
+            
+                <label>
+                    <input type="checkbox" class="itemHigiene" data-item="moto">
+                    Pegar a moto
+                </label>
+            
+            </div>
+    
+            <div id="progressoHigieneManha">
+                0/13 concluídos
+            </div>
+    
+            <button id="fecharHigieneManha">
+                Fechar
+            </button>
+    
+        </div>
+    
+    </div>
 
     <section id="telaHistorico">
 
@@ -329,6 +489,8 @@
         </div>
 
     </section>
+
+  
 
 </section>
   
