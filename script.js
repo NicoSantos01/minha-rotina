@@ -3,42 +3,420 @@
 // ==========================================
 
 let habitos =
-    JSON.parse(localStorage.getItem("habitos")) || [];
+JSON.parse(localStorage.getItem("habitos")) || [];
 
+// ==========================================
+// CARREGAR SONO
+// ==========================================
+
+let sono =
+JSON.parse(localStorage.getItem("sono")) || {};
+
+// ==========================================
+// CARREGAR ROTINA DA MANHÃ
+// ==========================================
+
+let rotinaManha =
+    JSON.parse(
+        localStorage.getItem("rotinaManha")
+    ) || {};
+
+// ==========================================
+// DATA DE HOJE
+// ==========================================
+
+const agora =
+new Date();
+
+const hoje =
+`${agora.getFullYear()}-${String(
+    agora.getMonth() + 1
+).padStart(2, "0")}-${String(
+    agora.getDate()
+).padStart(2, "0")}`;
 
 // ==========================================
 // ELEMENTOS
 // ==========================================
 
 const lista =
-    document.getElementById("listaHabitos");
-
+document.getElementById("listaHabitos");
 const modal =
-    document.getElementById("modal");
-
+document.getElementById("modal");
 const input =
-    document.getElementById("nomeHabito");
-
+document.getElementById("nomeHabito");
 const categoria =
-    document.getElementById("categoriaHabito");
-
+document.getElementById("categoriaHabito");
 const telaHoje =
-    document.getElementById("telaHoje");
-
+document.getElementById("telaHoje");
 const telaHistorico =
-    document.getElementById("telaHistorico");
-
+document.getElementById("telaHistorico");
 const diasCalendario =
-    document.getElementById("diasCalendario");
-
+document.getElementById("diasCalendario");
 const detalhesDia =
-    document.getElementById("detalhesDia");
-
+document.getElementById("detalhesDia");
 const resumoHabitosDashboard =
-    document.getElementById("resumoHabitosDashboard");
-
+document.getElementById("resumoHabitosDashboard");
 const resumoAlimentacaoDashboard =
-    document.getElementById("resumoAlimentacaoDashboard");
+document.getElementById("resumoAlimentacaoDashboard");
+
+// ==========================================
+// SONO
+// ==========================================
+
+const horaDormiu =
+document.getElementById("horaDormiu");
+const horaAcordou =
+document.getElementById("horaAcordou");
+const resultadoSono =
+document.getElementById("resultadoSono");
+
+console.log("SONO:", horaDormiu, horaAcordou, resultadoSono);
+
+// ==========================================
+// CALCULAR SONO
+// ==========================================
+
+function calcularSono() {
+
+    console.log("CALCULANDO SONO");
+
+    const inicio =
+    horaDormiu.value;
+    const fim =
+    horaAcordou.value;
+
+    if (!inicio || !fim) {
+
+        resultadoSono.textContent =
+            "⏱️ —";
+
+        return;
+    }
+
+    let [horaInicio, minutoInicio] =
+    inicio.split(":").map(Number);
+    let [horaFim, minutoFim] =
+    fim.split(":").map(Number);
+    let minutosInicio =
+    horaInicio * 60 + minutoInicio;
+    let minutosFim =
+    horaFim * 60 + minutoFim;
+
+    // Se acordou no dia seguinte
+    if (minutosFim <= minutosInicio) {
+
+        minutosFim += 24 * 60;
+
+    }
+
+    const duracao =
+    minutosFim - minutosInicio;
+  
+    const horas =
+    Math.floor(duracao / 60);
+  
+    const minutos =
+    duracao % 60;
+
+    // ==========================================
+    // SALVAR SONO
+    // ==========================================
+    
+    sono[hoje] = {
+    
+        dormiu: inicio,
+    
+        acordou: fim,
+    
+        duracao: duracao
+    
+    };
+    
+    localStorage.setItem(
+        "sono",
+        JSON.stringify(sono)
+    );
+
+    console.log("Sono salvo:", sono[hoje]);
+
+    resultadoSono.textContent =
+    `⏱️ ${horas}h ${minutos}min`;
+
+    const metaSono =
+        8 * 60;
+    
+    const minutosDormidos =
+        duracao;
+    
+    if (minutosDormidos >= metaSono) {
+    
+        resultadoSono.textContent +=
+            " — ✅ Meta atingida";
+    
+    } else {
+    
+        const faltam =
+            metaSono - minutosDormidos;
+    
+        const horasFaltam =
+            Math.floor(faltam / 60);
+    
+        const minutosFaltam =
+            faltam % 60;
+    
+        resultadoSono.textContent +=
+            ` — ⚠️ Faltam ${horasFaltam}h ${minutosFaltam}min`;
+    }
+
+}
+
+horaDormiu.addEventListener(
+    "change",
+    calcularSono
+);
+
+horaAcordou.addEventListener(
+    "change",
+    calcularSono
+);
+
+// ==========================================
+// CARREGAR SONO DE HOJE
+// ==========================================
+
+const sonoHoje =
+    sono[hoje];
+
+if (sonoHoje) {
+
+    horaDormiu.value =
+        sonoHoje.dormiu;
+
+    horaAcordou.value =
+        sonoHoje.acordou;
+
+    calcularSono();
+}
+
+// ==========================================
+// ROTINA DA MANHÃ
+// ==========================================
+
+const blocoHigieneManha =
+    document.getElementById("blocoHigieneManha");
+
+const abrirHigieneManha =
+    document.getElementById("abrirHigieneManha");
+
+const modalHigieneManha =
+    document.getElementById("modalHigieneManha");
+
+const fecharHigieneManha =
+    document.getElementById("fecharHigieneManha");
+
+// ==========================================
+// BOTÃO ABRIR HIGIENE MANHÃ
+// ==========================================
+abrirHigieneManha.addEventListener(
+    "click",
+    () => {
+
+        modalHigieneManha.classList.add(
+            "ativo"
+        );
+
+    }
+);
+
+// ==========================================
+// BOTÃO FECHAR HIGIENE MANHÃ
+// ==========================================
+fecharHigieneManha.addEventListener(
+    "click",
+    () => {
+
+        modalHigieneManha.classList.remove(
+            "ativo"
+        );
+
+    }
+);
+
+// ==========================================
+// CHECKLIST DA ROTINA DA MANHÃ
+// ==========================================
+
+const itensHigiene =
+    document.querySelectorAll(
+        ".itemHigiene"
+    );
+
+const progressoHigieneManha =
+    document.getElementById(
+        "progressoHigieneManha"
+    );
+
+const resumoHigieneManha =
+    document.getElementById(
+        "abrirHigieneManha"
+    );
+
+// ==========================================
+// CONTADOR
+// ==========================================
+function atualizarProgressoHigiene() {
+
+    const concluidos =
+        document.querySelectorAll(
+            ".itemHigiene:checked"
+        ).length;
+
+    const total =
+        itensHigiene.length;
+
+    const porcentagem =
+        (concluidos / total) * 100;
+    
+    if (porcentagem >= 60) {
+    
+        progressoHigieneManha.textContent =
+            `${concluidos}/${total} concluídos ✅`;
+    
+    } else {
+    
+        progressoHigieneManha.textContent =
+            `${concluidos}/${total} concluídos`;
+    
+    }
+    
+    if (porcentagem >= 60) {
+
+        resumoHigieneManha.textContent =
+            `${concluidos}/${total} concluídos ✅`;
+    
+    } else {
+    
+        resumoHigieneManha.textContent =
+            `${concluidos}/${total} concluídos`;
+    
+    }
+  
+  // ==========================================
+  // SALVAR ROTINA DO DIA
+  // ==========================================
+  rotinaManha[hoje] =
+      {};
+  
+  itensHigiene.forEach(
+      (item) => {
+  
+          rotinaManha[hoje][
+              item.dataset.item
+          ] = item.checked;
+  
+      }
+  );
+  
+  localStorage.setItem(
+      "rotinaManha",
+      JSON.stringify(rotinaManha)
+  );
+}
+
+
+
+// ==========================================
+// CHECKBOX ATUALIZAR
+// ==========================================
+itensHigiene.forEach(
+    (item) => {
+
+        item.addEventListener(
+            "change",
+            atualizarProgressoHigiene
+        );
+
+    }
+);
+
+// ==========================================
+// ALIMENTAÇÃO — SISTEMA DE ROTINA
+// ==========================================
+
+const statusCafeRotina =
+    document.getElementById("statusCafeRotina");
+
+// ==========================================
+// ATUALIZAR ALIMENTAÇÃO NA ROTINA
+// ==========================================
+
+function atualizarAlimentacaoRotina() {
+
+    const alimentacao =
+        JSON.parse(
+            localStorage.getItem("alimentacao")
+        ) || {};
+
+    const refeicoesHoje =
+        alimentacao[hoje] || {};
+
+    const refeicoes = {
+
+        cafe:
+            statusCafeRotina,
+
+    };
+
+    Object.keys(refeicoes).forEach(
+        (refeicao) => {
+
+            const alimentos =
+                refeicoesHoje[refeicao];
+
+            if (
+                Array.isArray(alimentos) &&
+                alimentos.length > 0
+            ) {
+
+                refeicoes[refeicao].textContent =
+                    `✓ ${alimentos.length}`;
+
+            } else {
+
+                refeicoes[refeicao].textContent =
+                    "—";
+
+            }
+
+        }
+    );
+}
+
+atualizarAlimentacaoRotina();
+
+// ==========================================
+// CARREGAR ROTINA DA MANHÃ DE HOJE
+// ==========================================
+
+const rotinaManhaHoje =
+    rotinaManha[hoje];
+
+if (rotinaManhaHoje) {
+
+    itensHigiene.forEach(
+        (item) => {
+
+            item.checked =
+                rotinaManhaHoje[
+                    item.dataset.item
+                ] === true;
+
+        }
+    );
+
+    atualizarProgressoHigiene();
+}
 
 // ==========================================
 // VARIÁVEL DE EDIÇÃO
@@ -302,7 +680,7 @@ function obterEstudosDoDia(data) {
 
 }
 
- // ==========================================
+// ==========================================
 // RESUMO DE TRABALHO DO DIA
 // ==========================================
 
@@ -2793,51 +3171,51 @@ function atualizarResumosAlimentacao() {
         }
     );
 
-Object.keys(listasAlimentacao).forEach(
-    refeicao => {
-
-        const lista =
-            document.getElementById(
-                listasAlimentacao[refeicao]
-            );
-
-        lista.innerHTML = "";
-
-        const alimentos =
-            refeicoesHoje[refeicao];
-        
-        if (!alimentos) {
-            return;
-        }
-        
-        const listaAlimentos =
-            Array.isArray(alimentos)
-                ? alimentos
-                : [alimentos];
-        
-        listaAlimentos.forEach((alimento, indice) => {
-
-            const item =
-                document.createElement("div");
-        
-            item.className = "item-alimento";
-        
-            item.innerHTML = `
-                <span>• ${alimento}</span>
-        
-                <span
-                    class="remover-alimento"
-                    data-indice="${indice}">
-                    ×
-                </span>
-            `;
-        
-            lista.appendChild(item);
-        
-        });
-
-    }
-);
+    Object.keys(listasAlimentacao).forEach(
+      refeicao => {
+    
+          const lista =
+              document.getElementById(
+                  listasAlimentacao[refeicao]
+              );
+    
+          lista.innerHTML = "";
+    
+          const alimentos =
+              refeicoesHoje[refeicao];
+          
+          if (!alimentos) {
+              return;
+          }
+          
+          const listaAlimentos =
+              Array.isArray(alimentos)
+                  ? alimentos
+                  : [alimentos];
+          
+          listaAlimentos.forEach((alimento, indice) => {
+    
+              const item =
+                  document.createElement("div");
+          
+              item.className = "item-alimento";
+          
+              item.innerHTML = `
+                  <span>• ${alimento}</span>
+          
+                  <span
+                      class="remover-alimento"
+                      data-indice="${indice}">
+                      ×
+                  </span>
+              `;
+          
+              lista.appendChild(item);
+          
+          });
+    
+      }
+    );
 
 }
 
