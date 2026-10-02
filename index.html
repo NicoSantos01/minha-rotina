@@ -1944,7 +1944,18 @@ FICHA DA META
           </p>
   
       </div>
-  
+
+
+      <!-- ========================================== -->
+      <!-- HISTÓRICO DA JORNADA -->
+      <!-- ========================================== -->
+      
+      <button
+          id="btnAbrirHistoricoJornada"
+          class="btn-secundario"
+      >
+          📅 Histórico de Jornada
+      </button>
   
       <!-- ==========================================
            JORNADA
@@ -2015,31 +2026,42 @@ FICHA DA META
       =========================================== -->
   
       <div class="bloco-trabalho">
-  
+
           <div class="titulo-bloco-trabalho">
-  
+      
               <h3>📋 Tarefas de hoje</h3>
-  
+      
           </div>
-  
+      
           <div
               id="listaTarefasTrabalho"
               class="lista-tarefas-trabalho"
           >
-  
+      
               <p class="estado-vazio-trabalho">
-                  Nenhuma tarefa cadastrada.
+                  Nenhuma tarefa para hoje.
               </p>
-  
+      
           </div>
-  
-          <button
-              id="btnNovaTarefaTrabalho"
-              class="btn-nova-tarefa-trabalho"
-          >
-              + Nova tarefa
-          </button>
-  
+      
+          <div class="acoes-tarefas-trabalho">
+      
+              <button
+                  id="btnNovaTarefaTrabalho"
+                  class="btn-nova-tarefa-trabalho"
+              >
+                  + Nova tarefa
+              </button>
+      
+              <button
+                  id="btnVerTarefasTrabalho"
+                  class="btn-secundario-trabalho"
+              >
+                  📅 Ver todas as tarefas
+              </button>
+      
+          </div>
+      
       </div>
   
   
@@ -2071,6 +2093,190 @@ FICHA DA META
       </div>
   
   </section>
+
+  <!-- ==========================================
+       MODAL - NOVA TAREFA
+  =========================================== -->
+  
+  <div
+      id="modalNovaTarefaTrabalho"
+      class="modal"
+      style="display: none;"
+  >
+  
+      <div class="modal-conteudo">
+  
+          <h2>📋 Nova tarefa</h2>
+  
+          <div>
+  
+              <label for="nomeTarefaTrabalho">
+                  Nome da tarefa
+              </label>
+  
+              <input
+                  type="text"
+                  id="nomeTarefaTrabalho"
+                  placeholder="Ex: Resolver chamado do GLPI"
+              >
+  
+          </div>
+  
+          <div>
+  
+              <label for="descricaoTarefaTrabalho">
+                  Descrição
+              </label>
+  
+              <textarea
+                  id="descricaoTarefaTrabalho"
+                  placeholder="Detalhes da tarefa..."
+              ></textarea>
+  
+          </div>
+  
+          <div>
+  
+              <label for="dataTarefaTrabalho">
+                  📅 Data
+              </label>
+  
+              <input
+                  type="date"
+                  id="dataTarefaTrabalho"
+              >
+  
+          </div>
+  
+          <div>
+  
+              <label for="prioridadeTarefaTrabalho">
+                  Prioridade
+              </label>
+  
+              <select id="prioridadeTarefaTrabalho">
+  
+                  <option value="baixa">
+                      🟢 Baixa
+                  </option>
+  
+                  <option value="media" selected>
+                      🟡 Média
+                  </option>
+  
+                  <option value="alta">
+                      🔴 Alta
+                  </option>
+  
+              </select>
+  
+          </div>
+  
+          <div>
+  
+              <label>
+                  <input
+                      type="checkbox"
+                      id="mostrarRotinaTarefaTrabalho"
+                  >
+  
+                  Mostrar na rotina
+              </label>
+  
+          </div>
+  
+          <div class="acoes-modal">
+  
+              <button
+                  id="btnCancelarNovaTarefa"
+              >
+                  Cancelar
+              </button>
+  
+              <button
+                  id="btnSalvarNovaTarefa"
+              >
+                  Salvar tarefa
+              </button>
+  
+          </div>
+  
+      </div>
+  
+  </div>
+
+
+  <!-- ==========================================
+       TELA DE HISTORICO
+  =========================================== -->
+  <section
+      id="telaHistoricoJornada"
+      class="tela-modulo"
+      style="display: none;"
+  >
+  
+      <button
+          id="btnVoltarHistoricoJornada"
+          class="btn-secundario"
+      >
+          ← Voltar
+      </button>
+  
+      <h2>📅 Histórico de Jornada</h2>
+  
+      <div id="listaHistoricoJornada"></div>
+  
+  </section>
+
+  <div
+      id="modalEditarJornada"
+      class="modal"
+      style="display: none;"
+  >
+  
+      <div class="modal-conteudo">
+  
+          <h2>✏️ Editar Jornada</h2>
+  
+          <p id="dataEditarJornada"></p>
+  
+          <div>
+              <label for="editarEntradaJornada">
+                  Entrada
+              </label>
+  
+              <input
+                  type="time"
+                  id="editarEntradaJornada"
+              >
+          </div>
+  
+          <div>
+              <label for="editarSaidaJornada">
+                  Saída
+              </label>
+  
+              <input
+                  type="time"
+                  id="editarSaidaJornada"
+              >
+          </div>
+  
+          <div class="acoes-modal">
+  
+              <button id="btnCancelarEdicaoJornada">
+                  Cancelar
+              </button>
+  
+              <button id="btnSalvarEdicaoJornada">
+                  Salvar
+              </button>
+  
+          </div>
+  
+      </div>
+  
+  </div>
     
   <!-- ========================= -->
   <!-- MODAL -->
