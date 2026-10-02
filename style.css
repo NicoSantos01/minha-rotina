@@ -2634,3 +2634,80 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 .ficha-meta-menu {
     position: relative;
 }
+
+#modalEditarJornada {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+#modalEditarJornada .modal-conteudo {
+    background: white;
+    width: min(90%, 400px);
+    padding: 24px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#modalEditarJornada h2 {
+    margin-top: 0;
+}
+
+#modalEditarJornada input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+#modalEditarJornada .acoes-modal {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+#modalNovaTarefaTrabalho {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+#modalNovaTarefaTrabalho .modal-conteudo {
+    background: white;
+    width: min(90%, 400px);
+    padding: 24px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#modalNovaTarefaTrabalho h2 {
+    margin-top: 0;
+}
+
+#modalNovaTarefaTrabalho input,
+#modalNovaTarefaTrabalho textarea,
+#modalNovaTarefaTrabalho select {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+#modalNovaTarefaTrabalho textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+#modalNovaTarefaTrabalho .acoes-modal {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
