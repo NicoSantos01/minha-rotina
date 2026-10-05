@@ -1962,61 +1962,70 @@ FICHA DA META
       =========================================== -->
   
       <div class="bloco-trabalho">
-  
-          <div class="titulo-bloco-trabalho">
-  
-              <h3>🕐 Jornada</h3>
-  
+      
+        <div class="titulo-bloco-trabalho">
+
+            <h3>🕐 Jornada</h3>
+
+        </div>
+
+        <div class="jornada-trabalho">
+
+          <div class="item-jornada">
+            <span>Entrada</span>
+
+            <strong id="entradaTrabalho">
+                —
+            </strong>
           </div>
-  
-          <div class="jornada-trabalho">
-  
-              <div class="item-jornada">
-  
-                  <span>Entrada</span>
-  
-                  <strong id="entradaTrabalho">
-                      —
-                  </strong>
-  
-              </div>
-  
-              <div class="item-jornada">
-  
-                  <span>Saída</span>
-  
-                  <strong id="saidaTrabalho">
-                      —
-                  </strong>
-  
-              </div>
-  
-              <div class="item-jornada">
-  
-                  <span>Status</span>
-  
-                  <strong id="statusTrabalho">
-                      ⚪ Não iniciada
-                  </strong>
-  
-              </div>
-  
+
+          <div class="item-jornada">
+            <span>Saída</span>
+
+            <strong id="saidaTrabalho">
+                —
+            </strong>
           </div>
-  
-          <div class="acoes-jornada">
-  
-              <button id="btnIniciarJornada">
-                  Iniciar jornada
-              </button>
-  
-              <button
-                  id="btnFinalizarJornada"
-                  class="btn-secundario-trabalho"
-              >
-                  Finalizar jornada
-              </button>
-  
+
+          <div class="item-jornada">
+            <span>Status</span>
+
+            <strong id="statusTrabalho">
+                ⚪ Não iniciada
+            </strong>
           </div>
+
+          <div class="hora-extra-trabalho">
+            <label>
+                <input
+                    type="checkbox"
+                    id="passouHorarioTrabalho"
+                    disabled
+                >
+                Passou das 14:10?
+            </label>
+        
+            <span id="horaExtraTrabalho">
+                ⏱️ Hora extra: 0min
+            </span>
+          </div>
+
+        </div>
+
+        <div class="acoes-jornada">
+
+            <button id="btnIniciarJornada">
+                Iniciar jornada
+            </button>
+
+            <button
+                id="btnFinalizarJornada"
+                class="btn-secundario-trabalho"
+            >
+                Finalizar jornada
+            </button>
+
+        </div>
   
       </div>
   
@@ -2094,6 +2103,29 @@ FICHA DA META
   
   </section>
 
+<!-- ==========================================
+  TELA - TODAS AS TAREFAS
+=========================================== -->
+
+<section
+    id="telaTodasTarefasTrabalho"
+    class="tela-modulo"
+    style="display: none;"
+>
+
+    <button
+        id="btnVoltarTodasTarefas"
+        class="btn-secundario"
+    >
+        ← Voltar
+    </button>
+
+    <h2>📅 Todas as tarefas</h2>
+
+    <div id="listaTodasTarefasTrabalho"></div>
+
+</section>
+
   <!-- ==========================================
        MODAL - NOVA TAREFA
   =========================================== -->
@@ -2106,7 +2138,9 @@ FICHA DA META
   
       <div class="modal-conteudo">
   
-          <h2>📋 Nova tarefa</h2>
+          <h2 id="tituloModalTarefa">
+              📋 Nova tarefa
+          </h2>
   
           <div>
   
