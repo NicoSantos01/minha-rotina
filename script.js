@@ -6287,6 +6287,69 @@ btnFinalizarJornada.addEventListener("click", () => {
 
 });
 
+// ==========================================
+// CALCULO HORA EXTRA
+// ==========================================
+function calcularHoraExtra(entrada, saida) {
+
+    if (!entrada || !saida) {
+        return {
+            passou: false,
+            minutos: 0
+        };
+    }
+
+    const inicio =
+        new Date(entrada);
+
+    const fim =
+        new Date(saida);
+
+    const minutosTrabalhados =
+        Math.floor(
+            (fim - inicio) / 60000
+        );
+
+    // Jornada normal:
+    // 6 horas de trabalho + 30 min de intervalo
+    const jornadaNormal = 390;
+
+    const horaExtra =
+        minutosTrabalhados -
+        jornadaNormal;
+
+    return {
+        passou: horaExtra > 0,
+        minutos: Math.max(
+            0,
+            horaExtra
+        )
+    };
+}
+
+// ==========================================
+// FORMATAR HORA EXTRA
+// ==========================================
+function formatarHoraExtra(minutos) {
+
+    const horas =
+        Math.floor(minutos / 60);
+
+    const minutosRestantes =
+        minutos % 60;
+
+    if (horas === 0) {
+        return `${minutosRestantes}min`;
+    }
+
+    if (minutosRestantes === 0) {
+        return `${horas}h`;
+    }
+
+    return `${horas}h${String(
+        minutosRestantes
+    ).padStart(2, "0")}`;
+}
 
 // ==========================================
 // RENDERIZAR JORNADA
@@ -6302,6 +6365,11 @@ function renderizarJornada() {
         saidaTrabalho.textContent = "—";
         statusTrabalho.textContent =
             "⚪ Não iniciada";
+
+        passouHorarioTrabalho.checked = false;
+
+        horaExtraTrabalho.textContent =
+            "⏱️ Hora extra: 0min";
 
         return;
     }
@@ -6332,6 +6400,20 @@ function renderizarJornada() {
             "🟢 Finalizada";
 
     }
+
+    const resultadoHoraExtra =
+        calcularHoraExtra(
+            jornadaTrabalho.entrada,
+            jornadaTrabalho.saida
+        );
+
+    passouHorarioTrabalho.checked =
+        resultadoHoraExtra.passou;
+
+    horaExtraTrabalho.textContent =
+        `⏱️ Hora extra: ${formatarHoraExtra(
+            resultadoHoraExtra.minutos
+        )}`;
 
 }
 
@@ -6432,6 +6514,19 @@ function renderizarHistoricoJornada() {
             // HTML
             // ==========================================
 
+            const resultadoHoraExtra =
+                calcularHoraExtra(
+                    jornada.entrada,
+                    jornada.saida
+                );
+            
+            const textoHoraExtra =
+                resultadoHoraExtra.passou
+                    ? `☑ Passou das 14:10? — ⏱️ Hora extra: ${formatarHoraExtra(
+                          resultadoHoraExtra.minutos
+                      )}`
+                    : `☐ Passou das 14:10? — ⏱️ Hora extra: 0min`;
+          
             item.innerHTML = `
                 <div class="historico-jornada-data">
                     <strong>
@@ -6453,6 +6548,10 @@ function renderizarHistoricoJornada() {
             
                 <div class="historico-jornada-status">
                     ${status}
+                </div>
+                
+                <div class="historico-jornada-extra">
+                    ${textoHoraExtra}
                 </div>
             
                 <button
@@ -6489,6 +6588,54 @@ const telaHistoricoJornada =
     document.getElementById(
         "telaHistoricoJornada"
     );
+
+// ==========================================
+// TODAS AS TAREFAS
+// ==========================================
+
+const btnVerTarefasTrabalho =
+    document.getElementById(
+        "btnVerTarefasTrabalho"
+    );
+
+const btnVoltarTodasTarefas =
+    document.getElementById(
+        "btnVoltarTodasTarefas"
+    );
+
+const telaTodasTarefasTrabalho =
+    document.getElementById(
+        "telaTodasTarefasTrabalho"
+    );
+
+btnVerTarefasTrabalho.addEventListener(
+    "click",
+    () => {
+
+        document.getElementById(
+            "telaTrabalho"
+        ).style.display = "none";
+
+        telaTodasTarefasTrabalho.style.display =
+            "block";
+
+        renderizarTodasTarefasTrabalho();
+    }
+);
+
+btnVoltarTodasTarefas.addEventListener(
+    "click",
+    () => {
+
+        telaTodasTarefasTrabalho.style.display =
+            "none";
+
+        document.getElementById(
+            "telaTrabalho"
+        ).style.display = "block";
+
+    }
+);
 
 
 // ==========================================
@@ -6827,6 +6974,13 @@ const btnSalvarNovaTarefa =
         "btnSalvarNovaTarefa"
     );
 
+const tituloModalTarefa =
+    document.getElementById(
+        "tituloModalTarefa"
+    );
+
+let tarefaEditandoId = null;
+
 
 // ==========================================
 // DATA DE HOJE
@@ -6890,6 +7044,117 @@ btnCancelarNovaTarefa.addEventListener(
 
         modalNovaTarefaTrabalho.style.display =
             "none";
+
+        tarefaEditandoId =
+            null;
+
+        tituloModalTarefa.textContent =
+            "📋 Nova tarefa";
+    }
+);
+
+// ==========================================
+// EDITAR TAREFA
+// ==========================================
+
+document.addEventListener(
+    "click",
+    evento => {
+
+        const botao =
+            evento.target.closest(
+                ".btn-editar-tarefa-trabalho"
+            );
+
+        if (!botao) return;
+
+        const id =
+            Number(
+                botao.dataset.id
+            );
+
+        const tarefa =
+            tarefasTrabalho.find(
+                item =>
+                    item.id === id
+            );
+
+        if (!tarefa) return;
+
+        tarefaEditandoId = id;
+
+        tituloModalTarefa.textContent =
+            "✏️ Editar tarefa";
+
+        nomeTarefaTrabalho.value =
+            tarefa.nome;
+
+        descricaoTarefaTrabalho.value =
+            tarefa.descricao || "";
+
+        dataTarefaTrabalho.value =
+            tarefa.data;
+
+        prioridadeTarefaTrabalho.value =
+            tarefa.prioridade;
+
+        mostrarRotinaTarefaTrabalho.checked =
+            tarefa.mostrarNaRotina || false;
+
+        modalNovaTarefaTrabalho.style.display =
+            "flex";
+    }
+);
+
+// ==========================================
+// EXCLUIR TAREFA
+// ==========================================
+
+document.addEventListener(
+    "click",
+    evento => {
+
+        const botao =
+            evento.target.closest(
+                ".btn-excluir-tarefa-trabalho"
+            );
+
+        if (!botao) return;
+
+        const id =
+            Number(
+                botao.dataset.id
+            );
+
+        const tarefa =
+            tarefasTrabalho.find(
+                item =>
+                    item.id === id
+            );
+
+        if (!tarefa) return;
+
+        const confirmar =
+            confirm(
+                `Deseja excluir a tarefa "${tarefa.nome}"?`
+            );
+
+        if (!confirmar) return;
+
+        tarefasTrabalho =
+            tarefasTrabalho.filter(
+                item =>
+                    item.id !== id
+            );
+
+        localStorage.setItem(
+            "tarefasTrabalho",
+            JSON.stringify(
+                tarefasTrabalho
+            )
+        );
+
+        renderizarTarefasTrabalho();
     }
 );
 
@@ -6913,6 +7178,63 @@ btnSalvarNovaTarefa.addEventListener(
 
             return;
         }
+
+
+        // ==========================================
+        // EDITANDO UMA TAREFA EXISTENTE
+        // ==========================================
+
+        if (tarefaEditandoId !== null) {
+
+            const tarefa =
+                tarefasTrabalho.find(
+                    item =>
+                        item.id ===
+                        tarefaEditandoId
+                );
+
+            if (!tarefa) return;
+
+            tarefa.nome =
+                nome;
+
+            tarefa.descricao =
+                descricaoTarefaTrabalho.value.trim();
+
+            tarefa.data =
+                dataTarefaTrabalho.value;
+
+            tarefa.prioridade =
+                prioridadeTarefaTrabalho.value;
+
+            tarefa.mostrarNaRotina =
+                mostrarRotinaTarefaTrabalho.checked;
+
+            localStorage.setItem(
+                "tarefasTrabalho",
+                JSON.stringify(
+                    tarefasTrabalho
+                )
+            );
+
+            tarefaEditandoId =
+                null;
+
+            tituloModalTarefa.textContent =
+                "📋 Nova tarefa";
+
+            modalNovaTarefaTrabalho.style.display =
+                "none";
+
+            renderizarTarefasTrabalho();
+
+            return;
+        }
+
+
+        // ==========================================
+        // CRIANDO UMA NOVA TAREFA
+        // ==========================================
 
         const novaTarefa = {
 
@@ -7005,14 +7327,59 @@ function renderizarTarefasTrabalho() {
                 "item-tarefa-trabalho";
 
             item.innerHTML = `
-                <div>
-                    <strong>
-                        ${tarefa.nome}
-                    </strong>
-
-                    <span>
-                        ${tarefa.descricao || ""}
-                    </span>
+                <div class="tarefa-trabalho-conteudo">
+            
+                    <div class="tarefa-trabalho-linha">
+            
+                        <label class="tarefa-trabalho-check">
+            
+                            <input
+                                type="checkbox"
+                                class="checkbox-tarefa-trabalho"
+                                data-id="${tarefa.id}"
+                                ${tarefa.concluida ? "checked" : ""}
+                            >
+            
+                            <span
+                                class="${tarefa.concluida ? "tarefa-concluida" : ""}"
+                            >
+                                ${tarefa.nome}
+                            </span>
+            
+                        </label>
+            
+                        <div class="acoes-tarefa-trabalho">
+            
+                            <button
+                                class="btn-editar-tarefa-trabalho"
+                                data-id="${tarefa.id}"
+                                title="Editar tarefa"
+                            >
+                                ✏️
+                            </button>
+            
+                            <button
+                                class="btn-excluir-tarefa-trabalho"
+                                data-id="${tarefa.id}"
+                                title="Excluir tarefa"
+                            >
+                                🗑️
+                            </button>
+            
+                        </div>
+            
+                    </div>
+            
+                    ${
+                        tarefa.descricao
+                            ? `
+                                <p>
+                                    ${tarefa.descricao}
+                                </p>
+                              `
+                            : ""
+                    }
+            
                 </div>
             `;
 
@@ -7022,6 +7389,216 @@ function renderizarTarefasTrabalho() {
         }
     );
 }
+
+function renderizarTodasTarefasTrabalho() {
+
+    const container =
+        document.getElementById(
+            "listaTodasTarefasTrabalho"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (tarefasTrabalho.length === 0) {
+
+        container.innerHTML = `
+            <p class="estado-vazio-trabalho">
+                📭 Nenhuma tarefa cadastrada.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    // ==========================================
+    // ORDENAR POR DATA
+    // ==========================================
+
+    const tarefasOrdenadas =
+        [...tarefasTrabalho].sort(
+            (a, b) =>
+                a.data.localeCompare(b.data)
+        );
+
+
+    // ==========================================
+    // AGRUPAR POR DATA
+    // ==========================================
+
+    const tarefasPorData = {};
+
+    tarefasOrdenadas.forEach(
+        tarefa => {
+
+            if (!tarefasPorData[tarefa.data]) {
+
+                tarefasPorData[tarefa.data] = [];
+
+            }
+
+            tarefasPorData[tarefa.data].push(
+                tarefa
+            );
+
+        }
+    );
+
+
+    // ==========================================
+    // RENDERIZAR CADA DATA
+    // ==========================================
+
+    Object.keys(tarefasPorData).forEach(
+        data => {
+
+            const grupo =
+                document.createElement("div");
+
+            grupo.className =
+                "grupo-tarefas-data";
+
+
+            const [ano, mes, dia] =
+                data.split("-");
+
+            const dataFormatada =
+                `${dia}/${mes}/${ano}`;
+
+
+            grupo.innerHTML = `
+                <h3 class="titulo-data-tarefas">
+                    📅 ${dataFormatada}
+                </h3>
+            `;
+
+
+            tarefasPorData[data].forEach(
+                tarefa => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+                    item.className =
+                        "item-tarefa-trabalho";
+
+
+                    item.innerHTML = `
+                        <div class="tarefa-trabalho-conteudo">
+
+                            <div class="tarefa-trabalho-linha">
+
+                                <label class="tarefa-trabalho-check">
+
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox-tarefa-trabalho"
+                                        data-id="${tarefa.id}"
+                                        ${tarefa.concluida ? "checked" : ""}
+                                    >
+
+                                    <span
+                                        class="${tarefa.concluida ? "tarefa-concluida" : ""}"
+                                    >
+                                        ${tarefa.nome}
+                                    </span>
+
+                                </label>
+
+                                <div class="acoes-tarefa-trabalho">
+
+                                    <button
+                                        class="btn-editar-tarefa-trabalho"
+                                        data-id="${tarefa.id}"
+                                        title="Editar tarefa"
+                                    >
+                                        ✏️
+                                    </button>
+
+                                    <button
+                                        class="btn-excluir-tarefa-trabalho"
+                                        data-id="${tarefa.id}"
+                                        title="Excluir tarefa"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            ${
+                                tarefa.descricao
+                                    ? `
+                                        <p>
+                                            ${tarefa.descricao}
+                                        </p>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+                    `;
+
+
+                    grupo.appendChild(item);
+
+                }
+            );
+
+
+            container.appendChild(grupo);
+
+        }
+    );
+}
+
+// ==========================================
+// CONCLUIR TAREFA
+// ==========================================
+
+document.addEventListener(
+    "change",
+    evento => {
+
+        if (
+            !evento.target.classList.contains(
+                "checkbox-tarefa-trabalho"
+            )
+        ) {
+            return;
+        }
+
+        const id =
+            Number(
+                evento.target.dataset.id
+            );
+
+        const tarefa =
+            tarefasTrabalho.find(
+                item =>
+                    item.id === id
+            );
+
+        if (!tarefa) return;
+
+        tarefa.concluida =
+            evento.target.checked;
+
+        localStorage.setItem(
+            "tarefasTrabalho",
+            JSON.stringify(
+                tarefasTrabalho
+            )
+        );
+
+        renderizarTarefasTrabalho();
+    }
+);
 
 // ==========================================
 // CARREGAR JORNADA
