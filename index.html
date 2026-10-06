@@ -1378,226 +1378,391 @@ FICHA DA META
 <!-- ========================= -->
 <!-- MÓDULO DE LEITURA -->
 <!-- ========================= -->
-
 <section id="telaLeitura" class="tela-modulo">
 
-    <div class="modulo-cabecalho">
+  <div class="modulo-cabecalho">
+    <h2>📖 Leitura</h2>
+    <p>
+      Acompanhe seus livros e seu progresso de leitura.
+    </p>
+  </div>
 
-        <h2>📖 Leitura</h2>
-
-        <p>
-            Acompanhe seus livros e seu progresso de leitura.
-        </p>
-
+  <!-- LIVRO ATUAL -->
+  <div class="bloco-leitura">
+    <div class="titulo-bloco-leitura">
+      <h3>📖 Livro atual</h3>
     </div>
+
+    <div id="livroAtualLeitura">
+      <p class="estado-vazio-leitura">
+          Nenhum livro em andamento.
+      </p>
+    </div>
+  </div>
+
+  <!-- MEUS LIVROS -->
+  <div class="bloco-leitura">
+    <div class="titulo-bloco-leitura">
+      <h3>📚 Meus livros</h3>
+    </div>
+
+    <div id="listaLivrosLeitura">
+      <p class="estado-vazio-leitura">
+        Nenhum livro cadastrado.
+      </p>
+    </div>
+
+    <div class="acoes-leitura">
+      <button
+          id="btnNovoLivroLeitura"
+          class="btn-nova-tarefa-trabalho"
+      >
+          + Novo livro
+      </button>
+    </div>
+  </div>
+
+  <!-- HISTÓRICO DE LEITURA -->
+  <div class="bloco-leitura">
+      <div class="titulo-bloco-leitura">
+        <h3>📈 Histórico de leitura</h3>
+      </div>
+  
+      <div id="historicoLeitura">
+        <p class="estado-vazio-leitura">
+          Nenhum registro de leitura.
+        </p>
+      </div>
+  </div>
 
 </section>
 
-  
-  
-  <section id="telaTreino" class="tela-modulo">
-  
-      <div class="modulo-cabecalho">
-          <h2>🏋️ Treino</h2>
-          <p>Organize e acompanhe seus treinos.</p>
+<!-- MODAL NOVO LIVRO -->
+<div
+  id="modalNovoLivroLeitura"
+  class="modal"
+  style="display: none;"
+>
+
+  <div class="modal-conteudo">
+
+      <h2>📖 Novo livro</h2>
+
+      <div>
+        <label for="nomeLivroLeitura">
+          Nome do livro
+        </label>
+
+        <input
+          type="text"
+          id="nomeLivroLeitura"
+          placeholder="Ex: Hábitos Atômicos"
+        >
       </div>
-  
-      <div id="listaTreinos">
-  
-          <div class="card-treino" data-treino="push">
-              <h3>Push</h3>
-              <p>Peito, Ombros e Tríceps</p>
-          </div>
-  
-          <div class="card-treino" data-treino="pull">
-              <h3>Pull</h3>
-              <p>Costas e Bíceps</p>
-          </div>
-  
-          <div class="card-treino" data-treino="lowerA">
-              <h3>Lower A</h3>
-              <p>Quadríceps</p>
-          </div>
-  
-          <div class="card-treino" data-treino="upper">
-              <h3>Upper</h3>
-              <p>Parte superior completa</p>
-          </div>
-  
-          <div class="card-treino" data-treino="lowerB">
-              <h3>Lower B</h3>
-              <p>Posterior</p>
-          </div>
-  
+
+      <div>
+        <label for="autorLivroLeitura">
+          Autor
+        </label>
+
+        <input
+          type="text"
+          id="autorLivroLeitura"
+          placeholder="Ex: James Clear"
+        >
       </div>
+
+      <div>
+        <label for="totalPaginasLivroLeitura">
+          📄 Total de páginas
+        </label>
+
+        <input
+          type="number"
+          id="totalPaginasLivroLeitura"
+          min="1"
+          placeholder="Ex: 320"
+        >
+      </div>
+
+      <div>
+        <label for="paginaAtualLivroLeitura">
+          📄 Página atual
+        </label>
+
+        <input
+          type="number"
+          id="paginaAtualLivroLeitura"
+          min="0"
+          value="0"
+        >
+      </div>
+
+      <div>
+        <label for="dataInicioLivroLeitura">
+          📅 Data de início
+        </label>
+
+        <input
+          type="date"
+          id="dataInicioLivroLeitura"
+        >
+      </div>
+
+      <div class="acoes-modal">
+        <button
+          id="btnCancelarNovoLivroLeitura"
+        >
+          Cancelar
+        </button>
+
+        <button
+          id="btnSalvarNovoLivroLeitura"
+        >
+          Salvar livro
+        </button>
+      </div>
+
+  </div>
+
+</div>
+
+
+  
+<!-- ========================= -->
+<!-- MÓDULO DE TREINO -->
+<!-- ========================= -->
+<section id="telaTreino" class="tela-modulo">
+
+  <div class="modulo-cabecalho">
+    <h2>🏋️ Treino</h2>
+    <p>Organize e acompanhe seus treinos.</p>
+  </div>
+  
+  <div id="listaTreinos">
+
+    <div class="card-treino" data-treino="push">
+      <h3>Push</h3>
+      <p>Peito, Ombros e Tríceps</p>
+    </div>
+
+    <div class="card-treino" data-treino="pull">
+      <h3>Pull</h3>
+      <p>Costas e Bíceps</p>
+    </div>
+
+    <div class="card-treino" data-treino="lowerA">
+      <h3>Lower A</h3>
+      <p>Quadríceps</p>
+    </div>
+
+    <div class="card-treino" data-treino="upper">
+      <h3>Upper</h3>
+      <p>Parte superior completa</p>
+    </div>
+
+    <div class="card-treino" data-treino="lowerB">
+      <h3>Lower B</h3>
+      <p>Posterior</p>
+    </div>
+
+  </div>
   
   <!-- MODO DE TREINO -->
   <div id="fichaTreino" class="ficha-treino">
 
     <div class="ficha-treino-caixa">
 
-        <div class="ficha-treino-cabecalho">
-
-            <button id="voltarListaTreinos">
-                ← Voltar
-            </button>
-
-            <div>
-
-                <h2 id="nomeFichaTreino">
-                    Push
-                </h2>
-
-                <p id="descricaoFichaTreino">
-                    Peito, Ombros e Tríceps
-                </p>
-
-            </div>
-
+      <div class="ficha-treino-cabecalho">
+        <button id="voltarListaTreinos">
+          ← Voltar
+        </button>
+        
+        <div>
+          <h2 id="nomeFichaTreino">
+            Push
+          </h2>
+          <p id="descricaoFichaTreino">
+            Peito, Ombros e Tríceps
+          </p>
         </div>
+        
+      </div>
 
-        <div id="conteudoFichaTreino">
-
-            <!-- Os exercícios serão gerados pelo JavaScript -->
-
-        </div>
+      <div id="conteudoFichaTreino">
+        <!-- Os exercícios serão gerados pelo JavaScript -->
+      </div>
 
     </div>
 
-</div>
+  </div>
     
-      <div id="modoTreino" class="modo-treino">
-  
-          <div class="modo-treino-cabecalho">
+  <div id="modoTreino" class="modo-treino">
+
+    <div class="modo-treino-cabecalho">
       
-              <button id="voltarTreinos">
-                  ← Voltar
-              </button>
+      <button id="voltarTreinos">
+        ← Voltar
+      </button>
+
+      <div>
+        <h2 id="nomeTreinoAtivo">Push</h2>
+        <p id="dataTreinoAtivo"></p>
+      </div>
+
+    </div>
+
+    <div class="progresso-treino">
+      <span id="progressoTreinoTexto">
+        0/7 exercícios
+      </span>
+
+      <div class="barra-progresso-treino">
+        <div id="barraProgressoTreino"></div>
+      </div>
       
-              <div>
-                  <h2 id="nomeTreinoAtivo">Push</h2>
-                  <p id="dataTreinoAtivo"></p>
-              </div>
-      
+    </div>
+
+    <div id="listaExerciciosTreino">
+
+      <div class="exercicio-treino ativo">
+
+        <div class="cabecalho-exercicio">
+          <div>
+              <span class="status-exercicio">◐</span>
+
+              <strong>
+                Supino reto com halter
+              </strong>
           </div>
-      
-          <div class="progresso-treino">
-              <span id="progressoTreinoTexto">
-                  0/7 exercícios
-              </span>
-      
-              <div class="barra-progresso-treino">
-                  <div id="barraProgressoTreino"></div>
-              </div>
+        </div>
+
+        <p class="planejado-exercicio">
+          Planejado: 4 × 6–8
+        </p>
+
+        <p class="ultimo-treino">
+          Último: 16 kg · 8/8/7/6
+        </p>
+
+        <div class="area-series">
+
+          <div class="serie">
+            <span>Série 1</span>
+            <span>16 kg × 8 reps</span>
           </div>
-      
-          <div id="listaExerciciosTreino">
-      
-              <div class="exercicio-treino ativo">
-      
-                  <div class="cabecalho-exercicio">
-                      <div>
-                          <span class="status-exercicio">◐</span>
-      
-                          <strong>
-                              Supino reto com halter
-                          </strong>
-                      </div>
-                  </div>
-      
-                  <p class="planejado-exercicio">
-                      Planejado: 4 × 6–8
-                  </p>
-      
-                  <p class="ultimo-treino">
-                      Último: 16 kg · 8/8/7/6
-                  </p>
-      
-                  <div class="area-series">
-      
-                      <div class="serie">
-                          <span>Série 1</span>
-                          <span>16 kg × 8 reps</span>
-                      </div>
-      
-                      <div class="serie">
-                          <span>Série 2</span>
-                          <span>16 kg × 8 reps</span>
-                      </div>
-      
-                      <div class="serie">
-                          <span>Série 3</span>
-                          <span>18 kg × 7 reps</span>
-                      </div>
-      
-                      <div class="serie">
-                          <span>Série 4</span>
-                          <span>18 kg × 6 reps</span>
-                      </div>
-      
-                  </div>
-      
-                  <button class="btn-concluir-exercicio">
-                      ✓ Concluir exercício
-                  </button>
-      
-              </div>
-      
-              <div class="exercicio-treino bloqueado">
-      
-                  <div class="cabecalho-exercicio">
-                      <div>
-                          <span class="status-exercicio">🔒</span>
-      
-                          <strong>
-                              Supino inclinado com halteres
-                          </strong>
-                      </div>
-                  </div>
-      
-                  <p class="planejado-exercicio">
-                      Planejado: 3 × 8–10
-                  </p>
-      
-                  <p class="aguardando-exercicio">
-                      Aguardando exercício anterior
-                  </p>
-      
-              </div>
-      
-              <div class="exercicio-treino bloqueado">
-      
-                  <div class="cabecalho-exercicio">
-                      <div>
-                          <span class="status-exercicio">🔒</span>
-      
-                          <strong>
-                              Crucifixo unilateral na polia
-                          </strong>
-                      </div>
-                  </div>
-      
-                  <p class="planejado-exercicio">
-                      Planejado: 3 × 12–15
-                  </p>
-      
-                  <p class="aguardando-exercicio">
-                      Aguardando exercício anterior
-                  </p>
-  
+
+          <div class="serie">
+            <span>Série 2</span>
+            <span>16 kg × 8 reps</span>
           </div>
+
+          <div class="serie">
+            <span>Série 3</span>
+            <span>18 kg × 7 reps</span>
+          </div>
+
+          <div class="serie">
+            <span>Série 4</span>
+            <span>18 kg × 6 reps</span>
+          </div>
+
+        </div>
+
+        <button class="btn-concluir-exercicio">
+            ✓ Concluir exercício
+        </button>
+
+      </div>
+
+      <div class="exercicio-treino bloqueado">
+
+        <div class="cabecalho-exercicio">
+          <div>
+            <span class="status-exercicio">🔒</span>
+
+            <strong>
+                Supino inclinado com halteres
+            </strong>
+          </div>
+        </div>
+
+        <p class="planejado-exercicio">
+            Planejado: 3 × 8–10
+        </p>
+
+        <p class="aguardando-exercicio">
+            Aguardando exercício anterior
+        </p>
+
+      </div>
+
+      <div class="exercicio-treino bloqueado">
+
+        <div class="cabecalho-exercicio">
+          <div>
+            <span class="status-exercicio">🔒</span>
+
+            <strong>
+              Crucifixo unilateral na polia
+            </strong>
+          </div>
+        </div>
+
+        <p class="planejado-exercicio">
+            Planejado: 3 × 12–15
+        </p>
+
+        <p class="aguardando-exercicio">
+            Aguardando exercício anterior
+        </p>
+
+      </div>
+
+      <button id="finalizarTreino" class="btn-finalizar-treino">
+          🏁 Finalizar treino
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- AQUI ENTRA O MODAL DO TREINO -->
+  <div id="modalTreino" class="modal-treino">
+
+      <div class="modal-treino-caixa">
   
-            <button id="finalizarTreino" class="btn-finalizar-treino">
-                🏁 Finalizar treino
-            </button>
+          <h2 id="modalNomeTreino">Push</h2>
+  
+          <p>
+              O que você deseja fazer?
+          </p>
+  
+          <button id="btnVisualizarFicha">
+              Visualizar ficha
+          </button>
+  
+          <button id="btnEditarFicha">
+              Editar ficha
+          </button>
+  
+          <button id="btnIniciarTreino">
+              Iniciar treino
+          </button>
+  
+          <button id="btnCancelarTreino" class="btn-cancelar-treino">
+              Cancelar
+          </button>
   
       </div>
   
   </div>
   
-  </section>
-  
-<!-- ESTUDO -->
+<!-- ========================= -->
+<!-- MÓDULO DE ESTUDO -->
+<!-- ========================= -->
   <section id="telaEstudos" class="tela-modulo">
 
     <div class="modulo-cabecalho">
@@ -1930,9 +2095,11 @@ FICHA DA META
       
       </div>
 
-  </section>
+  </section> 
   
-  
+<!-- ========================= -->
+<!-- MÓDULO DE TRABALHO -->
+<!-- ========================= -->
   <section id="telaTrabalho" class="tela-modulo">
 
       <div class="modulo-cabecalho">
@@ -1946,10 +2113,8 @@ FICHA DA META
       </div>
 
 
-      <!-- ========================================== -->
-      <!-- HISTÓRICO DA JORNADA -->
-      <!-- ========================================== -->
       
+      <!-- HISTÓRICO DA JORNADA -->
       <button
           id="btnAbrirHistoricoJornada"
           class="btn-secundario"
@@ -1957,10 +2122,7 @@ FICHA DA META
           📅 Histórico de Jornada
       </button>
   
-      <!-- ==========================================
-           JORNADA
-      =========================================== -->
-  
+      <!-- JORNADA -->
       <div class="bloco-trabalho">
       
         <div class="titulo-bloco-trabalho">
@@ -2030,10 +2192,7 @@ FICHA DA META
       </div>
   
   
-      <!-- ==========================================
-           TAREFAS
-      =========================================== -->
-  
+      <!-- TAREFAS -->
       <div class="bloco-trabalho">
 
           <div class="titulo-bloco-trabalho">
@@ -2074,10 +2233,7 @@ FICHA DA META
       </div>
   
   
-      <!-- ==========================================
-           ANOTAÇÕES
-      =========================================== -->
-  
+      <!-- ANOTAÇÕES -->
       <div class="bloco-trabalho">
   
           <div class="titulo-bloco-trabalho">
@@ -2103,33 +2259,27 @@ FICHA DA META
   
   </section>
 
-<!-- ==========================================
-  TELA - TODAS AS TAREFAS
-=========================================== -->
-
-<section
-    id="telaTodasTarefasTrabalho"
-    class="tela-modulo"
-    style="display: none;"
->
-
-    <button
-        id="btnVoltarTodasTarefas"
-        class="btn-secundario"
-    >
-        ← Voltar
-    </button>
-
-    <h2>📅 Todas as tarefas</h2>
-
-    <div id="listaTodasTarefasTrabalho"></div>
-
-</section>
-
-  <!-- ==========================================
-       MODAL - NOVA TAREFA
-  =========================================== -->
+  <!-- TELA - TODAS AS TAREFAS -->
+  <section
+      id="telaTodasTarefasTrabalho"
+      class="tela-modulo"
+      style="display: none;"
+  >
   
+      <button
+          id="btnVoltarTodasTarefas"
+          class="btn-secundario"
+      >
+          ← Voltar
+      </button>
+  
+      <h2>📅 Todas as tarefas</h2>
+  
+      <div id="listaTodasTarefasTrabalho"></div>
+  
+  </section>
+
+  <!-- MODAL - NOVA TAREFA -->
   <div
       id="modalNovaTarefaTrabalho"
       class="modal"
@@ -2240,9 +2390,7 @@ FICHA DA META
   </div>
 
 
-  <!-- ==========================================
-       TELA DE HISTORICO
-  =========================================== -->
+  <!-- TELA DE HISTORICO -->
   <section
       id="telaHistoricoJornada"
       class="tela-modulo"
@@ -2312,10 +2460,7 @@ FICHA DA META
   
   </div>
     
-  <!-- ========================= -->
   <!-- MODAL -->
-  <!-- ========================= -->
-  
   <div id="modal" class="modal">
   
       <div class="modal-box">
@@ -2380,37 +2525,6 @@ FICHA DA META
           </button>
   
           <button id="cancelarHabito">
-              Cancelar
-          </button>
-  
-      </div>
-  
-  </div>
-  
-  <!-- AQUI ENTRA O MODAL DO TREINO -->
-  <div id="modalTreino" class="modal-treino">
-
-      <div class="modal-treino-caixa">
-  
-          <h2 id="modalNomeTreino">Push</h2>
-  
-          <p>
-              O que você deseja fazer?
-          </p>
-  
-          <button id="btnVisualizarFicha">
-              Visualizar ficha
-          </button>
-  
-          <button id="btnEditarFicha">
-              Editar ficha
-          </button>
-  
-          <button id="btnIniciarTreino">
-              Iniciar treino
-          </button>
-  
-          <button id="btnCancelarTreino" class="btn-cancelar-treino">
               Cancelar
           </button>
   
