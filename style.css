@@ -728,14 +728,186 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 ========================================== */
 
 @media (max-width: 600px) {
+  .dashboard {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
 
-    .dashboard {
+}
 
-        grid-template-columns:
-            repeat(2, 1fr);
+@media (max-width: 500px) {
+  .resumo-inicio {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
-    }
+@media (max-width: 500px) {
+  .modulos-inicio {
+    grid-template-columns: 1fr;
+  }
+}
 
+.tela-modulo {
+  display: none;
+}
+
+#telaInicio {
+  display: block;
+}
+
+.check {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  padding: 0;
+  margin: 0;
+
+  background: white;
+  border: 2px solid #999;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.check.completed {
+  background: #111827;
+  border-color: #111827;
+}
+
+.check.completed::after {
+  content: "✓";
+  color: white;
+  font-weight: bold;
+}
+
+.modulo-cabecalho {
+  margin-bottom: 25px;
+}
+
+.modulo-cabecalho h2 {
+  margin-bottom: 5px;
+}
+
+.modulo-cabecalho p {
+  margin-top: 0;
+  color: #6b7280;
+}
+
+.refeicoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-refeicao {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 18px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.modal-refeicao {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.card-refeicao:hover {
+  background: #f9fafb;
+}
+
+.icone-refeicao {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f9fafb;
+  border-radius: 10px;
+
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.card-refeicao h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.card-refeicao p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.formulario-refeicao {
+  width: 90%;
+  max-width: 400px;
+
+  padding: 18px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.formulario-refeicao h3 {
+  margin-top: 0;
+}
+
+.formulario-refeicao label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.formulario-refeicao button {
+  margin-top: 12px;
+}
+
+#listaAlimentosRefeicao {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.item-alimento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.remover-alimento {
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 5px;
 }
 
 /* ==========================================
@@ -917,19 +1089,6 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     color: #6b7280;
 }
 
-
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media (max-width: 500px) {
-
-    .resumo-inicio {
-        grid-template-columns: 1fr 1fr;
-    }
-
-}
-
 /* ==========================================
    HÁBITOS NA HOME
 ========================================== */
@@ -1028,182 +1187,6 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 .card-modulo-inicio:hover {
     background: #f3f4f6;
     transform: translateY(-1px);
-}
-
-
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media (max-width: 500px) {
-
-    .modulos-inicio {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-.tela-modulo {
-    display: none;
-}
-
-#telaInicio {
-    display: block;
-}
-
-.check {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    padding: 0;
-    margin: 0;
-
-    background: white;
-    border: 2px solid #999;
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 1;
-}
-
-.check.completed {
-    background: #111827;
-    border-color: #111827;
-}
-
-.check.completed::after {
-    content: "✓";
-    color: white;
-    font-weight: bold;
-}
-
-.modulo-cabecalho {
-    margin-bottom: 25px;
-}
-
-.modulo-cabecalho h2 {
-    margin-bottom: 5px;
-}
-
-.modulo-cabecalho p {
-    margin-top: 0;
-    color: #6b7280;
-}
-
-.refeicoes {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.card-refeicao {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    padding: 18px;
-
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-
-    cursor: pointer;
-}
-
-.modal-refeicao {
-    display: none;
-
-    position: fixed;
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.5);
-
-    align-items: center;
-    justify-content: center;
-
-    z-index: 1000;
-}
-
-.card-refeicao:hover {
-    background: #f9fafb;
-}
-
-.icone-refeicao {
-    width: 45px;
-    height: 45px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #f9fafb;
-    border-radius: 10px;
-
-    font-size: 24px;
-    flex-shrink: 0;
-}
-
-.card-refeicao h3 {
-    margin: 0 0 5px;
-    font-size: 16px;
-}
-
-.card-refeicao p {
-    margin: 0;
-    color: #6b7280;
-    font-size: 13px;
-}
-
-.formulario-refeicao {
-    width: 90%;
-    max-width: 400px;
-
-    padding: 18px;
-
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-}
-
-.formulario-refeicao h3 {
-    margin-top: 0;
-}
-
-.formulario-refeicao label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
-.formulario-refeicao button {
-    margin-top: 12px;
-}
-
-#listaAlimentosRefeicao {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.item-alimento {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-
-.remover-alimento {
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    padding: 2px 5px;
 }
 
 /* ==========================================
@@ -1554,24 +1537,23 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 /* ==========================================
    DASHBOARD PRINCIPAL
 ========================================== */
-
 .dashboard-principal {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .bloco-dashboard {
-    background: #f8f9fa;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .titulo-bloco-dashboard h3 {
-    margin: 0 0 15px 0;
+  margin: 0 0 15px 0;
 }
 
 .eventos-hoje,
@@ -1583,693 +1565,639 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 }
 
 .btn-dashboard-icon {
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0 5px 0 0;
-    font: inherit;
-    cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0 5px 0 0;
+  font: inherit;
+  cursor: pointer;
 }
 
 .dashboard {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
 }
 
 /* ==========================================
-   DASHBOARD - MOBILE
+   DASHBOARD PRINCIPAL - MOBILE
 ========================================== */
-
 @media (max-width: 900px) {
-
-    .dashboard {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-    }
-
+  .dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
 }
-
-/* ==========================================
-   MOBILE - DASHBOARD PRINCIPAL
-========================================== */
 
 @media (max-width: 700px) {
+  .dashboard-principal {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+  }
 
-    .dashboard-principal {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        gap: 10px;
-    }
-
-    .bloco-dashboard {
-        min-width: 0;
-    }
-
+  .bloco-dashboard {
+    min-width: 0;
+  }
 }
 
 /* ========================================
-   ESTUDOS
-   ======================================== */
-
+   MÓDULO DE ESTUDOS
+======================================== */
 .bloco-estudos {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .titulo-bloco-estudos {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .estado-vazio-estudos {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 /* MODAL DETALHE DO ESTUDO */
-
 .detalhe-estudo {
-    display: none;
-    position: fixed;
-    inset: 0;
+  display: none;
+  position: fixed;
+  inset: 0;
 
-    background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    z-index: 1000;
+  z-index: 1000;
 }
 
 .detalhe-estudo.ativo {
-    display: flex;
+  display: flex;
 }
 
 .caixa-detalhe-estudo {
-    width: min(90%, 500px);
-    max-height: 85vh;
-    overflow-y: auto;
+  width: min(90%, 500px);
+  max-height: 85vh;
+  overflow-y: auto;
 
-    padding: 20px;
+  padding: 20px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    background: white;
+  background: white;
 }
 
 .btn-voltar-estudos {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .cabecalho-detalhe-estudo {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .cabecalho-detalhe-estudo h2 {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .progresso-detalhe-estudo {
-    margin-top: 20px;
-    padding: 15px;
+  margin-top: 20px;
+  padding: 15px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    background: #f5f5f5;
+  background: #f5f5f5;
 }
-
 
 /* BOTÃO NOVO ESTUDO */
-
 .btn-novo-estudo {
-    width: 100%;
-    margin-top: 10px;
+  width: 100%;
+  margin-top: 10px;
 }
 
-
 /* MODAL */
-
 .modal-estudo {
-    display: none;
+  display: none;
 
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
 
-    background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    z-index: 1000;
+  z-index: 1000;
 }
 
 .modal-estudo.ativo {
-    display: flex;
+  display: flex;
 }
 
 .modal-estudo-caixa {
-    width: min(90%, 420px);
+  width: min(90%, 420px);
 
-    padding: 20px;
+  padding: 20px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    background: white;
+  background: white;
 }
 
 .modal-estudo-caixa label {
-    display: block;
-    margin-top: 12px;
-    margin-bottom: 5px;
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 5px;
 }
 
 .modal-estudo-caixa input,
 .modal-estudo-caixa select {
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .campos-tipo-estudo {
-    display: block;
+  display: block;
 }
 
 .acoes-modal-estudo {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .acoes-modal-estudo button {
-    flex: 1;
+  flex: 1;
 }
 
 .btn-cancelar-estudo {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 /* CARDS DE ESTUDO */
-
 .card-estudo {
-    padding: 15px;
-    margin-bottom: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    background: white;
+  background: white;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .card-estudo-cabecalho {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .icone-estudo {
-    font-size: 28px;
+  font-size: 28px;
 }
 
 .card-estudo h3 {
-    margin: 0;
+  margin: 0;
 }
 
 .card-estudo p {
-    margin: 4px 0;
+  margin: 4px 0;
 }
 
 .card-estudo small {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .progresso-estudo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-    margin-top: 12px;
+  margin-top: 12px;
 }
 
 .barra-progresso-estudo {
-    flex: 1;
+  flex: 1;
 
-    height: 8px;
+  height: 8px;
 
-    background: #ddd;
+  background: #ddd;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .barra-progresso-estudo div {
-    height: 100%;
+  height: 100%;
 }
 
 .progresso-estudo span {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .card-materia-estudo {
-    padding: 14px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    background: #f5f5f5;
-    cursor: pointer;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #f5f5f5;
+  cursor: pointer;
 }
 
 .card-materia-estudo:hover {
-    opacity: 0.85;
+  opacity: 0.85;
 }
 
 .card-materia-estudo small {
-    display: block;
-    margin-top: 4px;
-    opacity: 0.7;
+  display: block;
+  margin-top: 4px;
+  opacity: 0.7;
 }
 
-/* ==========================================
-   FINANÇAS
-========================================== */
 
+
+/* ==========================================
+   MÓDULO DE FINANÇAS
+========================================== */
 .resumo-financeiro {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
 }
 
 .card-financeiro {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
-    padding: 18px;
+  padding: 18px;
 
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 }
 
 .icone-financeiro {
-    width: 42px;
-    height: 42px;
+  width: 42px;
+  height: 42px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    background: #f9fafb;
-    border-radius: 10px;
+  background: #f9fafb;
+  border-radius: 10px;
 
-    font-size: 21px;
-    flex-shrink: 0;
+  font-size: 21px;
+  flex-shrink: 0;
 }
 
 .card-financeiro small {
-    display: block;
-    margin-bottom: 4px;
+  display: block;
+  margin-bottom: 4px;
 
-    color: #6b7280;
-    font-size: 13px;
+  color: #6b7280;
+  font-size: 13px;
 }
 
 .card-financeiro strong {
-    display: block;
-    font-size: 20px;
+  display: block;
+  font-size: 20px;
 }
 
-
-/* ==========================================
-   BLOCO DE MOVIMENTAÇÕES
-========================================== */
-
+/* BLOCO DE MOVIMENTAÇÕES */
 .bloco-financeiro {
-    padding: 20px;
-    margin-bottom: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
 
-    background: #f8f9fa;
+  background: #f8f9fa;
 
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 }
 
 .titulo-bloco-financeiro h3 {
-    margin: 0 0 15px 0;
+  margin: 0 0 15px 0;
 }
 
 .lista-transacoes {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-
-/* ==========================================
-   TRANSAÇÃO
-========================================== */
-
+/* TRANSAÇÃO */
 .transacao {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    padding: 14px 0;
+  padding: 14px 0;
 
-    border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .transacao:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .transacao-info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .transacao-descricao {
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .transacao-categoria {
-    font-size: 12px;
-    color: #6b7280;
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .transacao-data {
-    font-size: 11px;
-    color: #9ca3af;
+  font-size: 11px;
+  color: #9ca3af;
 }
 
 .transacao-valor {
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .transacao.entrada .transacao-valor {
-    color: #15803d;
+  color: #15803d;
 }
 
 .transacao.saida .transacao-valor {
-    color: #dc2626;
+  color: #dc2626;
 }
 
-
-/* ==========================================
-   ESTADO VAZIO
-========================================== */
-
+/* ESTADO VAZIO */
 .estado-vazio-financeiro {
-    margin: 0;
+  margin: 0;
 
-    color: #6b7280;
-    font-size: 14px;
+  color: #6b7280;
+  font-size: 14px;
 }
 
-
-/* ==========================================
-   BOTÃO NOVA TRANSAÇÃO
-========================================== */
-
+/* BOTÃO NOVA TRANSAÇÃO */
 .btn-nova-transacao {
-    width: 100%;
-    margin-top: 0;
+  width: 100%;
+  margin-top: 0;
 }
 
-
-/* ==========================================
-   MODAL FINANCEIRO
-========================================== */
-
+/* MODAL FINANCEIRO */
 .modal-transacao {
-    display: none;
+  display: none;
 
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
 
-    background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    z-index: 1000;
+  z-index: 1000;
 }
 
 .modal-transacao.ativo {
-    display: flex;
+  display: flex;
 }
 
 .modal-transacao-caixa {
-    width: 90%;
-    max-width: 420px;
+  width: 90%;
+  max-width: 420px;
 
-    padding: 25px;
+  padding: 25px;
 
-    background: white;
+  background: white;
 
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .modal-transacao-caixa h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .modal-transacao-caixa label {
-    display: block;
+  display: block;
 
-    margin-top: 12px;
-    margin-bottom: 6px;
+  margin-top: 12px;
+  margin-bottom: 6px;
 
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .modal-transacao-caixa input,
 .modal-transacao-caixa select {
-    width: 100%;
+  width: 100%;
 
-    padding: 12px;
+  padding: 12px;
 
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
 
-    background: white;
+  background: white;
 
-    font-size: 16px;
+  font-size: 16px;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .acoes-modal-financeiro {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .acoes-modal-financeiro button {
-    flex: 1;
+  flex: 1;
 }
 
 .btn-cancelar-financeiro {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
-
-/* ==========================================
-   FINANÇAS - MOBILE
-========================================== */
-
+/* FINANÇAS - MOBILE */
 @media (max-width: 700px) {
-
-    .resumo-financeiro {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
+  .resumo-financeiro {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 500px) {
+  .card-financeiro {
+    padding: 15px;
+  }
 
-    .card-financeiro {
-        padding: 15px;
-    }
+  .card-financeiro strong {
+    font-size: 18px;
+  }
 
-    .card-financeiro strong {
-        font-size: 18px;
-    }
+  .bloco-financeiro {
+    padding: 15px;
+  }
 
-    .bloco-financeiro {
-        padding: 15px;
-    }
+  .transacao {
+    gap: 10px;
+  }
 
-    .transacao {
-        gap: 10px;
-    }
-
-    .transacao-valor {
-        white-space: nowrap;
-    }
-
+  .transacao-valor {
+    white-space: nowrap;
+  }
 }
 
-/* ==========================================
-   AÇÕES DA TRANSAÇÃO
-========================================== */
-
+/* AÇÕES DA TRANSAÇÃO */
 .btn-excluir-transacao {
-    margin: 0;
-    padding: 6px 8px;
+  margin: 0;
+  padding: 6px 8px;
 
-    border: none;
-    background: transparent;
+  border: none;
+  background: transparent;
 
-    font-size: 16px;
+  font-size: 16px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btn-excluir-transacao:hover {
-    background: #f3f4f6;
+  background: #f3f4f6;
 }
 
-/* ==========================================
-   CONTAS
-========================================== */
-
+/* CONTAS */
 .resumo-contas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .resumo-contas span {
-    padding: 8px 12px;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 13px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
 }
 
 .lista-contas {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .conta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 14px 0;
-    border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .conta:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .conta-info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .conta-descricao {
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .conta-detalhes {
-    font-size: 12px;
-    color: #6b7280;
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .status-conta {
-    font-size: 13px;
-    font-weight: 600;
-    white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .conta.pendente .status-conta {
-    color: #ca8a04;
+  color: #ca8a04;
 }
 
 .conta.atrasada .status-conta {
-    color: #dc2626;
+  color: #dc2626;
 }
 
 .conta.paga .status-conta {
-    color: #15803d;
+  color: #15803d;
 }
 
 .checkbox-conta {
-    display: flex !important;
-    align-items: center;
-    gap: 8px;
-    margin-top: 15px !important;
-    cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px !important;
+  cursor: pointer;
 }
 
 .checkbox-conta input {
-    width: auto !important;
+  width: auto !important;
 }
 
-/* ==========================================
-   CHECKBOX DE CONTA
-========================================== */
-
+/* CHECKBOX DE CONTA */
 .acoes-conta {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .checkbox-pagar-conta {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 13px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .checkbox-pagar-conta input {
-    width: auto;
+  width: auto;
 }
 
-/* ==========================================
-   AÇÕES DAS CONTAS
-========================================== */
-
+/* AÇÕES DAS CONTAS */
 .btn-editar-conta,
 .btn-excluir-conta {
-    margin: 0;
-    padding: 6px 8px;
-    border: none;
-    background: transparent;
-    font-size: 16px;
-    cursor: pointer;
+  margin: 0;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .btn-editar-conta:hover,
 .btn-excluir-conta:hover {
-    background: #f3f4f6;
+  background: #f3f4f6;
 }
 
 
+
 /* ==========================================
-   TRABALHO
+   MÓDULO DE TRABALHO
 ========================================== */
 
 .bloco-trabalho {
-    padding: 20px;
-    margin-bottom: 15px;
-    background: #f8f9fa;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 }
 
 .titulo-bloco-trabalho h3 {
@@ -2817,11 +2745,167 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 }
 
 /* ==========================================
-   CONTROLE DE ZOOM NO IPHONE
-   ========================================== */
-
+ CONTROLE DE ZOOM NO IPHONE
+ ========================================== */
 input,
 textarea,
 select {
     font-size: 16px !important;
 }
+
+/* ==========================================
+ MÓDULO DE LEITURA
+========================================== */
+  .bloco-leitura {
+      margin-top: 20px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-sizing: border-box;
+  }
+  
+  .titulo-bloco-leitura h3 {
+      margin: 0 0 16px 0;
+  }
+  
+  .estado-vazio-leitura {
+      margin: 0;
+      opacity: 0.7;
+  }
+  
+  .acoes-leitura {
+      margin-top: 16px;
+  }
+  
+  #livroAtualLeitura,
+  #listaLivrosLeitura {
+      width: 100%;
+  }
+  
+  /* MODAL NOVO LIVRO */
+  #modalNovoLivroLeitura {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  #modalNovoLivroLeitura .modal-conteudo {
+    background: white;
+    width: min(90%, 400px);
+    padding: 24px;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+  
+  #modalNovoLivroLeitura h2 {
+    margin-top: 0;
+  }
+  
+  #modalNovoLivroLeitura input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+  
+  #modalNovoLivroLeitura .acoes-modal {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  /* PROGRESSO DE LEITURA */
+  .card-livro-atual {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .card-livro-atual h3 {
+    margin: 0;
+  }
+  
+  .card-livro-atual p {
+    margin: 0;
+  }
+  
+  .progresso-leitura {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  
+  .barra-progresso-leitura {
+    height: 100%;
+    background: #111827;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+  
+  .card-livro-atual strong {
+    font-size: 14px;
+  }
+
+  /* VISUAL DOS LIVROS */
+  .item-livro-leitura {
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .item-livro-leitura:last-child {
+    border-bottom: none;
+  }
+  
+  .item-livro-leitura strong {
+    font-size: 16px;
+  }
+  
+  .item-livro-leitura p {
+    margin: 4px 0;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+  
+  .item-livro-leitura span {
+    font-size: 14px;
+  }
+
+  /* BOTÃO */
+  .btn-atualizar-progresso-leitura {
+      margin-top: 8px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+  }
+
+  /* HISTÓRICO DE LEITURA */
+  .bloco-historico-livro {
+      padding: 14px 0;
+  }
+  
+  .bloco-historico-livro h4 {
+      margin: 0 0 10px 0;
+  }
+  
+  .item-historico-leitura {
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .item-historico-leitura:last-child {
+      border-bottom: none;
+  }
+  
+  .item-historico-leitura p {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      opacity: 0.7;
+  }
