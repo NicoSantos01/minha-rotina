@@ -2815,3 +2815,13 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     margin: 0;
     white-space: nowrap;
 }
+
+/* ==========================================
+   EVITA ZOOM AUTOMÁTICO NO IPHONE
+   ========================================== */
+
+input,
+textarea,
+select {
+    font-size: 16px;
+}
