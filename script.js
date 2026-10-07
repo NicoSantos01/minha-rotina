@@ -5185,7 +5185,7 @@ renderizarProximasAtividades();
 
 
 // ==========================================
-// FINANÇAS
+// MODULO DE FINANÇAS
 // ==========================================
 
 let transacoes =
@@ -5502,159 +5502,227 @@ function renderizarTransacoes() {
 
 }
 
-// ==========================================
-// ATUALIZAR RESUMO FINANCEIRO
-// ==========================================
-
-function atualizarResumoFinanceiro() {
-
+  // ATUALIZAR RESUMO FINANCEIRO
+  function atualizarResumoFinanceiro() {
+    
     let totalEntradas = 0;
     let totalSaidas = 0;
 
-
+    // MOVIMENTAÇÕES
     transacoes.forEach(transacao => {
-
         if (transacao.tipo === "entrada") {
-
-            totalEntradas += transacao.valor;
-
+          totalEntradas += transacao.valor;
         }
-
 
         if (transacao.tipo === "saida") {
-
-            totalSaidas += transacao.valor;
-
+          totalSaidas += transacao.valor;
         }
-
     });
 
 
-    const saldo = totalEntradas - totalSaidas;
+    // CONTAS PAGAS
+    contas.forEach(conta => {
+        if (conta.paga) {
+          totalSaidas += conta.valor;
+        }
+    });
 
 
+    // CALCULAR SALDO
+    const saldo =
+      totalEntradas - totalSaidas;
+
+    // ATUALIZAR TELA
     document.getElementById("totalEntradas").textContent =
-        `R$ ${totalEntradas.toFixed(2).replace(".", ",")}`;
-
+      `R$ ${totalEntradas.toFixed(2).replace(".", ",")}`;
 
     document.getElementById("totalSaidas").textContent =
-        `R$ ${totalSaidas.toFixed(2).replace(".", ",")}`;
-
+      `R$ ${totalSaidas.toFixed(2).replace(".", ",")}`;
 
     document.getElementById("saldoFinanceiro").textContent =
-        `R$ ${saldo.toFixed(2).replace(".", ",")}`;
+      `R$ ${saldo.toFixed(2).replace(".", ",")}`;
+  }
 
-}
+  // CONTAS
+  let contas =
+  JSON.parse(localStorage.getItem("contas")) || [];
+  let contaEditando = null;
+  
+  const btnNovaConta =
+  document.getElementById("btnNovaConta");
+  const modalConta =
+  document.getElementById("modalConta");
+  const salvarConta =
+  document.getElementById("salvarConta");
+  const cancelarConta =
+  document.getElementById("cancelarConta");
+  const descricaoConta =
+  document.getElementById("descricaoConta");
+  const valorConta =
+  document.getElementById("valorConta");
+  const categoriaConta =
+  document.getElementById("categoriaConta");
+  const areaComprasCartao =
+    document.getElementById("areaComprasCartao");
 
-renderizarTransacoes();
-atualizarResumoFinanceiro();
+  categoriaConta.addEventListener("change", () => {
+      if (categoriaConta.value === "Cartão") {
+          areaComprasCartao.style.display = "block";
+      } else {
+          areaComprasCartao.style.display = "none";
+      }
+  });
 
-// ==========================================
-// CONTAS
-// ==========================================
+  let comprasCartao = [];
 
-let contas =
-JSON.parse(localStorage.getItem("contas")) || [];
-let contaEditando = null;
+  const listaComprasCartao =
+    document.getElementById("listaComprasCartao");
+  const btnAdicionarCompraCartao =
+    document.getElementById("btnAdicionarCompraCartao");
+  const totalComprasCartao =
+      document.getElementById("totalComprasCartao");
+  
+  btnAdicionarCompraCartao.addEventListener("click", () => {
+    const descricao = prompt("Descrição da compra:");
 
-const btnNovaConta =
-document.getElementById("btnNovaConta");
-const modalConta =
-document.getElementById("modalConta");
-const salvarConta =
-document.getElementById("salvarConta");
-const cancelarConta =
-document.getElementById("cancelarConta");
-const descricaoConta =
-document.getElementById("descricaoConta");
-const valorConta =
-document.getElementById("valorConta");
-const categoriaConta =
-document.getElementById("categoriaConta");
-const vencimentoConta =
-document.getElementById("vencimentoConta");
-const pagaConta =
-document.getElementById("pagaConta");
-const listaContas =
-document.getElementById("listaContas");
-
-
-// ==========================================
-// ABRIR MODAL
-// ==========================================
-
-btnNovaConta.addEventListener("click", () => {
-
-    modalConta.classList.add("ativo");
-
-});
-
-
-// ==========================================
-// CANCELAR
-// ==========================================
-
-cancelarConta.addEventListener("click", () => {
-
-    modalConta.classList.remove("ativo");
-
-    contaEditando = null;
-
-});
-
-
-// ==========================================
-// SALVAR CONTA
-// ==========================================
-
-salvarConta.addEventListener("click", () => {
-
-    const descricao =
-        descricaoConta.value.trim();
-
-    const valor =
-        Number(valorConta.value);
-
-    const categoria =
-        categoriaConta.value;
-
-    const vencimento =
-        vencimentoConta.value;
-
-    const paga =
-        pagaConta.checked;
-
-
-    // Verificar campos obrigatórios
-
-    if (!descricao || !valor || !vencimento) {
-
-        alert("Preencha todos os campos.");
-
-        return;
-
+    if (!descricao) {
+      return;
     }
 
-    if (contaEditando !== null) {
+    const valor = Number(
+      prompt("Valor da compra:")
+    );
 
+    if (!valor || valor <= 0) {
+      alert("Informe um valor válido.");
+      return;
+    }
+
+    comprasCartao.push({
+      id: Date.now(),
+      descricao: descricao,
+      valor: valor
+    });
+
+    renderizarComprasCartao();
+  
+  });
+  const vencimentoConta =
+  document.getElementById("vencimentoConta");
+  const pagaConta =
+  document.getElementById("pagaConta");
+  const listaContas =
+  document.getElementById("listaContas");
+
+  function renderizarComprasCartao() {
+    listaComprasCartao.innerHTML = "";
+
+    if (comprasCartao.length === 0) {
+      listaComprasCartao.innerHTML = `
+        <p>Nenhuma compra adicionada.</p>
+      `;
+      totalComprasCartao.textContent =
+        "Total das compras: R$ 0,00";
+      return;
+    }
+
+    let total = 0;
+
+    comprasCartao.forEach(compra => {
+        total += compra.valor;
+        const item =
+          document.createElement("div");
+        item.innerHTML = `
+          <span>
+            ${compra.descricao}
+            — R$ ${compra.valor.toFixed(2).replace(".", ",")}
+          </span>
+
+          <button
+            type="button"
+            class="btn-excluir-compra-cartao"
+            data-id="${compra.id}"
+          >
+            🗑️
+          </button>
+        `;
+
+        listaComprasCartao.appendChild(item);
+
+    });
+
+    totalComprasCartao.textContent =
+      `Total das compras: R$ ${total.toFixed(2).replace(".", ",")}`;
+
+    document
+      .querySelectorAll(".btn-excluir-compra-cartao")
+      .forEach(botao => {
+
+        botao.addEventListener("click", () => {
+
+          const id =
+              Number(botao.dataset.id);
+
+          comprasCartao =
+              comprasCartao.filter(
+                  compra => compra.id !== id
+              );
+
+          renderizarComprasCartao();
+
+        });
+
+      });
+
+  }
+
+  // ABRIR MODAL
+  btnNovaConta.addEventListener("click", () => {
+    modalConta.classList.add("ativo");
+  });
+
+  // CANCELAR
+  cancelarConta.addEventListener("click", () => {
+    modalConta.classList.remove("ativo");
+    contaEditando = null;
+  });
+
+  // SALVAR CONTA
+  salvarConta.addEventListener("click", () => {
+      const descricao =
+        descricaoConta.value.trim();
+      const valor =
+        Number(valorConta.value);
+      const categoria =
+        categoriaConta.value;
+      const vencimento =
+        vencimentoConta.value;
+      const paga =
+        pagaConta.checked;
+
+      // Verificar campos obrigatórios
+      if (!descricao || !valor || !vencimento) {
+        alert("Preencha todos os campos.");
+        return;
+      }
+  
+      if (contaEditando !== null) {
         const conta =
-            contas.find(
-                item => item.id === contaEditando
-            );
+          contas.find(
+            item => item.id === contaEditando
+          );
     
         if (conta) {
-    
-            conta.descricao = descricao;
-            conta.valor = valor;
-            conta.categoria = categoria;
-            conta.vencimento = vencimento;
-            conta.paga = paga;
-    
-        }
+          conta.descricao = descricao;
+          conta.valor = valor;
+          conta.categoria = categoria;
+          conta.vencimento = vencimento;
+          conta.paga = paga;
+      }
     
         localStorage.setItem(
-            "contas",
-            JSON.stringify(contas)
+          "contas",
+          JSON.stringify(contas)
         );
     
         contaEditando = null;
@@ -5668,54 +5736,56 @@ salvarConta.addEventListener("click", () => {
     
         renderizarContas();
         atualizarResumoContas();
+        renderizarTransacoes();
+        atualizarResumoFinanceiro();
     
         return;
-    }
-
-
-    const novaConta = {
-
-        id: Date.now(),
-
-        descricao: descricao,
-
-        valor: valor,
-
-        categoria: categoria,
-
-        vencimento: vencimento,
-
-        paga: paga
-
-    };
-
-
-    contas.push(novaConta);
-
-
-    localStorage.setItem(
-        "contas",
-        JSON.stringify(contas)
-    );
-
-
-    modalConta.classList.remove("ativo");
-
-
-    // Limpar formulário
-
-    descricaoConta.value = "";
-
-    valorConta.value = "";
-
-    vencimentoConta.value = "";
-
-    pagaConta.checked = false;
-
-
-    renderizarContas();
-
-});
+      }
+  
+  
+      const novaConta = {
+  
+          id: Date.now(),
+  
+          descricao: descricao,
+  
+          valor: valor,
+  
+          categoria: categoria,
+  
+          vencimento: vencimento,
+  
+          paga: paga
+  
+      };
+  
+  
+      contas.push(novaConta);
+  
+  
+      localStorage.setItem(
+          "contas",
+          JSON.stringify(contas)
+      );
+  
+  
+      modalConta.classList.remove("ativo");
+  
+  
+      // Limpar formulário
+  
+      descricaoConta.value = "";
+  
+      valorConta.value = "";
+  
+      vencimentoConta.value = "";
+  
+      pagaConta.checked = false;
+  
+  
+      renderizarContas();
+  
+  });
 
 // ==========================================
 // RENDERIZAR CONTAS
@@ -5878,6 +5948,7 @@ function renderizarContas() {
     
                     renderizarContas();
                     atualizarResumoContas();
+                    atualizarResumoFinanceiro();
     
                 });
     
