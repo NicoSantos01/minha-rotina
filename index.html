@@ -261,775 +261,571 @@
   </div>
 
 </section>
-  
+
+<!-- ========================= -->
+<!-- MÓDULO DE HÁBITOS -->
+<!-- ========================= -->
 <section id="telaHabitos" class="tela-modulo">
+  
+  <section id="telaHoje">
+    <h2>Sistema de Rotina</h2>
 
-    <section id="telaHoje">
+    <!-- SONO -->
+    <div id="blocoSono">
 
-        <h2>Sistema de Rotina</h2>
+      <div>
+        <label for="horaDormiu">
+          🌙 Dormiu às
+        </label>
 
-        <!-- SONO -->
-        <div id="blocoSono">
-    
-            <div>
-                <label for="horaDormiu">
-                    🌙 Dormiu às
-                </label>
-    
-                <input
-                    type="time"
-                    id="horaDormiu"
-                >
-            </div>
-    
-            <div>
-                <label for="horaAcordou">
-                    ☀️ Acordou às
-                </label>
-    
-                <input
-                    type="time"
-                    id="horaAcordou"
-                >
-            </div>
-    
-            <div id="resultadoSono">
-                ⏱️ — 
-            </div>
-    
-            <div>
-                🎯 Meta: 8h
-            </div>
-    
-        </div>
+        <input
+          type="time"
+          id="horaDormiu"
+        >
+      </div>
+  
+      <div>
+        <label for="horaAcordou">
+          ☀️ Acordou às
+        </label>
 
-        <!-- HIGIENE DA MANHÃ -->
-        <div id="blocoHigieneManha">
-        
-            <button id="abrirHigieneManha">
-                0/13 concluídos
-            </button>
-        
-        </div>
+        <input
+          type="time"
+          id="horaAcordou"
+        >
+      </div>
+  
+      <div id="resultadoSono">
+          ⏱️ — 
+      </div>
 
-        <!-- ALIMENTAÇÃO -->
-        <div id="blocoAlimentacaoRotina">
-        
-            <div id="resumoAlimentacaoRotina">
-        
-                <div class="refeicao-rotina">
-                    <span>☕ Café da manhã</span>
-                    <span id="statusCafeRotina">—</span>
-                </div>
-        
-            </div>
-        
-        </div>
-
-        <!-- TRABALHO -->
-        <div id="blocoTrabalhoRotina">
-        
-            <div id="resumoTrabalhoRotina">
-        
-                <div class="trabalho-rotina">
-                    <span>💼 Jornada de trabalho</span>
-                    <span id="statusTrabalhoRotina">—</span>
-                </div>
-        
-            </div>
-        
-        </div>
-
-        <div id="listaHabitos"></div>
-
-        <div id="areaArquivados" class="area-arquivados">
-
-            <h2>📦 Hábitos arquivados</h2>
-
-            <div id="listaArquivados"></div>
-
-        </div>
-
-        <button id="btnNovoHabito">
-            + Novo hábito
-        </button>
-
-        <button id="btnArquivados">
-            📦 Arquivados
-        </button>
-
-    </section>
-
-    <!-- MODAL HIGIENE DA MANHÃ -->
-    <div id="modalHigieneManha" class="modal">
-    
-        <div class="modal-box">
-    
-            <h2>☀️ Rotina da manhã</h2>
-    
-            <div id="listaHigieneManha">
-
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="copo">
-                    Copo d'água
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="cama">
-                    Arrumar a cama
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="cafe">
-                    Preparar o café da manhã
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="mochila">
-                    Organizar a mochila
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="banho">
-                    Tomar banho
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="roupa">
-                    Trocar de roupa
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="dentes">
-                    Escovar os dentes
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="perfume">
-                    Perfume
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="barba">
-                    Tônico para barba
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="labial">
-                    Protetor labial
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="dashboard">
-                    Dashboard
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="fretado">
-                    Pegar fretado
-                </label>
-            
-                <label>
-                    <input type="checkbox" class="itemHigiene" data-item="moto">
-                    Pegar a moto
-                </label>
-            
-            </div>
-    
-            <div id="progressoHigieneManha">
-                0/13 concluídos
-            </div>
-    
-            <button id="fecharHigieneManha">
-                Fechar
-            </button>
-    
-        </div>
-    
+      <div>
+          🎯 Meta: 8h
+      </div>
+  
     </div>
+
+      <!-- HIGIENE DA MANHÃ -->
+      <div id="blocoHigieneManha">
+      
+          <button id="abrirHigieneManha">
+              0/13 concluídos
+          </button>
+      
+      </div>
+
+      <!-- ALIMENTAÇÃO -->
+      <div id="blocoAlimentacaoRotina">
+      
+          <div id="resumoAlimentacaoRotina">
+      
+              <div class="refeicao-rotina">
+                  <span>☕ Café da manhã</span>
+                  <span id="statusCafeRotina">—</span>
+              </div>
+      
+          </div>
+      
+      </div>
+
+      <!-- TRABALHO -->
+      <div id="blocoTrabalhoRotina">
+      
+          <div id="resumoTrabalhoRotina">
+      
+              <div class="trabalho-rotina">
+                  <span>💼 Jornada de trabalho</span>
+                  <span id="statusTrabalhoRotina">—</span>
+              </div>
+      
+          </div>
+      
+      </div>
+
+      <div id="listaHabitos"></div>
+
+      <div id="areaArquivados" class="area-arquivados">
+
+          <h2>📦 Hábitos arquivados</h2>
+
+          <div id="listaArquivados"></div>
+
+      </div>
+
+      <button id="btnNovoHabito">
+          + Novo hábito
+      </button>
+
+      <button id="btnArquivados">
+          📦 Arquivados
+      </button>
+
+  </section>
+
+  <!-- MODAL HIGIENE DA MANHÃ -->
+  <div id="modalHigieneManha" class="modal">
+  
+    <div class="modal-box">
+  
+      <h2>☀️ Rotina da manhã</h2>
+  
+      <div id="listaHigieneManha">
+  
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="copo">
+          Copo d'água
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="cama">
+          Arrumar a cama
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="cafe">
+          Preparar o café da manhã
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="mochila">
+          Organizar a mochila
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="banho">
+          Tomar banho
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="roupa">
+          Trocar de roupa
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="dentes">
+          Escovar os dentes
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="perfume">
+          Perfume
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="barba">
+          Tônico para barba
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="labial">
+          Protetor labial
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="dashboard">
+          Dashboard
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="fretado">
+          Pegar fretado
+        </label>
+      
+        <label>
+          <input type="checkbox" class="itemHigiene" data-item="moto">
+          Pegar a moto
+        </label>
+      
+      </div>
+  
+      <div id="progressoHigieneManha">
+        0/13 concluídos
+      </div>
+  
+      <button id="fecharHigieneManha">
+        Fechar
+      </button>
+  
+    </div>
+  
+  </div>
 
     <section id="telaHistorico">
 
         <div class="historico-header">
-
-            <button id="mesAnterior">‹</button>
-
-            <h2 id="mesAtual"></h2>
-
-            <button id="mesProximo">›</button>
-
+          <button id="mesAnterior">‹</button>
+          <h2 id="mesAtual"></h2>
+          <button id="mesProximo">›</button>
         </div>
 
 
         <div class="calendario">
 
-            <div class="dias-semana">
+          <div class="dias-semana"
+            <span>Dom</span>
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+          </div>
 
-                <span>Dom</span>
-                <span>Seg</span>
-                <span>Ter</span>
-                <span>Qua</span>
-                <span>Qui</span>
-                <span>Sex</span>
-                <span>Sáb</span>
-
-            </div>
-
-            <div
-                id="diasCalendario"
-                class="dias-calendario">
-            </div>
+          <div
+              id="diasCalendario"
+              class="dias-calendario">
+          </div>
 
         </div>
 
 
         <div
-            id="detalhesDia"
-            class="detalhes-dia">
+          id="detalhesDia"
+          class="detalhes-dia">
         </div>
 
     </section>
 
-  
-
 </section>
-  
+
+<!-- ========================= -->
+<!-- MÓDULO DE ALIMENTAÇÃO -->
+<!-- ========================= -->
 <section id="telaAlimentacao" class="tela-modulo">
 
-    <div class="modulo-cabecalho">
-        <h2>🍽️ Alimentação</h2>
-        <p>Organize suas refeições do dia.</p>
+  <div class="modulo-cabecalho">
+    <h2>🍽️ Alimentação</h2>
+    <p>Organize suas refeições do dia.</p>
+  </div>
+
+  <div class="refeicoes">
+
+    <div class="card-refeicao" data-refeicao="cafe">
+      <span class="icone-refeicao">🍳</span>
+      <div>
+        <h3>Café da manhã</h3>
+        <p id="resumoCafe">
+          Comece o dia com uma boa refeição.
+        </p>
+        <div id="listaCafe" class="lista-alimentos"></div>
+      </div>
+      
     </div>
 
-    <div class="refeicoes">
-
-        <div class="card-refeicao" data-refeicao="cafe">
-
-            <span class="icone-refeicao">🍳</span>
-        
-            <div>
-                <h3>Café da manhã</h3>
-        
-                <p id="resumoCafe">
-                    Comece o dia com uma boa refeição.
-                </p>
-        
-                <div id="listaCafe" class="lista-alimentos"></div>
-              
-            </div>
-        
-        </div>
-
-        <div class="card-refeicao" data-refeicao="lanche">
-          
-            <span class="icone-refeicao">🍌</span>
-            <div>
-                <h3>Lanche da manhã</h3>
-                <p id="resumoLanche">
-                    Uma opção rápida para o meio da manhã.
-                </p>
-
-              <div id="listaLanche" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="almoco">
-          
-            <span class="icone-refeicao">🍛</span>
-            <div>
-                <h3>Almoço</h3>
-                <p id="resumoAlmoco">
-                    Registre sua principal refeição do dia.
-                </p>
-
-              <div id="listaAlmoco" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="pre_treino">
-          
-            <span class="icone-refeicao">🥪</span>
-            <div>
-                <h3>Pré-treino</h3>
-                <p id="resumoPreTreino">
-                    Energia para o seu treino.
-                </p>
-
-              <div id="listaPreTreino" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="jantar">
-          
-            <span class="icone-refeicao">🍽️</span>
-            <div>
-                <h3>Jantar</h3>
-                <p id="resumoJantar">
-                    Registre sua refeição da noite.
-                </p>
-
-              <div id="listaJantar" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
-        <div class="card-refeicao" data-refeicao="ceia">
-          
-            <span class="icone-refeicao">🌙</span>
-            <div>
-                <h3>Ceia</h3>
-                <p id="resumoCeia">
-                    Uma opção antes de dormir, se necessário.
-                </p>
-
-              <div id="listaCeia" class="lista-alimentos"></div>
-              
-            </div>
-        </div>
-
+    <div class="card-refeicao" data-refeicao="lanche">
+      <span class="icone-refeicao">🍌</span>
+      <div>
+        <h3>Lanche da manhã</h3>
+        <p id="resumoLanche">
+            Uma opção rápida para o meio da manhã.
+        </p>
+        <div id="listaLanche" class="lista-alimentos"></div>
+      </div>
     </div>
+
+    <div class="card-refeicao" data-refeicao="almoco">
+      <span class="icone-refeicao">🍛</span>
+      <div>
+        <h3>Almoço</h3>
+        <p id="resumoAlmoco">
+          Registre sua principal refeição do dia.
+        </p>
+        <div id="listaAlmoco" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+    <div class="card-refeicao" data-refeicao="pre_treino">
+      <span class="icone-refeicao">🥪</span>
+      <div>
+        <h3>Pré-treino</h3>
+        <p id="resumoPreTreino">
+          Energia para o seu treino.
+        </p>
+        <div id="listaPreTreino" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+    <div class="card-refeicao" data-refeicao="jantar">
+      <span class="icone-refeicao">🍽️</span>
+      <div>
+        <h3>Jantar</h3>
+        <p id="resumoJantar">
+          Registre sua refeição da noite.
+        </p>
+        <div id="listaJantar" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+    <div class="card-refeicao" data-refeicao="ceia">
+      <span class="icone-refeicao">🌙</span>
+      <div>
+        <h3>Ceia</h3>
+        <p id="resumoCeia">
+          Uma opção antes de dormir, se necessário.
+        </p>
+        <div id="listaCeia" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+  </div>
 
   <div id="modalRefeicao" class="modal-refeicao">
 
     <div id="formularioRefeicao" class="formulario-refeicao">
-
-          <h3 id="tituloRefeicao">Café da manhã</h3>
-  
-          <label for="comidaRefeicao">
-              O que você comeu?
-          </label>
-  
-          <input
-              type="text"
-              id="comidaRefeicao"
-              placeholder="Ex: 1 ovo">
-  
-          <div id="listaAlimentosRefeicao"></div>
-  
-          <button id="adicionarAlimento">
-              + Adicionar alimento
-          </button>
-  
-          <button id="salvarRefeicao">
-              Salvar refeição
-          </button>
-
-          <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
-              Cancelar
-          </button>
-  
-      </div>
+      <h3 id="tituloRefeicao">Café da manhã</h3>
+      <label for="comidaRefeicao">
+        O que você comeu?
+      </label>
+      <input
+        type="text"
+        id="comidaRefeicao"
+        placeholder="Ex: 1 ovo"
+      >
+      <div id="listaAlimentosRefeicao"></div>
+      <button id="adicionarAlimento">
+        + Adicionar alimento
+      </button>
+      <button id="salvarRefeicao">
+        Salvar refeição
+      </button>
+      <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+        Cancelar
+      </button>
+    </div>
   
   </div>
 
 </section>
-  
+
+
+
 <!-- ========================= -->
 <!-- MODULO DE FINANÇAS (TELA) -->
 <!-- ========================= -->
 <section id="telaFinancas" class="tela-modulo">
 
-    <div class="modulo-cabecalho">
-
-        <h2>💰 Finanças</h2>
-
-        <p>
-            Organize suas entradas e saídas.
-        </p>
-
-    </div>
+  <div class="modulo-cabecalho">
+    <h2>💰 Finanças</h2>
+    <p>
+      Organize suas entradas e saídas.
+    </p>
+  </div>
 
 
-    <!-- ========================= -->
     <!-- RESUMO FINANCEIRO -->
-    <!-- ========================= -->
-
     <div class="resumo-financeiro">
 
-        <div class="card-financeiro saldo">
-
-            <span class="icone-financeiro">
-                💰
-            </span>
-
-            <div>
-
-                <small>
-                    Saldo
-                </small>
-
-                <strong id="saldoFinanceiro">
-                    R$ 0,00
-                </strong>
-
-            </div>
-
+      <div class="card-financeiro saldo">
+        <span class="icone-financeiro">
+          💰
+        </span>
+        <div>
+          <small>
+            Saldo
+          </small>
+          <strong id="saldoFinanceiro">
+            R$ 0,00
+          </strong>
         </div>
+      </div>
 
-
-        <div class="card-financeiro entrada">
-
-            <span class="icone-financeiro">
-                🟢
-            </span>
-
-            <div>
-
-                <small>
-                    Entradas
-                </small>
-
-                <strong id="totalEntradas">
-                    R$ 0,00
-                </strong>
-
-            </div>
-
+      <div class="card-financeiro entrada">
+        <span class="icone-financeiro">
+          🟢
+        </span>
+        <div>
+          <small>
+            Entradas
+          </small>
+          <strong id="totalEntradas">
+            R$ 0,00
+          </strong>
         </div>
+      </div>
 
-
-        <div class="card-financeiro saida">
-
-            <span class="icone-financeiro">
-                🔴
-            </span>
-
-            <div>
-
-                <small>
-                    Saídas
-                </small>
-
-                <strong id="totalSaidas">
-                    R$ 0,00
-                </strong>
-
-            </div>
-
+      <div class="card-financeiro saida">
+        <span class="icone-financeiro">
+          🔴
+        </span>
+        <div>
+          <small>
+            Saídas
+          </small>
+          <strong id="totalSaidas">
+            R$ 0,00
+          </strong>
         </div>
+      </div>
 
     </div>
 
-
-    <!-- ========================= -->
     <!-- MOVIMENTAÇÕES -->
-    <!-- ========================= -->
-
     <div class="bloco-financeiro">
 
-        <div class="titulo-bloco-financeiro">
-            <h3>📅 Contas</h3>
-        </div>
+      <div class="titulo-bloco-financeiro">
+        <h3>📅 Contas</h3>
+      </div>
     
-        <div class="resumo-contas">
-    
-            <span id="contasAtrasadas">
-                🔴 0 atrasadas
-            </span>
-    
-            <span id="contasPendentes">
-                🟡 0 pendentes
-            </span>
-    
-            <span id="contasPagas">
-                🟢 0 pagas
-            </span>
-    
-        </div>
-    
-        <div id="listaContas" class="lista-contas">
-    
-            <p class="estado-vazio-financeiro">
-                Nenhuma conta cadastrada.
-            </p>
-    
-        </div>
+      <div class="resumo-contas">
+        <span id="contasAtrasadas">
+          🔴 0 atrasadas
+        </span>
+        <span id="contasPendentes">
+          🟡 0 pendentes
+        </span>
+        <span id="contasPagas">
+          🟢 0 pagas
+        </span>
+      </div>
+  
+      <div id="listaContas" class="lista-contas">
+        <p class="estado-vazio-financeiro">
+          Nenhuma conta cadastrada.
+        </p>
+      </div>
     
     </div>
     
     <button id="btnNovaConta" class="btn-nova-transacao">
-        + Nova conta
+      + Nova conta
     </button>
     
     <div id="modalConta" class="modal-transacao">
     
-        <div class="modal-transacao-caixa">
-    
-            <h2>Nova conta</h2>
-    
-            <label for="descricaoConta">
-                Descrição
-            </label>
-    
-            <input
-                type="text"
-                id="descricaoConta"
-                placeholder="Ex: Internet"
-            >
-    
-            <label for="valorConta">
-                Valor
-            </label>
-    
-            <input
-                type="number"
-                id="valorConta"
-                placeholder="0,00"
-                step="0.01"
-                min="0"
-            >
-    
-            <label for="categoriaConta">
-                Categoria
-            </label>
-    
-            <select id="categoriaConta">
-    
-                <option value="Alimentação">
-                    🍽️ Alimentação
-                </option>
-    
-                <option value="Transporte">
-                    🛵 Transporte
-                </option>
-    
-                <option value="Moradia">
-                    🏠 Moradia
-                </option>
-    
-                <option value="Lazer">
-                    🎮 Lazer
-                </option>
-    
-                <option value="Estudos">
-                    📚 Estudos
-                </option>
-    
-                <option value="Saúde">
-                    🏥 Saúde
-                </option>
-    
-                <option value="Trabalho">
-                    💼 Trabalho
-                </option>
+      <div class="modal-transacao-caixa">
+        <h2>Nova conta</h2>
+        <label for="descricaoConta">
+          Descrição
+        </label>
+        <input
+          type="text"
+          id="descricaoConta"
+          placeholder="Ex: Internet"
+        >
+        <label for="valorConta">
+          Valor
+        </label>
+        <input
+          type="number"
+          id="valorConta"
+          placeholder="0,00"
+          step="0.01"
+          min="0"
+        >
+        <label for="categoriaConta">
+          Categoria
+        </label>
+        
+        <select id="categoriaConta">
+          <option value="Alimentação">🍽️ Alimentação</option>
+          <option value="Transporte">🛵 Transporte</option>
+          <option value="Moradia">🏠 Moradia</option>
+          <option value="Lazer">🎮 Lazer </option>
+          <option value="Estudos">📚 Estudos</option>
+          <option value="Saúde">🏥 Saúde</option>
+          <option value="Trabalho">💼 Trabalho</option>
+          <option value="Internet">🛜 Internet</option>
+          <option value="Streamming/Music">📱 Streamming/Music</option>
+          <option value="Celular">📱 Assinatura do celular</option>
+          <option value="Cuidado">💈 Cuidado</option>
+          <option value="Cartão">💳 Cartão crédito/débito</option>
+          <option value="Outros">📦 Outros</option>
+        </select>
+  
+        <label for="vencimentoConta">Vencimento</label>
+        <input type="date" id="vencimentoConta">
 
-                <option value="Internet">
-                    🛜 Internet
-                </option>
-    
-                <option value="Outros">
-                    📦 Outros
-                </option>
-    
-            </select>
-    
-            <label for="vencimentoConta">
-                Vencimento
-            </label>
-    
-            <input
-                type="date"
-                id="vencimentoConta"
-            >
-    
-            <label class="checkbox-conta">
-    
-                <input
-                    type="checkbox"
-                    id="pagaConta"
-                >
-    
-                Conta já está paga
-    
-            </label>
-    
-            <div class="acoes-modal-financeiro">
-    
-                <button id="salvarConta">
-                    Salvar
-                </button>
-    
-                <button
-                    id="cancelarConta"
-                    class="btn-cancelar-financeiro"
-                >
-                    Cancelar
-                </button>
-    
-            </div>
-    
+        <!-- ANOTAÇÃO DE COMPRA -->
+        <div id="areaComprasCartao" style="display: none;">
+          <h3>🧾 Anotação de compras</h3>
+  
+          <div id="listaComprasCartao">
+            <p>Nenhuma compra adicionada.</p>
+          </div>
+      
+          <button type="button" id="btnAdicionarCompraCartao">+ Adicionar compra </button>
+      
+          <div id="totalComprasCartao">
+            Total das compras: R$ 0,00
+          </div>
+        
         </div>
+
+        <label class="checkbox-conta">
+          <input type="checkbox" id="pagaConta">
+          Conta já está paga
+        </label>
+
+        <div class="acoes-modal-financeiro">
+          <button id="salvarConta">Salvar</button>
+          <button id="cancelarConta" class="btn-cancelar-financeiro">Cancelar</button>
+        </div>
+  
+      </div>
     
     </div>
   
     <div class="bloco-financeiro">
-
         <div class="titulo-bloco-financeiro">
-
             <h3>
                 📋 Movimentações
             </h3>
-
         </div>
-
 
         <div
             id="listaTransacoes"
             class="lista-transacoes">
-
             <p class="estado-vazio-financeiro">
                 Nenhuma movimentação registrada.
             </p>
-
         </div>
-
     </div>
 
-
-    <!-- ========================= -->
     <!-- NOVA MOVIMENTAÇÃO -->
-    <!-- ========================= -->
-
     <button
         id="btnNovaTransacao"
         class="btn-nova-transacao">
 
         + Nova movimentação
-
     </button>
 
-
-    <!-- ========================= -->
     <!-- MODAL NOVA TRANSAÇÃO -->
-    <!-- ========================= -->
+    <div id="modalTransacao" class="modal-transacao">
+      <div class="modal-transacao-caixa">
+          <h2>Nova movimentação</h2>
 
-    <div
-        id="modalTransacao"
-        class="modal-transacao">
+          <label for="tipoTransacao">Tipo</label>
 
-        <div class="modal-transacao-caixa">
+          <select id="tipoTransacao">
+            <option value="entrada">🟢 Entrada</option>
+            <option value="saida">🔴 Saída</option>
+          </select>
 
-            <h2>
-                Nova movimentação
-            </h2>
+          <label for="descricaoTransacao">Descrição</label>
+        
+          <input type="text" id="descricaoTransacao" placeholder="Ex: Mercado">
 
+          <label for="valorTransacao">Valor</label>
+        
+          <input type="number" id="valorTransacao" placeholder="0,00" step="0.01" min="0">
 
-            <label for="tipoTransacao">
-                Tipo
-            </label>
+          <label for="categoriaTransacao">Categoria</label>
 
-            <select id="tipoTransacao">
-
-                <option value="entrada">
-                    🟢 Entrada
-                </option>
-
-                <option value="saida">
-                    🔴 Saída
-                </option>
-
-            </select>
+          <select id="categoriaTransacao">
+              <option value="Trabalho">💼 Trabalho</option>
+          </select>
 
 
-            <label for="descricaoTransacao">
-                Descrição
-            </label>
+          <label for="dataTransacao">Data</label>
 
-            <input
-                type="text"
-                id="descricaoTransacao"
-                placeholder="Ex: Mercado"
-            >
+          <input type="date" id="dataTransacao">
 
+          <div class="acoes-modal-financeiro">
+            <button id="salvarTransacao">Salvar</button>
+            <button id="cancelarTransacao" class="btn-cancelar-financeiro">Cancelar</button>
+          </div>
 
-            <label for="valorTransacao">
-                Valor
-            </label>
-
-            <input
-                type="number"
-                id="valorTransacao"
-                placeholder="0,00"
-                step="0.01"
-                min="0"
-            >
-
-
-            <label for="categoriaTransacao">
-                Categoria
-            </label>
-
-            <select id="categoriaTransacao">
-
-                <option value="Alimentação">
-                    🍽️ Alimentação
-                </option>
-
-                <option value="Transporte">
-                    🛵 Transporte
-                </option>
-
-                <option value="Moradia">
-                    🏠 Moradia
-                </option>
-
-                <option value="Lazer">
-                    🎮 Lazer
-                </option>
-
-                <option value="Estudos">
-                    📚 Estudos
-                </option>
-
-                <option value="Saúde">
-                    🧘 Saúde/Cuidado
-                </option>
-
-                <option value="Trabalho">
-                    💼 Trabalho
-                </option>
-
-                <option value="Internet">
-                    🛜 Internet
-                </option>
-
-                <option value="Outros">
-                    📦 Outros
-                </option>
-
-            </select>
-
-
-            <label for="dataTransacao">
-                Data
-            </label>
-
-            <input
-                type="date"
-                id="dataTransacao"
-            >
-
-
-            <div class="acoes-modal-financeiro">
-
-                <button id="salvarTransacao">
-                    Salvar
-                </button>
-
-                <button
-                    id="cancelarTransacao"
-                    class="btn-cancelar-financeiro">
-
-                    Cancelar
-
-                </button>
-
-            </div>
-
-        </div>
+      </div>
 
     </div>
 
