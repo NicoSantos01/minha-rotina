@@ -5566,11 +5566,13 @@ function renderizarTransacoes() {
     document.getElementById("areaComprasCartao");
 
   categoriaConta.addEventListener("change", () => {
-      if (categoriaConta.value === "Cartão") {
-          areaComprasCartao.style.display = "block";
-      } else {
-          areaComprasCartao.style.display = "none";
-      }
+    if (categoriaConta.value === "Cartão") {
+      areaComprasCartao.style.display = "block";
+      renderizarComprasCartao();
+      atualizarValorContaCartao();
+    } else {
+      areaComprasCartao.style.display = "none";
+    }
   });
 
   let comprasCartao = [];
@@ -5580,21 +5582,18 @@ function renderizarTransacoes() {
   const btnAdicionarCompraCartao =
     document.getElementById("btnAdicionarCompraCartao");
   const totalComprasCartao =
-      document.getElementById("totalComprasCartao");
+    document.getElementById("totalComprasCartao");
+  const descricaoCompraCartao =
+    document.getElementById("descricaoCompraCartao");
+  const valorCompraCartao =
+    document.getElementById("valorCompraCartao");
   
   btnAdicionarCompraCartao.addEventListener("click", () => {
-    const descricao = prompt("Descrição da compra:");
+    const descricao = descricaoCompraCartao.value.trim();
+    const valor = Number(valorCompraCartao.value);
 
-    if (!descricao) {
-      return;
-    }
-
-    const valor = Number(
-      prompt("Valor da compra:")
-    );
-
-    if (!valor || valor <= 0) {
-      alert("Informe um valor válido.");
+    if (!descricao || valor <= 0 || !Number.isFinite(valor)) {
+      alert("Informe a descrição e um valor válido para a compra.");
       return;
     }
 
@@ -5604,9 +5603,14 @@ function renderizarTransacoes() {
       valor: valor
     });
 
+    descricaoCompraCartao.value = "";
+    valorCompraCartao.value = "";
+
     renderizarComprasCartao();
-  
+    atualizarValorContaCartao();
+    descricaoCompraCartao.focus();
   });
+
   const vencimentoConta =
   document.getElementById("vencimentoConta");
   const pagaConta =
@@ -5614,6 +5618,21 @@ function renderizarTransacoes() {
   const listaContas =
   document.getElementById("listaContas");
 
+  // ATUALIZAR O VALOR CONTA CARTÃO
+  function atualizarValorContaCartao() {
+    if (categoriaConta.value !== "Cartão") {
+      return;
+    }
+
+    const total = comprasCartao.reduce(
+      (soma, compra) => soma + compra.valor,
+      0
+    );
+
+    valorConta.value = total.toFixed(2);
+  }
+
+  // REDERIZAR COMPRAS CARTÃO
   function renderizarComprasCartao() {
     listaComprasCartao.innerHTML = "";
 
@@ -5659,32 +5678,45 @@ function renderizarTransacoes() {
       .forEach(botao => {
 
         botao.addEventListener("click", () => {
-
           const id =
               Number(botao.dataset.id);
 
           comprasCartao =
               comprasCartao.filter(
-                  compra => compra.id !== id
+                compra => compra.id !== id
               );
 
           renderizarComprasCartao();
-
+          atualizarValorContaCartao();
         });
-
       });
-
   }
 
-  // ABRIR MODAL
+  // ABRIR MODAL DE NOVA CONTA
   btnNovaConta.addEventListener("click", () => {
+    contaEditando = null;
+    comprasCartao = [];
+
+    descricaoConta.value = "";
+    valorConta.value = "";
+    categoriaConta.value = "Alimentação";
+    vencimentoConta.value = "";
+    pagaConta.checked = false;
+
+    areaComprasCartao.style.display = "none";
+    renderizarComprasCartao();
+
     modalConta.classList.add("ativo");
   });
 
   // CANCELAR
   cancelarConta.addEventListener("click", () => {
     modalConta.classList.remove("ativo");
+
     contaEditando = null;
+    comprasCartao = [];
+
+    renderizarComprasCartao();
   });
 
   // SALVAR CONTA
@@ -5718,7 +5750,11 @@ function renderizarTransacoes() {
           conta.categoria = categoria;
           conta.vencimento = vencimento;
           conta.paga = paga;
-      }
+      
+          conta.compras = categoria === "Cartão"
+              ? [...comprasCartao]
+              : [];
+        }
     
         localStorage.setItem(
           "contas",
@@ -5744,19 +5780,16 @@ function renderizarTransacoes() {
   
   
       const novaConta = {
-  
-          id: Date.now(),
-  
-          descricao: descricao,
-  
-          valor: valor,
-  
-          categoria: categoria,
-  
-          vencimento: vencimento,
-  
-          paga: paga
-  
+        id: Date.now(),
+        descricao: descricao,
+        valor: valor,
+        categoria: categoria,
+        vencimento: vencimento,
+        paga: paga,
+        
+        compras: categoria === "Cartão"
+        ? [...comprasCartao]
+        : []
       };
   
   
@@ -5790,24 +5823,17 @@ function renderizarTransacoes() {
 // ==========================================
 // RENDERIZAR CONTAS
 // ==========================================
-
 function renderizarContas() {
-
     listaContas.innerHTML = "";
 
-
     if (contas.length === 0) {
+      listaContas.innerHTML = `
+        <p class="estado-vazio-financeiro">
+          Nenhuma conta cadastrada.
+        </p>
+      `;
 
-        listaContas.innerHTML = `
-
-            <p class="estado-vazio-financeiro">
-                Nenhuma conta cadastrada.
-            </p>
-
-        `;
-
-        return;
-
+      return;
     }
 
     const hoje = new Date();
@@ -5815,186 +5841,165 @@ function renderizarContas() {
     hoje.setHours(0, 0, 0, 0);
   
     contas.forEach(conta => {
+      let statusTexto;
+      let classeStatus;
+  
+      if (conta.paga) {
+        statusTexto = "🟢 Paga";
+        classeStatus = "paga";
+      } else {
+        const vencimento =
+          new Date(conta.vencimento + "T00:00:00");
 
-        let statusTexto;
-        let classeStatus;
-    
-    
-        if (conta.paga) {
-    
-            statusTexto = "🟢 Paga";
-            classeStatus = "paga";
-    
+        if (vencimento < hoje) {
+          statusTexto = "🔴 Atrasada";
+          classeStatus = "atrasada";
         } else {
-    
-            const vencimento =
-                new Date(conta.vencimento + "T00:00:00");
-    
-    
-            if (vencimento < hoje) {
-    
-                statusTexto = "🔴 Atrasada";
-                classeStatus = "atrasada";
-    
-            } else {
-    
-                statusTexto = "🟡 Pendente";
-                classeStatus = "pendente";
-    
-            }
-    
+          statusTexto = "🟡 Pendente";
+          classeStatus = "pendente";
         }
+      }
 
+      const item =
+        document.createElement("div");
 
-        const item =
-            document.createElement("div");
+      item.className =
+        "conta";
 
+      item.innerHTML = `
+        <div class="conta-info">
+          <span class="conta-descricao">
+            ${conta.descricao}
+          </span>
 
-        item.className =
-            "conta";
+          <span class="conta-detalhes">
+            ${conta.categoria}
+            •
+            R$ ${conta.valor.toFixed(2).replace(".", ",")}
+            •
+            Vencimento: ${conta.vencimento}
+          </span>
+        </div>
 
+        <div class="acoes-conta"
+          <span class="status-conta ${classeStatus}">
+            ${statusTexto}
+          </span>
+      
+          <label class="checkbox-pagar-conta">
+            <input
+              type="checkbox"
+              class="checkbox-conta-paga"
+              data-id="${conta.id}"
+              ${conta.paga ? "checked" : ""}
+            >
+            Pago
+          </label>
+      
+          <button
+            class="btn-editar-conta"
+            data-id="${conta.id}"
+            title="Editar">
+            ✏️
+          </button>
+      
+          <button
+            class="btn-excluir-conta"
+            data-id="${conta.id}"
+            title="Excluir">
+            🗑️
+          </button>
+        </div>
+      `;
 
-        item.innerHTML = `
-
-            <div class="conta-info">
-
-                <span class="conta-descricao">
-                    ${conta.descricao}
-                </span>
-
-                <span class="conta-detalhes">
-                    ${conta.categoria}
-                    •
-                    R$ ${conta.valor.toFixed(2).replace(".", ",")}
-                    •
-                    Vencimento: ${conta.vencimento}
-                </span>
-
-            </div>
-
-              <div class="acoes-conta">
-
-                  <span class="status-conta ${classeStatus}">
-                      ${statusTexto}
-                  </span>
-              
-                  <label class="checkbox-pagar-conta">
-              
-                      <input
-                          type="checkbox"
-                          class="checkbox-conta-paga"
-                          data-id="${conta.id}"
-                          ${conta.paga ? "checked" : ""}
-                      >
-              
-                      Pago
-              
-                  </label>
-              
-                  <button
-                      class="btn-editar-conta"
-                      data-id="${conta.id}"
-                      title="Editar">
-                      ✏️
-                  </button>
-              
-                  <button
-                      class="btn-excluir-conta"
-                      data-id="${conta.id}"
-                      title="Excluir">
-                      🗑️
-                  </button>
-              
-              </div>
-
-        `;
-
-
-        listaContas.appendChild(item);
-
+      listaContas.appendChild(item);
     });
 
-        // listener do checkbox
-        document
-            .querySelectorAll(".checkbox-conta-paga")
-            .forEach(checkbox => {
-    
-                checkbox.addEventListener("change", () => {
-    
-                    const id =
-                        Number(checkbox.dataset.id);
-    
-    
-                    const conta =
-                        contas.find(
-                            item => item.id === id
-                        );
-    
-    
-                    if (!conta) {
-                        return;
-                    }
-    
-    
-                    conta.paga =
-                        checkbox.checked;
-    
-    
-                    localStorage.setItem(
-                        "contas",
-                        JSON.stringify(contas)
-                    );
-    
-    
-                    renderizarContas();
-                    atualizarResumoContas();
-                    atualizarResumoFinanceiro();
-    
-                });
-    
-            });
+    // listener do checkbox
+    document
+      .querySelectorAll(".checkbox-conta-paga")
+      .forEach(checkbox => {
 
-        // listener do editar
-        document
-            .querySelectorAll(".btn-editar-conta")
-            .forEach(botao => {
-        
-                botao.addEventListener("click", () => {
-        
-                    const id =
-                        Number(botao.dataset.id);
-        
-                    const conta =
-                        contas.find(
-                            item => item.id === id
-                        );
-        
-                    if (!conta) {
-                        return;
-                    }
-        
-                    contaEditando = id;
-        
-                    descricaoConta.value =
-                        conta.descricao;
-        
-                    valorConta.value =
-                        conta.valor;
-        
-                    categoriaConta.value =
-                        conta.categoria;
-        
-                    vencimentoConta.value =
-                        conta.vencimento;
-        
-                    pagaConta.checked =
-                        conta.paga;
-        
-                    modalConta.classList.add("ativo");
-        
-                });
-        
-            });
+        checkbox.addEventListener("change", () => {
+          const id =
+            Number(checkbox.dataset.id);
+
+          const conta =
+            contas.find(
+              item => item.id === id
+            );
+
+          if (!conta) {
+            return;
+          }
+
+          conta.paga =
+            checkbox.checked;
+
+          localStorage.setItem(
+            "contas",
+            JSON.stringify(contas)
+          );
+
+          renderizarContas();
+          atualizarResumoContas();
+          atualizarResumoFinanceiro();
+
+        });
+
+      });
+
+      // listener do editar
+      document
+        .querySelectorAll(".btn-editar-conta")
+        .forEach(botao => {
+    
+          botao.addEventListener("click", () => {
+  
+            const id =
+              Number(botao.dataset.id);
+
+            const conta =
+              contas.find(
+                item => item.id === id
+              );
+
+            if (!conta) {
+              return;
+            }
+
+            contaEditando = id;
+
+            descricaoConta.value =
+              conta.descricao;
+
+            valorConta.value =
+              conta.valor;
+
+            categoriaConta.value =
+              conta.categoria;
+
+            vencimentoConta.value =
+              conta.vencimento;
+
+            pagaConta.checked = conta.paga;
+
+            // Recuperar as compras da conta
+            comprasCartao = Array.isArray(conta.compras)
+              ? [...conta.compras]
+              : [];
+            
+            // Mostrar a área somente para cartões
+            areaComprasCartao.style.display =
+              conta.categoria === "Cartão" ? "block" : "none";
+            
+            renderizarComprasCartao();
+            
+            modalConta.classList.add("ativo");
+  
+          });
+    
+        });
 
         // listener do excluir
         document
@@ -9523,12 +9528,10 @@ function renderizarFichaMeta() {
 // ==========================================
 // SALVAR METAS
 // ==========================================
-
 function salvarMetas() {
-
-    localStorage.setItem(
-        "metas",
-        JSON.stringify(metas)
-    );
+  localStorage.setItem(
+    "metas",
+     JSON.stringify(metas)
+  );
 
 }
