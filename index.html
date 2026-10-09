@@ -24,151 +24,135 @@
 <div class="app">
   
   <div class="cabecalho">
-  
-      <nav class="navegacao-app">
-  
-          <button
-              id="btnMenu"
-              class="btn-menu">
-              ☰ MENU
-          </button>
-      
-          <div id="menuModulos" class="menu-modulos">
-      
-              <button
-                  id="btnVoltarMenu"
-                  class="btn-voltar-menu">
-                  ← Voltar
-              </button>
-      
-              <button
-                  class="item-navegacao"
-                  data-tela="habitos">
-                  ✅ Hábitos
-              </button>
-      
-              <button
-                  class="item-navegacao"
-                  data-tela="treino">
-                  🏋️ Treino
-              </button>
-      
-              <button
-                  class="item-navegacao"
-                  data-tela="alimentacao">
-                  🍽️ Alimentação
-              </button>
-      
-              <button
-                  class="item-navegacao"
-                  data-tela="estudos">
-                  📚 Estudos
-              </button>
-      
-              <button
-                  class="item-navegacao"
-                  data-tela="trabalho">
-                  💼 Trabalho
-              </button>
-      
-              <button
-                  class="item-navegacao"
-                  data-tela="financas">
-                  💰 Finanças
-              </button>
+    <nav class="navegacao-app">
+      <button
+        id="btnMenu"
+        class="btn-menu">
+        ☰ MENU
+      </button>
+    
+      <div id="menuModulos" class="menu-modulos">
+        <button
+          id="btnVoltarMenu"
+          class="btn-voltar-menu">
+          ← Voltar
+        </button>
 
-              <button
-                  class="item-navegacao"
-                  data-tela="metas">
-                  🎯 Metas
-              </button>
-              
-              <button
-                  class="item-navegacao"
-                  data-tela="saudeMental">
-                  🧠 Saúde Mental
-              </button>
-              
-              <button
-                  class="item-navegacao"
-                  data-tela="leitura">
-                  📖 Leitura
-              </button>
-      
-          </div>
-      
-      </nav>
+        <button
+          class="item-navegacao"
+          data-tela="habitos">
+          ✅ Hábitos
+        </button>
 
-    <div class="titulo-dashboard">
+        <button
+          class="item-navegacao"
+          data-tela="trabalho">
+          💼 Trabalho
+        </button>
 
-            <h1>
-              <button id="btnDashboard" class="btn-dashboard-icon">🏠</button>
-              <span id="tituloDashboard">DASHBOARD</span>
-            </h1>
+        <button
+          class="item-navegacao"
+          data-tela="estudos">
+          📚 Estudos
+        </button>
+
+        <button
+          class="item-navegacao"
+          data-tela="leitura">
+          📖 Leitura
+        </button>
+
+        <button
+          class="item-navegacao"
+          data-tela="saudeMental">
+          🧠 Saúde Mental
+        </button>
+
+        <button
+          class="item-navegacao"
+          data-tela="treino">
+          🏋️ Treino
+        </button>
+
+        <button
+          class="item-navegacao"
+          data-tela="alimentacao">
+          🍽️ Alimentação
+        </button>
+
+        <button
+          class="item-navegacao"
+          data-tela="financas">
+          💰 Finanças
+        </button>
+
+        <button
+          class="item-navegacao"
+          data-tela="metas">
+          🎯 Metas
+        </button>
           
+      </div>
+    
+    </nav>
+
+    <!-- ========================= -->
+    <!-- TELAS DOS MÓDULOS -->
+    <!-- ========================= -->
+    <div class="titulo-dashboard">
+      <h1>
+        <button id="btnDashboard" class="btn-dashboard-icon">🏠</button>
+        <span id="tituloDashboard">DASHBOARD</span>
+      </h1>
     </div>
 
     <div id="cabecalhoDashboard">
-
       <p id="dataAtual"></p>
-    
+      
         <div class="dashboard">
-      
-            <div class="card-estatistica">
-      
-                <span class="icone">🔥</span>
-      
-                <strong id="sequenciaGeral">
-                    0
-                </strong>
-      
-                <small>
-                    Sequência
-                </small>
+          <div class="card-estatistica">
+            <span class="icone">🔥</span>
+            <strong id="sequenciaGeral">
+              0
+            </strong>
+  
+            <small>
+              Sequência
+            </small>
+          </div>
 
-            </div>
-
-            <div class="card-estatistica">
+          <div class="card-estatistica">
+              <span class="icone">🏆</span>
+              <strong id="recordeGeral">
+                0
+              </strong>
       
-                <span class="icone">🏆</span>
-        
-                <strong id="recordeGeral">
-                    0
-                </strong>
-        
-                <small>
-                    Recorde
-                </small>
-        
-            </div>
+              <small>
+                Recorde
+              </small>
+          </div>
     
-            <div class="card-estatistica">
+          <div class="card-estatistica">
+              <span class="icone">📅</span>
+              <strong id="diasCumpridos">
+                0
+              </strong>
       
-                <span class="icone">📅</span>
-        
-                <strong id="diasCumpridos">
-                    0
-                </strong>
-        
-                <small>
-                    Dias cumpridos
-                </small>
-        
-            </div>
+              <small>
+                Dias cumpridos
+              </small>
+          </div>
     
-            <div class="card-estatistica">
-        
-                <span class="icone">📊</span>
-        
-                <strong id="aproveitamento">
-                    0%
-                </strong>
-        
-                <small>
-                    Aproveitamento
-                </small>
-        
-            </div>
+          <div class="card-estatistica">
+              <span class="icone">📊</span>
+              <strong id="aproveitamento">
+                0%
+              </strong>
+      
+              <small>
+                Aproveitamento
+              </small>
+          </div>
           
         </div>
 
@@ -180,84 +164,111 @@
 <!-- TELAS DOS MÓDULOS -->
 <!-- ========================= -->
 <section id="telaInicio" class="tela-modulo">
-
   <div class="inicio-cabecalho">
-      <h2>🏠 Dashboard</h2>
-      <p>Sua central pessoal.</p>
+    <h2>🏠 Dashboard</h2>
+    <p>Sua central pessoal.</p>
   </div>
 
   <div class="bloco-dashboard">
-      <div class="titulo-bloco-dashboard">
-          <h3>🌱 Hábitos</h3>
-      </div>
-  
-      <div id="resumoHabitosDashboard">
-          <p>Resumo dos hábitos de hoje.</p>
-      </div>
+    <div class="titulo-bloco-dashboard">
+      <h3>✅ Hábitos</h3>
+    </div>
+
+    <div id="resumoHabitosDashboard">
+      <p>Resumo dos hábitos de hoje.</p>
+    </div>
+  </div>
+
+  <div class="bloco-dashboard">
+    <div class="titulo-bloco-dashboard">
+      <h3>💼 Trabalho</h3>
+    </div>
+
+    <div id="resumoTrabalhoDashboard">
+      <p>Resumo do trabalho de hoje.</p>
+    </div>
+  </div>
+
+  <div class="bloco-dashboard">
+    <div class="titulo-bloco-dashboard">
+      <h3>📚 Estudos</h3>
+    </div>
+
+    <div id="resumoEstudosDashboard">
+      <p>Resumo dos seus estudos.</p>
+    </div>
+  </div>
+
+  <div class="bloco-dashboard">
+    <div class="titulo-bloco-dashboard">
+      <h3>📖 Leitura</h3>
+    </div>
+
+    <div id="resumoFinancasDashboard">
+      <p>Resumo da sua leitura deste mês.</p>
+    </div>
+  </div>
+
+  <div class="bloco-dashboard">
+    <div class="titulo-bloco-dashboard">
+      <h3>🧠 Saúde Mental</h3>
+    </div>
+
+    <div id="resumoFinancasDashboard">
+      <p>Resumo da saúde mental.</p>
+    </div>
   </div>
 
   <div class="dashboard-principal">
-
-      <div class="bloco-dashboard">
-          <div class="titulo-bloco-dashboard">
-              <h3>🏋️ Treino de hoje</h3>
-          </div>
-
-          <div id="treinoHojeInicio" class="treino-hoje-inicio">
-              <p>Carregando treino...</p>
-          </div>
+    <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+        <h3>🏋️ Treino de hoje</h3>
       </div>
 
-      <div class="bloco-dashboard">
-          <div class="titulo-bloco-dashboard">
-              <h3>📅 Hoje</h3>
-          </div>
+      <div id="treinoHojeInicio" class="treino-hoje-inicio">
+        <p>Carregando treino...</p>
+      </div>
+    </div>
 
-          <div id="eventosHoje" class="eventos-hoje">
-              <p>Nenhum compromisso para hoje.</p>
-          </div>
+    <div class="bloco-dashboard">
+      <div class="titulo-bloco-dashboard">
+        <h3>📅 Hoje</h3>
       </div>
 
+      <div id="eventosHoje" class="eventos-hoje">
+        <p>Nenhum compromisso para hoje.</p>
+      </div>
+    </div>
   </div>
 
   <div class="bloco-dashboard">
-      <div class="titulo-bloco-dashboard">
-          <h3>🍽️ Alimentação</h3>
-      </div>
+    <div class="titulo-bloco-dashboard">
+      <h3>🍽️ Alimentação</h3>
+    </div>
 
-      <div id="resumoAlimentacaoDashboard">
-          <p>Resumo da alimentação de hoje.</p>
-      </div>
+    <div id="resumoAlimentacaoDashboard">
+      <p>Resumo da alimentação de hoje.</p>
+    </div>
   </div>
 
   <div class="bloco-dashboard">
-      <div class="titulo-bloco-dashboard">
-          <h3>📚 Estudos</h3>
-      </div>
+    <div class="titulo-bloco-dashboard">
+      <h3>💰 Finanças</h3>
+    </div>
 
-      <div id="resumoEstudosDashboard">
-          <p>Resumo dos seus estudos.</p>
-      </div>
+    <div id="resumoFinancasDashboard">
+      <p>Resumo financeiro do mês.</p>
+    </div>
   </div>
 
   <div class="bloco-dashboard">
-      <div class="titulo-bloco-dashboard">
-          <h3>💼 Trabalho</h3>
-      </div>
+    <div class="titulo-bloco-dashboard">
+      <h3>🎯 Metas</h3>
+    </div>
 
-      <div id="resumoTrabalhoDashboard">
-          <p>Resumo do trabalho de hoje.</p>
-      </div>
-  </div>
-
-  <div class="bloco-dashboard">
-      <div class="titulo-bloco-dashboard">
-          <h3>💰 Finanças</h3>
-      </div>
-
-      <div id="resumoFinancasDashboard">
-          <p>Resumo financeiro do mês.</p>
-      </div>
+    <div id="resumoFinancasDashboard">
+      <p>Resumo das suas metas durante o ano.</p>
+    </div>
   </div>
 
 </section>
@@ -266,13 +277,11 @@
 <!-- MÓDULO DE HÁBITOS -->
 <!-- ========================= -->
 <section id="telaHabitos" class="tela-modulo">
-  
   <section id="telaHoje">
     <h2>Sistema de Rotina</h2>
 
     <!-- SONO -->
     <div id="blocoSono">
-
       <div>
         <label for="horaDormiu">
           🌙 Dormiu às
@@ -296,50 +305,39 @@
       </div>
   
       <div id="resultadoSono">
-          ⏱️ — 
+        ⏱️ — 
       </div>
 
       <div>
-          🎯 Meta: 8h
+        🎯 Meta: 8h
       </div>
-  
     </div>
 
       <!-- HIGIENE DA MANHÃ -->
       <div id="blocoHigieneManha">
-      
-          <button id="abrirHigieneManha">
-              0/13 concluídos
-          </button>
-      
+        <button id="abrirHigieneManha">
+          0/13 concluídos
+        </button>
       </div>
 
       <!-- ALIMENTAÇÃO -->
       <div id="blocoAlimentacaoRotina">
-      
-          <div id="resumoAlimentacaoRotina">
-      
-              <div class="refeicao-rotina">
-                  <span>☕ Café da manhã</span>
-                  <span id="statusCafeRotina">—</span>
-              </div>
-      
+        <div id="resumoAlimentacaoRotina">
+          <div class="refeicao-rotina">
+            <span>☕ Café da manhã</span>
+            <span id="statusCafeRotina">—</span>
           </div>
-      
+        </div>
       </div>
 
       <!-- TRABALHO -->
       <div id="blocoTrabalhoRotina">
-      
-          <div id="resumoTrabalhoRotina">
-      
-              <div class="trabalho-rotina">
-                  <span>💼 Jornada de trabalho</span>
-                  <span id="statusTrabalhoRotina">—</span>
-              </div>
-      
+        <div id="resumoTrabalhoRotina">
+          <div class="trabalho-rotina">
+            <span>💼 Jornada de trabalho</span>
+            <span id="statusTrabalhoRotina">—</span>
           </div>
-      
+        </div>
       </div>
 
       <div id="listaHabitos"></div>
@@ -364,13 +362,10 @@
 
   <!-- MODAL HIGIENE DA MANHÃ -->
   <div id="modalHigieneManha" class="modal">
-  
     <div class="modal-box">
-  
       <h2>☀️ Rotina da manhã</h2>
   
       <div id="listaHigieneManha">
-  
         <label>
           <input type="checkbox" class="itemHigiene" data-item="copo">
           Copo d'água
@@ -435,7 +430,6 @@
           <input type="checkbox" class="itemHigiene" data-item="moto">
           Pegar a moto
         </label>
-      
       </div>
   
       <div id="progressoHigieneManha">
@@ -445,13 +439,10 @@
       <button id="fecharHigieneManha">
         Fechar
       </button>
-  
     </div>
-  
   </div>
 
     <section id="telaHistorico">
-
         <div class="historico-header">
           <button id="mesAnterior">‹</button>
           <h2 id="mesAtual"></h2>
@@ -492,14 +483,12 @@
 <!-- MÓDULO DE ALIMENTAÇÃO -->
 <!-- ========================= -->
 <section id="telaAlimentacao" class="tela-modulo">
-
   <div class="modulo-cabecalho">
     <h2>🍽️ Alimentação</h2>
     <p>Organize suas refeições do dia.</p>
   </div>
 
   <div class="refeicoes">
-
     <div class="card-refeicao" data-refeicao="cafe">
       <span class="icone-refeicao">🍳</span>
       <div>
@@ -509,7 +498,6 @@
         </p>
         <div id="listaCafe" class="lista-alimentos"></div>
       </div>
-      
     </div>
 
     <div class="card-refeicao" data-refeicao="lanche">
@@ -597,13 +585,10 @@
 
 </section>
 
-
-
 <!-- ========================= -->
 <!-- MODULO DE FINANÇAS (TELA) -->
 <!-- ========================= -->
 <section id="telaFinancas" class="tela-modulo">
-
   <div class="modulo-cabecalho">
     <h2>💰 Finanças</h2>
     <p>
@@ -611,10 +596,8 @@
     </p>
   </div>
 
-
     <!-- RESUMO FINANCEIRO -->
     <div class="resumo-financeiro">
-
       <div class="card-financeiro saldo">
         <span class="icone-financeiro">
           💰
@@ -661,7 +644,6 @@
 
     <!-- MOVIMENTAÇÕES -->
     <div class="bloco-financeiro">
-
       <div class="titulo-bloco-financeiro">
         <h3>📅 Contas</h3>
       </div>
@@ -691,12 +673,13 @@
     </button>
     
     <div id="modalConta" class="modal-transacao">
-    
       <div class="modal-transacao-caixa">
         <h2>Nova conta</h2>
+        
         <label for="descricaoConta">
           Descrição
         </label>
+        
         <input
           type="text"
           id="descricaoConta"
@@ -705,6 +688,7 @@
         <label for="valorConta">
           Valor
         </label>
+        
         <input
           type="number"
           id="valorConta"
@@ -712,6 +696,7 @@
           step="0.01"
           min="0"
         >
+        
         <label for="categoriaConta">
           Categoria
         </label>
@@ -738,37 +723,63 @@
         <!-- ANOTAÇÃO DE COMPRA -->
         <div id="areaComprasCartao" style="display: none;">
           <h3>🧾 Anotação de compras</h3>
-  
+        
+          <label for="descricaoCompraCartao">Descrição da compra</label>
+          <input
+            type="text"
+            id="descricaoCompraCartao"
+            placeholder="Ex.: Mercado"
+          >
+        
+          <label for="valorCompraCartao">Valor (R$)</label>
+          <input
+            type="number"
+            id="valorCompraCartao"
+            placeholder="0,00"
+            step="0.01"
+            min="0"
+          >
+        
+          <button type="button" id="btnAdicionarCompraCartao">
+            + Adicionar compra
+          </button>
+        
           <div id="listaComprasCartao">
             <p>Nenhuma compra adicionada.</p>
           </div>
-      
-          <button type="button" id="btnAdicionarCompraCartao">+ Adicionar compra </button>
-      
+        
           <div id="totalComprasCartao">
             Total das compras: R$ 0,00
           </div>
-        
         </div>
-
+        
+         <!-- CHECKBOX CONTA PAGA -->
         <label class="checkbox-conta">
           <input type="checkbox" id="pagaConta">
           Conta já está paga
         </label>
 
+        <!-- BOTÃO SALVAR / CANCELAR -->
         <div class="acoes-modal-financeiro">
-          <button id="salvarConta">Salvar</button>
-          <button id="cancelarConta" class="btn-cancelar-financeiro">Cancelar</button>
+          <button 
+            id="salvarConta"
+            >
+            Salvar
+          </button>
+          <button 
+            id="cancelarConta" 
+            class="btn-cancelar-financeiro"
+            >
+            Cancelar
+          </button>
         </div>
-  
       </div>
-    
     </div>
   
     <div class="bloco-financeiro">
         <div class="titulo-bloco-financeiro">
             <h3>
-                📋 Movimentações
+              📋 Movimentações
             </h3>
         </div>
 
@@ -821,8 +832,18 @@
           <input type="date" id="dataTransacao">
 
           <div class="acoes-modal-financeiro">
-            <button id="salvarTransacao">Salvar</button>
-            <button id="cancelarTransacao" class="btn-cancelar-financeiro">Cancelar</button>
+            <button 
+              id="salvarTransacao"
+              >
+              Salvar
+            </button>
+            
+            <button 
+              id="cancelarTransacao" 
+              class="btn-cancelar-financeiro"
+              >
+              Cancelar
+            </button>
           </div>
 
       </div>
@@ -1151,26 +1172,313 @@ FICHA DA META
 
 </section>
 
-
 <!-- ========================= -->
-<!-- MÓDULO DE SAÚDE MENTAL -->
+<!-- MÓDULO DE ESTUDO -->
 <!-- ========================= -->
+<section id="telaEstudos" class="tela-modulo">
+  <div class="modulo-cabecalho">
+      <h2>📚 Estudos</h2>
+      <p>Organize seus estudos e acompanhe seu progresso.</p>
+  </div>
 
-<section id="telaSaudeMental" class="tela-modulo">
+  <!-- PRÓXIMAS ATIVIDADES -->
+  <div class="bloco-estudos">
+    <div class="titulo-bloco-estudos">
+      <h3>🔔 Próximas atividades</h3>
+    </div>
 
-    <div class="modulo-cabecalho">
+    <div id="proximasAtividadesEstudos">
+      <p class="estado-vazio-estudos">
+        Nenhuma atividade próxima.
+      </p>
+    </div>
+  </div>
 
-        <h2>🧠 Saúde Mental</h2>
+  <!-- MEUS ESTUDOS -->
+  <div class="bloco-estudos">
+    <div class="titulo-bloco-estudos">
+      <h3>📚 Meus estudos</h3>
+    </div>
 
-        <p>
-            Acompanhe seu bem-estar e seu estado emocional.
-        </p>
+    <div id="listaEstudos">
+      <p class="estado-vazio-estudos">
+        Você ainda não cadastrou nenhum estudo.
+      </p>
+    </div>
+  </div>
 
+  <!-- ADICIONAR ESTUDO -->
+  <button id="btnNovoEstudo" class="btn-novo-estudo">
+    + Adicionar estudo
+  </button>
+
+  <!-- DETALHE DO ESTUDO -->
+  <div id="detalheEstudo" class="detalhe-estudo">
+    <div class="caixa-detalhe-estudo">
+      <button id="btnVoltarEstudos" class="btn-voltar-estudos">
+        ← Voltar
+      </button>
+
+      <div id="conteudoDetalheEstudo">
+        <h2>📚 Estudo</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL NOVO ESTUDO -->
+  <div id="modalEstudo" class="modal-estudo">
+      <div class="modal-estudo-caixa">
+          <h2>Novo estudo</h2>
+          <label for="nomeEstudo">
+            Nome
+          </label>
+
+          <input
+              type="text"
+              id="nomeEstudo"
+              placeholder="Ex: Sistemas de Informação"
+          >
+
+          <label for="tipoEstudo">
+            Tipo
+          </label>
+
+          <select id="tipoEstudo">
+            <option value="faculdade">
+              🎓 Faculdade
+            </option>
+
+            <option value="curso">
+              💻 Curso
+            </option>
+
+            <option value="certificacao">
+              🏆 Certificação
+            </option>
+
+            <option value="pessoal">
+              🧠 Estudo pessoal
+            </option>
+
+            <option value="outro">
+              📚 Outro
+            </option>
+          </select>
+
+          <!-- CAMPOS DA FACULDADE -->
+          <div id="camposFaculdade" class="campos-tipo-estudo">
+            <label for="cursoFaculdade">
+              Curso
+            </label>
+
+            <input
+              type="text"
+              id="cursoFaculdade"
+              placeholder="Ex: Sistemas de Informação"
+            >
+
+
+            <label for="semestreFaculdade">
+              Semestre
+            </label>
+
+            <input
+              type="text"
+              id="semestreFaculdade"
+              placeholder="Ex: 2026/2"
+            >
+          </div>
+
+          <div class="acoes-modal-estudo">
+            <button id="salvarEstudo">
+              Criar
+            </button>
+
+            <button
+              id="cancelarEstudo"
+              class="btn-cancelar-estudo">
+              Cancelar
+            </button>
+          </div>
+
+      </div>
+
+  </div>
+
+   <!-- MODAL NOVA MATÉRIA -->
+    <div id="modalMateria" class="modal-estudo">
+    
+        <div class="modal-estudo-caixa">
+    
+            <h2>Nova matéria</h2>
+    
+            <label for="nomeMateria">
+                Nome
+            </label>
+    
+            <input
+                type="text"
+                id="nomeMateria"
+                placeholder="Ex: Banco de Dados"
+            >
+    
+            <div class="acoes-modal-estudo">
+    
+                <button id="salvarMateria">
+                    Salvar
+                </button>
+    
+                <button
+                    id="cancelarMateria"
+                    class="btn-cancelar-estudo">
+                    Cancelar
+                </button>
+    
+            </div>
+    
+        </div>
+    
+    </div>
+
+    <!-- MODAL NOVO CONTEÚDO -->
+    <div id="modalConteudo" class="modal-estudo">
+    
+        <div class="modal-estudo-caixa">
+    
+            <h2>Novo conteúdo</h2>
+    
+            <label for="nomeConteudo">
+                Nome
+            </label>
+    
+            <input
+                type="text"
+                id="nomeConteudo"
+                placeholder="Ex: Modelagem de Dados"
+            >
+    
+            <label for="statusConteudo">
+                Status
+            </label>
+    
+            <select id="statusConteudo">
+    
+                <option value="nao_iniciado">
+                    Não iniciado
+                </option>
+    
+                <option value="em_andamento">
+                    Em andamento
+                </option>
+    
+                <option value="concluido">
+                    Concluído
+                </option>
+    
+            </select>
+    
+            <div class="acoes-modal-estudo">
+              <button id="salvarConteudo">Salvar</button>
+          
+              <button id="excluirConteudo" class="btn-cancelar-estudo">
+                  🗑️ Excluir
+              </button>
+          
+              <button id="cancelarConteudo" class="btn-cancelar-estudo">
+                  Cancelar
+              </button>
+            </div>
+    
+        </div>
+    
+    </div>
+
+  <!-- MODAL NOVA ATIVIDADE -->
+    <div id="modalAtividade" class="modal-estudo">
+    
+      <div class="modal-estudo-caixa">
+  
+        <h2>Nova atividade</h2>
+
+        <label for="nomeAtividade">
+          Nome
+        </label>
+
+        <input
+          type="text"
+          id="nomeAtividade"
+          placeholder="Ex: Prova de Banco de Dados"
+        >
+
+        <label for="dataAtividade">
+          Data
+        </label>
+
+        <input
+          type="date"
+          id="dataAtividade"
+        >
+
+        <label for="statusAtividade">
+          Status
+        </label>
+
+        <select id="statusAtividade">
+
+          <option value="pendente">
+            Pendente
+          </option>
+
+          <option value="concluida">
+            Concluída
+          </option>
+
+        </select>
+
+        <label for="dashboardAtividade">
+          Mostrar no Dashboard
+        </label>
+
+        <select id="dashboardAtividade">
+
+          <option value="sim">
+            Sim
+          </option>
+
+          <option value="nao">
+            Não
+          </option>
+
+        </select>
+
+        <div class="acoes-modal-estudo">
+
+          <button id="salvarAtividade">
+            Salvar
+          </button>
+
+          <button
+            id="excluirAtividade"
+            class="btn-cancelar-estudo"
+          >
+            🗑️ Excluir
+          </button>
+
+          <button
+            id="cancelarAtividade"
+            class="btn-cancelar-estudo"
+          >
+            Cancelar
+          </button>
+
+        </div>
+  
+      </div>
+    
     </div>
 
 </section>
-
-
+  
 <!-- ========================= -->
 <!-- MÓDULO DE LEITURA -->
 <!-- ========================= -->
@@ -1323,8 +1631,19 @@ FICHA DA META
 
 </div>
 
+<!-- ========================= -->
+<!-- MÓDULO DE SAÚDE MENTAL -->
+<!-- ========================= -->
 
-  
+<section id="telaSaudeMental" class="tela-modulo">
+    <div class="modulo-cabecalho">
+        <h2>🧠 Saúde Mental</h2>
+        <p>
+            Acompanhe seu bem-estar e seu estado emocional.
+        </p>
+    </div>
+</section>
+
 <!-- ========================= -->
 <!-- MÓDULO DE TREINO -->
 <!-- ========================= -->
@@ -1366,9 +1685,7 @@ FICHA DA META
   
   <!-- MODO DE TREINO -->
   <div id="fichaTreino" class="ficha-treino">
-
     <div class="ficha-treino-caixa">
-
       <div class="ficha-treino-cabecalho">
         <button id="voltarListaTreinos">
           ← Voltar
@@ -1388,15 +1705,11 @@ FICHA DA META
       <div id="conteudoFichaTreino">
         <!-- Os exercícios serão gerados pelo JavaScript -->
       </div>
-
     </div>
-
   </div>
     
   <div id="modoTreino" class="modo-treino">
-
     <div class="modo-treino-cabecalho">
-      
       <button id="voltarTreinos">
         ← Voltar
       </button>
@@ -1405,7 +1718,6 @@ FICHA DA META
         <h2 id="nomeTreinoAtivo">Push</h2>
         <p id="dataTreinoAtivo"></p>
       </div>
-
     </div>
 
     <div class="progresso-treino">
@@ -1420,16 +1732,14 @@ FICHA DA META
     </div>
 
     <div id="listaExerciciosTreino">
-
       <div class="exercicio-treino ativo">
-
         <div class="cabecalho-exercicio">
           <div>
-              <span class="status-exercicio">◐</span>
+            <span class="status-exercicio">◐</span>
 
-              <strong>
-                Supino reto com halter
-              </strong>
+            <strong>
+              Supino reto com halter
+            </strong>
           </div>
         </div>
 
@@ -1472,29 +1782,27 @@ FICHA DA META
       </div>
 
       <div class="exercicio-treino bloqueado">
-
         <div class="cabecalho-exercicio">
           <div>
             <span class="status-exercicio">🔒</span>
 
             <strong>
-                Supino inclinado com halteres
+              Supino inclinado com halteres
             </strong>
           </div>
         </div>
 
         <p class="planejado-exercicio">
-            Planejado: 3 × 8–10
+          Planejado: 3 × 8–10
         </p>
 
         <p class="aguardando-exercicio">
-            Aguardando exercício anterior
+          Aguardando exercício anterior
         </p>
 
       </div>
 
       <div class="exercicio-treino bloqueado">
-
         <div class="cabecalho-exercicio">
           <div>
             <span class="status-exercicio">🔒</span>
@@ -1506,392 +1814,46 @@ FICHA DA META
         </div>
 
         <p class="planejado-exercicio">
-            Planejado: 3 × 12–15
+          Planejado: 3 × 12–15
         </p>
 
         <p class="aguardando-exercicio">
-            Aguardando exercício anterior
+          Aguardando exercício anterior
         </p>
 
       </div>
 
       <button id="finalizarTreino" class="btn-finalizar-treino">
-          🏁 Finalizar treino
+        🏁 Finalizar treino
       </button>
-
     </div>
-
   </div>
-
 </section>
 
   <!-- AQUI ENTRA O MODAL DO TREINO -->
   <div id="modalTreino" class="modal-treino">
+    <div class="modal-treino-caixa">
+      <h2 id="modalNomeTreino">Push</h2>
+      <p>
+          O que você deseja fazer?
+      </p>
+      <button id="btnVisualizarFicha">
+          Visualizar ficha
+      </button>
 
-      <div class="modal-treino-caixa">
-  
-          <h2 id="modalNomeTreino">Push</h2>
-  
-          <p>
-              O que você deseja fazer?
-          </p>
-  
-          <button id="btnVisualizarFicha">
-              Visualizar ficha
-          </button>
-  
-          <button id="btnEditarFicha">
-              Editar ficha
-          </button>
-  
-          <button id="btnIniciarTreino">
-              Iniciar treino
-          </button>
-  
-          <button id="btnCancelarTreino" class="btn-cancelar-treino">
-              Cancelar
-          </button>
-  
-      </div>
-  
+      <button id="btnEditarFicha">
+          Editar ficha
+      </button>
+
+      <button id="btnIniciarTreino">
+          Iniciar treino
+      </button>
+
+      <button id="btnCancelarTreino" class="btn-cancelar-treino">
+          Cancelar
+      </button>
+    </div>
   </div>
-  
-<!-- ========================= -->
-<!-- MÓDULO DE ESTUDO -->
-<!-- ========================= -->
-  <section id="telaEstudos" class="tela-modulo">
-
-    <div class="modulo-cabecalho">
-        <h2>📚 Estudos</h2>
-        <p>Organize seus estudos e acompanhe seu progresso.</p>
-    </div>
-
-    <!-- PRÓXIMAS ATIVIDADES -->
-    <div class="bloco-estudos">
-
-        <div class="titulo-bloco-estudos">
-            <h3>🔔 Próximas atividades</h3>
-        </div>
-
-        <div id="proximasAtividadesEstudos">
-
-            <p class="estado-vazio-estudos">
-                Nenhuma atividade próxima.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- MEUS ESTUDOS -->
-    <div class="bloco-estudos">
-
-        <div class="titulo-bloco-estudos">
-            <h3>📚 Meus estudos</h3>
-        </div>
-
-        <div id="listaEstudos">
-
-            <p class="estado-vazio-estudos">
-                Você ainda não cadastrou nenhum estudo.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- ADICIONAR ESTUDO -->
-    <button id="btnNovoEstudo" class="btn-novo-estudo">
-        + Adicionar estudo
-    </button>
-
-    <!-- DETALHE DO ESTUDO -->
-    <div id="detalheEstudo" class="detalhe-estudo">
-
-        <div class="caixa-detalhe-estudo">
-    
-            <button id="btnVoltarEstudos" class="btn-voltar-estudos">
-                ← Voltar
-            </button>
-    
-            <div id="conteudoDetalheEstudo">
-    
-                <h2>📚 Estudo</h2>
-    
-            </div>
-    
-        </div>
-    
-    </div>
-
-
-    <!-- MODAL NOVO ESTUDO -->
-    <div id="modalEstudo" class="modal-estudo">
-
-        <div class="modal-estudo-caixa">
-
-            <h2>Novo estudo</h2>
-
-            <label for="nomeEstudo">
-                Nome
-            </label>
-
-            <input
-                type="text"
-                id="nomeEstudo"
-                placeholder="Ex: Sistemas de Informação"
-            >
-
-
-            <label for="tipoEstudo">
-                Tipo
-            </label>
-
-            <select id="tipoEstudo">
-
-                <option value="faculdade">
-                    🎓 Faculdade
-                </option>
-
-                <option value="curso">
-                    💻 Curso
-                </option>
-
-                <option value="certificacao">
-                    🏆 Certificação
-                </option>
-
-                <option value="pessoal">
-                    🧠 Estudo pessoal
-                </option>
-
-                <option value="outro">
-                    📚 Outro
-                </option>
-
-            </select>
-
-
-            <!-- CAMPOS DA FACULDADE -->
-            <div id="camposFaculdade" class="campos-tipo-estudo">
-
-                <label for="cursoFaculdade">
-                    Curso
-                </label>
-
-                <input
-                    type="text"
-                    id="cursoFaculdade"
-                    placeholder="Ex: Sistemas de Informação"
-                >
-
-
-                <label for="semestreFaculdade">
-                    Semestre
-                </label>
-
-                <input
-                    type="text"
-                    id="semestreFaculdade"
-                    placeholder="Ex: 2026/2"
-                >
-
-            </div>
-
-
-            <div class="acoes-modal-estudo">
-
-                <button id="salvarEstudo">
-                    Criar
-                </button>
-
-                <button
-                    id="cancelarEstudo"
-                    class="btn-cancelar-estudo">
-                    Cancelar
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-     <!-- MODAL NOVA MATÉRIA -->
-      <div id="modalMateria" class="modal-estudo">
-      
-          <div class="modal-estudo-caixa">
-      
-              <h2>Nova matéria</h2>
-      
-              <label for="nomeMateria">
-                  Nome
-              </label>
-      
-              <input
-                  type="text"
-                  id="nomeMateria"
-                  placeholder="Ex: Banco de Dados"
-              >
-      
-              <div class="acoes-modal-estudo">
-      
-                  <button id="salvarMateria">
-                      Salvar
-                  </button>
-      
-                  <button
-                      id="cancelarMateria"
-                      class="btn-cancelar-estudo">
-                      Cancelar
-                  </button>
-      
-              </div>
-      
-          </div>
-      
-      </div>
-
-      <!-- MODAL NOVO CONTEÚDO -->
-      <div id="modalConteudo" class="modal-estudo">
-      
-          <div class="modal-estudo-caixa">
-      
-              <h2>Novo conteúdo</h2>
-      
-              <label for="nomeConteudo">
-                  Nome
-              </label>
-      
-              <input
-                  type="text"
-                  id="nomeConteudo"
-                  placeholder="Ex: Modelagem de Dados"
-              >
-      
-              <label for="statusConteudo">
-                  Status
-              </label>
-      
-              <select id="statusConteudo">
-      
-                  <option value="nao_iniciado">
-                      Não iniciado
-                  </option>
-      
-                  <option value="em_andamento">
-                      Em andamento
-                  </option>
-      
-                  <option value="concluido">
-                      Concluído
-                  </option>
-      
-              </select>
-      
-              <div class="acoes-modal-estudo">
-                <button id="salvarConteudo">Salvar</button>
-            
-                <button id="excluirConteudo" class="btn-cancelar-estudo">
-                    🗑️ Excluir
-                </button>
-            
-                <button id="cancelarConteudo" class="btn-cancelar-estudo">
-                    Cancelar
-                </button>
-              </div>
-      
-          </div>
-      
-      </div>
-
-    <!-- MODAL NOVA ATIVIDADE -->
-      <div id="modalAtividade" class="modal-estudo">
-      
-        <div class="modal-estudo-caixa">
-    
-          <h2>Nova atividade</h2>
-  
-          <label for="nomeAtividade">
-            Nome
-          </label>
-  
-          <input
-            type="text"
-            id="nomeAtividade"
-            placeholder="Ex: Prova de Banco de Dados"
-          >
-  
-          <label for="dataAtividade">
-            Data
-          </label>
-  
-          <input
-            type="date"
-            id="dataAtividade"
-          >
-  
-          <label for="statusAtividade">
-            Status
-          </label>
-  
-          <select id="statusAtividade">
-  
-            <option value="pendente">
-              Pendente
-            </option>
-
-            <option value="concluida">
-              Concluída
-            </option>
-  
-          </select>
-  
-          <label for="dashboardAtividade">
-            Mostrar no Dashboard
-          </label>
-  
-          <select id="dashboardAtividade">
-  
-            <option value="sim">
-              Sim
-            </option>
-
-            <option value="nao">
-              Não
-            </option>
-  
-          </select>
-  
-          <div class="acoes-modal-estudo">
-  
-            <button id="salvarAtividade">
-              Salvar
-            </button>
-
-            <button
-              id="excluirAtividade"
-              class="btn-cancelar-estudo"
-            >
-              🗑️ Excluir
-            </button>
-
-            <button
-              id="cancelarAtividade"
-              class="btn-cancelar-estudo"
-            >
-              Cancelar
-            </button>
-  
-          </div>
-    
-        </div>
-      
-      </div>
-
-  </section> 
   
 <!-- ========================= -->
 <!-- MÓDULO DE TRABALHO -->
