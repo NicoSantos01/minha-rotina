@@ -313,58 +313,53 @@
       </div>
     </div>
 
-      <!-- HIGIENE DA MANHÃ -->
-      <div id="blocoHigieneManha">
-        <button id="abrirHigieneManha">
-          0/13 concluídos
-        </button>
-      </div>
+    <!-- HIGIENE DA MANHÃ -->
+    <div id="blocoHigieneManha">
+      <button id="abrirHigieneManha">
+        0/13 concluídos
+      </button>
+    </div>
 
-      <!-- ALIMENTAÇÃO -->
-      <div id="blocoAlimentacaoRotina">
-        <div id="resumoAlimentacaoRotina">
-          <div class="refeicao-rotina">
-            <span>☕ Café da manhã</span>
-            <span id="statusCafeRotina">—</span>
-          </div>
+    <!-- ALIMENTAÇÃO -->
+    <div id="blocoAlimentacaoRotina">
+      <div id="resumoAlimentacaoRotina">
+        <div class="refeicao-rotina">
+          <span>☕ Café da manhã</span>
+          <span id="statusCafeRotina">—</span>
         </div>
       </div>
+    </div>
 
-      <!-- TRABALHO -->
-      <div id="blocoTrabalhoRotina">
-        <div id="resumoTrabalhoRotina">
-          <div class="trabalho-rotina">
-            <span>💼 Jornada de trabalho</span>
-            <span id="statusTrabalhoRotina">—</span>
-          </div>
+    <!-- TRABALHO -->
+    <div id="blocoTrabalhoRotina">
+      <div id="resumoTrabalhoRotina">
+        <div class="trabalho-rotina">
+          <span>💼 Jornada de trabalho</span>
+          <span id="statusTrabalhoRotina">—</span>
         </div>
       </div>
+    </div>
 
-      <div id="listaHabitos"></div>
+    <div id="listaHabitos"></div>
 
-      <div id="areaArquivados" class="area-arquivados">
+    <div id="areaArquivados" class="area-arquivados">
+      <h2>📦 Hábitos arquivados</h2>
+      <div id="listaArquivados"></div>
+    </div>
 
-          <h2>📦 Hábitos arquivados</h2>
+    <button id="btnNovoHabito">
+      + Novo hábito
+    </button>
 
-          <div id="listaArquivados"></div>
-
-      </div>
-
-      <button id="btnNovoHabito">
-          + Novo hábito
-      </button>
-
-      <button id="btnArquivados">
-          📦 Arquivados
-      </button>
-
+    <button id="btnArquivados">
+      📦 Arquivados
+    </button>
   </section>
 
   <!-- MODAL HIGIENE DA MANHÃ -->
   <div id="modalHigieneManha" class="modal">
     <div class="modal-box">
       <h2>☀️ Rotina da manhã</h2>
-  
       <div id="listaHigieneManha">
         <label>
           <input type="checkbox" class="itemHigiene" data-item="copo">
@@ -442,735 +437,422 @@
     </div>
   </div>
 
-    <section id="telaHistorico">
-        <div class="historico-header">
-          <button id="mesAnterior">‹</button>
-          <h2 id="mesAtual"></h2>
-          <button id="mesProximo">›</button>
-        </div>
+  <section id="telaHistorico">
+    <div class="historico-header">
+      <button id="mesAnterior">‹</button>
+      <h2 id="mesAtual"></h2>
+      <button id="mesProximo">›</button>
+    </div>
 
 
-        <div class="calendario">
+    <div class="calendario">
+      <div class="dias-semana"
+        <span>Dom</span>
+        <span>Seg</span>
+        <span>Ter</span>
+        <span>Qua</span>
+        <span>Qui</span>
+        <span>Sex</span>
+        <span>Sáb</span>
+      </div>
 
-          <div class="dias-semana"
-            <span>Dom</span>
-            <span>Seg</span>
-            <span>Ter</span>
-            <span>Qua</span>
-            <span>Qui</span>
-            <span>Sex</span>
-            <span>Sáb</span>
-          </div>
+      <div
+        id="diasCalendario"
+        class="dias-calendario">
+      </div>
+    </div>
 
-          <div
-              id="diasCalendario"
-              class="dias-calendario">
-          </div>
-
-        </div>
-
-
-        <div
-          id="detalhesDia"
-          class="detalhes-dia">
-        </div>
-
-    </section>
-
+    <div
+      id="detalhesDia"
+      class="detalhes-dia">
+    </div>
+  </section>
 </section>
 
 <!-- ========================= -->
-<!-- MÓDULO DE ALIMENTAÇÃO -->
+<!-- MÓDULO DE TRABALHO -->
 <!-- ========================= -->
-<section id="telaAlimentacao" class="tela-modulo">
-  <div class="modulo-cabecalho">
-    <h2>🍽️ Alimentação</h2>
-    <p>Organize suas refeições do dia.</p>
-  </div>
-
-  <div class="refeicoes">
-    <div class="card-refeicao" data-refeicao="cafe">
-      <span class="icone-refeicao">🍳</span>
-      <div>
-        <h3>Café da manhã</h3>
-        <p id="resumoCafe">
-          Comece o dia com uma boa refeição.
+  <section id="telaTrabalho" class="tela-modulo">
+    <div class="modulo-cabecalho">
+        <h2>💼 Trabalho</h2>
+        <p>
+          Organize sua jornada, tarefas e registros profissionais.
         </p>
-        <div id="listaCafe" class="lista-alimentos"></div>
+    </div>
+  
+    <!-- JORNADA -->
+    <div class="bloco-trabalho">
+      <div class="titulo-bloco-trabalho">
+        <h3>🕐 Jornada</h3>
+    
+        <div class="menu-jornada">
+          <button
+            type="button"
+            id="btnMenuJornada"
+            class="btn-menu-pontos"
+            aria-label="Opções da jornada"
+            aria-expanded="false"
+          >
+            ⋮
+          </button>
+    
+          <div
+            id="opcoesMenuJornada"
+            class="opcoes-menu-pontos"
+            style="display: none;"
+          >
+            <button
+              type="button"
+              id="btnAbrirHistoricoJornada"
+            >
+              Histórico do Cartão Ponto
+            </button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="jornada-trabalho">
+        <div class="item-jornada">
+          <span>Entrada</span>
+          <strong id="entradaTrabalho">—</strong>
+        </div>
+    
+        <div class="item-jornada">
+          <span>Saída</span>
+          <strong id="saidaTrabalho">—</strong>
+        </div>
+    
+        <div class="item-jornada">
+          <span>Status</span>
+          <strong id="statusTrabalho">
+            ⚪ Não iniciada
+          </strong>
+        </div>
+    
+        <div class="hora-extra-trabalho">
+          <label>
+            <input
+              type="checkbox"
+              id="passouHorarioTrabalho"
+              disabled
+            >
+            Passou das 14:10?
+          </label>
+    
+          <span id="horaExtraTrabalho">
+            ⏱️ Hora extra: 0min
+          </span>
+        </div>
+      </div>
+    
+      <div class="acoes-jornada">
+        <button id="btnIniciarJornada">
+          Iniciar jornada
+        </button>
+    
+        <button
+          id="btnFinalizarJornada"
+          class="btn-secundario-trabalho"
+        >
+          Finalizar jornada
+        </button>
       </div>
     </div>
 
-    <div class="card-refeicao" data-refeicao="lanche">
-      <span class="icone-refeicao">🍌</span>
-      <div>
-        <h3>Lanche da manhã</h3>
-        <p id="resumoLanche">
-            Uma opção rápida para o meio da manhã.
-        </p>
-        <div id="listaLanche" class="lista-alimentos"></div>
-      </div>
+    <!-- TAREFAS -->
+    <div class="bloco-trabalho">
+        <div class="titulo-bloco-trabalho">
+          <h3>📋 Tarefas de hoje</h3>
+        </div>
+    
+        <div
+          id="listaTarefasTrabalho"
+          class="lista-tarefas-trabalho"
+        >
+          <p class="estado-vazio-trabalho">
+            Nenhuma tarefa para hoje.
+          </p>
+        </div>
+    
+        <div class="acoes-tarefas-trabalho">
+          <button
+            id="btnNovaTarefaTrabalho"
+            class="btn-nova-tarefa-trabalho"
+          >
+            + Nova tarefa
+          </button>
+  
+          <button
+            id="btnVerTarefasTrabalho"
+            class="btn-secundario-trabalho"
+          >
+            📅 Ver todas as tarefas
+          </button>
+        </div>
     </div>
-
-    <div class="card-refeicao" data-refeicao="almoco">
-      <span class="icone-refeicao">🍛</span>
-      <div>
-        <h3>Almoço</h3>
-        <p id="resumoAlmoco">
-          Registre sua principal refeição do dia.
-        </p>
-        <div id="listaAlmoco" class="lista-alimentos"></div>
+  
+    <!-- ANOTAÇÕES -->
+    <div class="bloco-trabalho">
+      <div class="titulo-bloco-trabalho">
+        <h3>📝 Anotações</h3>
       </div>
-    </div>
 
-    <div class="card-refeicao" data-refeicao="pre_treino">
-      <span class="icone-refeicao">🥪</span>
-      <div>
-        <h3>Pré-treino</h3>
-        <p id="resumoPreTreino">
-          Energia para o seu treino.
-        </p>
-        <div id="listaPreTreino" class="lista-alimentos"></div>
-      </div>
-    </div>
+      <textarea
+        id="anotacaoTrabalho"
+        class="anotacao-trabalho"
+        placeholder="Registre algo importante sobre seu dia..."
+      ></textarea>
 
-    <div class="card-refeicao" data-refeicao="jantar">
-      <span class="icone-refeicao">🍽️</span>
-      <div>
-        <h3>Jantar</h3>
-        <p id="resumoJantar">
-          Registre sua refeição da noite.
-        </p>
-        <div id="listaJantar" class="lista-alimentos"></div>
-      </div>
-    </div>
-
-    <div class="card-refeicao" data-refeicao="ceia">
-      <span class="icone-refeicao">🌙</span>
-      <div>
-        <h3>Ceia</h3>
-        <p id="resumoCeia">
-          Uma opção antes de dormir, se necessário.
-        </p>
-        <div id="listaCeia" class="lista-alimentos"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="modalRefeicao" class="modal-refeicao">
-
-    <div id="formularioRefeicao" class="formulario-refeicao">
-      <h3 id="tituloRefeicao">Café da manhã</h3>
-      <label for="comidaRefeicao">
-        O que você comeu?
-      </label>
-      <input
-        type="text"
-        id="comidaRefeicao"
-        placeholder="Ex: 1 ovo"
+      <button
+        id="btnSalvarAnotacaoTrabalho"
+        class="btn-salvar-anotacao-trabalho"
       >
-      <div id="listaAlimentosRefeicao"></div>
-      <button id="adicionarAlimento">
-        + Adicionar alimento
+        Salvar anotação
       </button>
-      <button id="salvarRefeicao">
-        Salvar refeição
+    </div>
+  </section>
+
+  <!-- TELA - TODAS AS TAREFAS -->
+  <section
+    id="telaTodasTarefasTrabalho"
+    class="tela-modulo"
+    style="display: none;"
+  >
+  
+    <button
+      id="btnVoltarTodasTarefas"
+      class="btn-secundario"
+    >
+      ← Voltar
+    </button>
+
+    <h2>📅 Todas as tarefas</h2>
+
+    <div id="listaTodasTarefasTrabalho"></div>
+  </section>
+
+  <!-- MODAL - NOVA TAREFA -->
+  <div
+    id="modalNovaTarefaTrabalho"
+    class="modal"
+    style="display: none;"
+  >
+  
+    <div class="modal-conteudo">
+      <h2 id="tituloModalTarefa">
+        📋 Nova tarefa
+      </h2>
+
+      <div>
+        <label for="nomeTarefaTrabalho">
+          Nome da tarefa
+        </label>
+
+        <input
+          type="text"
+          id="nomeTarefaTrabalho"
+          placeholder="Ex: Resolver chamado do GLPI"
+        >
+      </div>
+
+      <div>
+        <label for="descricaoTarefaTrabalho">
+          Descrição
+        </label>
+
+        <textarea
+          id="descricaoTarefaTrabalho"
+          placeholder="Detalhes da tarefa..."
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="dataTarefaTrabalho">
+          📅 Data
+        </label>
+
+        <input
+          type="date"
+          id="dataTarefaTrabalho"
+        >
+      </div>
+
+      <div>
+        <label for="prioridadeTarefaTrabalho">
+          Prioridade
+        </label>
+
+        <select id="prioridadeTarefaTrabalho">
+          <option value="baixa">
+            🟢 Baixa
+          </option>
+
+          <option value="media" selected>
+            🟡 Média
+          </option>
+
+          <option value="alta">
+            🔴 Alta
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            id="mostrarRotinaTarefaTrabalho"
+          >
+
+          Mostrar na rotina
+        </label>
+      </div>
+
+      <div class="acoes-modal">
+        <button
+          id="btnCancelarNovaTarefa"
+        >
+          Cancelar
+        </button>
+
+        <button
+          id="btnSalvarNovaTarefa"
+        >
+          Salvar tarefa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA DE HISTORICO -->
+  <section
+    id="telaHistoricoJornada"
+    class="tela-modulo"
+    style="display: none;"
+  >
+  
+    <button
+      id="btnVoltarHistoricoJornada"
+      class="btn-secundario"
+    >
+      ← Voltar
+    </button>
+
+    <h2>Histórico do Cartão Ponto</h2>
+
+    <div id="listaHistoricoJornada"></div>
+  </section>
+
+  <div
+    id="modalEditarJornada"
+    class="modal"
+    style="display: none;"
+  >
+  
+    <div class="modal-conteudo">
+      <h2>✏️ Editar Jornada</h2>
+      <p id="dataEditarJornada"></p>
+      <div>
+        <label for="editarEntradaJornada">
+          Entrada
+        </label>
+
+        <input
+          type="time"
+          id="editarEntradaJornada"
+        >
+      </div>
+
+      <div>
+        <label for="editarSaidaJornada">
+          Saída
+        </label>
+
+        <input
+          type="time"
+          id="editarSaidaJornada"
+        >
+      </div>
+
+      <div class="acoes-modal">
+        <button id="btnCancelarEdicaoJornada">
+          Cancelar
+        </button>
+
+        <button id="btnSalvarEdicaoJornada">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+    
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <h2 id="tituloModal">Novo hábito</h2>
+
+      <input
+        id="nomeHabito"
+        type="text"
+        placeholder="Ex: Estudar programação"
+      >
+
+      <label for="categoriaHabito">
+        Categoria
+      </label>
+
+      <select id="categoriaHabito">
+        <option value="Saúde">
+          🏋️ Saúde
+        </option>
+
+        <option value="Estudos">
+          📚 Estudos
+        </option>
+
+        <option value="Finanças">
+          💰 Finanças
+        </option>
+
+        <option value="Pessoal">
+          🧠 Pessoal
+        </option>
+
+        <option value="Trabalho">
+          💼 Trabalho
+        </option>
+      
+        <option value="Alimentação">
+          🍽️ Alimentação
+        </option>
+        
+        <option value="Social">
+          👥 Social
+        </option>
+        
+        <option value="Metas">
+          🎯 Metas
+        </option>
+        
+        <option value="Espiritualidade">
+          🙏 Espiritualidade
+        </option>
+        
+        <option value="Hobbies">
+          🎨 Hobbies
+        </option>
+      </select>
+
+      <button id="salvarHabito">
+        Salvar
       </button>
-      <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+
+      <button id="cancelarHabito">
         Cancelar
       </button>
     </div>
-  
   </div>
-
-</section>
-
-<!-- ========================= -->
-<!-- MODULO DE FINANÇAS (TELA) -->
-<!-- ========================= -->
-<section id="telaFinancas" class="tela-modulo">
-  <div class="modulo-cabecalho">
-    <h2>💰 Finanças</h2>
-    <p>
-      Organize suas entradas e saídas.
-    </p>
-  </div>
-
-    <!-- RESUMO FINANCEIRO -->
-    <div class="resumo-financeiro">
-      <div class="card-financeiro saldo">
-        <span class="icone-financeiro">
-          💰
-        </span>
-        <div>
-          <small>
-            Saldo
-          </small>
-          <strong id="saldoFinanceiro">
-            R$ 0,00
-          </strong>
-        </div>
-      </div>
-
-      <div class="card-financeiro entrada">
-        <span class="icone-financeiro">
-          🟢
-        </span>
-        <div>
-          <small>
-            Entradas
-          </small>
-          <strong id="totalEntradas">
-            R$ 0,00
-          </strong>
-        </div>
-      </div>
-
-      <div class="card-financeiro saida">
-        <span class="icone-financeiro">
-          🔴
-        </span>
-        <div>
-          <small>
-            Saídas
-          </small>
-          <strong id="totalSaidas">
-            R$ 0,00
-          </strong>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- MOVIMENTAÇÕES -->
-    <div class="bloco-financeiro">
-      <div class="titulo-bloco-financeiro">
-        <h3>📅 Contas</h3>
-      </div>
-    
-      <div class="resumo-contas">
-        <span id="contasAtrasadas">
-          🔴 0 atrasadas
-        </span>
-        <span id="contasPendentes">
-          🟡 0 pendentes
-        </span>
-        <span id="contasPagas">
-          🟢 0 pagas
-        </span>
-      </div>
-  
-      <div id="listaContas" class="lista-contas">
-        <p class="estado-vazio-financeiro">
-          Nenhuma conta cadastrada.
-        </p>
-      </div>
-    
-    </div>
-    
-    <button id="btnNovaConta" class="btn-nova-transacao">
-      + Nova conta
-    </button>
-    
-    <div id="modalConta" class="modal-transacao">
-      <div class="modal-transacao-caixa">
-        <h2>Nova conta</h2>
-        
-        <label for="descricaoConta">
-          Descrição
-        </label>
-        
-        <input
-          type="text"
-          id="descricaoConta"
-          placeholder="Ex: Internet"
-        >
-        <label for="valorConta">
-          Valor
-        </label>
-        
-        <input
-          type="number"
-          id="valorConta"
-          placeholder="0,00"
-          step="0.01"
-          min="0"
-        >
-        
-        <label for="categoriaConta">
-          Categoria
-        </label>
-        
-        <select id="categoriaConta">
-          <option value="Alimentação">🍽️ Alimentação</option>
-          <option value="Transporte">🛵 Transporte</option>
-          <option value="Moradia">🏠 Moradia</option>
-          <option value="Lazer">🎮 Lazer </option>
-          <option value="Estudos">📚 Estudos</option>
-          <option value="Saúde">🏥 Saúde</option>
-          <option value="Trabalho">💼 Trabalho</option>
-          <option value="Internet">🛜 Internet</option>
-          <option value="Streamming/Music">📱 Streamming/Music</option>
-          <option value="Celular">📱 Assinatura do celular</option>
-          <option value="Cuidado">💈 Cuidado</option>
-          <option value="Cartão">💳 Cartão crédito/débito</option>
-          <option value="Outros">📦 Outros</option>
-        </select>
-  
-        <label for="vencimentoConta">Vencimento</label>
-        <input type="date" id="vencimentoConta">
-
-        <!-- ANOTAÇÃO DE COMPRA -->
-        <div id="areaComprasCartao" style="display: none;">
-          <h3>🧾 Anotação de compras</h3>
-        
-          <label for="descricaoCompraCartao">Descrição da compra</label>
-          <input
-            type="text"
-            id="descricaoCompraCartao"
-            placeholder="Ex.: Mercado"
-          >
-        
-          <label for="valorCompraCartao">Valor (R$)</label>
-          <input
-            type="number"
-            id="valorCompraCartao"
-            placeholder="0,00"
-            step="0.01"
-            min="0"
-          >
-        
-          <button type="button" id="btnAdicionarCompraCartao">
-            + Adicionar compra
-          </button>
-        
-          <div id="listaComprasCartao">
-            <p>Nenhuma compra adicionada.</p>
-          </div>
-        
-          <div id="totalComprasCartao">
-            Total das compras: R$ 0,00
-          </div>
-        </div>
-        
-         <!-- CHECKBOX CONTA PAGA -->
-        <label class="checkbox-conta">
-          <input type="checkbox" id="pagaConta">
-          Conta já está paga
-        </label>
-
-        <!-- BOTÃO SALVAR / CANCELAR -->
-        <div class="acoes-modal-financeiro">
-          <button 
-            id="salvarConta"
-            >
-            Salvar
-          </button>
-          <button 
-            id="cancelarConta" 
-            class="btn-cancelar-financeiro"
-            >
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-  
-    <div class="bloco-financeiro">
-        <div class="titulo-bloco-financeiro">
-            <h3>
-              📋 Movimentações
-            </h3>
-        </div>
-
-        <div
-            id="listaTransacoes"
-            class="lista-transacoes">
-            <p class="estado-vazio-financeiro">
-                Nenhuma movimentação registrada.
-            </p>
-        </div>
-    </div>
-
-    <!-- NOVA MOVIMENTAÇÃO -->
-    <button
-        id="btnNovaTransacao"
-        class="btn-nova-transacao">
-
-        + Nova movimentação
-    </button>
-
-    <!-- MODAL NOVA TRANSAÇÃO -->
-    <div id="modalTransacao" class="modal-transacao">
-      <div class="modal-transacao-caixa">
-          <h2>Nova movimentação</h2>
-
-          <label for="tipoTransacao">Tipo</label>
-
-          <select id="tipoTransacao">
-            <option value="entrada">🟢 Entrada</option>
-            <option value="saida">🔴 Saída</option>
-          </select>
-
-          <label for="descricaoTransacao">Descrição</label>
-        
-          <input type="text" id="descricaoTransacao" placeholder="Ex: Mercado">
-
-          <label for="valorTransacao">Valor</label>
-        
-          <input type="number" id="valorTransacao" placeholder="0,00" step="0.01" min="0">
-
-          <label for="categoriaTransacao">Categoria</label>
-
-          <select id="categoriaTransacao">
-              <option value="Trabalho">💼 Trabalho</option>
-          </select>
-
-
-          <label for="dataTransacao">Data</label>
-
-          <input type="date" id="dataTransacao">
-
-          <div class="acoes-modal-financeiro">
-            <button 
-              id="salvarTransacao"
-              >
-              Salvar
-            </button>
-            
-            <button 
-              id="cancelarTransacao" 
-              class="btn-cancelar-financeiro"
-              >
-              Cancelar
-            </button>
-          </div>
-
-      </div>
-
-    </div>
-
-</section>
-
-<!-- ========================= -->
-<!-- MÓDULO DE METAS -->
-<!-- ========================= -->
-
-<section id="telaMetas" class="tela-modulo">
-
-    <div class="modulo-cabecalho">
-        <h2>🎯 Metas</h2>
-        <p>Defina, acompanhe e conquiste seus objetivos.</p>
-    </div>
-
-    <div class="metas-acoes">
-        <button id="btnNovaMeta" class="btn-principal">
-            + Nova meta
-        </button>
-    </div>
-
-    <div id="listaMetas">
-        <!-- Metas serão carregadas aqui -->
-    </div>
-
-</section>
-
-
-<!-- MODAL NOVA META -->
-
-<div id="modalNovaMeta" class="modal">
-    <div class="modal-conteudo">
-
-        <h2>🎯 Nova meta</h2>
-
-        <label for="nomeMeta">Nome da meta</label>
-        <input
-            type="text"
-            id="nomeMeta"
-            placeholder="Ex: Ganhar 10 kg"
-        >
-
-        <label for="descricaoMeta">Descrição</label>
-        <textarea
-            id="descricaoMeta"
-            placeholder="Descreva o que você quer alcançar..."
-        ></textarea>
-
-        <label for="tipoMeta">📊 Tipo de progresso</label>
-
-        <select id="tipoMeta">
-
-            <option value="numero">
-                Número
-            </option>
-
-            <option value="porcentagem">
-                Porcentagem
-            </option>
-
-            <option value="etapas">
-                Etapas
-            </option>
-
-            <option value="quantidade">
-                Quantidade
-            </option>
-
-        </select>
-
-        <!-- CAMPOS DE NÚMERO -->
-
-        <div id="camposNumeroMeta">
-
-            <label for="valorAtualMeta">
-                Valor atual
-            </label>
-
-            <input
-                type="number"
-                id="valorAtualMeta"
-                step="0.01"
-                placeholder="Ex: 45.5"
-            >
-
-            <label for="valorObjetivoMeta">
-                Valor objetivo
-            </label>
-
-            <input
-                type="number"
-                id="valorObjetivoMeta"
-                step="0.01"
-                placeholder="Ex: 55.5"
-            >
-
-            <label for="unidadeMeta">
-                Unidade
-            </label>
-
-            <input
-                type="text"
-                id="unidadeMeta"
-                placeholder="Ex: kg, R$, horas..."
-            >
-
-        </div>
-
-
-        <!-- CAMPO PORCENTAGEM -->
-
-        <div id="campoPorcentagemMeta" style="display: none;">
-
-            <label for="porcentagemMeta">
-                Progresso atual (%)
-            </label>
-
-            <input
-                type="number"
-                id="porcentagemMeta"
-                min="0"
-                max="100"
-                placeholder="0"
-            >
-
-        </div>
-
-
-        <!-- CAMPOS QUANTIDADE -->
-
-        <div id="camposQuantidadeMeta" style="display: none;">
-
-            <label for="quantidadeAtualMeta">
-                Quantidade atual
-            </label>
-
-            <input
-                type="number"
-                id="quantidadeAtualMeta"
-                min="0"
-                placeholder="Ex: 4"
-            >
-
-            <label for="quantidadeObjetivoMeta">
-                Quantidade objetivo
-            </label>
-
-            <input
-                type="number"
-                id="quantidadeObjetivoMeta"
-                min="1"
-                placeholder="Ex: 12"
-            >
-
-            <label for="unidadeQuantidadeMeta">
-                Unidade
-            </label>
-
-            <input
-                type="text"
-                id="unidadeQuantidadeMeta"
-                placeholder="Ex: livros, cursos..."
-            >
-
-        </div>
-
-
-        <!-- PRAZO -->
-
-        <label for="prazoMeta">
-            📅 Prazo
-        </label>
-
-        <input
-            type="date"
-            id="prazoMeta"
-        >
-
-
-        <!-- STATUS -->
-
-        <label for="statusMeta">
-            🟢 Status
-        </label>
-
-        <select id="statusMeta">
-
-            <option value="andamento">
-                Em andamento
-            </option>
-
-            <option value="pausada">
-                Pausada
-            </option>
-
-            <option value="concluida">
-                Concluída
-            </option>
-
-            <option value="cancelada">
-                Cancelada
-            </option>
-
-        </select>
-
-
-        <!-- ETAPAS -->
-
-        <label>
-            ☑️ Etapas
-        </label>
-
-        <div id="listaEtapasMeta"></div>
-
-        <button
-            type="button"
-            id="btnAdicionarEtapa"
-            class="btn-secundario"
-        >
-            + Adicionar etapa
-        </button>
-
-
-        <!-- RELACIONAMENTOS -->
-
-        <label>
-            🔗 Relacionar com
-        </label>
-
-        <div class="relacionamentos-meta">
-
-            <label>
-                <input type="checkbox" value="habitos">
-                Hábitos
-            </label>
-
-            <label>
-                <input type="checkbox" value="treino">
-                Treino
-            </label>
-
-            <label>
-                <input type="checkbox" value="alimentacao">
-                Alimentação
-            </label>
-
-            <label>
-                <input type="checkbox" value="estudos">
-                Estudos
-            </label>
-
-            <label>
-                <input type="checkbox" value="trabalho">
-                Trabalho
-            </label>
-
-            <label>
-                <input type="checkbox" value="financas">
-                Finanças
-            </label>
-
-            <label>
-                <input type="checkbox" value="leitura">
-                Leitura
-            </label>
-
-        </div>
-
-
-        <!-- ANOTAÇÕES -->
-
-        <label for="anotacoesMeta">
-            📝 Anotações
-        </label>
-
-        <textarea
-            id="anotacoesMeta"
-            placeholder="Alguma observação sobre essa meta..."
-        ></textarea>
-
-
-        <div class="modal-acoes">
-
-            <button
-                type="button"
-                id="btnCancelarMeta"
-                class="btn-secundario"
-            >
-                Cancelar
-            </button>
-
-            <button
-                type="button"
-                id="btnCriarMeta"
-                class="btn-principal"
-            >
-                Criar meta
-            </button>
-
-        </div>
-
-    </div>
 </div>
-
-<!-- ==========================================
-FICHA DA META
-========================================== -->
-
-<section id="fichaMeta" class="tela-modulo" style="display: none;">
-
-    <div class="ficha-meta-cabecalho">
-
-        <button id="btnVoltarMetas" class="btn-voltar">
-            ← Voltar
-        </button>
-
-        <div id="fichaMetaConteudo">
-            <!-- Conteúdo preenchido pelo JavaScript -->
-        </div>
-
-    </div>
-
-</section>
 
 <!-- ========================= -->
 <!-- MÓDULO DE ESTUDO -->
@@ -1227,263 +909,237 @@ FICHA DA META
 
   <!-- MODAL NOVO ESTUDO -->
   <div id="modalEstudo" class="modal-estudo">
-      <div class="modal-estudo-caixa">
-          <h2>Novo estudo</h2>
-          <label for="nomeEstudo">
-            Nome
-          </label>
+    <div class="modal-estudo-caixa">
+      <h2>Novo estudo</h2>
+      <label for="nomeEstudo">
+        Nome
+      </label>
 
-          <input
-              type="text"
-              id="nomeEstudo"
-              placeholder="Ex: Sistemas de Informação"
-          >
+      <input
+        type="text"
+        id="nomeEstudo"
+        placeholder="Ex: Sistemas de Informação"
+      >
 
-          <label for="tipoEstudo">
-            Tipo
-          </label>
+      <label for="tipoEstudo">
+        Tipo
+      </label>
 
-          <select id="tipoEstudo">
-            <option value="faculdade">
-              🎓 Faculdade
-            </option>
+      <select id="tipoEstudo">
+        <option value="faculdade">
+          🎓 Faculdade
+        </option>
 
-            <option value="curso">
-              💻 Curso
-            </option>
+        <option value="curso">
+          💻 Curso
+        </option>
 
-            <option value="certificacao">
-              🏆 Certificação
-            </option>
+        <option value="certificacao">
+          🏆 Certificação
+        </option>
 
-            <option value="pessoal">
-              🧠 Estudo pessoal
-            </option>
+        <option value="pessoal">
+          🧠 Estudo pessoal
+        </option>
 
-            <option value="outro">
-              📚 Outro
-            </option>
-          </select>
+        <option value="outro">
+          📚 Outro
+        </option>
+      </select>
 
-          <!-- CAMPOS DA FACULDADE -->
-          <div id="camposFaculdade" class="campos-tipo-estudo">
-            <label for="cursoFaculdade">
-              Curso
-            </label>
-
-            <input
-              type="text"
-              id="cursoFaculdade"
-              placeholder="Ex: Sistemas de Informação"
-            >
-
-
-            <label for="semestreFaculdade">
-              Semestre
-            </label>
-
-            <input
-              type="text"
-              id="semestreFaculdade"
-              placeholder="Ex: 2026/2"
-            >
-          </div>
-
-          <div class="acoes-modal-estudo">
-            <button id="salvarEstudo">
-              Criar
-            </button>
-
-            <button
-              id="cancelarEstudo"
-              class="btn-cancelar-estudo">
-              Cancelar
-            </button>
-          </div>
-
-      </div>
-
-  </div>
-
-   <!-- MODAL NOVA MATÉRIA -->
-    <div id="modalMateria" class="modal-estudo">
-    
-        <div class="modal-estudo-caixa">
-    
-            <h2>Nova matéria</h2>
-    
-            <label for="nomeMateria">
-                Nome
-            </label>
-    
-            <input
-                type="text"
-                id="nomeMateria"
-                placeholder="Ex: Banco de Dados"
-            >
-    
-            <div class="acoes-modal-estudo">
-    
-                <button id="salvarMateria">
-                    Salvar
-                </button>
-    
-                <button
-                    id="cancelarMateria"
-                    class="btn-cancelar-estudo">
-                    Cancelar
-                </button>
-    
-            </div>
-    
-        </div>
-    
-    </div>
-
-    <!-- MODAL NOVO CONTEÚDO -->
-    <div id="modalConteudo" class="modal-estudo">
-    
-        <div class="modal-estudo-caixa">
-    
-            <h2>Novo conteúdo</h2>
-    
-            <label for="nomeConteudo">
-                Nome
-            </label>
-    
-            <input
-                type="text"
-                id="nomeConteudo"
-                placeholder="Ex: Modelagem de Dados"
-            >
-    
-            <label for="statusConteudo">
-                Status
-            </label>
-    
-            <select id="statusConteudo">
-    
-                <option value="nao_iniciado">
-                    Não iniciado
-                </option>
-    
-                <option value="em_andamento">
-                    Em andamento
-                </option>
-    
-                <option value="concluido">
-                    Concluído
-                </option>
-    
-            </select>
-    
-            <div class="acoes-modal-estudo">
-              <button id="salvarConteudo">Salvar</button>
-          
-              <button id="excluirConteudo" class="btn-cancelar-estudo">
-                  🗑️ Excluir
-              </button>
-          
-              <button id="cancelarConteudo" class="btn-cancelar-estudo">
-                  Cancelar
-              </button>
-            </div>
-    
-        </div>
-    
-    </div>
-
-  <!-- MODAL NOVA ATIVIDADE -->
-    <div id="modalAtividade" class="modal-estudo">
-    
-      <div class="modal-estudo-caixa">
-  
-        <h2>Nova atividade</h2>
-
-        <label for="nomeAtividade">
-          Nome
+      <!-- CAMPOS DA FACULDADE -->
+      <div id="camposFaculdade" class="campos-tipo-estudo">
+        <label for="cursoFaculdade">
+          Curso
         </label>
 
         <input
           type="text"
-          id="nomeAtividade"
-          placeholder="Ex: Prova de Banco de Dados"
+          id="cursoFaculdade"
+          placeholder="Ex: Sistemas de Informação"
         >
 
-        <label for="dataAtividade">
-          Data
+        <label for="semestreFaculdade">
+          Semestre
         </label>
 
         <input
-          type="date"
-          id="dataAtividade"
+          type="text"
+          id="semestreFaculdade"
+          placeholder="Ex: 2026/2"
         >
-
-        <label for="statusAtividade">
-          Status
-        </label>
-
-        <select id="statusAtividade">
-
-          <option value="pendente">
-            Pendente
-          </option>
-
-          <option value="concluida">
-            Concluída
-          </option>
-
-        </select>
-
-        <label for="dashboardAtividade">
-          Mostrar no Dashboard
-        </label>
-
-        <select id="dashboardAtividade">
-
-          <option value="sim">
-            Sim
-          </option>
-
-          <option value="nao">
-            Não
-          </option>
-
-        </select>
-
-        <div class="acoes-modal-estudo">
-
-          <button id="salvarAtividade">
-            Salvar
-          </button>
-
-          <button
-            id="excluirAtividade"
-            class="btn-cancelar-estudo"
-          >
-            🗑️ Excluir
-          </button>
-
-          <button
-            id="cancelarAtividade"
-            class="btn-cancelar-estudo"
-          >
-            Cancelar
-          </button>
-
-        </div>
-  
       </div>
-    
-    </div>
 
+      <div class="acoes-modal-estudo">
+        <button id="salvarEstudo">
+          Criar
+        </button>
+
+        <button
+          id="cancelarEstudo"
+          class="btn-cancelar-estudo">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL NOVA MATÉRIA -->
+  <div id="modalMateria" class="modal-estudo">
+    <div class="modal-estudo-caixa">
+      <h2>Nova matéria</h2>
+
+      <label for="nomeMateria">
+        Nome
+      </label>
+
+      <input
+        type="text"
+        id="nomeMateria"
+        placeholder="Ex: Banco de Dados"
+      >
+
+      <div class="acoes-modal-estudo">
+
+        <button id="salvarMateria">
+          Salvar
+        </button>
+
+        <button
+          id="cancelarMateria"
+          class="btn-cancelar-estudo">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL NOVO CONTEÚDO -->
+  <div id="modalConteudo" class="modal-estudo">
+    <div class="modal-estudo-caixa">
+      <h2>Novo conteúdo</h2>
+
+      <label for="nomeConteudo">
+        Nome
+      </label>
+
+      <input
+        type="text"
+        id="nomeConteudo"
+        placeholder="Ex: Modelagem de Dados"
+      >
+
+      <label for="statusConteudo">
+        Status
+      </label>
+
+      <select id="statusConteudo">
+        <option value="nao_iniciado">
+          Não iniciado
+        </option>
+
+        <option value="em_andamento">
+          Em andamento
+        </option>
+
+        <option value="concluido">
+          Concluído
+        </option>
+      </select>
+      
+      <div class="acoes-modal-estudo">
+        <button id="salvarConteudo">Salvar</button>
+    
+        <button id="excluirConteudo" class="btn-cancelar-estudo">
+          🗑️ Excluir
+        </button>
+    
+        <button id="cancelarConteudo" class="btn-cancelar-estudo">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL NOVA ATIVIDADE -->
+  <div id="modalAtividade" class="modal-estudo">
+    <div class="modal-estudo-caixa">
+      <h2>Nova atividade</h2>
+
+      <label for="nomeAtividade">
+        Nome
+      </label>
+
+      <input
+        type="text"
+        id="nomeAtividade"
+        placeholder="Ex: Prova de Banco de Dados"
+      >
+
+      <label for="dataAtividade">
+        Data
+      </label>
+
+      <input
+        type="date"
+        id="dataAtividade"
+      >
+
+      <label for="statusAtividade">
+        Status
+      </label>
+
+      <select id="statusAtividade">
+        <option value="pendente">
+          Pendente
+        </option>
+
+        <option value="concluida">
+          Concluída
+        </option>
+      </select>
+
+      <label for="dashboardAtividade">
+        Mostrar no Dashboard
+      </label>
+
+      <select id="dashboardAtividade">
+        <option value="sim">
+          Sim
+        </option>
+
+        <option value="nao">
+          Não
+        </option>
+      </select>
+
+      <div class="acoes-modal-estudo">
+        <button id="salvarAtividade">
+          Salvar
+        </button>
+
+        <button
+          id="excluirAtividade"
+          class="btn-cancelar-estudo"
+        >
+          🗑️ Excluir
+        </button>
+
+        <button
+          id="cancelarAtividade"
+          class="btn-cancelar-estudo"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
 </section>
   
 <!-- ========================= -->
 <!-- MÓDULO DE LEITURA -->
 <!-- ========================= -->
 <section id="telaLeitura" class="tela-modulo">
-
   <div class="modulo-cabecalho">
     <h2>📖 Leitura</h2>
     <p>
@@ -1854,443 +1510,658 @@ FICHA DA META
       </button>
     </div>
   </div>
-  
+
 <!-- ========================= -->
-<!-- MÓDULO DE TRABALHO -->
+<!-- MÓDULO DE ALIMENTAÇÃO -->
 <!-- ========================= -->
-  <section id="telaTrabalho" class="tela-modulo">
+<section id="telaAlimentacao" class="tela-modulo">
+  <div class="modulo-cabecalho">
+    <h2>🍽️ Alimentação</h2>
+    <p>Organize suas refeições do dia.</p>
+  </div>
 
-      <div class="modulo-cabecalho">
-  
-          <h2>💼 Trabalho</h2>
-  
-          <p>
-              Organize sua jornada, tarefas e registros profissionais.
-          </p>
-  
+  <div class="refeicoes">
+    <div class="card-refeicao" data-refeicao="cafe">
+      <span class="icone-refeicao">🍳</span>
+      <div>
+        <h3>Café da manhã</h3>
+        <p id="resumoCafe">
+          Comece o dia com uma boa refeição.
+        </p>
+        <div id="listaCafe" class="lista-alimentos"></div>
       </div>
+    </div>
 
+    <div class="card-refeicao" data-refeicao="lanche">
+      <span class="icone-refeicao">🍌</span>
+      <div>
+        <h3>Lanche da manhã</h3>
+        <p id="resumoLanche">
+            Uma opção rápida para o meio da manhã.
+        </p>
+        <div id="listaLanche" class="lista-alimentos"></div>
+      </div>
+    </div>
 
-      
-      <!-- HISTÓRICO DA JORNADA -->
-      <button
-          id="btnAbrirHistoricoJornada"
-          class="btn-secundario"
+    <div class="card-refeicao" data-refeicao="almoco">
+      <span class="icone-refeicao">🍛</span>
+      <div>
+        <h3>Almoço</h3>
+        <p id="resumoAlmoco">
+          Registre sua principal refeição do dia.
+        </p>
+        <div id="listaAlmoco" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+    <div class="card-refeicao" data-refeicao="pre_treino">
+      <span class="icone-refeicao">🥪</span>
+      <div>
+        <h3>Pré-treino</h3>
+        <p id="resumoPreTreino">
+          Energia para o seu treino.
+        </p>
+        <div id="listaPreTreino" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+    <div class="card-refeicao" data-refeicao="jantar">
+      <span class="icone-refeicao">🍽️</span>
+      <div>
+        <h3>Jantar</h3>
+        <p id="resumoJantar">
+          Registre sua refeição da noite.
+        </p>
+        <div id="listaJantar" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+    <div class="card-refeicao" data-refeicao="ceia">
+      <span class="icone-refeicao">🌙</span>
+      <div>
+        <h3>Ceia</h3>
+        <p id="resumoCeia">
+          Uma opção antes de dormir, se necessário.
+        </p>
+        <div id="listaCeia" class="lista-alimentos"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="modalRefeicao" class="modal-refeicao">
+
+    <div id="formularioRefeicao" class="formulario-refeicao">
+      <h3 id="tituloRefeicao">Café da manhã</h3>
+      <label for="comidaRefeicao">
+        O que você comeu?
+      </label>
+      <input
+        type="text"
+        id="comidaRefeicao"
+        placeholder="Ex: 1 ovo"
       >
-          📅 Histórico de Jornada
+      <div id="listaAlimentosRefeicao"></div>
+      <button id="adicionarAlimento">
+        + Adicionar alimento
       </button>
-  
-      <!-- JORNADA -->
-      <div class="bloco-trabalho">
-      
-        <div class="titulo-bloco-trabalho">
-
-            <h3>🕐 Jornada</h3>
-
-        </div>
-
-        <div class="jornada-trabalho">
-
-          <div class="item-jornada">
-            <span>Entrada</span>
-
-            <strong id="entradaTrabalho">
-                —
-            </strong>
-          </div>
-
-          <div class="item-jornada">
-            <span>Saída</span>
-
-            <strong id="saidaTrabalho">
-                —
-            </strong>
-          </div>
-
-          <div class="item-jornada">
-            <span>Status</span>
-
-            <strong id="statusTrabalho">
-                ⚪ Não iniciada
-            </strong>
-          </div>
-
-          <div class="hora-extra-trabalho">
-            <label>
-                <input
-                    type="checkbox"
-                    id="passouHorarioTrabalho"
-                    disabled
-                >
-                Passou das 14:10?
-            </label>
-        
-            <span id="horaExtraTrabalho">
-                ⏱️ Hora extra: 0min
-            </span>
-          </div>
-
-        </div>
-
-        <div class="acoes-jornada">
-
-            <button id="btnIniciarJornada">
-                Iniciar jornada
-            </button>
-
-            <button
-                id="btnFinalizarJornada"
-                class="btn-secundario-trabalho"
-            >
-                Finalizar jornada
-            </button>
-
-        </div>
-  
-      </div>
-  
-  
-      <!-- TAREFAS -->
-      <div class="bloco-trabalho">
-
-          <div class="titulo-bloco-trabalho">
-      
-              <h3>📋 Tarefas de hoje</h3>
-      
-          </div>
-      
-          <div
-              id="listaTarefasTrabalho"
-              class="lista-tarefas-trabalho"
-          >
-      
-              <p class="estado-vazio-trabalho">
-                  Nenhuma tarefa para hoje.
-              </p>
-      
-          </div>
-      
-          <div class="acoes-tarefas-trabalho">
-      
-              <button
-                  id="btnNovaTarefaTrabalho"
-                  class="btn-nova-tarefa-trabalho"
-              >
-                  + Nova tarefa
-              </button>
-      
-              <button
-                  id="btnVerTarefasTrabalho"
-                  class="btn-secundario-trabalho"
-              >
-                  📅 Ver todas as tarefas
-              </button>
-      
-          </div>
-      
-      </div>
-  
-  
-      <!-- ANOTAÇÕES -->
-      <div class="bloco-trabalho">
-  
-          <div class="titulo-bloco-trabalho">
-  
-              <h3>📝 Anotações</h3>
-  
-          </div>
-  
-          <textarea
-              id="anotacaoTrabalho"
-              class="anotacao-trabalho"
-              placeholder="Registre algo importante sobre seu dia..."
-          ></textarea>
-  
-          <button
-              id="btnSalvarAnotacaoTrabalho"
-              class="btn-salvar-anotacao-trabalho"
-          >
-              Salvar anotação
-          </button>
-  
-      </div>
-  
-  </section>
-
-  <!-- TELA - TODAS AS TAREFAS -->
-  <section
-      id="telaTodasTarefasTrabalho"
-      class="tela-modulo"
-      style="display: none;"
-  >
-  
-      <button
-          id="btnVoltarTodasTarefas"
-          class="btn-secundario"
-      >
-          ← Voltar
+      <button id="salvarRefeicao">
+        Salvar refeição
       </button>
-  
-      <h2>📅 Todas as tarefas</h2>
-  
-      <div id="listaTodasTarefasTrabalho"></div>
-  
-  </section>
-
-  <!-- MODAL - NOVA TAREFA -->
-  <div
-      id="modalNovaTarefaTrabalho"
-      class="modal"
-      style="display: none;"
-  >
-  
-      <div class="modal-conteudo">
-  
-          <h2 id="tituloModalTarefa">
-              📋 Nova tarefa
-          </h2>
-  
-          <div>
-  
-              <label for="nomeTarefaTrabalho">
-                  Nome da tarefa
-              </label>
-  
-              <input
-                  type="text"
-                  id="nomeTarefaTrabalho"
-                  placeholder="Ex: Resolver chamado do GLPI"
-              >
-  
-          </div>
-  
-          <div>
-  
-              <label for="descricaoTarefaTrabalho">
-                  Descrição
-              </label>
-  
-              <textarea
-                  id="descricaoTarefaTrabalho"
-                  placeholder="Detalhes da tarefa..."
-              ></textarea>
-  
-          </div>
-  
-          <div>
-  
-              <label for="dataTarefaTrabalho">
-                  📅 Data
-              </label>
-  
-              <input
-                  type="date"
-                  id="dataTarefaTrabalho"
-              >
-  
-          </div>
-  
-          <div>
-  
-              <label for="prioridadeTarefaTrabalho">
-                  Prioridade
-              </label>
-  
-              <select id="prioridadeTarefaTrabalho">
-  
-                  <option value="baixa">
-                      🟢 Baixa
-                  </option>
-  
-                  <option value="media" selected>
-                      🟡 Média
-                  </option>
-  
-                  <option value="alta">
-                      🔴 Alta
-                  </option>
-  
-              </select>
-  
-          </div>
-  
-          <div>
-  
-              <label>
-                  <input
-                      type="checkbox"
-                      id="mostrarRotinaTarefaTrabalho"
-                  >
-  
-                  Mostrar na rotina
-              </label>
-  
-          </div>
-  
-          <div class="acoes-modal">
-  
-              <button
-                  id="btnCancelarNovaTarefa"
-              >
-                  Cancelar
-              </button>
-  
-              <button
-                  id="btnSalvarNovaTarefa"
-              >
-                  Salvar tarefa
-              </button>
-  
-          </div>
-  
-      </div>
+      <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+        Cancelar
+      </button>
+    </div>
   
   </div>
 
-
-  <!-- TELA DE HISTORICO -->
-  <section
-      id="telaHistoricoJornada"
-      class="tela-modulo"
-      style="display: none;"
-  >
+</section>
   
-      <button
-          id="btnVoltarHistoricoJornada"
-          class="btn-secundario"
-      >
-          ← Voltar
-      </button>
-  
-      <h2>📅 Histórico de Jornada</h2>
-  
-      <div id="listaHistoricoJornada"></div>
-  
-  </section>
-
-  <div
-      id="modalEditarJornada"
-      class="modal"
-      style="display: none;"
-  >
-  
-      <div class="modal-conteudo">
-  
-          <h2>✏️ Editar Jornada</h2>
-  
-          <p id="dataEditarJornada"></p>
-  
-          <div>
-              <label for="editarEntradaJornada">
-                  Entrada
-              </label>
-  
-              <input
-                  type="time"
-                  id="editarEntradaJornada"
-              >
-          </div>
-  
-          <div>
-              <label for="editarSaidaJornada">
-                  Saída
-              </label>
-  
-              <input
-                  type="time"
-                  id="editarSaidaJornada"
-              >
-          </div>
-  
-          <div class="acoes-modal">
-  
-              <button id="btnCancelarEdicaoJornada">
-                  Cancelar
-              </button>
-  
-              <button id="btnSalvarEdicaoJornada">
-                  Salvar
-              </button>
-  
-          </div>
-  
-      </div>
-  
+<!-- ========================= -->
+<!-- MODULO DE FINANÇAS (TELA) -->
+<!-- ========================= -->
+<section id="telaFinancas" class="tela-modulo">
+  <div class="modulo-cabecalho">
+    <h2>💰 Finanças</h2>
+    <p>
+      Organize suas entradas e saídas.
+    </p>
   </div>
+
+    <!-- RESUMO FINANCEIRO -->
+    <div class="resumo-financeiro">
+      <div class="card-financeiro saldo">
+        <span class="icone-financeiro">
+          💰
+        </span>
+        <div>
+          <small>
+            Saldo
+          </small>
+          <strong id="saldoFinanceiro">
+            R$ 0,00
+          </strong>
+        </div>
+      </div>
+
+      <div class="card-financeiro entrada">
+        <span class="icone-financeiro">
+          🟢
+        </span>
+        <div>
+          <small>
+            Entradas
+          </small>
+          <strong id="totalEntradas">
+            R$ 0,00
+          </strong>
+        </div>
+      </div>
+
+      <div class="card-financeiro saida">
+        <span class="icone-financeiro">
+          🔴
+        </span>
+        <div>
+          <small>
+            Saídas
+          </small>
+          <strong id="totalSaidas">
+            R$ 0,00
+          </strong>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MOVIMENTAÇÕES -->
+    <div class="bloco-financeiro">
+      <div class="titulo-bloco-financeiro">
+        <h3>📅 Contas</h3>
+      </div>
     
-  <!-- MODAL -->
-  <div id="modal" class="modal">
-  
-      <div class="modal-box">
-  
-          <h2 id="tituloModal">Novo hábito</h2>
-  
-          <input
-              id="nomeHabito"
-              type="text"
-              placeholder="Ex: Estudar programação"
-          >
-  
-          <label for="categoriaHabito">
-              Categoria
-          </label>
-  
-          <select id="categoriaHabito">
-  
-              <option value="Saúde">
-                  🏋️ Saúde
-              </option>
-  
-              <option value="Estudos">
-                  📚 Estudos
-              </option>
-  
-              <option value="Finanças">
-                  💰 Finanças
-              </option>
-  
-              <option value="Pessoal">
-                  🧠 Pessoal
-              </option>
-  
-              <option value="Trabalho">
-                  💼 Trabalho
-              </option>
-              <option value="Alimentação">
-                  🍽️ Alimentação
-              </option>
-              
-              <option value="Social">
-                  👥 Social
-              </option>
-              
-              <option value="Metas">
-                  🎯 Metas
-              </option>
-              
-              <option value="Espiritualidade">
-                  🙏 Espiritualidade
-              </option>
-              
-              <option value="Hobbies">
-                  🎨 Hobbies
-              </option>
-  
-          </select>
-  
-          <button id="salvarHabito">
-              Salvar
-          </button>
-  
-          <button id="cancelarHabito">
-              Cancelar
-          </button>
-  
+      <div class="resumo-contas">
+        <span id="contasAtrasadas">
+          🔴 0 atrasadas
+        </span>
+        <span id="contasPendentes">
+          🟡 0 pendentes
+        </span>
+        <span id="contasPagas">
+          🟢 0 pagas
+        </span>
       </div>
   
+      <div id="listaContas" class="lista-contas">
+        <p class="estado-vazio-financeiro">
+          Nenhuma conta cadastrada.
+        </p>
+      </div>
+    
+    </div>
+    
+    <button id="btnNovaConta" class="btn-nova-transacao">
+      + Nova conta
+    </button>
+    
+    <div id="modalConta" class="modal-transacao">
+      <div class="modal-transacao-caixa">
+        <h2>Nova conta</h2>
+        
+        <label for="descricaoConta">
+          Descrição
+        </label>
+        
+        <input
+          type="text"
+          id="descricaoConta"
+          placeholder="Ex: Internet"
+        >
+        <label for="valorConta">
+          Valor
+        </label>
+        
+        <input
+          type="number"
+          id="valorConta"
+          placeholder="0,00"
+          step="0.01"
+          min="0"
+        >
+        
+        <label for="categoriaConta">
+          Categoria
+        </label>
+        
+        <select id="categoriaConta">
+          <option value="Alimentação">🍽️ Alimentação</option>
+          <option value="Transporte">🛵 Transporte</option>
+          <option value="Moradia">🏠 Moradia</option>
+          <option value="Lazer">🎮 Lazer </option>
+          <option value="Estudos">📚 Estudos</option>
+          <option value="Saúde">🏥 Saúde</option>
+          <option value="Trabalho">💼 Trabalho</option>
+          <option value="Internet">🛜 Internet</option>
+          <option value="Streamming/Music">📱 Streamming/Music</option>
+          <option value="Celular">📱 Assinatura do celular</option>
+          <option value="Cuidado">💈 Cuidado</option>
+          <option value="Cartão">💳 Cartão crédito/débito</option>
+          <option value="Outros">📦 Outros</option>
+        </select>
+  
+        <label for="vencimentoConta">Vencimento</label>
+        <input type="date" id="vencimentoConta">
+
+        <!-- ANOTAÇÃO DE COMPRA -->
+        <div id="areaComprasCartao" style="display: none;">
+          <h3>🧾 Anotação de compras</h3>
+        
+          <label for="descricaoCompraCartao">Descrição da compra</label>
+          <input
+            type="text"
+            id="descricaoCompraCartao"
+            placeholder="Ex.: Mercado"
+          >
+        
+          <label for="valorCompraCartao">Valor (R$)</label>
+          <input
+            type="number"
+            id="valorCompraCartao"
+            placeholder="0,00"
+            step="0.01"
+            min="0"
+          >
+        
+          <button type="button" id="btnAdicionarCompraCartao">
+            + Adicionar compra
+          </button>
+        
+          <div id="listaComprasCartao">
+            <p>Nenhuma compra adicionada.</p>
+          </div>
+        
+          <div id="totalComprasCartao">
+            Total das compras: R$ 0,00
+          </div>
+        </div>
+        
+         <!-- CHECKBOX CONTA PAGA -->
+        <label class="checkbox-conta">
+          <input type="checkbox" id="pagaConta">
+          Conta já está paga
+        </label>
+
+        <!-- BOTÃO SALVAR / CANCELAR -->
+        <div class="acoes-modal-financeiro">
+          <button 
+            id="salvarConta"
+            >
+            Salvar
+          </button>
+          <button 
+            id="cancelarConta" 
+            class="btn-cancelar-financeiro"
+            >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="bloco-financeiro">
+        <div class="titulo-bloco-financeiro">
+            <h3>
+              📋 Movimentações
+            </h3>
+        </div>
+
+        <div
+            id="listaTransacoes"
+            class="lista-transacoes">
+            <p class="estado-vazio-financeiro">
+                Nenhuma movimentação registrada.
+            </p>
+        </div>
+    </div>
+
+    <!-- NOVA MOVIMENTAÇÃO -->
+    <button
+        id="btnNovaTransacao"
+        class="btn-nova-transacao">
+
+        + Nova movimentação
+    </button>
+
+    <!-- MODAL NOVA TRANSAÇÃO -->
+    <div id="modalTransacao" class="modal-transacao">
+      <div class="modal-transacao-caixa">
+          <h2>Nova movimentação</h2>
+
+          <label for="tipoTransacao">Tipo</label>
+
+          <select id="tipoTransacao">
+            <option value="entrada">🟢 Entrada</option>
+            <option value="saida">🔴 Saída</option>
+          </select>
+
+          <label for="descricaoTransacao">Descrição</label>
+        
+          <input type="text" id="descricaoTransacao" placeholder="Ex: Mercado">
+
+          <label for="valorTransacao">Valor</label>
+        
+          <input type="number" id="valorTransacao" placeholder="0,00" step="0.01" min="0">
+
+          <label for="categoriaTransacao">Categoria</label>
+
+          <select id="categoriaTransacao">
+              <option value="Trabalho">💼 Trabalho</option>
+          </select>
+
+
+          <label for="dataTransacao">Data</label>
+
+          <input type="date" id="dataTransacao">
+
+          <div class="acoes-modal-financeiro">
+            <button 
+              id="salvarTransacao"
+              >
+              Salvar
+            </button>
+            
+            <button 
+              id="cancelarTransacao" 
+              class="btn-cancelar-financeiro"
+              >
+              Cancelar
+            </button>
+          </div>
+
+      </div>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- MÓDULO DE METAS -->
+<!-- ========================= -->
+<section id="telaMetas" class="tela-modulo">
+  <div class="modulo-cabecalho">
+    <h2>🎯 Metas</h2>
+    <p>Defina, acompanhe e conquiste seus objetivos.</p>
   </div>
 
+  <div class="metas-acoes">
+    <button id="btnNovaMeta" class="btn-principal">
+      + Nova meta
+    </button>
+  </div>
+
+  <div id="listaMetas">
+    <!-- Metas serão carregadas aqui -->
+  </div>
+
+</section>
+
+<!-- MODAL NOVA META -->
+<div id="modalNovaMeta" class="modal">
+  <div class="modal-conteudo">
+    <h2>🎯 Nova meta</h2>
+
+    <label for="nomeMeta">Nome da meta</label>
+    <input
+      type="text"
+      id="nomeMeta"
+      placeholder="Ex: Ganhar 10 kg"
+    >
+
+    <label for="descricaoMeta">Descrição</label>
+    <textarea
+      id="descricaoMeta"
+      placeholder="Descreva o que você quer alcançar..."
+    >
+    </textarea>
+
+    <label for="tipoMeta">📊 Tipo de progresso</label>
+
+    <select id="tipoMeta">
+      <option value="numero">
+        Número
+      </option>
+
+      <option value="porcentagem">
+        Porcentagem
+      </option>
+
+      <option value="etapas">
+        Etapas
+      </option>
+
+      <option value="quantidade">
+        Quantidade
+      </option>
+    </select>
+
+    <!-- CAMPOS DE NÚMERO -->
+    <div id="camposNumeroMeta">
+      <label for="valorAtualMeta">
+        Valor atual
+      </label>
+
+      <input
+        type="number"
+        id="valorAtualMeta"
+        step="0.01"
+        placeholder="Ex: 45.5"
+      >
+
+      <label for="valorObjetivoMeta">
+        Valor objetivo
+      </label>
+
+      <input
+        type="number"
+        id="valorObjetivoMeta"
+        step="0.01"
+        placeholder="Ex: 55.5"
+      >
+
+      <label for="unidadeMeta">
+        Unidade
+      </label>
+
+      <input
+        type="text"
+        id="unidadeMeta"
+        placeholder="Ex: kg, R$, horas..."
+      >
+    </div>
+
+    <!-- CAMPO PORCENTAGEM -->
+    <div id="campoPorcentagemMeta" style="display: none;">
+      <label for="porcentagemMeta">
+        Progresso atual (%)
+      </label>
+
+      <input
+        type="number"
+        id="porcentagemMeta"
+        min="0"
+        max="100"
+        placeholder="0"
+      >
+    </div>
+
+    <!-- CAMPOS QUANTIDADE -->
+    <div id="camposQuantidadeMeta" style="display: none;">
+      <label for="quantidadeAtualMeta">
+        Quantidade atual
+      </label>
+
+      <input
+        type="number"
+        id="quantidadeAtualMeta"
+        min="0"
+        placeholder="Ex: 4"
+      >
+
+      <label for="quantidadeObjetivoMeta">
+        Quantidade objetivo
+      </label>
+
+      <input
+        type="number"
+        id="quantidadeObjetivoMeta"
+        min="1"
+        placeholder="Ex: 12"
+      >
+
+      <label for="unidadeQuantidadeMeta">
+        Unidade
+      </label>
+
+      <input
+        type="text"
+        id="unidadeQuantidadeMeta"
+        placeholder="Ex: livros, cursos..."
+      >
+    </div>
+
+    <!-- PRAZO -->
+    <label for="prazoMeta">
+      📅 Prazo
+    </label>
+
+    <input
+      type="date"
+      id="prazoMeta"
+    >
+
+    <!-- STATUS -->
+    <label for="statusMeta">
+        🟢 Status
+    </label>
+
+    <select id="statusMeta">
+      <option value="andamento">
+        Em andamento
+      </option>
+
+      <option value="pausada">
+        Pausada
+      </option>
+
+      <option value="concluida">
+        Concluída
+      </option>
+
+      <option value="cancelada">
+        Cancelada
+      </option>
+    </select>
+
+    <!-- ETAPAS -->
+    <label>
+        ☑️ Etapas
+    </label>
+
+    <div id="listaEtapasMeta"></div>
+
+    <button
+      type="button"
+      id="btnAdicionarEtapa"
+      class="btn-secundario"
+    >
+      + Adicionar etapa
+    </button>
+
+    <!-- RELACIONAMENTOS -->
+    <label>
+      🔗 Relacionar com
+    </label>
+
+    <div class="relacionamentos-meta">
+      <label>
+        <input type="checkbox" value="habitos">
+        Hábitos
+      </label>
+
+      <label>
+        <input type="checkbox" value="treino">
+        Treino
+      </label>
+
+      <label>
+        <input type="checkbox" value="alimentacao">
+        Alimentação
+      </label>
+
+      <label>
+        <input type="checkbox" value="estudos">
+        Estudos
+      </label>
+
+      <label>
+        <input type="checkbox" value="trabalho">
+        Trabalho
+      </label>
+
+      <label>
+        <input type="checkbox" value="financas">
+        Finanças
+      </label>
+
+      <label>
+        <input type="checkbox" value="leitura">
+        Leitura
+      </label>
+    </div>
+
+    <!-- ANOTAÇÕES -->
+    <label for="anotacoesMeta">
+      📝 Anotações
+    </label>
+
+    <textarea
+      id="anotacoesMeta"
+      placeholder="Alguma observação sobre essa meta..."
+    ></textarea>
+
+
+    <div class="modal-acoes">
+      <button
+        type="button"
+        id="btnCancelarMeta"
+        class="btn-secundario"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        id="btnCriarMeta"
+        class="btn-principal"
+      >
+        Criar meta
+      </button>
+    </div>
+  </div>
 </div>
+
+<!-- FICHA DA META -->
+<section id="fichaMeta" class="tela-modulo" style="display: none;">
+  <div class="ficha-meta-cabecalho">
+    <button id="btnVoltarMetas" class="btn-voltar">
+      ← Voltar
+    </button>
+
+    <div id="fichaMetaConteudo">
+      <!-- Conteúdo preenchido pelo JavaScript -->
+    </div>
+  </div>
+</section>
 	
 	<script src="script.js"></script>
 
