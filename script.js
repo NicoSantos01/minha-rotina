@@ -6104,40 +6104,36 @@ function atualizarResumoContas() {
 // ==========================================
 // MÓDULO DE TRABALHO
 // ==========================================
-
   // TRABALHO - JORNADA
   let jornadaTrabalho =
-      JSON.parse(localStorage.getItem("jornadaTrabalho")) || {};
+    JSON.parse(localStorage.getItem("jornadaTrabalho")) || {};
   
   // HISTÓRICO DE JORNADAS
   let jornadasTrabalho =
-      JSON.parse(localStorage.getItem("jornadasTrabalho")) || [];
+    JSON.parse(localStorage.getItem("jornadasTrabalho")) || [];
   
   // MIGRAR JORNADA ATUAL PARA O HISTÓRICO
   if (
-      jornadaTrabalho.data &&
-      jornadaTrabalho.entrada
+    jornadaTrabalho.data &&
+    jornadaTrabalho.entrada
   ) {
-  
-      const jaExiste =
-          jornadasTrabalho.some(
-              jornada =>
-                  jornada.data === jornadaTrabalho.data
-          );
-  
-      if (!jaExiste) {
-  
-          jornadasTrabalho.push({
-              data: jornadaTrabalho.data,
-              entrada: jornadaTrabalho.entrada,
-              saida: jornadaTrabalho.saida || null
-          });
-  
-          localStorage.setItem(
-              "jornadasTrabalho",
-              JSON.stringify(jornadasTrabalho)
-          );
-      }
+    const jaExiste =
+      jornadasTrabalho.some(
+        jornada =>
+          jornada.data === jornadaTrabalho.data
+      );
+    if (!jaExiste) {
+      jornadasTrabalho.push({
+        data: jornadaTrabalho.data,
+        entrada: jornadaTrabalho.entrada,
+        saida: jornadaTrabalho.saida || null
+      });
+
+      localStorage.setItem(
+        "jornadasTrabalho",
+        JSON.stringify(jornadasTrabalho)
+      );
+    }
   }
 
   // JORNADA
@@ -6156,19 +6152,14 @@ function atualizarResumoContas() {
   const btnFinalizarJornada =
     document.getElementById("btnFinalizarJornada");
 
-
   // DATA DE HOJE
   function obterDataHoje() {
     const hoje = new Date();
-  
     const ano = hoje.getFullYear();
-  
     const mes =
       String(hoje.getMonth() + 1).padStart(2, "0");
-  
     const dia =
       String(hoje.getDate()).padStart(2, "0");
-  
     return `${ano}-${mes}-${dia}`;
   }
 
@@ -6178,15 +6169,14 @@ function atualizarResumoContas() {
     if (!data) {
       return "—";
     }
-
     const horario =
       new Date(data);
-
+    
     return horario.toLocaleTimeString(
       "pt-BR",
       {
-          hour: "2-digit",
-          minute: "2-digit"
+        hour: "2-digit",
+        minute: "2-digit"
       }
     );
   }
@@ -6220,419 +6210,392 @@ function atualizarResumoContas() {
 
     // ATUALIZA O HISTÓRICO
     const indice =
-        jornadasTrabalho.findIndex(
-            jornada =>
-                jornada.data === hoje
-        );
+      jornadasTrabalho.findIndex(
+        jornada =>
+          jornada.data === hoje
+      );
   
     if (indice === -1) {
-  
-        jornadasTrabalho.push({
-  
-            data: hoje,
-  
-            entrada: jornadaTrabalho.entrada,
-  
-            saida: null
-  
-        });
-  
+      jornadasTrabalho.push({
+        data: hoje,
+        entrada: jornadaTrabalho.entrada,
+        saida: null
+      });
     } else {
-  
-        jornadasTrabalho[indice] = {
-  
-            data: hoje,
-  
-            entrada: jornadaTrabalho.entrada,
-  
-            saida: null
-  
-        };
-  
+      jornadasTrabalho[indice] = {
+        data: hoje,
+        entrada: jornadaTrabalho.entrada,
+        saida: null
+      };
     }
   
     localStorage.setItem(
-        "jornadasTrabalho",
-        JSON.stringify(jornadasTrabalho)
+      "jornadasTrabalho",
+      JSON.stringify(jornadasTrabalho)
     );
-  
-  
-    renderizarJornada();
-  
-  });
 
+    renderizarJornada();
+  });
 
   // ==========================================
   // FINALIZAR JORNADA
   // ==========================================
-  
   btnFinalizarJornada.addEventListener("click", () => {
-  
-      const hoje = obterDataHoje();
-  
-      if (
-          jornadaTrabalho.data !== hoje ||
-          !jornadaTrabalho.entrada
-      ) {
-  
-          alert("Inicie a jornada primeiro.");
-  
-          return;
-      }
-  
-      if (jornadaTrabalho.saida) {
-          return;
-      }
-  
-  
-      // Registra a saída
-      jornadaTrabalho.saida =
-          new Date().toISOString();
-  
-  
-      // Salva a jornada atual
-      localStorage.setItem(
-          "jornadaTrabalho",
-          JSON.stringify(jornadaTrabalho)
+    const hoje = obterDataHoje();
+    if (
+      jornadaTrabalho.data !== hoje ||
+      !jornadaTrabalho.entrada
+    ) {
+      alert("Inicie a jornada primeiro.");
+      return;
+    }
+
+    if (jornadaTrabalho.saida) {
+      return;
+    }
+
+    // Registra a saída
+    jornadaTrabalho.saida =
+      new Date().toISOString();
+
+    // Salva a jornada atual
+    localStorage.setItem(
+      "jornadaTrabalho",
+      JSON.stringify(jornadaTrabalho)
+    );
+
+    // ==========================================
+    // ATUALIZA O HISTÓRICO
+    // ==========================================
+    const indice =
+      jornadasTrabalho.findIndex(
+        jornada =>
+          jornada.data === hoje
       );
-  
-  
-      // ==========================================
-      // ATUALIZA O HISTÓRICO
-      // ==========================================
-  
-      const indice =
-          jornadasTrabalho.findIndex(
-              jornada =>
-                  jornada.data === hoje
-          );
-  
-      if (indice !== -1) {
-  
-          jornadasTrabalho[indice].saida =
-              jornadaTrabalho.saida;
-  
-      } else {
-  
-          jornadasTrabalho.push({
-  
-              data: hoje,
-  
-              entrada: jornadaTrabalho.entrada,
-  
-              saida: jornadaTrabalho.saida
-  
-          });
-  
-      }
-  
-      localStorage.setItem(
-          "jornadasTrabalho",
-          JSON.stringify(jornadasTrabalho)
-      );
-  
-  
-      renderizarJornada();
-  
+    if (indice !== -1) {
+        jornadasTrabalho[indice].saida =
+            jornadaTrabalho.saida;
+    } else {
+      jornadasTrabalho.push({
+        data: hoje,
+        entrada: jornadaTrabalho.entrada,
+        saida: jornadaTrabalho.saida
+      });
+    }
+
+    localStorage.setItem(
+      "jornadasTrabalho",
+      JSON.stringify(jornadasTrabalho)
+    );
+
+    renderizarJornada();
   });
   
   // ==========================================
   // CALCULO HORA EXTRA
   // ==========================================
   function calcularHoraExtra(entrada, saida) {
-  
-      if (!entrada || !saida) {
-          return {
-              passou: false,
-              minutos: 0
-          };
-      }
-  
-      const inicio =
-          new Date(entrada);
-  
-      const fim =
-          new Date(saida);
-  
-      const minutosTrabalhados =
-          Math.floor(
-              (fim - inicio) / 60000
-          );
-  
-      // Jornada normal:
-      // 6 horas de trabalho + 30 min de intervalo
-      const jornadaNormal = 390;
-  
-      const horaExtra =
-          minutosTrabalhados -
-          jornadaNormal;
-  
+    if (!entrada || !saida) {
       return {
-          passou: horaExtra > 0,
-          minutos: Math.max(
-              0,
-              horaExtra
-          )
+        passou: false,
+        minutos: 0
       };
+    }
+
+    const inicio =
+      new Date(entrada);
+    const fim =
+      new Date(saida);
+    const minutosTrabalhados =
+      Math.floor(
+        (fim - inicio) / 60000
+      );
+    
+    // JORNADA NORMAL:
+    // 6 horas de trabalho + 30 min de intervalo
+    const jornadaNormal = 390;
+    const horaExtra =
+      minutosTrabalhados -
+      jornadaNormal;
+    return {
+      passou: horaExtra > 0,
+      minutos: Math.max(
+        0,
+        horaExtra
+      )
+    };
   }
   
   // ==========================================
   // FORMATAR HORA EXTRA
   // ==========================================
   function formatarHoraExtra(minutos) {
-  
-      const horas =
-          Math.floor(minutos / 60);
-  
-      const minutosRestantes =
-          minutos % 60;
-  
-      if (horas === 0) {
-          return `${minutosRestantes}min`;
-      }
-  
-      if (minutosRestantes === 0) {
-          return `${horas}h`;
-      }
-  
-      return `${horas}h${String(
-          minutosRestantes
-      ).padStart(2, "0")}`;
+    const horas =
+      Math.floor(minutos / 60);
+    const minutosRestantes =
+      minutos % 60;
+    if (horas === 0) {
+      return `${minutosRestantes}min`;
+    }
+    if (minutosRestantes === 0) {
+      return `${horas}h`;
+    }
+    return `${horas}h${String(
+      minutosRestantes
+    ).padStart(2, "0")}`;
   }
   
   // ==========================================
   // RENDERIZAR JORNADA
   // ==========================================
-  
   function renderizarJornada() {
-  
-      const hoje = obterDataHoje();
-  
-      if (jornadaTrabalho.data !== hoje) {
-  
-          entradaTrabalho.textContent = "—";
-          saidaTrabalho.textContent = "—";
-          statusTrabalho.textContent =
-              "⚪ Não iniciada";
-  
-          passouHorarioTrabalho.checked = false;
-  
-          horaExtraTrabalho.textContent =
-              "⏱️ Hora extra: 0min";
-  
-          return;
-      }
-  
-      entradaTrabalho.textContent =
-          formatarHorario(
-              jornadaTrabalho.entrada
-          );
-  
-      saidaTrabalho.textContent =
-          formatarHorario(
-              jornadaTrabalho.saida
-          );
-  
-      if (!jornadaTrabalho.entrada) {
-  
-          statusTrabalho.textContent =
-              "⚪ Não iniciada";
-  
-      } else if (!jornadaTrabalho.saida) {
-  
-          statusTrabalho.textContent =
-              "🟡 Em andamento";
-  
-      } else {
-  
-          statusTrabalho.textContent =
-              "🟢 Finalizada";
-  
-      }
-  
-      const resultadoHoraExtra =
-          calcularHoraExtra(
-              jornadaTrabalho.entrada,
-              jornadaTrabalho.saida
-          );
-  
-      passouHorarioTrabalho.checked =
-          resultadoHoraExtra.passou;
-  
+    const hoje = obterDataHoje();
+    if (jornadaTrabalho.data !== hoje) {
+      entradaTrabalho.textContent = "—";
+      saidaTrabalho.textContent = "—";
+    
+      statusTrabalho.textContent =
+        "⚪ Não iniciada";
+    
+      passouHorarioTrabalho.checked = false;
+    
       horaExtraTrabalho.textContent =
-          `⏱️ Hora extra: ${formatarHoraExtra(
-              resultadoHoraExtra.minutos
-          )}`;
+        "⏱️ Hora extra: 0min";
+      return;
+    }
   
+    entradaTrabalho.textContent =
+      formatarHorario(
+        jornadaTrabalho.entrada
+      );
+
+    saidaTrabalho.textContent =
+      formatarHorario(
+        jornadaTrabalho.saida
+      );
+  
+    if (!jornadaTrabalho.entrada) {
+      statusTrabalho.textContent =
+        "⚪ Não iniciada";
+    } else if (!jornadaTrabalho.saida) {
+      statusTrabalho.textContent =
+        "🟡 Em andamento";
+    } else {
+      statusTrabalho.textContent =
+        "🟢 Finalizada";
+    }
+  
+    const resultadoHoraExtra =
+      calcularHoraExtra(
+        jornadaTrabalho.entrada,
+        jornadaTrabalho.saida
+      );
+
+    passouHorarioTrabalho.checked =
+      resultadoHoraExtra.passou;
+
+    horaExtraTrabalho.textContent =
+      `⏱️ Hora extra: ${formatarHoraExtra(
+        resultadoHoraExtra.minutos
+      )}`;
   }
   
-  // ==========================================
   // HISTÓRICO DA JORNADA
-  // ==========================================
-  
   function renderizarHistoricoJornada() {
+    const container =
+      document.getElementById(
+        "listaHistoricoJornada"
+      );
+    if (!container) {
+      return;
+    }
+    container.innerHTML = "";
+
+    // NENHUM REGISTRO
+    if (jornadasTrabalho.length === 0) {
+      container.innerHTML = `
+        <p>📭 Nenhuma jornada registrada.</p>
+      `;
+      return;
+    }
+
+    // ORDENAR DO MAIS RECENTE PARA O MAIS ANTIGO
+    const jornadasOrdenadas =
+        [...jornadasTrabalho].sort(
+            (a, b) =>
+                new Date(b.data) -
+                new Date(a.data)
+        );
   
-      const container =
-          document.getElementById(
-              "listaHistoricoJornada"
+    // RENDERIZAR
+    jornadasOrdenadas.forEach(
+      jornada => {
+        const item =
+          document.createElement("div");
+        item.className =
+          "item-historico-jornada";
+
+        // DATA
+        const [ano, mes, dia] =
+          jornada.data.split("-");
+        const dataFormatada =
+          `${dia}/${mes}/${ano}`;
+
+        // STATUS
+        let status = "⚪ Não finalizada";
+        if (
+          jornada.entrada &&
+          jornada.saida
+        ) {
+          status =
+              "🟢 Finalizada";
+        } else if (
+            jornada.entrada
+        ) {
+          status =
+            "🟡 Em andamento";
+        }
+  
+        // HTML
+        const resultadoHoraExtra =
+          calcularHoraExtra(
+            jornada.entrada,
+            jornada.saida
           );
-  
-      if (!container) {
-          return;
-      }
-  
-      container.innerHTML = "";
-  
-  
-      // ==========================================
-      // NENHUM REGISTRO
-      // ==========================================
-  
-      if (jornadasTrabalho.length === 0) {
-  
-          container.innerHTML = `
-              <p>📭 Nenhuma jornada registrada.</p>
-          `;
-  
-          return;
-      }
-  
-  
-      // ==========================================
-      // ORDENAR DO MAIS RECENTE PARA O MAIS ANTIGO
-      // ==========================================
-  
-      const jornadasOrdenadas =
-          [...jornadasTrabalho].sort(
-              (a, b) =>
-                  new Date(b.data) -
-                  new Date(a.data)
-          );
-  
-  
-      // ==========================================
-      // RENDERIZAR
-      // ==========================================
-  
-      jornadasOrdenadas.forEach(
-          jornada => {
-  
-              const item =
-                  document.createElement("div");
-  
-              item.className =
-                  "item-historico-jornada";
-  
-  
-              // ==========================================
-              // DATA
-              // ==========================================
-  
-              const [ano, mes, dia] =
-                  jornada.data.split("-");
-  
-              const dataFormatada =
-                  `${dia}/${mes}/${ano}`;
-  
-  
-              // ==========================================
-              // STATUS
-              // ==========================================
-  
-              let status = "⚪ Não finalizada";
-  
-              if (
-                  jornada.entrada &&
-                  jornada.saida
-              ) {
-  
-                  status =
-                      "🟢 Finalizada";
-  
-              } else if (
-                  jornada.entrada
-              ) {
-  
-                  status =
-                      "🟡 Em andamento";
-  
-              }
-  
-  
-              // ==========================================
-              // HTML
-              // ==========================================
-  
-              const resultadoHoraExtra =
-                  calcularHoraExtra(
-                      jornada.entrada,
-                      jornada.saida
-                  );
-              
-              const textoHoraExtra =
-                  resultadoHoraExtra.passou
-                      ? `☑ Passou das 14:10? — ⏱️ Hora extra: ${formatarHoraExtra(
-                            resultadoHoraExtra.minutos
-                        )}`
-                      : `☐ Passou das 14:10? — ⏱️ Hora extra: 0min`;
-            
-              item.innerHTML = `
-                  <div class="historico-jornada-data">
-                      <strong>
-                          ${dataFormatada}
-                      </strong>
-                  </div>
-              
-                  <div class="historico-jornada-info">
-                      <span>
-                          🟢 Entrada:
-                          ${formatarHorario(jornada.entrada)}
-                      </span>
-              
-                      <span>
-                          🔴 Saída:
-                          ${formatarHorario(jornada.saida)}
-                      </span>
-                  </div>
-              
-                  <div class="historico-jornada-status">
-                      ${status}
-                  </div>
-                  
-                  <div class="historico-jornada-extra">
-                      ${textoHoraExtra}
-                  </div>
-              
-                  <button
-                      class="btn-editar-jornada"
-                      data-data="${jornada.data}"
-                  >
-                      ✏️ Editar
-                  </button>
-              `;
-  
-  
-              container.appendChild(item);
+        
+        const textoHoraExtra =
+          resultadoHoraExtra.passou
+            ? `☑ Passou das 14:10? — ⏱️ Hora extra: ${formatarHoraExtra(
+                resultadoHoraExtra.minutos
+              )}`
+            : `☐ Passou das 14:10? — ⏱️ Hora extra: 0min`;
+      
+        item.innerHTML = `
+          <div class="historico-jornada-data">
+            <strong>
+              ${dataFormatada}
+            </strong>
+          </div>
+        
+          <div class="historico-jornada-info">
+            <span>
+              🟢 Entrada:
+              ${formatarHorario(jornada.entrada)}
+            </span>
+    
+            <span>
+              🔴 Saída:
+              ${formatarHorario(jornada.saida)}
+            </span>
+          </div>
+        
+          <div class="historico-jornada-status">
+            ${status}
+          </div>
+          
+          <div class="historico-jornada-extra">
+            ${textoHoraExtra}
+          </div>
+      
+          <div class="menu-historico-jornada">
+            <button
+              type="button"
+              class="btn-menu-pontos btn-menu-historico"
+              aria-label="Opções desta jornada"
+              aria-expanded="false"
+              data-data="${jornada.data}"
+            >
+              ⋮
+            </button>
+          
+            <div
+              class="opcoes-menu-pontos opcoes-menu-historico"
+              style="display: none;"
+            >
+              <button
+                type="button"
+                class="btn-editar-jornada"
+                data-data="${jornada.data}"
+              >
+                ✏️ Editar
+              </button>
+          
+              <button
+                type="button"
+                class="btn-excluir-jornada"
+                data-data="${jornada.data}"
+              >
+                🗑️ Excluir
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(item);
   
           }
       );
   
   }
+
   
-  // ==========================================
+   // MENU DE TRES PONTINHOS - JORNADA
+   const btnMenuJornada =
+    document.getElementById("btnMenuJornada");
+   const opcoesMenuJornada =
+    document.getElementById("opcoesMenuJornada");
+
+  // ABRIR E FECHAR MENU
+  btnMenuJornada.addEventListener("click", (evento) => {
+    evento.stopPropagation();
+  
+      const estaAberto =
+        opcoesMenuJornada.style.display !== "none";
+  
+      opcoesMenuJornada.style.display =
+        estaAberto ? "none" : "block";
+  
+      btnMenuJornada.setAttribute(
+        "aria-expanded",
+        String(!estaAberto)
+      );
+  });
+  
+  // FECHAR AO CLICAR FORA
+  document.addEventListener("click", (evento) => {
+       if (
+           !evento.target.closest(".menu-jornada")
+       ) {
+           opcoesMenuJornada.style.display = "none";
+  
+           btnMenuJornada.setAttribute(
+               "aria-expanded",
+               "false"
+           );
+       }
+   });
+  
+  // FECHAR AO ESCOLHER UMA OPÇÃO
+  opcoesMenuJornada.addEventListener("click", (evento) => {
+    if (evento.target.closest("#btnAbrirHistoricoJornada")) {
+      opcoesMenuJornada.style.display = "none";
+
+      btnMenuJornada.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+  });
+
   // ABRIR HISTÓRICO DA JORNADA
-  // ==========================================
-  
   const btnAbrirHistoricoJornada =
       document.getElementById(
           "btnAbrirHistoricoJornada"
       );
-  
   const btnVoltarHistoricoJornada =
       document.getElementById(
           "btnVoltarHistoricoJornada"
       );
-  
   const telaHistoricoJornada =
       document.getElementById(
           "telaHistoricoJornada"
@@ -6788,876 +6751,782 @@ function atualizarResumoContas() {
   // ABRIR EDIÇÃO DA JORNADA
   // ==========================================
   function abrirEdicaoJornada(data) {
-  
-      const jornada =
-          jornadasTrabalho.find(
-              item => item.data === data
-          );
-  
-      if (!jornada) {
-          return;
-      }
-  
-      dataJornadaEditando = data;
-  
-      const [ano, mes, dia] =
-          data.split("-");
-  
-      dataEditarJornada.textContent =
-          `${dia}/${mes}/${ano}`;
-  
-      editarEntradaJornada.value =
-          obterHoraParaInput(
-              jornada.entrada
-          );
-  
-      editarSaidaJornada.value =
-          obterHoraParaInput(
-              jornada.saida
-          );
-  
-      modalEditarJornada.style.display =
-          "flex";
+    const jornada =
+      jornadasTrabalho.find(
+        item => item.data === data
+      );
+    if (!jornada) {
+      return;
+    }
+    dataJornadaEditando = data;
+
+    const [ano, mes, dia] =
+      data.split("-");
+
+    dataEditarJornada.textContent =
+      `${dia}/${mes}/${ano}`;
+
+    editarEntradaJornada.value =
+      obterHoraParaInput(
+        jornada.entrada
+      );
+
+    editarSaidaJornada.value =
+      obterHoraParaInput(
+        jornada.saida
+      );
+
+    modalEditarJornada.style.display =
+      "flex";
   }
   
   
-  document.addEventListener(
-      "click",
-      evento => {
+  document.addEventListener("click", evento => {
+    // ABRIR OU FECHAR MENU DOS TRES PONTINHOS
+    const botaoMenu = evento.target.closest(
+      ".btn-menu-historico"
+    );
   
-          const botao =
-              evento.target.closest(
-                  ".btn-editar-jornada"
-              );
+    if (botaoMenu) {
+      evento.stopPropagation();
   
-          if (!botao) {
-              return;
-          }
+      const menu = botaoMenu.nextElementSibling;
+      const estaAberto = menu.style.display !== "none";
   
-          abrirEdicaoJornada(
-              botao.dataset.data
+      // Fecha os outros menus do histórico
+      document.querySelectorAll(
+        ".opcoes-menu-historico"
+      ).forEach(outroMenu => {
+        outroMenu.style.display = "none";
+  
+        const outroBotao = outroMenu.previousElementSibling;
+  
+        if (outroBotao) {
+          outroBotao.setAttribute(
+          "aria-expanded",
+          "false"
           );
+        }
+      });
   
+      // Alterna o menu selecionado
+      menu.style.display = estaAberto ? "none" : "block";
+  
+      botaoMenu.setAttribute(
+        "aria-expanded",
+        String(!estaAberto)
+      );
+  
+      return;
+    }
+  
+    // EDITAR JORNADA
+    const botaoEditar = evento.target.closest(
+      ".btn-editar-jornada"
+    );
+  
+    if (botaoEditar) {
+      abrirEdicaoJornada(botaoEditar.dataset.data);
+      return;
+    }
+  
+    // EXCLUIR JORNADA
+    const botaoExcluir = evento.target.closest(
+      ".btn-excluir-jornada"
+    );
+  
+    if (botaoExcluir) {
+      const data = botaoExcluir.dataset.data;
+  
+      const confirmar = confirm(
+        "Deseja excluir o registro desta jornada? Essa ação não pode ser desfeita."
+      );
+  
+      if (!confirmar) {
+        return;
       }
-  );
   
+      jornadasTrabalho = jornadasTrabalho.filter(
+        jornada => jornada.data !== data
+      );
+  
+      localStorage.setItem(
+        "jornadasTrabalho",
+        JSON.stringify(jornadasTrabalho)
+      );
+  
+      // Sincroniza a jornada atual se for o dia de hoje
+      if (jornadaTrabalho.data === data) {
+        jornadaTrabalho = {};
+  
+        localStorage.setItem(
+          "jornadaTrabalho",
+          JSON.stringify(jornadaTrabalho)
+        );
+  
+        renderizarJornada();
+      }
+  
+      renderizarHistoricoJornada();
+    }
+  });
+
+  // FECHAR MENUS AO CLICAR FORA
+  document.addEventListener("click", evento => {
+    if (evento.target.closest(".menu-historico-jornada")) {
+      return;
+    }
+  
+    document.querySelectorAll(
+      ".opcoes-menu-historico"
+    ).forEach(menu => {
+      menu.style.display = "none";
+  
+      const botao = menu.previousElementSibling;
+  
+      if (botao) {
+        botao.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
   // ==========================================
   // BOTÃO CANCELAR JORNADA
   // ==========================================
   btnCancelarEdicaoJornada.addEventListener(
-      "click",
-      () => {
-  
-          modalEditarJornada.style.display =
-              "none";
-  
-          dataJornadaEditando = null;
-  
-      }
+    "click",
+    () => {
+      modalEditarJornada.style.display =
+        "none";
+
+      dataJornadaEditando = null;
+    }
   );
   
   // ==========================================
   // BOTÃO SALVAR EDIÇÃO JORNADA
   // ==========================================
   btnSalvarEdicaoJornada.addEventListener(
-      "click",
-      () => {
-  
-          if (!dataJornadaEditando) {
-              return;
-          }
-  
-          const jornada =
-              jornadasTrabalho.find(
-                  item =>
-                      item.data ===
-                      dataJornadaEditando
-              );
-  
-          if (!jornada) {
-              return;
-          }
-  
-  
-          // ==========================================
-          // ATUALIZA ENTRADA
-          // ==========================================
-  
-          if (editarEntradaJornada.value) {
-  
-              jornada.entrada =
-                  new Date(
-                      `${dataJornadaEditando}T${editarEntradaJornada.value}:00`
-                  ).toISOString();
-  
-          } else {
-  
-              jornada.entrada = null;
-  
-          }
-  
-  
-          // ==========================================
-          // ATUALIZA SAÍDA
-          // ==========================================
-  
-          if (editarSaidaJornada.value) {
-  
-              jornada.saida =
-                  new Date(
-                      `${dataJornadaEditando}T${editarSaidaJornada.value}:00`
-                  ).toISOString();
-  
-          } else {
-  
-              jornada.saida = null;
-  
-          }
-  
-  
-          // ==========================================
-          // SALVA HISTÓRICO
-          // ==========================================
-  
-          localStorage.setItem(
-              "jornadasTrabalho",
-              JSON.stringify(
-                  jornadasTrabalho
-              )
-          );
-  
-  
-          // ==========================================
-          // SE FOR O DIA ATUAL,
-          // ATUALIZA A JORNADA PRINCIPAL
-          // ==========================================
-  
-          if (
-              dataJornadaEditando ===
-              obterDataHoje()
-          ) {
-  
-              jornadaTrabalho = {
-                  data: jornada.data,
-                  entrada: jornada.entrada,
-                  saida: jornada.saida
-              };
-  
-              localStorage.setItem(
-                  "jornadaTrabalho",
-                  JSON.stringify(
-                      jornadaTrabalho
-                  )
-              );
-  
-              renderizarJornada();
-  
-          }
-  
-  
-          modalEditarJornada.style.display =
-              "none";
-  
-          dataJornadaEditando = null;
-  
-          renderizarHistoricoJornada();
-  
+    "click",
+    () => {
+      if (!dataJornadaEditando) {
+        return;
       }
+      const jornada =
+        jornadasTrabalho.find(
+          item =>
+            item.data ===
+            dataJornadaEditando
+        );
+      if (!jornada) {
+        return;
+      }
+
+      // ATUALIZA ENTRADA
+      if (editarEntradaJornada.value) {
+        jornada.entrada =
+          new Date(
+            `${dataJornadaEditando}T${editarEntradaJornada.value}:00`
+          ).toISOString();
+      } else {
+        jornada.entrada = null;
+      }
+
+      // ATUALIZA SAÍDA
+      if (editarSaidaJornada.value) {
+        jornada.saida =
+          new Date(
+            `${dataJornadaEditando}T${editarSaidaJornada.value}:00`
+          ).toISOString();
+      } else {
+        jornada.saida = null;
+      }
+
+      // SALVA HISTÓRICO
+      localStorage.setItem(
+        "jornadasTrabalho",
+        JSON.stringify(
+          jornadasTrabalho
+        )
+      );
+
+      // SE FOR O DIA ATUAL,
+      // ATUALIZA A JORNADA PRINCIPAL
+      if (
+        dataJornadaEditando ===
+        obterDataHoje()
+      ) {
+        jornadaTrabalho = {
+          data: jornada.data,
+          entrada: jornada.entrada,
+          saida: jornada.saida
+        };
+
+        localStorage.setItem(
+          "jornadaTrabalho",
+          JSON.stringify(
+            jornadaTrabalho
+          )
+        );
+
+        renderizarJornada();
+      }
+      modalEditarJornada.style.display =
+          "none";
+      dataJornadaEditando = null;
+
+      renderizarHistoricoJornada();
+    }
   );
-  
   
   // ==========================================
   // TRABALHO - TAREFAS
   // ==========================================
-  
   let tarefasTrabalho =
       JSON.parse(localStorage.getItem("tarefasTrabalho")) || [];
-  
   
   // ==========================================
   // ELEMENTOS
   // ==========================================
-  
   const btnNovaTarefaTrabalho =
-      document.getElementById(
-          "btnNovaTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "btnNovaTarefaTrabalho"
+    );
   const modalNovaTarefaTrabalho =
-      document.getElementById(
-          "modalNovaTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "modalNovaTarefaTrabalho"
+    );
   const nomeTarefaTrabalho =
-      document.getElementById(
-          "nomeTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "nomeTarefaTrabalho"
+    );
   const descricaoTarefaTrabalho =
-      document.getElementById(
-          "descricaoTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "descricaoTarefaTrabalho"
+    );
   const dataTarefaTrabalho =
-      document.getElementById(
-          "dataTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "dataTarefaTrabalho"
+    );
   const prioridadeTarefaTrabalho =
-      document.getElementById(
-          "prioridadeTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "prioridadeTarefaTrabalho"
+    );
   const mostrarRotinaTarefaTrabalho =
-      document.getElementById(
-          "mostrarRotinaTarefaTrabalho"
-      );
-  
+    document.getElementById(
+      "mostrarRotinaTarefaTrabalho"
+    );
   const btnCancelarNovaTarefa =
-      document.getElementById(
-          "btnCancelarNovaTarefa"
-      );
-  
+    document.getElementById(
+      "btnCancelarNovaTarefa"
+    );
   const btnSalvarNovaTarefa =
-      document.getElementById(
-          "btnSalvarNovaTarefa"
-      );
-  
+    document.getElementById(
+      "btnSalvarNovaTarefa"
+    );
   const tituloModalTarefa =
-      document.getElementById(
-          "tituloModalTarefa"
-      );
-  
+    document.getElementById(
+      "tituloModalTarefa"
+    );
   let tarefaEditandoId = null;
-  
-  
+
   // ==========================================
   // DATA DE HOJE
   // ==========================================
-  
   function obterDataHojeTrabalho() {
-  
-      const hoje = new Date();
-  
-      const ano =
-          hoje.getFullYear();
-  
-      const mes =
-          String(
-              hoje.getMonth() + 1
-          ).padStart(2, "0");
-  
-      const dia =
-          String(
-              hoje.getDate()
-          ).padStart(2, "0");
-  
-      return `${ano}-${mes}-${dia}`;
+    const hoje = new Date();
+    const ano =
+      hoje.getFullYear();
+    const mes =
+      String(
+        hoje.getMonth() + 1
+      ).padStart(2, "0");
+    const dia =
+      String(
+        hoje.getDate()
+      ).padStart(2, "0");
+    return `${ano}-${mes}-${dia}`;
   }
-  
-  
+
   // ==========================================
   // ABRIR NOVA TAREFA
   // ==========================================
-  
   btnNovaTarefaTrabalho.addEventListener(
-      "click",
-      () => {
-  
-          nomeTarefaTrabalho.value = "";
-  
-          descricaoTarefaTrabalho.value = "";
-  
-          dataTarefaTrabalho.value =
-              obterDataHojeTrabalho();
-  
-          prioridadeTarefaTrabalho.value =
-              "media";
-  
-          mostrarRotinaTarefaTrabalho.checked =
-              false;
-  
-          modalNovaTarefaTrabalho.style.display =
-              "flex";
-      }
+    "click",
+    () => {
+      nomeTarefaTrabalho.value = "";
+      descricaoTarefaTrabalho.value = "";
+      dataTarefaTrabalho.value =
+        obterDataHojeTrabalho();
+      prioridadeTarefaTrabalho.value =
+        "media";
+      mostrarRotinaTarefaTrabalho.checked =
+        false;
+      modalNovaTarefaTrabalho.style.display =
+        "flex";
+    }
   );
-  
   
   // ==========================================
   // CANCELAR
   // ==========================================
-  
   btnCancelarNovaTarefa.addEventListener(
-      "click",
-      () => {
-  
-          modalNovaTarefaTrabalho.style.display =
-              "none";
-  
-          tarefaEditandoId =
-              null;
-  
-          tituloModalTarefa.textContent =
-              "📋 Nova tarefa";
-      }
+    "click",
+    () => {
+      modalNovaTarefaTrabalho.style.display =
+        "none";
+      tarefaEditandoId =
+        null;
+      tituloModalTarefa.textContent =
+        "📋 Nova tarefa";
+    }
   );
   
   // ==========================================
   // EDITAR TAREFA
   // ==========================================
-  
   document.addEventListener(
-      "click",
-      evento => {
-  
-          const botao =
-              evento.target.closest(
-                  ".btn-editar-tarefa-trabalho"
-              );
-  
-          if (!botao) return;
-  
-          const id =
-              Number(
-                  botao.dataset.id
-              );
-  
-          const tarefa =
-              tarefasTrabalho.find(
-                  item =>
-                      item.id === id
-              );
-  
-          if (!tarefa) return;
-  
-          tarefaEditandoId = id;
-  
-          tituloModalTarefa.textContent =
-              "✏️ Editar tarefa";
-  
-          nomeTarefaTrabalho.value =
-              tarefa.nome;
-  
-          descricaoTarefaTrabalho.value =
-              tarefa.descricao || "";
-  
-          dataTarefaTrabalho.value =
-              tarefa.data;
-  
-          prioridadeTarefaTrabalho.value =
-              tarefa.prioridade;
-  
-          mostrarRotinaTarefaTrabalho.checked =
-              tarefa.mostrarNaRotina || false;
-  
-          modalNovaTarefaTrabalho.style.display =
-              "flex";
-      }
+    "click",
+    evento => {
+      const botao =
+        evento.target.closest(
+          ".btn-editar-tarefa-trabalho"
+        );
+      if (!botao) return;
+      const id =
+        Number(
+          botao.dataset.id
+        );
+      const tarefa =
+        tarefasTrabalho.find(
+          item =>
+            item.id === id
+        );
+      if (!tarefa) return;
+
+      tarefaEditandoId = id;
+
+      tituloModalTarefa.textContent =
+        "✏️ Editar tarefa";
+
+      nomeTarefaTrabalho.value =
+        tarefa.nome;
+
+      descricaoTarefaTrabalho.value =
+        tarefa.descricao || "";
+
+      dataTarefaTrabalho.value =
+        tarefa.data;
+
+      prioridadeTarefaTrabalho.value =
+        tarefa.prioridade;
+
+      mostrarRotinaTarefaTrabalho.checked =
+        tarefa.mostrarNaRotina || false;
+
+      modalNovaTarefaTrabalho.style.display =
+        "flex";
+    }
   );
   
   // ==========================================
   // EXCLUIR TAREFA
   // ==========================================
-  
   document.addEventListener(
-      "click",
-      evento => {
-  
-          const botao =
-              evento.target.closest(
-                  ".btn-excluir-tarefa-trabalho"
-              );
-  
-          if (!botao) return;
-  
-          const id =
-              Number(
-                  botao.dataset.id
-              );
-  
-          const tarefa =
-              tarefasTrabalho.find(
-                  item =>
-                      item.id === id
-              );
-  
-          if (!tarefa) return;
-  
-          const confirmar =
-              confirm(
-                  `Deseja excluir a tarefa "${tarefa.nome}"?`
-              );
-  
-          if (!confirmar) return;
-  
-          tarefasTrabalho =
-              tarefasTrabalho.filter(
-                  item =>
-                      item.id !== id
-              );
-  
-          localStorage.setItem(
-              "tarefasTrabalho",
-              JSON.stringify(
-                  tarefasTrabalho
-              )
-          );
-  
-          renderizarTarefasTrabalho();
-      }
+    "click",
+    evento => {
+      const botao =
+        evento.target.closest(
+          ".btn-excluir-tarefa-trabalho"
+        );
+      if (!botao) return;
+      const id =
+        Number(
+          botao.dataset.id
+        );
+      const tarefa =
+        tarefasTrabalho.find(
+          item =>
+            item.id === id
+        );
+      if (!tarefa) return;
+      const confirmar =
+        confirm(
+          `Deseja excluir a tarefa "${tarefa.nome}"?`
+        );
+      if (!confirmar) return;
+
+      tarefasTrabalho =
+        tarefasTrabalho.filter(
+          item =>
+            item.id !== id
+        );
+
+      localStorage.setItem(
+        "tarefasTrabalho",
+        JSON.stringify(
+          tarefasTrabalho
+        )
+      );
+
+      renderizarTarefasTrabalho();
+    }
   );
-  
   
   // ==========================================
   // SALVAR NOVA TAREFA
   // ==========================================
-  
   btnSalvarNovaTarefa.addEventListener(
-      "click",
-      () => {
-  
-          const nome =
-              nomeTarefaTrabalho.value.trim();
-  
-          if (!nome) {
-  
-              alert(
-                  "Digite o nome da tarefa."
-              );
-  
-              return;
-          }
-  
-  
-          // ==========================================
-          // EDITANDO UMA TAREFA EXISTENTE
-          // ==========================================
-  
-          if (tarefaEditandoId !== null) {
-  
-              const tarefa =
-                  tarefasTrabalho.find(
-                      item =>
-                          item.id ===
-                          tarefaEditandoId
-                  );
-  
-              if (!tarefa) return;
-  
-              tarefa.nome =
-                  nome;
-  
-              tarefa.descricao =
-                  descricaoTarefaTrabalho.value.trim();
-  
-              tarefa.data =
-                  dataTarefaTrabalho.value;
-  
-              tarefa.prioridade =
-                  prioridadeTarefaTrabalho.value;
-  
-              tarefa.mostrarNaRotina =
-                  mostrarRotinaTarefaTrabalho.checked;
-  
-              localStorage.setItem(
-                  "tarefasTrabalho",
-                  JSON.stringify(
-                      tarefasTrabalho
-                  )
-              );
-  
-              tarefaEditandoId =
-                  null;
-  
-              tituloModalTarefa.textContent =
-                  "📋 Nova tarefa";
-  
-              modalNovaTarefaTrabalho.style.display =
-                  "none";
-  
-              renderizarTarefasTrabalho();
-  
-              return;
-          }
-  
-  
-          // ==========================================
-          // CRIANDO UMA NOVA TAREFA
-          // ==========================================
-  
-          const novaTarefa = {
-  
-              id:
-                  Date.now(),
-  
-              nome:
-                  nome,
-  
-              descricao:
-                  descricaoTarefaTrabalho.value.trim(),
-  
-              data:
-                  dataTarefaTrabalho.value,
-  
-              prioridade:
-                  prioridadeTarefaTrabalho.value,
-  
-              concluida:
-                  false,
-  
-              mostrarNaRotina:
-                  mostrarRotinaTarefaTrabalho.checked
-  
-          };
-  
-          tarefasTrabalho.push(
-              novaTarefa
+    "click",
+    () => {
+      const nome =
+          nomeTarefaTrabalho.value.trim();
+      if (!nome) {
+          alert(
+              "Digite o nome da tarefa."
           );
-  
+          return;
+      }
+
+      // EDITANDO UMA TAREFA EXISTENTE
+      if (tarefaEditandoId !== null) {
+          const tarefa =
+              tarefasTrabalho.find(
+                  item =>
+                      item.id ===
+                      tarefaEditandoId
+              );
+          if (!tarefa) return;
+        
+          tarefa.nome =
+              nome;
+
+          tarefa.descricao =
+              descricaoTarefaTrabalho.value.trim();
+
+          tarefa.data =
+              dataTarefaTrabalho.value;
+
+          tarefa.prioridade =
+              prioridadeTarefaTrabalho.value;
+
+          tarefa.mostrarNaRotina =
+              mostrarRotinaTarefaTrabalho.checked;
+
           localStorage.setItem(
               "tarefasTrabalho",
               JSON.stringify(
                   tarefasTrabalho
               )
           );
-  
+
+          tarefaEditandoId =
+              null;
+
+          tituloModalTarefa.textContent =
+              "📋 Nova tarefa";
+
           modalNovaTarefaTrabalho.style.display =
               "none";
-  
+
           renderizarTarefasTrabalho();
+
+          return;
       }
+
+      // CRIANDO UMA NOVA TAREFA
+      const novaTarefa = {
+        id:
+          Date.now(),
+        nome:
+          nome,
+        descricao:
+          descricaoTarefaTrabalho.value.trim(),
+        data:
+            dataTarefaTrabalho.value,
+        prioridade:
+          prioridadeTarefaTrabalho.value,
+        concluida:
+          false,
+        mostrarNaRotina:
+          mostrarRotinaTarefaTrabalho.checked
+      };
+
+      tarefasTrabalho.push(
+        novaTarefa
+      );
+
+      localStorage.setItem(
+        "tarefasTrabalho",
+        JSON.stringify(
+          tarefasTrabalho
+        )
+      );
+
+      modalNovaTarefaTrabalho.style.display =
+        "none";
+
+      renderizarTarefasTrabalho();
+    }
   );
-  
   
   // ==========================================
   // RENDERIZAR TAREFAS DE HOJE
   // ==========================================
-  
   function renderizarTarefasTrabalho() {
-  
-      const container =
-          document.getElementById(
-              "listaTarefasTrabalho"
-          );
-  
-      if (!container) return;
-  
-      const hoje =
-          obterDataHojeTrabalho();
-  
-      const tarefasHoje =
-          tarefasTrabalho.filter(
-              tarefa =>
-                  tarefa.data === hoje
-          );
-  
-      container.innerHTML = "";
-  
-      if (tarefasHoje.length === 0) {
-  
-          container.innerHTML = `
-              <p class="estado-vazio-trabalho">
-                  Nenhuma tarefa para hoje.
-              </p>
-          `;
-  
-          return;
-      }
-  
-      tarefasHoje.forEach(
-          tarefa => {
-  
-              const item =
-                  document.createElement(
-                      "div"
-                  );
-  
-              item.className =
-                  "item-tarefa-trabalho";
-  
-              item.innerHTML = `
-                  <div class="tarefa-trabalho-conteudo">
-              
-                      <div class="tarefa-trabalho-linha">
-              
-                          <label class="tarefa-trabalho-check">
-              
-                              <input
-                                  type="checkbox"
-                                  class="checkbox-tarefa-trabalho"
-                                  data-id="${tarefa.id}"
-                                  ${tarefa.concluida ? "checked" : ""}
-                              >
-              
-                              <span
-                                  class="${tarefa.concluida ? "tarefa-concluida" : ""}"
-                              >
-                                  ${tarefa.nome}
-                              </span>
-              
-                          </label>
-              
-                          <div class="acoes-tarefa-trabalho">
-              
-                              <button
-                                  class="btn-editar-tarefa-trabalho"
-                                  data-id="${tarefa.id}"
-                                  title="Editar tarefa"
-                              >
-                                  ✏️
-                              </button>
-              
-                              <button
-                                  class="btn-excluir-tarefa-trabalho"
-                                  data-id="${tarefa.id}"
-                                  title="Excluir tarefa"
-                              >
-                                  🗑️
-                              </button>
-              
-                          </div>
-              
-                      </div>
-              
-                      ${
-                          tarefa.descricao
-                              ? `
-                                  <p>
-                                      ${tarefa.descricao}
-                                  </p>
-                                `
-                              : ""
-                      }
-              
-                  </div>
-              `;
-  
-              container.appendChild(
-                  item
-              );
-          }
+    const container =
+      document.getElementById(
+        "listaTarefasTrabalho"
       );
+    if (!container) return;
+    const hoje =
+      obterDataHojeTrabalho();
+    const tarefasHoje =
+      tarefasTrabalho.filter(
+        tarefa =>
+          tarefa.data === hoje
+      );
+  
+    container.innerHTML = "";
+  
+    if (tarefasHoje.length === 0) {
+      container.innerHTML = `
+        <p class="estado-vazio-trabalho">
+          Nenhuma tarefa para hoje.
+        </p>
+      `;
+        return;
+    }
+
+    tarefasHoje.forEach(
+      tarefa => {
+        const item =
+            document.createElement(
+                "div"
+            );
+        item.className =
+            "item-tarefa-trabalho";
+        item.innerHTML = `
+          <div class="tarefa-trabalho-conteudo">
+            <div class="tarefa-trabalho-linha">
+              <label class="tarefa-trabalho-check">
+                <input
+                  type="checkbox"
+                  class="checkbox-tarefa-trabalho"
+                  data-id="${tarefa.id}"
+                  ${tarefa.concluida ? "checked" : ""}
+                >
+
+                <span
+                  class="${tarefa.concluida ? "tarefa-concluida" : ""}"
+                >
+                  ${tarefa.nome}
+                </span>
+              </label>
+    
+              <div class="acoes-tarefa-trabalho">
+                <button
+                  class="btn-editar-tarefa-trabalho"
+                  data-id="${tarefa.id}"
+                  title="Editar tarefa"
+                >
+                  ✏️
+                </button>
+
+                <button
+                  class="btn-excluir-tarefa-trabalho"
+                  data-id="${tarefa.id}"
+                  title="Excluir tarefa"
+                >
+                  🗑️
+                </button>
+              </div>
+            </div>
+      
+            ${
+              tarefa.descricao
+                ? `
+                  <p>
+                    ${tarefa.descricao}
+                  </p>
+                `
+                : ""
+            }
+      
+          </div>
+        `;
+
+        container.appendChild(
+          item
+        );
+      }
+    );
   }
   
   function renderizarTodasTarefasTrabalho() {
+    const container =
+      document.getElementById(
+        "listaTodasTarefasTrabalho"
+      );
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (tarefasTrabalho.length === 0) {
+        container.innerHTML = `
+            <p class="estado-vazio-trabalho">
+                📭 Nenhuma tarefa cadastrada.
+            </p>
+        `;
+        return;
+    }
   
-      const container =
-          document.getElementById(
-              "listaTodasTarefasTrabalho"
-          );
+    // ORDENAR POR DATA
+    const tarefasOrdenadas =
+        [...tarefasTrabalho].sort(
+            (a, b) =>
+                a.data.localeCompare(b.data)
+        );
   
-      if (!container) return;
-  
-      container.innerHTML = "";
-  
-      if (tarefasTrabalho.length === 0) {
-  
-          container.innerHTML = `
-              <p class="estado-vazio-trabalho">
-                  📭 Nenhuma tarefa cadastrada.
-              </p>
-          `;
-  
-          return;
+    // AGRUPAR POR DATA
+    const tarefasPorData = {};
+    tarefasOrdenadas.forEach(
+      tarefa => {
+        if (!tarefasPorData[tarefa.data]) {
+          tarefasPorData[tarefa.data] = [];
+        }
+
+        tarefasPorData[tarefa.data].push(
+          tarefa
+        );
       }
+    );
   
-  
-      // ==========================================
-      // ORDENAR POR DATA
-      // ==========================================
-  
-      const tarefasOrdenadas =
-          [...tarefasTrabalho].sort(
-              (a, b) =>
-                  a.data.localeCompare(b.data)
-          );
-  
-  
-      // ==========================================
-      // AGRUPAR POR DATA
-      // ==========================================
-  
-      const tarefasPorData = {};
-  
-      tarefasOrdenadas.forEach(
+    // RENDERIZAR CADA DATA
+    Object.keys(tarefasPorData).forEach(
+      data => {
+        const grupo =
+          document.createElement("div");
+        grupo.className =
+          "grupo-tarefas-data";
+        const [ano, mes, dia] =
+          data.split("-");
+        const dataFormatada =
+          `${dia}/${mes}/${ano}`;
+        grupo.innerHTML = `
+          <h3 class="titulo-data-tarefas">
+            📅 ${dataFormatada}
+          </h3>
+        `;
+
+        tarefasPorData[data].forEach(
           tarefa => {
-  
-              if (!tarefasPorData[tarefa.data]) {
-  
-                  tarefasPorData[tarefa.data] = [];
-  
-              }
-  
-              tarefasPorData[tarefa.data].push(
-                  tarefa
-              );
-  
+            const item =
+                document.createElement(
+                    "div"
+                );
+            item.className =
+                "item-tarefa-trabalho";
+
+
+            item.innerHTML = `
+              <div class="tarefa-trabalho-conteudo">
+                <div class="tarefa-trabalho-linha">
+                  <label class="tarefa-trabalho-check">
+                    <input
+                      type="checkbox"
+                      class="checkbox-tarefa-trabalho"
+                      data-id="${tarefa.id}"
+                      ${tarefa.concluida ? "checked" : ""}
+                    >
+                    <span
+                      class="${tarefa.concluida ? "tarefa-concluida" : ""}"
+                    >
+                      ${tarefa.nome}
+                    </span>
+                  </label>
+
+                  <div class="acoes-tarefa-trabalho">
+                    <button
+                      class="btn-editar-tarefa-trabalho"
+                      data-id="${tarefa.id}"
+                      title="Editar tarefa"
+                    >
+                      ✏️
+                    </button>
+
+                    <button
+                      class="btn-excluir-tarefa-trabalho"
+                      data-id="${tarefa.id}"
+                      title="Excluir tarefa"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+
+                ${
+                  tarefa.descricao
+                    ? `
+                      <p>
+                        ${tarefa.descricao}
+                      </p>
+                    `
+                  : ""
+                }
+              </div>
+            `;
+
+            grupo.appendChild(item);
           }
-      );
-  
-  
-      // ==========================================
-      // RENDERIZAR CADA DATA
-      // ==========================================
-  
-      Object.keys(tarefasPorData).forEach(
-          data => {
-  
-              const grupo =
-                  document.createElement("div");
-  
-              grupo.className =
-                  "grupo-tarefas-data";
-  
-  
-              const [ano, mes, dia] =
-                  data.split("-");
-  
-              const dataFormatada =
-                  `${dia}/${mes}/${ano}`;
-  
-  
-              grupo.innerHTML = `
-                  <h3 class="titulo-data-tarefas">
-                      📅 ${dataFormatada}
-                  </h3>
-              `;
-  
-  
-              tarefasPorData[data].forEach(
-                  tarefa => {
-  
-                      const item =
-                          document.createElement(
-                              "div"
-                          );
-  
-                      item.className =
-                          "item-tarefa-trabalho";
-  
-  
-                      item.innerHTML = `
-                          <div class="tarefa-trabalho-conteudo">
-  
-                              <div class="tarefa-trabalho-linha">
-  
-                                  <label class="tarefa-trabalho-check">
-  
-                                      <input
-                                          type="checkbox"
-                                          class="checkbox-tarefa-trabalho"
-                                          data-id="${tarefa.id}"
-                                          ${tarefa.concluida ? "checked" : ""}
-                                      >
-  
-                                      <span
-                                          class="${tarefa.concluida ? "tarefa-concluida" : ""}"
-                                      >
-                                          ${tarefa.nome}
-                                      </span>
-  
-                                  </label>
-  
-                                  <div class="acoes-tarefa-trabalho">
-  
-                                      <button
-                                          class="btn-editar-tarefa-trabalho"
-                                          data-id="${tarefa.id}"
-                                          title="Editar tarefa"
-                                      >
-                                          ✏️
-                                      </button>
-  
-                                      <button
-                                          class="btn-excluir-tarefa-trabalho"
-                                          data-id="${tarefa.id}"
-                                          title="Excluir tarefa"
-                                      >
-                                          🗑️
-                                      </button>
-  
-                                  </div>
-  
-                              </div>
-  
-                              ${
-                                  tarefa.descricao
-                                      ? `
-                                          <p>
-                                              ${tarefa.descricao}
-                                          </p>
-                                        `
-                                      : ""
-                              }
-  
-                          </div>
-                      `;
-  
-  
-                      grupo.appendChild(item);
-  
-                  }
-              );
-  
-  
-              container.appendChild(grupo);
-  
-          }
-      );
+        );
+
+        container.appendChild(grupo);
+
+      }
+    );
   }
   
-  // ==========================================
   // CONCLUIR TAREFA
-  // ==========================================
-  
   document.addEventListener(
-      "change",
-      evento => {
-  
-          if (
-              !evento.target.classList.contains(
-                  "checkbox-tarefa-trabalho"
-              )
-          ) {
-              return;
-          }
-  
-          const id =
-              Number(
-                  evento.target.dataset.id
-              );
-  
-          const tarefa =
-              tarefasTrabalho.find(
-                  item =>
-                      item.id === id
-              );
-  
-          if (!tarefa) return;
-  
-          tarefa.concluida =
-              evento.target.checked;
-  
-          localStorage.setItem(
-              "tarefasTrabalho",
-              JSON.stringify(
-                  tarefasTrabalho
-              )
-          );
-  
-          renderizarTarefasTrabalho();
+    "change",
+    evento => {
+      if (
+        !evento.target.classList.contains(
+          "checkbox-tarefa-trabalho"
+        )
+      ) {
+        return;
       }
+      const id =
+        Number(
+          evento.target.dataset.id
+        );
+      const tarefa =
+        tarefasTrabalho.find(
+            item =>
+                item.id === id
+        );
+      if (!tarefa) return;
+
+      tarefa.concluida =
+        evento.target.checked;
+
+      localStorage.setItem(
+        "tarefasTrabalho",
+        JSON.stringify(
+            tarefasTrabalho
+        )
+      );
+
+      renderizarTarefasTrabalho();
+    }
   );
   
-  // ==========================================
   // CARREGAR JORNADA
-  // ==========================================
-  
   renderizarJornada();
   renderizarHistoricoJornada();
   renderizarTarefasTrabalho();
-
-
 
 // ==========================================
 // MÓDULO DE LEITURA
@@ -9072,93 +8941,58 @@ btnVoltarMetas.addEventListener("click", () => {
 // ==========================================
 // RENDERIZAR FICHA
 // ==========================================
-
 function renderizarFichaMeta() {
+  const meta = metaSelecionada;
+  let porcentagem = 0;
+  let textoProgresso = "";
 
-    const meta = metaSelecionada;
-
-    let porcentagem = 0;
-
-    let textoProgresso = "";
-
-
-    // ======================================
     // PROGRESSO
-    // ======================================
-
     if (meta.progresso.tipo === "numero") {
-
-        const atual =
-            Number(meta.progresso.valorAtual) || 0;
-
-        const objetivo =
-            Number(meta.progresso.valorObjetivo) || 0;
-
-        if (objetivo > 0) {
-
-            porcentagem =
-                (atual / objetivo) * 100;
-
-        }
-
+      const atual =
+        Number(meta.progresso.valorAtual) || 0;
+      const objetivo =
+        Number(meta.progresso.valorObjetivo) || 0;
+      if (objetivo > 0) {
+        porcentagem =
+          (atual / objetivo) * 100;
+      }
         textoProgresso =
-            `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
-
+          `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
     }
-
 
     if (meta.progresso.tipo === "porcentagem") {
-
         porcentagem =
-            Number(meta.progresso.porcentagem) || 0;
-
+          Number(meta.progresso.porcentagem) || 0;
         textoProgresso =
-            `${porcentagem}%`;
-
+          `${porcentagem}%`;
     }
-
 
     if (meta.progresso.tipo === "quantidade") {
-
-        const atual =
-            Number(meta.progresso.valorAtual) || 0;
-
-        const objetivo =
-            Number(meta.progresso.valorObjetivo) || 0;
-
-        if (objetivo > 0) {
-
-            porcentagem =
-                (atual / objetivo) * 100;
-
-        }
-
-        textoProgresso =
-            `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
-
+      const atual =
+        Number(meta.progresso.valorAtual) || 0;
+      const objetivo =
+        Number(meta.progresso.valorObjetivo) || 0;
+      if (objetivo > 0) {
+        porcentagem =
+          (atual / objetivo) * 100;
+      }
+      textoProgresso =
+        `${atual} / ${objetivo} ${meta.progresso.unidade || ""}`;
     }
 
-
     if (meta.progresso.tipo === "etapas") {
-
         const total =
             meta.etapas.length;
-
         const concluidas =
             meta.etapas.filter(
                 etapa => etapa.concluida
             ).length;
-
         if (total > 0) {
-
             porcentagem =
                 (concluidas / total) * 100;
-
         }
-
         textoProgresso =
             `${concluidas} / ${total} etapas`;
-
     }
 
 
@@ -9490,37 +9324,34 @@ function renderizarFichaMeta() {
     // ======================================
     // EVENTOS DAS ETAPAS
     // ======================================
-
     fichaMetaConteudo
-        .querySelectorAll(
-            "[data-indice-etapa]"
-        )
-        .forEach(checkbox => {
+      .querySelectorAll(
+          "[data-indice-etapa]"
+      )
+      .forEach(checkbox => {
 
-            checkbox.addEventListener(
-                "change",
-                () => {
+        checkbox.addEventListener(
+          "change",
+          () => {
 
-                    const indice =
-                        Number(
-                            checkbox.dataset
-                                .indiceEtapa
-                        );
+            const indice =
+              Number(
+                checkbox.dataset
+                  .indiceEtapa
+              );
 
-                    metaSelecionada
-                        .etapas[indice]
-                        .concluida =
-                            checkbox.checked;
+            metaSelecionada
+              .etapas[indice]
+              .concluida =
+                checkbox.checked;
 
+            salvarMetas();
+            renderizarFichaMeta();
 
-                    salvarMetas();
+          }
+        );
 
-                    renderizarFichaMeta();
-
-                }
-            );
-
-        });
+      });
 
 }
 
