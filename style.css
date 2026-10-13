@@ -2218,74 +2218,74 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 /* ==========================================
    MÓDULO DE TRABALHO
 ========================================== */
-
-.bloco-trabalho {
-  padding: 20px;
-  margin-bottom: 15px;
-  background: #f8f9fa;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-}
-
-.titulo-bloco-trabalho h3 {
+  .bloco-trabalho {
+    padding: 20px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+  }
+  
+  .titulo-bloco-trabalho h3 {
     margin: 0 0 15px 0;
-}
+  }
 
-.jornada-trabalho {
+  /* JORNADA */
+  .jornada-trabalho {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-}
-
-.item-jornada {
+  }
+  
+  .item-jornada {
     padding: 14px;
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
-}
-
-.item-jornada span {
+  }
+  
+  .item-jornada span {
     display: block;
     margin-bottom: 5px;
     color: #6b7280;
     font-size: 13px;
-}
-
-.item-jornada strong {
+  }
+  
+  .item-jornada strong {
     font-size: 15px;
-}
-
-.acoes-jornada {
+  }
+  
+  .acoes-jornada {
     display: flex;
     gap: 10px;
     margin-top: 15px;
-}
-
-.acoes-jornada button {
+  }
+  
+  .acoes-jornada button {
     flex: 1;
-}
-
-.btn-secundario-trabalho {
+  }
+  
+  .btn-secundario-trabalho {
     opacity: 0.8;
-}
-
-.lista-tarefas-trabalho {
+  }
+  
+  .lista-tarefas-trabalho {
     display: flex;
     flex-direction: column;
-}
-
-.estado-vazio-trabalho {
+  }
+  
+  .estado-vazio-trabalho {
     margin: 0;
     color: #6b7280;
     font-size: 14px;
-}
-
-.btn-nova-tarefa-trabalho {
+  }
+  
+  .btn-nova-tarefa-trabalho {
     width: 100%;
     margin-top: 15px;
-}
-
-.anotacao-trabalho {
+  }
+  
+  .anotacao-trabalho {
     width: 100%;
     min-height: 120px;
     padding: 12px;
@@ -2296,27 +2296,115 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     background: white;
     font-family: inherit;
     font-size: 15px;
-}
-
-.btn-salvar-anotacao-trabalho {
+  }
+  
+  .btn-salvar-anotacao-trabalho {
     width: 100%;
     margin-top: 10px;
-}
-
-@media (max-width: 600px) {
-
+  }
+  
+  @media (max-width: 600px) {
+  
     .jornada-trabalho {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
 
     .acoes-jornada {
-        flex-direction: column;
+      flex-direction: column;
     }
+  
+  }
+  
+  .botoes-historico-jornada {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .botoes-historico-jornada button {
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
 
-}
+  /* MENU DE TRES PONTINHOS - JORNADA */
+  .titulo-bloco-trabalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .menu-jornada {
+    position: relative;
+  }
+  
+  .btn-menu-pontos {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  
+  .btn-menu-pontos:hover {
+    background: var(--cor-fundo-hover, #eeeeee);
+  }
+  
+  .opcoes-menu-pontos {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    min-width: 210px;
+    padding: 5px;
+    background: var(--cor-card, #ffffff);
+    border: 1px solid var(--cor-borda, #dddddd);
+    border-radius: 10px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+  }
+  
+  .opcoes-menu-pontos button {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .opcoes-menu-pontos button:hover {
+    background: var(--cor-fundo-hover, #eeeeee);
+  }
 
+  /* MENU DE OPCOES DO HISTORICO */
+  .item-historico-jornada {
+    position: relative;
+  }
 
+  .menu-historico-jornada {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
 
+  .btn-menu-historico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .opcoes-menu-historico {
+    top: calc(100% + 4px);
+    right: 0;
+  }
 
 /* ==========================================
    CARDS DE METAS
@@ -2412,98 +2500,97 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 }
 
 /* ==========================================
-   FICHA DA META
-   ========================================== */
-
+ FICHA DA META
+ ========================================== */
 .ficha-meta-cabecalho {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .btn-voltar {
-    margin-bottom: 20px;
-    padding: 8px 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
+  margin-bottom: 20px;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .ficha-meta {
-    background: white;
-    border: 1px solid #d1d5db;
-    border-radius: 14px;
-    padding: 25px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 25px;
 }
 
 .ficha-meta-titulo {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .ficha-meta-titulo h2 {
-    margin: 0;
+  margin: 0;
 }
 
 .ficha-meta-descricao {
-    margin-top: 10px;
-    color: #6b7280;
+  margin-top: 10px;
+  color: #6b7280;
 }
 
 .ficha-meta-secao {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #e5e7eb;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .ficha-meta-secao h3 {
-    margin: 0 0 15px 0;
+  margin: 0 0 15px 0;
 }
 
 .ficha-meta-progresso-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .ficha-meta-barra {
-    width: 100%;
-    height: 10px;
-    background: #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .ficha-meta-barra-preenchida {
-    height: 100%;
-    background: #111827;
-    border-radius: 10px;
+  height: 100%;
+  background: #111827;
+  border-radius: 10px;
 }
 
 .etapa-ficha {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  cursor: pointer;
 }
 
 .etapa-ficha input {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .relacionados-ficha {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .relacionado-ficha {
-    padding: 7px 12px;
-    background: #f3f4f6;
-    border-radius: 20px;
+  padding: 7px 12px;
+  background: #f3f4f6;
+  border-radius: 20px;
 }
 
 .anotacoes-ficha {
