@@ -2540,134 +2540,127 @@ renderizarCalendario();
 // NAVEGAÇÃO — INÍCIO
 // ==========================================
 
-// ATIVA O BOTÃO SELECIONADO
-document.querySelectorAll(
+  // ATIVA O BOTÃO SELECIONADO
+  document.querySelectorAll(
+      ".item-navegacao"
+  ).forEach(
+      botao => {
+  
+          botao.addEventListener(
+              "click",
+              () => {
+  
+                  document.querySelectorAll(
+                      ".item-navegacao"
+                  ).forEach(
+                      item => {
+                          item.classList.remove(
+                              "ativo"
+                          );
+                      }
+                  );
+  
+                  botao.classList.add(
+                      "ativo"
+                  );
+  
+              }
+          );
+  
+      }
+  );
+  
+  // DEFINE AS TELAS DOS MÓDULOS
+  const telasModulos = {
+      inicio: document.getElementById("telaInicio"),
+      habitos: document.getElementById("telaHabitos"),
+      alimentacao: document.getElementById("telaAlimentacao"),
+      financas: document.getElementById("telaFinancas"),
+      treino: document.getElementById("telaTreino"),
+      estudos: document.getElementById("telaEstudos"),
+      trabalho: document.getElementById("telaTrabalho"),
+      metas: document.getElementById("telaMetas"),
+      saudeMental: document.getElementById("telaSaudeMental"),
+      leitura: document.getElementById("telaLeitura")
+  };
+  
+  // ESCONDE TODOS OS MÓDULOS
+  Object.values(
+      telasModulos
+  ).forEach(
+      modulo => {
+          modulo.style.display = "none";
+      }
+  );
+  
+  // ABRE O DASHBOARD AO INICIAR
+  telasModulos.inicio.style.display = "block";
+  
+  // ELEMENTOS DO MENU
+  const btnMenu = document.getElementById("btnMenu");
+  const menuModulos = document.getElementById("menuModulos");
+  
+  // TROCA ENTRE OS MÓDULOS
+  document.querySelectorAll(
     ".item-navegacao"
-).forEach(
+  ).forEach(
     botao => {
-
-        botao.addEventListener(
-            "click",
-            () => {
-
-                document.querySelectorAll(
-                    ".item-navegacao"
-                ).forEach(
-                    item => {
-                        item.classList.remove(
-                            "ativo"
-                        );
-                    }
-                );
-
-                botao.classList.add(
-                    "ativo"
-                );
-
+      botao.addEventListener(
+        "click",
+        () => {
+          const tela =
+              botao.dataset.tela;
+          Object.values(
+              telasModulos
+          ).forEach(
+            modulo => {
+              modulo.style.display =
+                "none";
             }
-        );
+          );
 
+          telasModulos[tela].style.display =
+            "block";
+
+          // Fecha o menu lateral
+          menuModulos.classList.remove("aberto");
+
+          // Esconde o conteúdo exclusivo do Dashboard
+          document.getElementById(
+            "cabecalhoDashboard"
+          ).style.display = "none";
+
+          // Esconde somente o texto DASHBOARD
+          document.getElementById(
+            "tituloDashboard"
+          ).style.display = "none";
+        }
+      );
     }
-);
-
-// DEFINE AS TELAS DOS MÓDULOS
-const telasModulos = {
-    inicio: document.getElementById("telaInicio"),
-    habitos: document.getElementById("telaHabitos"),
-    alimentacao: document.getElementById("telaAlimentacao"),
-    financas: document.getElementById("telaFinancas"),
-    treino: document.getElementById("telaTreino"),
-    estudos: document.getElementById("telaEstudos"),
-    trabalho: document.getElementById("telaTrabalho"),
-    metas: document.getElementById("telaMetas"),
-    saudeMental: document.getElementById("telaSaudeMental"),
-    leitura: document.getElementById("telaLeitura")
-};
-
-// ESCONDE TODOS OS MÓDULOS
-Object.values(
-    telasModulos
-).forEach(
-    modulo => {
-        modulo.style.display = "none";
-    }
-);
-
-// ABRE O DASHBOARD AO INICIAR
-telasModulos.inicio.style.display = "block";
-
-// ELEMENTOS DO MENU
-const btnMenu = document.getElementById("btnMenu");
-const menuModulos = document.getElementById("menuModulos");
-
-// TROCA ENTRE OS MÓDULOS
-document.querySelectorAll(
-    ".item-navegacao"
-).forEach(
-    botao => {
-
-        botao.addEventListener(
-            "click",
-            () => {
-
-                const tela =
-                    botao.dataset.tela;
-
-                Object.values(
-                    telasModulos
-                ).forEach(
-                    modulo => {
-
-                        modulo.style.display =
-                            "none";
-
-                    }
-                );
-
-                telasModulos[tela].style.display =
-                    "block";
-
-                // Fecha o menu lateral
-                menuModulos.classList.remove("aberto");
-
-                // Esconde o conteúdo exclusivo do Dashboard
-                document.getElementById(
-                    "cabecalhoDashboard"
-                ).style.display = "none";
-
-                // Esconde somente o texto DASHBOARD
-                document.getElementById(
-                    "tituloDashboard"
-                ).style.display = "none";
-
-            }
-        );
-
-    }
-);
-
-btnMenu.addEventListener("click", () => {
-    menuModulos.classList.add("aberto");
-});
-
-const btnVoltarMenu = document.getElementById("btnVoltarMenu");
-
-btnVoltarMenu.addEventListener("click", () => {
-    menuModulos.classList.remove("aberto");
-});
-
-document.addEventListener("click", (evento) => {
-    const clicouDentroDoMenu = menuModulos.contains(evento.target);
-    const clicouNoBotaoMenu = btnMenu.contains(evento.target);
-
-    if (
-        menuModulos.classList.contains("aberto") &&
-        !clicouDentroDoMenu &&
-        !clicouNoBotaoMenu
-    ) {
-        menuModulos.classList.remove("aberto");
-    }
-});
+  );
+  
+  btnMenu.addEventListener("click", () => {
+      menuModulos.classList.add("aberto");
+  });
+  
+  const btnVoltarMenu = document.getElementById("btnVoltarMenu");
+  
+  btnVoltarMenu.addEventListener("click", () => {
+      menuModulos.classList.remove("aberto");
+  });
+  
+  document.addEventListener("click", (evento) => {
+      const clicouDentroDoMenu = menuModulos.contains(evento.target);
+      const clicouNoBotaoMenu = btnMenu.contains(evento.target);
+  
+      if (
+          menuModulos.classList.contains("aberto") &&
+          !clicouDentroDoMenu &&
+          !clicouNoBotaoMenu
+      ) {
+          menuModulos.classList.remove("aberto");
+      }
+  });
 
 // ==========================================
 // GESTO DE ARRASTAR — MENU LATERAL
@@ -3301,1891 +3294,1957 @@ document.querySelectorAll(
     }
 );
 
-// PARTE DE TREINO
-function atualizarTreinoHoje() {
+// ========================================
+// MÓDULO TREINO
+// ========================================
 
+  // PARTE DE TREINO
+  function atualizarTreinoHoje() {
     const diaSemana =
-        new Date().getDay();
-
+      new Date().getDay();
+  
     const treinosSemana = {
-
-        1: {
-            nome: "Push",
-            descricao: "Peito, Ombros e Tríceps"
-        },
-
-        2: {
-            nome: "Pull",
-            descricao: "Costas e Bíceps"
-        },
-
-        3: {
-            nome: "Lower A",
-            descricao: "Quadríceps"
-        },
-
-        4: {
-            nome: "Upper",
-            descricao: "Parte superior completa"
-        },
-
-        5: {
+      1: {
+        nome: "Push",
+        descricao: "Peito, Ombros e Tríceps"
+      },
+      2: {
+        nome: "Pull",
+        descricao: "Costas e Bíceps"
+      },
+      3: {
+        nome: "Lower A",
+        descricao: "Quadríceps"
+      },
+      4: {
+        nome: "Upper",
+        descricao: "Parte superior completa"
+      },
+      5: {
             nome: "Lower B",
             descricao: "Posterior"
-        }
-
+      }
     };
-
+  
     const treino =
-        treinosSemana[diaSemana];
-
+      treinosSemana[diaSemana];
     const container =
-        document.getElementById(
-            "treinoHojeInicio"
-        );
-
+      document.getElementById(
+        "treinoHojeInicio"
+      );
     if (!treino) {
-
-        container.innerHTML = `
-            <p>😴 Hoje é dia de descanso.</p>
-        `;
-
-        return;
-
+      container.innerHTML = `
+        <p>😴 Hoje é dia de descanso.</p>
+      `;
+  
+      return;
     }
-
+  
     container.innerHTML = `
-        <strong>${treino.nome}</strong>
-        <p>${treino.descricao}</p>
+      <strong>${treino.nome}</strong>
+      <p>${treino.descricao}</p>
     `;
+  
+  }
 
-}
-
-document
+  document
     .getElementById("treinoHojeInicio")
     .addEventListener(
-        "click",
-        () => {
+      "click",
+      () => {
+        const diaSemana =
+            new Date().getDay();
 
-            const diaSemana =
-                new Date().getDay();
+        const treinosSemana = {
 
-            const treinosSemana = {
+            1: "Push",
+            2: "Pull",
+            3: "Lower A",
+            4: "Upper",
+            5: "Lower B"
 
-                1: "Push",
-                2: "Pull",
-                3: "Lower A",
-                4: "Upper",
-                5: "Lower B"
+        };
 
-            };
+        const treino =
+            treinosSemana[diaSemana];
 
-            const treino =
-                treinosSemana[diaSemana];
-
-            if (!treino) {
-                return;
-            }
-
-            document.getElementById(
-                "modalNomeTreino"
-            ).textContent =
-                treino;
-
-            document.getElementById(
-                "modalTreino"
-            ).style.display =
-                "flex";
-
+        if (!treino) {
+            return;
         }
+
+        document.getElementById(
+            "modalNomeTreino"
+        ).textContent =
+            treino;
+
+        document.getElementById(
+            "modalTreino"
+        ).style.display =
+            "flex";
+      }
     );
 
-const modalTreino =
-    document.getElementById("modalTreino");
+  const modalTreino =
+      document.getElementById("modalTreino");
+  
+  document.getElementById("btnCancelarTreino").addEventListener("click", () => {
+    modalTreino.style.display = "none";
+  });
+  
+  document.getElementById("btnSalvarFicha").addEventListener("click", () => {
+      salvarEdicaoFichaTreino();
+  });
+  
+  document.getElementById("btnCancelarEdicaoFicha").addEventListener("click", () => {
+      const treino = window.treinoEmEdicao;
+  
+      if (!treino || !fichasTreino[treino]) return;
+  
+      abrirFichaTreino(treino, false);
+  });
 
-document
-  .getElementById("btnCancelarTreino")
-  .addEventListener(
+
+  document
+    .getElementById("voltarListaTreinos")
+    .addEventListener(
       "click",
       () => {
+        document.getElementById(
+          "fichaTreino"
+        ).style.display = "none";
 
-          modalTreino.style.display =
-              "none";
+        document.getElementById(
+          "modalTreino"
+        ).style.display = "none";
 
+        Object.values(telasModulos).forEach(
+          modulo => {
+            modulo.style.display = "none";
+          }
+        );
+
+        telasModulos.treino.style.display =
+            "block";
       }
-  );
+    );
 
-document
-  .getElementById("voltarListaTreinos")
-  .addEventListener(
-      "click",
-      () => {
-
-          document.getElementById(
-              "fichaTreino"
-          ).style.display = "none";
-
-          document.getElementById(
-              "modalTreino"
-          ).style.display = "none";
-
-          Object.values(telasModulos).forEach(
-              modulo => {
-                  modulo.style.display = "none";
-              }
-          );
-
-          telasModulos.treino.style.display =
-              "block";
-
-      }
-  );
-
-modalTreino.addEventListener(
+  modalTreino.addEventListener(
     "click",
     (evento) => {
-
-        if (
-            evento.target === modalTreino
-        ) {
-
-            modalTreino.style.display =
-                "none";
-
-        }
-
+      if (
+        evento.target === modalTreino
+      ) {
+        modalTreino.style.display =
+          "none";
+      }
     }
-);
+  );
 
-const fichasTreino = {
-
+  // FICHAS DE TREINO
+  const fichasTreino = {
     push: {
-        nome: "Push",
-        descricao: "Peito, Ombros e Tríceps",
+      nome: "Push",
+      descricao: "Peito, Ombros e Tríceps",
 
-        grupos: {
+      grupos: {
+        "PEITO": [
+          {
+            nome: "Supino reto com halter",
+            series: 4,
+            repeticoes: "6-8"
+          },
+          {
+            nome: "Supino inclinado com halteres",
+            series: 3,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Crucifixo unilateral na polia",
+            series: 3,
+            repeticoes: "12-15"
+          }
+        ],
 
-            "PEITO": [
-                {
-                    nome: "Supino reto com halter",
-                    series: 4,
-                    repeticoes: "6-8"
-                },
-                {
-                    nome: "Supino inclinado com halteres",
-                    series: 3,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Crucifixo unilateral na polia",
-                    series: 3,
-                    repeticoes: "12-15"
-                }
-            ],
+        "OMBROS": [
+          {
+            nome: "Desenvolvimento com halteres",
+            series: 3,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Elevação lateral",
+            series: 4,
+            repeticoes: "12-15"
+          }
+        ],
 
-            "OMBROS": [
-                {
-                    nome: "Desenvolvimento com halteres",
-                    series: 3,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Elevação lateral",
-                    series: 4,
-                    repeticoes: "12-15"
-                }
-            ],
-
-            "TRÍCEPS": [
-                {
-                    nome: "Tríceps corda",
-                    series: 3,
-                    repeticoes: "10-12"
-                },
-                {
-                    nome: "Tríceps francês",
-                    series: 2,
-                    repeticoes: "12-15"
-                }
-            ]
-        }
+        "TRÍCEPS": [
+          {
+            nome: "Tríceps corda",
+            series: 3,
+            repeticoes: "10-12"
+          },
+          {
+            nome: "Tríceps francês",
+            series: 2,
+            repeticoes: "12-15"
+          }
+        ]
+      }
     },
-
+  
     pull: {
-        nome: "Pull",
-        descricao: "Costas e Bíceps",
+      nome: "Pull",
+      descricao: "Costas e Bíceps",
 
-        grupos: {
+      grupos: {
+        "COSTAS": [
+          {
+            nome: "Puxada alta",
+            series: 4,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Remada curvada",
+            series: 4,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Remada baixa",
+            series: 3,
+            repeticoes: "10-12"
+          },
+          {
+            nome: "Pulldown com braços retos",
+            series: 3,
+            repeticoes: "12-15"
+          }
+        ],
 
-            "COSTAS": [
-                {
-                    nome: "Puxada alta",
-                    series: 4,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Remada curvada",
-                    series: 4,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Remada baixa",
-                    series: 3,
-                    repeticoes: "10-12"
-                },
-                {
-                    nome: "Pulldown com braços retos",
-                    series: 3,
-                    repeticoes: "12-15"
-                }
-            ],
+        "OMBRO POSTERIOR": [
+          {
+            nome: "Face pull",
+            series: 3,
+            repeticoes: "15"
+          }
+        ],
 
-            "OMBRO POSTERIOR": [
-                {
-                    nome: "Face pull",
-                    series: 3,
-                    repeticoes: "15"
-                }
-            ],
-
-            "BÍCEPS": [
-                {
-                    nome: "Rosca direta",
-                    series: 3,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Rosca martelo",
-                    series: 3,
-                    repeticoes: "10-12"
-                }
-            ]
-        }
+        "BÍCEPS": [
+          {
+            nome: "Rosca direta",
+            series: 3,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Rosca martelo",
+            series: 3,
+            repeticoes: "10-12"
+          }
+        ]
+      }
     },
-
+  
     lowerA: {
-        nome: "Lower A",
-        descricao: "Quadríceps",
+      nome: "Lower A",
+      descricao: "Quadríceps",
 
-        grupos: {
+      grupos: {
+        "PERNAS": [
+          {
+            nome: "Agachamento livre",
+            series: 4,
+            repeticoes: "6-8"
+          },
+          {
+            nome: "Stiff",
+            series: 4,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Leg Press",
+            series: 4,
+            repeticoes: "10"
+          },
+          {
+            nome: "Afundo com halteres ou no Smith",
+            series: 3,
+            repeticoes: "10 por perna"
+          },
+          {
+            nome: "Panturrilha em pé",
+            series: 5,
+            repeticoes: "15"
+          }
+        ],
 
-            "PERNAS": [
-                {
-                    nome: "Agachamento livre",
-                    series: 4,
-                    repeticoes: "6-8"
-                },
-                {
-                    nome: "Stiff",
-                    series: 4,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Leg Press",
-                    series: 4,
-                    repeticoes: "10"
-                },
-                {
-                    nome: "Afundo com halteres ou no Smith",
-                    series: 3,
-                    repeticoes: "10 por perna"
-                },
-                {
-                    nome: "Panturrilha em pé",
-                    series: 5,
-                    repeticoes: "15"
-                }
-            ],
-
-            "ABDÔMEN": [
-                {
-                    nome: "Prancha",
-                    series: 3,
-                    repeticoes: "30-60 segundos"
-                }
-            ]
-        }
+        "ABDÔMEN": [
+          {
+            nome: "Prancha",
+            series: 3,
+            repeticoes: "30-60 segundos"
+          }
+        ]
+      }
     },
 
     upper: {
-        nome: "Upper",
-        descricao: "Parte superior completa",
+      nome: "Upper",
+      descricao: "Parte superior completa",
 
-        grupos: {
+      grupos: {
+        "PEITO": [
+          {
+            nome: "Supino inclinado",
+            series: 3,
+            repeticoes: "8-10"
+          }
+        ],
 
-            "PEITO": [
-                {
-                    nome: "Supino inclinado",
-                    series: 3,
-                    repeticoes: "8-10"
-                }
-            ],
+        "COSTAS": [
+          {
+            nome: "Barra fixa ou puxada alta",
+            series: 3,
+            repeticoes: "8-10"
+          },
+          {
+            nome: "Remada unilateral",
+            series: 3,
+            repeticoes: "10"
+          }
+        ],
 
-            "COSTAS": [
-                {
-                    nome: "Barra fixa ou puxada alta",
-                    series: 3,
-                    repeticoes: "8-10"
-                },
-                {
-                    nome: "Remada unilateral",
-                    series: 3,
-                    repeticoes: "10"
-                }
-            ],
+        "OMBROS": [
+          {
+            nome: "Desenvolvimento com halteres",
+            series: 3,
+            repeticoes: "10"
+          },
+          {
+            nome: "Elevação lateral",
+            series: 3,
+            repeticoes: "15"
+          }
+        ],
 
-            "OMBROS": [
-                {
-                    nome: "Desenvolvimento com halteres",
-                    series: 3,
-                    repeticoes: "10"
-                },
-                {
-                    nome: "Elevação lateral",
-                    series: 3,
-                    repeticoes: "15"
-                }
-            ],
-
-            "BRAÇOS": [
-                {
-                    nome: "Rosca direta",
-                    series: 3,
-                    repeticoes: "10"
-                },
-                {
-                    nome: "Tríceps corda",
-                    series: 3,
-                    repeticoes: "10"
-                }
-            ]
-        }
+        "BRAÇOS": [
+          {
+            nome: "Rosca direta",
+            series: 3,
+            repeticoes: "10"
+          },
+          {
+            nome: "Tríceps corda",
+            series: 3,
+            repeticoes: "10"
+          }
+        ]
+      }
     },
 
     lowerB: {
-        nome: "Lower B",
-        descricao: "Posterior",
+      nome: "Lower B",
+      descricao: "Posterior",
 
-        grupos: {
+      grupos: {
+        "PERNAS": [
+          {
+            nome: "Afundo no Smith",
+            series: 3,
+            repeticoes: "10-12 por perna"
+          },
+          {
+            nome: "Flexora sentada",
+            series: 4,
+            repeticoes: "10-12"
+          },
+          {
+            nome: "Cadeira extensora",
+            series: 3,
+            repeticoes: "12"
+          },
+          {
+            nome: "Panturrilha sentada",
+            series: 5,
+            repeticoes: "15"
+          }
+        ],
 
-            "PERNAS": [
-                {
-                    nome: "Afundo no Smith",
-                    series: 3,
-                    repeticoes: "10-12 por perna"
-                },
-                {
-                    nome: "Flexora sentada",
-                    series: 4,
-                    repeticoes: "10-12"
-                },
-                {
-                    nome: "Cadeira extensora",
-                    series: 3,
-                    repeticoes: "12"
-                },
-                {
-                    nome: "Panturrilha sentada",
-                    series: 5,
-                    repeticoes: "15"
-                }
-            ],
-
-            "ABDÔMEN": [
-                {
-                    nome: "Abdômen na polia",
-                    series: 3,
-                    repeticoes: "15"
-                }
-            ]
-        }
+        "ABDÔMEN": [
+          {
+            nome: "Abdômen na polia",
+            series: 3,
+            repeticoes: "15"
+          }
+        ]
+      }
     }
+  };
 
-};
+  const CHAVE_FICHAS_TREINO = "minhaRotina_fichasTreino";
+  
+  // Mantém uma cópia dos treinos originais
+  const fichasTreinoPadrao = JSON.parse(
+    JSON.stringify(fichasTreino)
+  );
+  
+  // Carrega as fichas salvas ou usa as originais
+  function carregarFichasTreino() {
+    try {
+      const dadosSalvos = localStorage.getItem(
+        CHAVE_FICHAS_TREINO
+      );
 
+      if (!dadosSalvos) {
+        return JSON.parse(
+            JSON.stringify(fichasTreinoPadrao)
+        );
+      }
 
-function abrirFichaTreino(treino, modoEdicao = false) {
+      const fichasSalvas = JSON.parse(dadosSalvos);
 
-    const ficha =
-        fichasTreino[treino];
+      if (
+        !fichasSalvas ||
+        typeof fichasSalvas !== "object" ||
+        Array.isArray(fichasSalvas)
+      ) {
+        throw new Error("Formato de fichas inválido.");
+      }
+
+      return fichasSalvas;
+    } catch (erro) {
+      console.error(
+        "Erro ao carregar as fichas de treino:",
+        erro
+      );
+
+      return JSON.parse(
+        JSON.stringify(fichasTreinoPadrao)
+      );
+    }
+  }
+  
+  // Salva as fichas no dispositivo
+  function salvarFichasTreino() {
+    try {
+      localStorage.setItem(
+        CHAVE_FICHAS_TREINO,
+        JSON.stringify(fichasTreino)
+      );
+
+      return true;
+    } catch (erro) {
+      console.error(
+        "Erro ao salvar as fichas de treino:",
+        erro
+      );
+
+      return false;
+    }
+  }
+  
+  // Recupera as fichas ao iniciar o módulo
+  Object.assign(fichasTreino, carregarFichasTreino());
+
+  // ABRIR FICHAS DE TRENO
+  function abrirFichaTreino(treino, modoEdicao = false) {
+    const ficha = fichasTreino[treino];
+    const acoesFicha = document.getElementById("acoesFichaTreino");
+    
+    acoesFicha.style.display = modoEdicao ? "flex" : "none";
+
+    console.log("Modo edição:", modoEdicao);
+    console.log("Ações da ficha:", acoesFicha);
+    console.log("Display das ações:", acoesFicha.style.display);
+    
+    document.getElementById("btnSalvarFicha").style.display = "inline-block";
+    document.getElementById("btnCancelarEdicaoFicha").style.display = "inline-block";
+    
+    window.treinoEmEdicao = modoEdicao ? treino : null;
 
     if (!ficha || !ficha.grupos) {
-        console.error(
-            "Ficha de treino inválida:",
-            treino,
-            ficha
-        );
-        return;
+      console.error(
+          "Ficha de treino inválida:",
+          treino,
+          ficha
+      );
+      return;
     }
 
     document.getElementById(
-        "nomeFichaTreino"
+      "nomeFichaTreino"
     ).textContent =
-        ficha.nome;
+      ficha.nome;
 
     document.getElementById(
-        "descricaoFichaTreino"
+      "descricaoFichaTreino"
     ).textContent =
-        ficha.descricao;
+      ficha.descricao;
 
     const container =
-        document.getElementById(
-            "conteudoFichaTreino"
-        );
+      document.getElementById(
+        "conteudoFichaTreino"
+      );
 
     container.innerHTML = "";
 
     Object.entries(
-        ficha.grupos
+      ficha.grupos
     ).forEach(
-        ([grupo, exercicios]) => {
+      ([grupo, exercicios]) => {
+        const grupoElemento =
+          document.createElement("div");
 
-            const grupoElemento =
+        grupoElemento.className =
+          "grupo-muscular";
+
+        grupoElemento.innerHTML = `
+          <h3>
+            ${grupo}
+          </h3>
+        `;
+
+        exercicios.forEach(
+          exercicio => {
+            const exercicioElemento =
                 document.createElement("div");
 
-            grupoElemento.className =
-                "grupo-muscular";
-
-            grupoElemento.innerHTML = `
-                <h3>
-                    ${grupo}
-                </h3>
+            exercicioElemento.className =
+                "exercicio-ficha";
+            
+            exercicioElemento.dataset.exercicio = exercicio.nome;
+            
+            exercicioElemento.innerHTML = `
+              <strong>${exercicio.nome}</strong>
+            
+              <div class="campos-ficha">
+                <div>
+                  <label>Séries</label>
+                  <input
+                    type="number"
+                    data-campo="series"
+                    value="${exercicio.series}"
+                    min="1"
+                    ${modoEdicao ? "" : "disabled"}>
+                </div>
+            
+                <span>×</span>
+            
+                <div>
+                  <label>Repetições</label>
+                  <input
+                    type="text"
+                    data-campo="repeticoes"
+                    value="${exercicio.repeticoes}"
+                    ${modoEdicao ? "" : "disabled"}>
+                </div>
+            
+                <div>
+                  <label>Carga</label>
+                  <div class="campo-carga">
+                    <input
+                      type="number"
+                      data-campo="carga"
+                      value="${exercicio.carga ?? 0}"
+                      min="0"
+                      step="0.5"
+                      ${modoEdicao ? "" : "disabled"}>
+                    <span>kg</span>
+                  </div>
+                </div>
+              </div>
             `;
-
-            exercicios.forEach(
-                exercicio => {
-
-                    const exercicioElemento =
-                        document.createElement("div");
-
-                    exercicioElemento.className =
-                        "exercicio-ficha";
-
-                    exercicioElemento.innerHTML = `
-                        <strong>
-                            ${exercicio.nome}
-                        </strong>
-
-                        <div class="campos-ficha">
-
-                            <div>
-                                <label>
-                                    Séries
-                                </label>
-
-                                <input
-                                    type="number"
-                                    value="${exercicio.series}"
-                                    min="1"
-                                    ${modoEdicao ? "" : "disabled"}>
-                            </div>
-
-                            <span>×</span>
-
-                            <div>
-                                <label>
-                                    Repetições
-                                </label>
-
-                                <input
-                                    type="text"
-                                    value="${exercicio.repeticoes}"
-                                    ${modoEdicao ? "" : "disabled"}>
-                            </div>
-
-                            <div>
-                                <label>
-                                    Carga
-                                </label>
-
-                                <div class="campo-carga">
-
-                                    <input
-                                        type="number"
-                                        value="0"
-                                        min="0"
-                                        step="0.5"
-                                        ${modoEdicao ? "" : "disabled"}>
-
-                                    <span>kg</span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    `;
-
-                    grupoElemento.appendChild(
-                        exercicioElemento
-                    );
-
-                }
+            
+            grupoElemento.appendChild(
+                exercicioElemento
             );
-
-            container.appendChild(
-                grupoElemento
-            );
-
-        }
-    );
-
-    document.getElementById(
-        "fichaTreino"
-    ).style.display = "flex";
-}
-
-
-document.querySelectorAll(
-    ".card-treino"
-).forEach(
-    card => {
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                const treino =
-                    card.dataset.treino;
-
-                abrirFichaTreino(treino);
-
-            }
+          }
         );
 
+        container.appendChild(
+            grupoElemento
+        );
+      }
+    );
+
+    Object.values(telasModulos).forEach(modulo => {
+      modulo.style.display = "none";
+    });
+    
+    telasModulos.treino.style.display = "block";
+    
+    document.getElementById("cabecalhoDashboard").style.display = "none";
+    document.getElementById("tituloDashboard").style.display = "none";
+
+    document.getElementById("fichaTreino").style.display = "flex";
+
+  }
+
+  // SALVAR EDIÇÃO FICHA DE TREINO
+  function salvarEdicaoFichaTreino() {
+    const treino = window.treinoEmEdicao;
+
+    if (!treino || !fichasTreino[treino]) {
+      console.error("Nenhum treino selecionado para edição.");
+      return;
     }
-);
 
-document
+    const fichaElemento = document.getElementById("conteudoFichaTreino");
+    const ficha = fichasTreino[treino];
+
+    Object.entries(ficha.grupos).forEach(([nomeGrupo, exercicios]) => {
+      exercicios.forEach(exercicio => {
+        const elemento = Array.from(
+          fichaElemento.querySelectorAll(".exercicio-ficha")
+        ).find(el => el.dataset.exercicio === exercicio.nome);
+
+        if (!elemento) return;
+
+        const campo = nome =>
+          elemento.querySelector(`[data-campo="${nome}"]`);
+
+        const campoSeries = campo("series");
+        const campoRepeticoes = campo("repeticoes");
+        const campoCarga = campo("carga");
+
+        if (!campoSeries || !campoRepeticoes || !campoCarga) {
+          console.error("Campos não encontrados:", exercicio.nome);
+          return;
+        }
+
+        exercicio.series = Number(campoSeries.value);
+        exercicio.repeticoes = campoRepeticoes.value.trim();
+        exercicio.carga = Number(campoCarga.value);
+      });
+    });
+
+    if (!salvarFichasTreino()) {
+        alert("Não foi possível salvar a ficha. Confira o espaço disponível no navegador.");
+        return;
+    }
+
+    abrirFichaTreino(treino, false);
+    alert("Ficha de treino salva com sucesso!");
+  }
+
+  document.querySelectorAll(
+    ".card-treino"
+  ).forEach(
+    card => {
+      card.addEventListener(
+        "click",
+        () => {
+          const treino =
+            card.dataset.treino;
+
+          abrirFichaTreino(treino);
+        }
+      );
+    }
+  );
+
+  // OBTER TREINO 
+  function obterTreinoDoModal() {
+    const nome = document
+      .getElementById("modalNomeTreino")
+      .textContent
+      .trim()
+      .toLowerCase();
+
+    const nomesTreinos = {
+      "push": "push",
+      "pull": "pull",
+      "lower a": "lowerA",
+      "upper": "upper",
+      "lower b": "lowerB"
+    };
+
+    return nomesTreinos[nome] || null;
+  }
+  
+  document
     .getElementById("btnVisualizarFicha")
-    .addEventListener(
-        "click",
-        () => {
+    .addEventListener("click", () => {
+      const treino = obterTreinoDoModal();
 
-            const diaSemana =
-                new Date().getDay();
+      if (!treino || !fichasTreino[treino]) {
+        console.error("Não foi possível identificar a ficha do modal.");
+        return;
+      }
 
-            const treinosSemana = {
+      abrirFichaTreino(treino, false);
 
-                1: "push",
-                2: "pull",
-                3: "lowerA",
-                4: "upper",
-                5: "lowerB"
-
-            };
-
-            const treino =
-                treinosSemana[diaSemana];
-
-            if (!treino) {
-                return;
-            }
-
-            document.getElementById(
-                "modalTreino"
-            ).style.display = "none";
-
-            abrirFichaTreino(
-                treino
-            );
-
-        }
-    );
-
-document
+      document.getElementById("modalTreino").style.display = "none";
+    });
+  
+  document
     .getElementById("btnEditarFicha")
-    .addEventListener(
-        "click",
-        () => {
+    .addEventListener("click", () => {
+      const treino = obterTreinoDoModal();
 
-            const diaSemana =
-                new Date().getDay();
+      if (!treino || !fichasTreino[treino]) {
+        console.error("Não foi possível identificar a ficha do modal.");
+        return;
+      }
 
-            const treinosSemana = {
+      abrirFichaTreino(treino, true);
 
-                1: "push",
-                2: "pull",
-                3: "lowerA",
-                4: "upper",
-                5: "lowerB"
+      document.getElementById("modalTreino").style.display = "none";
+    });
 
-            };
-
-            const treino =
-                treinosSemana[diaSemana];
-
-            if (!treino) {
-                return;
-            }
-
-            document.getElementById(
-                "modalTreino"
-            ).style.display = "none";
-
-            abrirFichaTreino(
-                treino,
-                true
-            );
-
-        }
-    );
 
 // ========================================
 // MÓDULO ESTUDOS — MODAL
 // ========================================
 
-console.log("ESTUDOS FOI CARREGADO");
-
-const btnNovoEstudo = document.getElementById("btnNovoEstudo");
-const modalEstudo = document.getElementById("modalEstudo");
-const cancelarEstudo = document.getElementById("cancelarEstudo");
-const tipoEstudo = document.getElementById("tipoEstudo");
-const camposFaculdade = document.getElementById("camposFaculdade");
-
-// Abrir modal
-btnNovoEstudo.addEventListener("click", () => {
-    modalEstudo.classList.add("ativo");
-});
-
-// Fechar modal pelo botão Cancelar
-cancelarEstudo.addEventListener("click", () => {
-    modalEstudo.classList.remove("ativo");
-});
-
-// Fechar clicando fora da caixa
-modalEstudo.addEventListener("click", (evento) => {
-
-    if (evento.target === modalEstudo) {
-        modalEstudo.classList.remove("ativo");
-    }
-
-});
-
-// Mostrar/esconder campos específicos da faculdade
-tipoEstudo.addEventListener("change", () => {
-
-    if (tipoEstudo.value === "faculdade") {
-
-        camposFaculdade.style.display = "block";
-
-    } else {
-
-        camposFaculdade.style.display = "none";
-
-    }
-
-});
-
-// ========================================
-// MÓDULO ESTUDOS — SALVAR ESTUDO
-// ========================================
-
-const salvarEstudo = document.getElementById("salvarEstudo");
-const nomeEstudo = document.getElementById("nomeEstudo");
-const cursoFaculdade = document.getElementById("cursoFaculdade");
-const semestreFaculdade = document.getElementById("semestreFaculdade");
-const listaEstudos = document.getElementById("listaEstudos");
-
-// Carregar estudos salvos
-let estudos = JSON.parse(localStorage.getItem("estudos")) || [];
-
-
-// Mostrar estudos na tela
-function renderizarEstudos() {
-
-    listaEstudos.innerHTML = "";
-
-    if (estudos.length === 0) {
-
-        listaEstudos.innerHTML = `
-            <p class="estado-vazio-estudos">
-                Você ainda não cadastrou nenhum estudo.
-            </p>
-        `;
-
-        return;
-    }
-
-    estudos.forEach((estudo) => {
-        const card = document.createElement("div");
-        card.className = "card-estudo";
+  console.log("ESTUDOS FOI CARREGADO");
+  
+  const btnNovoEstudo = document.getElementById("btnNovoEstudo");
+  const modalEstudo = document.getElementById("modalEstudo");
+  const cancelarEstudo = document.getElementById("cancelarEstudo");
+  const tipoEstudo = document.getElementById("tipoEstudo");
+  const camposFaculdade = document.getElementById("camposFaculdade");
+  
+  // Abrir modal
+  btnNovoEstudo.addEventListener("click", () => {
+      modalEstudo.classList.add("ativo");
+  });
+  
+  // Fechar modal pelo botão Cancelar
+  cancelarEstudo.addEventListener("click", () => {
+      modalEstudo.classList.remove("ativo");
+  });
+  
+  // Fechar clicando fora da caixa
+  modalEstudo.addEventListener("click", (evento) => {
+  
+      if (evento.target === modalEstudo) {
+          modalEstudo.classList.remove("ativo");
+      }
+  
+  });
+  
+  // Mostrar/esconder campos específicos da faculdade
+  tipoEstudo.addEventListener("change", () => {
+  
+      if (tipoEstudo.value === "faculdade") {
+  
+          camposFaculdade.style.display = "block";
+  
+      } else {
+  
+          camposFaculdade.style.display = "none";
+  
+      }
+  
+  });
+  
+  // ========================================
+  // MÓDULO ESTUDOS — SALVAR ESTUDO
+  // ========================================
+  
+  const salvarEstudo = document.getElementById("salvarEstudo");
+  const nomeEstudo = document.getElementById("nomeEstudo");
+  const cursoFaculdade = document.getElementById("cursoFaculdade");
+  const semestreFaculdade = document.getElementById("semestreFaculdade");
+  const listaEstudos = document.getElementById("listaEstudos");
+  
+  // Carregar estudos salvos
+  let estudos = JSON.parse(localStorage.getItem("estudos")) || [];
+  
+  
+  // Mostrar estudos na tela
+  function renderizarEstudos() {
+  
+      listaEstudos.innerHTML = "";
+  
+      if (estudos.length === 0) {
+  
+          listaEstudos.innerHTML = `
+              <p class="estado-vazio-estudos">
+                  Você ainda não cadastrou nenhum estudo.
+              </p>
+          `;
+  
+          return;
+      }
+  
+      estudos.forEach((estudo) => {
+          const card = document.createElement("div");
+          card.className = "card-estudo";
+      
+          card.addEventListener("click", () => {
+              abrirDetalheEstudo(estudo.id);
+          });
+  
+          let icone = "📚";
+  
+          if (estudo.tipo === "faculdade") {
+              icone = "🎓";
+          }
+  
+          if (estudo.tipo === "curso") {
+              icone = "💻";
+          }
+  
+          if (estudo.tipo === "certificacao") {
+              icone = "🏆";
+          }
+  
+          if (estudo.tipo === "pessoal") {
+              icone = "🧠";
+          }
+  
+          card.innerHTML = `
+              <div class="card-estudo-cabecalho">
+  
+                  <span class="icone-estudo">
+                      ${icone}
+                  </span>
+  
+                  <div>
+  
+                      <h3>
+                          ${estudo.nome}
+                      </h3>
+  
+                      ${
+                          estudo.tipo === "faculdade"
+                          ? `
+                              <p>
+                                  ${estudo.curso}
+                              </p>
+  
+                              <small>
+                                  ${estudo.semestre}
+                              </small>
+                            `
+                          : `
+                              <p>
+                                  ${estudo.tipo}
+                              </p>
+                            `
+                      }
+  
+                  </div>
+  
+              </div>
+  
+              <div class="progresso-estudo">
+  
+                  <div class="barra-progresso-estudo">
+                      <div
+                          style="width: ${estudo.progresso}%">
+                      </div>
+                  </div>
+  
+                  <span>
+                      ${estudo.progresso}%
+                  </span>
+  
+              </div>
+          `;
+  
+          listaEstudos.appendChild(card);
+  
+      });
+  }
+  
+  // ========================================
+  // MÓDULO ESTUDOS — DETALHE DO ESTUDO
+  // ========================================
+  
+  const detalheEstudo = document.getElementById("detalheEstudo");
+  const conteudoDetalheEstudo = document.getElementById("conteudoDetalheEstudo");
+  const btnVoltarEstudos = document.getElementById("btnVoltarEstudos");
+  const modalMateria =
+  document.getElementById("modalMateria");
+  const nomeMateria =
+  document.getElementById("nomeMateria");
+  const salvarMateria =
+  document.getElementById("salvarMateria");
+  const cancelarMateria =
+  document.getElementById("cancelarMateria");
+  const modalConteudo =
+  document.getElementById("modalConteudo");
+  const nomeConteudo =
+  document.getElementById("nomeConteudo");
+  const statusConteudo =
+  document.getElementById("statusConteudo");
+  const salvarConteudo =
+  document.getElementById("salvarConteudo");
+  const cancelarConteudo =
+  document.getElementById("cancelarConteudo");
+  const excluirConteudo =
+  document.getElementById("excluirConteudo");
+  const modalAtividade =
+  document.getElementById("modalAtividade");
+  const nomeAtividade =
+  document.getElementById("nomeAtividade");
+  const dataAtividade =
+  document.getElementById("dataAtividade");
+  const statusAtividade =
+  document.getElementById("statusAtividade");
+  const dashboardAtividade =
+  document.getElementById("dashboardAtividade");
+  const salvarAtividade =
+  document.getElementById("salvarAtividade");
+  const cancelarAtividade =
+  document.getElementById("cancelarAtividade");
+  const excluirAtividade =
+  document.getElementById("excluirAtividade");
+  
+  let estudoSelecionadoId = null;
+  let materiaSelecionadaId = null;
+  let conteudoSelecionadoId = null;
+  let atividadeSelecionadaId = null;
+  
+  // CANCELAR CONTEÚDO
+  
+  cancelarConteudo.addEventListener("click", () => {
+  
+      modalConteudo.classList.remove("ativo");
+  
+  });
+  
+  // CANCELAR ATIVIDADE
+  
+  cancelarAtividade.addEventListener("click", () => {
+  
+      modalAtividade.classList.remove("ativo");
+  
+  });
+  
+  
+  // FECHAR CLICANDO FORA
+  
+  modalConteudo.addEventListener("click", (evento) => {
+  
+      if (evento.target === modalConteudo) {
+  
+          modalConteudo.classList.remove("ativo");
+  
+      }
+  
+  });
+  
+  // FECHAR ATIVIDADE CLICANDO FORA
+  
+  modalAtividade.addEventListener("click", (evento) => {
+  
+      if (evento.target === modalAtividade) {
+  
+          modalAtividade.classList.remove("ativo");
+  
+      }
+  
+  });
+  
+  function abrirDetalheEstudo(id) {
+  
+      const estudo = estudos.find((item) => item.id === id);
+  
+      if (!estudo) {
+          return;
+      }
+  
+      estudoSelecionadoId = id;
+  
+      conteudoDetalheEstudo.innerHTML = `
+          <div class="cabecalho-detalhe-estudo">
+  
+              <h2>
+                  ${estudo.tipo === "faculdade" ? "🎓" : "📚"}
+                  ${estudo.nome}
+              </h2>
+  
+              ${
+                  estudo.tipo === "faculdade"
+                  ? `
+                      <p>${estudo.curso}</p>
+                      <small>${estudo.semestre}</small>
+                  `
+                  : `
+                      <p>${estudo.tipo}</p>
+                  `
+              }
+  
+          </div>
+  
+          <div class="progresso-detalhe-estudo">
+  
+              <strong>📊 Progresso geral</strong>
+  
+              <div class="progresso-estudo">
+  
+                  <div class="barra-progresso-estudo">
+                      <div style="width: ${estudo.progresso}%"></div>
+                  </div>
+  
+                  <span>${estudo.progresso}%</span>
+  
+              </div>
+  
+          </div>
+  
+          ${
+              estudo.tipo === "faculdade"
+              ? `
+                  <div class="bloco-estudos">
+          
+                      <div class="titulo-bloco-estudos">
+                          <h3>📚 Matérias</h3>
+                      </div>
+          
+                      ${
+                          estudo.materias.length === 0
+                          ? `
+                              <p class="estado-vazio-estudos">
+                                  Nenhuma matéria cadastrada.
+                              </p>
+                            `
+                          : `
+                              <div class="lista-materias-estudo">
+          
+                                  ${estudo.materias.map((materia) => `
+                                      
+                                    <div
+        class="card-materia-estudo"
+        onclick="abrirDetalheMateria(${materia.id})"
+    >
     
-        card.addEventListener("click", () => {
-            abrirDetalheEstudo(estudo.id);
-        });
-
-        let icone = "📚";
-
-        if (estudo.tipo === "faculdade") {
-            icone = "🎓";
-        }
-
-        if (estudo.tipo === "curso") {
-            icone = "💻";
-        }
-
-        if (estudo.tipo === "certificacao") {
-            icone = "🏆";
-        }
-
-        if (estudo.tipo === "pessoal") {
-            icone = "🧠";
-        }
-
-        card.innerHTML = `
-            <div class="card-estudo-cabecalho">
-
-                <span class="icone-estudo">
-                    ${icone}
-                </span>
-
-                <div>
-
-                    <h3>
-                        ${estudo.nome}
-                    </h3>
-
-                    ${
-                        estudo.tipo === "faculdade"
-                        ? `
-                            <p>
-                                ${estudo.curso}
-                            </p>
-
-                            <small>
-                                ${estudo.semestre}
-                            </small>
-                          `
-                        : `
-                            <p>
-                                ${estudo.tipo}
-                            </p>
-                          `
-                    }
-
-                </div>
-
+        <div>
+            <strong>📚 ${materia.nome}</strong>
+    
+            <small>
+                Progresso: ${materia.progresso}%
+            </small>
+        </div>
+    
+        <div class="progresso-estudo">
+    
+            <div class="barra-progresso-estudo">
+                <div style="width: ${materia.progresso}%"></div>
             </div>
-
-            <div class="progresso-estudo">
-
-                <div class="barra-progresso-estudo">
-                    <div
-                        style="width: ${estudo.progresso}%">
-                    </div>
-                </div>
-
-                <span>
-                    ${estudo.progresso}%
-                </span>
-
+    
+            <span>${materia.progresso}%</span>
+    
+        </div>
+    
+    </div>
+          
+                                  `).join("")}
+          
+                              </div>
+                            `
+                      }
+          
+                      <button id="btnNovaMateria">
+                          + Adicionar matéria
+                      </button>
+          
+                  </div>
+              `
+              : ""
+          }
+      `;
+  
+    
+  
+      // Mostra o detalhe
+      detalheEstudo.classList.add("ativo");
+  
+    const btnNovaMateria = document.getElementById("btnNovaMateria");
+    
+      if (btnNovaMateria) {
+      
+          btnNovaMateria.addEventListener("click", () => {
+      
+              nomeMateria.value = "";
+      
+              modalMateria.classList.add("ativo");
+      
+          });
+      
+      }
+  }
+  
+  // ========================================
+  // MÓDULO ESTUDOS — DETALHE DA MATÉRIA
+  // ========================================
+  
+  function abrirDetalheMateria(id) {
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === id
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      materiaSelecionadaId = id;
+  
+      conteudoDetalheEstudo.innerHTML = `
+  
+          <div class="cabecalho-detalhe-estudo">
+  
+              <h2>📚 ${materia.nome}</h2>
+  
+              <p>${estudo.nome}</p>
+  
+          </div>
+  
+          <div class="progresso-detalhe-estudo">
+  
+              <strong>📊 Progresso da matéria</strong>
+  
+              <div class="progresso-estudo">
+  
+                  <div class="barra-progresso-estudo">
+  
+                      <div style="width: ${materia.progresso}%"></div>
+  
+                  </div>
+  
+                  <span>
+                      ${materia.progresso}%
+                  </span>
+  
+              </div>
+  
+          </div>
+  
+          <div class="bloco-estudos">
+  
+            <div class="titulo-bloco-estudos">
+              <h3>📖 Conteúdos</h3>
             </div>
-        `;
-
-        listaEstudos.appendChild(card);
-
-    });
-}
-
-// ========================================
-// MÓDULO ESTUDOS — DETALHE DO ESTUDO
-// ========================================
-
-const detalheEstudo = document.getElementById("detalheEstudo");
-const conteudoDetalheEstudo = document.getElementById("conteudoDetalheEstudo");
-const btnVoltarEstudos = document.getElementById("btnVoltarEstudos");
-const modalMateria =
-document.getElementById("modalMateria");
-const nomeMateria =
-document.getElementById("nomeMateria");
-const salvarMateria =
-document.getElementById("salvarMateria");
-const cancelarMateria =
-document.getElementById("cancelarMateria");
-const modalConteudo =
-document.getElementById("modalConteudo");
-const nomeConteudo =
-document.getElementById("nomeConteudo");
-const statusConteudo =
-document.getElementById("statusConteudo");
-const salvarConteudo =
-document.getElementById("salvarConteudo");
-const cancelarConteudo =
-document.getElementById("cancelarConteudo");
-const excluirConteudo =
-document.getElementById("excluirConteudo");
-const modalAtividade =
-document.getElementById("modalAtividade");
-const nomeAtividade =
-document.getElementById("nomeAtividade");
-const dataAtividade =
-document.getElementById("dataAtividade");
-const statusAtividade =
-document.getElementById("statusAtividade");
-const dashboardAtividade =
-document.getElementById("dashboardAtividade");
-const salvarAtividade =
-document.getElementById("salvarAtividade");
-const cancelarAtividade =
-document.getElementById("cancelarAtividade");
-const excluirAtividade =
-document.getElementById("excluirAtividade");
-
-let estudoSelecionadoId = null;
-let materiaSelecionadaId = null;
-let conteudoSelecionadoId = null;
-let atividadeSelecionadaId = null;
-
-// CANCELAR CONTEÚDO
-
-cancelarConteudo.addEventListener("click", () => {
-
-    modalConteudo.classList.remove("ativo");
-
-});
-
-// CANCELAR ATIVIDADE
-
-cancelarAtividade.addEventListener("click", () => {
-
-    modalAtividade.classList.remove("ativo");
-
-});
-
-
-// FECHAR CLICANDO FORA
-
-modalConteudo.addEventListener("click", (evento) => {
-
-    if (evento.target === modalConteudo) {
-
-        modalConteudo.classList.remove("ativo");
-
-    }
-
-});
-
-// FECHAR ATIVIDADE CLICANDO FORA
-
-modalAtividade.addEventListener("click", (evento) => {
-
-    if (evento.target === modalAtividade) {
-
-        modalAtividade.classList.remove("ativo");
-
-    }
-
-});
-
-function abrirDetalheEstudo(id) {
-
-    const estudo = estudos.find((item) => item.id === id);
-
-    if (!estudo) {
-        return;
-    }
-
-    estudoSelecionadoId = id;
-
-    conteudoDetalheEstudo.innerHTML = `
-        <div class="cabecalho-detalhe-estudo">
-
-            <h2>
-                ${estudo.tipo === "faculdade" ? "🎓" : "📚"}
-                ${estudo.nome}
-            </h2>
-
-            ${
-                estudo.tipo === "faculdade"
+          
+              ${
+                materia.conteudos.length === 0
                 ? `
-                    <p>${estudo.curso}</p>
-                    <small>${estudo.semestre}</small>
-                `
-                : `
-                    <p>${estudo.tipo}</p>
-                `
-            }
-
-        </div>
-
-        <div class="progresso-detalhe-estudo">
-
-            <strong>📊 Progresso geral</strong>
-
-            <div class="progresso-estudo">
-
-                <div class="barra-progresso-estudo">
-                    <div style="width: ${estudo.progresso}%"></div>
-                </div>
-
-                <span>${estudo.progresso}%</span>
-
-            </div>
-
-        </div>
-
-        ${
-            estudo.tipo === "faculdade"
-            ? `
-                <div class="bloco-estudos">
+                  <p class="estado-vazio-estudos">
+                      Nenhum conteúdo cadastrado.
+                  </p>
+                    `
+                  : `
+                    <div class="lista-conteudos-estudo">
         
-                    <div class="titulo-bloco-estudos">
-                        <h3>📚 Matérias</h3>
+                      ${materia.conteudos.map((conteudo) => `
+      
+                        <div 
+                          class="card-conteudo-estudo"
+                          onclick="abrirEdicaoConteudo(${conteudo.id})"
+                          >
+    
+                          <strong>
+                              📖 ${conteudo.nome}
+                          </strong>
+  
+                          <small>
+                            ${
+                                conteudo.status === "nao_iniciado"
+                                ? "⚪ Não iniciado"
+                                : conteudo.status === "em_andamento"
+                                ? "🟡 Em andamento"
+                                : "🟢 Concluído"
+                            }
+                          </small>
+    
+                        </div>
+      
+                      `).join("")}
+        
                     </div>
-        
-                    ${
-                        estudo.materias.length === 0
-                        ? `
-                            <p class="estado-vazio-estudos">
-                                Nenhuma matéria cadastrada.
-                            </p>
-                          `
-                        : `
-                            <div class="lista-materias-estudo">
-        
-                                ${estudo.materias.map((materia) => `
-                                    
-                                  <div
-      class="card-materia-estudo"
-      onclick="abrirDetalheMateria(${materia.id})"
-  >
-  
-      <div>
-          <strong>📚 ${materia.nome}</strong>
-  
-          <small>
-              Progresso: ${materia.progresso}%
-          </small>
-      </div>
-  
-      <div class="progresso-estudo">
-  
-          <div class="barra-progresso-estudo">
-              <div style="width: ${materia.progresso}%"></div>
+                  `
+              }
+          
+            <button id="btnNovoConteudo">
+              + Adicionar conteúdo
+            </button>
+          
           </div>
   
-          <span>${materia.progresso}%</span>
+          <div class="bloco-estudos">
   
-      </div>
-  
-  </div>
-        
-                                `).join("")}
-        
-                            </div>
-                          `
-                    }
-        
-                    <button id="btnNovaMateria">
-                        + Adicionar matéria
-                    </button>
-        
-                </div>
-            `
-            : ""
-        }
-    `;
-
-  
-
-    // Mostra o detalhe
-    detalheEstudo.classList.add("ativo");
-
-  const btnNovaMateria = document.getElementById("btnNovaMateria");
-  
-    if (btnNovaMateria) {
-    
-        btnNovaMateria.addEventListener("click", () => {
-    
-            nomeMateria.value = "";
-    
-            modalMateria.classList.add("ativo");
-    
-        });
-    
-    }
-}
-
-// ========================================
-// MÓDULO ESTUDOS — DETALHE DA MATÉRIA
-// ========================================
-
-function abrirDetalheMateria(id) {
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === id
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    materiaSelecionadaId = id;
-
-    conteudoDetalheEstudo.innerHTML = `
-
-        <div class="cabecalho-detalhe-estudo">
-
-            <h2>📚 ${materia.nome}</h2>
-
-            <p>${estudo.nome}</p>
-
-        </div>
-
-        <div class="progresso-detalhe-estudo">
-
-            <strong>📊 Progresso da matéria</strong>
-
-            <div class="progresso-estudo">
-
-                <div class="barra-progresso-estudo">
-
-                    <div style="width: ${materia.progresso}%"></div>
-
-                </div>
-
-                <span>
-                    ${materia.progresso}%
-                </span>
-
+            <div class="titulo-bloco-estudos">
+              <h3>📝 Atividades</h3>
             </div>
-
-        </div>
-
-        <div class="bloco-estudos">
-
-          <div class="titulo-bloco-estudos">
-            <h3>📖 Conteúdos</h3>
-          </div>
         
             ${
-              materia.conteudos.length === 0
+              materia.atividades.length === 0
               ? `
                 <p class="estado-vazio-estudos">
-                    Nenhum conteúdo cadastrado.
+                  Nenhuma atividade cadastrada.
                 </p>
-                  `
-                : `
-                  <div class="lista-conteudos-estudo">
-      
-                    ${materia.conteudos.map((conteudo) => `
-    
-                      <div 
-                        class="card-conteudo-estudo"
-                        onclick="abrirEdicaoConteudo(${conteudo.id})"
-                        >
+              `
+              : `
+                  <div class="lista-atividades-estudo">
+            
+                    ${materia.atividades.map((atividade) => `
+            
+                    <div
+                      class="card-conteudo-estudo"
+                      onclick="abrirEdicaoAtividade(${atividade.id})"
+                    >
+            
+                      <strong>
+                          📝 ${atividade.nome}
+                      </strong>
   
-                        <strong>
-                            📖 ${conteudo.nome}
-                        </strong>
-
-                        <small>
-                          ${
-                              conteudo.status === "nao_iniciado"
-                              ? "⚪ Não iniciado"
-                              : conteudo.status === "em_andamento"
-                              ? "🟡 Em andamento"
-                              : "🟢 Concluído"
+                      <small>
+                          📅 ${
+                              atividade.data.split("-").reverse().join("/")
                           }
-                        </small>
+                      </small>
   
-                      </div>
-    
-                    `).join("")}
-      
+                      <small>
+                          ${
+                              atividade.status === "pendente"
+                              ? "🟡 Pendente"
+                              : "🟢 Concluída"
+                          }
+                      </small>
+            
+                    </div>
+            
+                        `).join("")}
+            
                   </div>
                 `
             }
         
-          <button id="btnNovoConteudo">
-            + Adicionar conteúdo
-          </button>
-        
-        </div>
-
-        <div class="bloco-estudos">
-
-          <div class="titulo-bloco-estudos">
-            <h3>📝 Atividades</h3>
+            <button id="btnNovaAtividade">
+              + Adicionar atividade
+            </button>
+          
           </div>
-      
-          ${
-            materia.atividades.length === 0
-            ? `
-              <p class="estado-vazio-estudos">
-                Nenhuma atividade cadastrada.
-              </p>
-            `
-            : `
-                <div class="lista-atividades-estudo">
-          
-                  ${materia.atividades.map((atividade) => `
-          
-                  <div
-                    class="card-conteudo-estudo"
-                    onclick="abrirEdicaoAtividade(${atividade.id})"
-                  >
-          
-                    <strong>
-                        📝 ${atividade.nome}
-                    </strong>
-
-                    <small>
-                        📅 ${
-                            atividade.data.split("-").reverse().join("/")
-                        }
-                    </small>
-
-                    <small>
-                        ${
-                            atividade.status === "pendente"
-                            ? "🟡 Pendente"
-                            : "🟢 Concluída"
-                        }
-                    </small>
-          
-                  </div>
-          
-                      `).join("")}
-          
-                </div>
-              `
-          }
-      
-          <button id="btnNovaAtividade">
-            + Adicionar atividade
-          </button>
-        
-        </div>
-
-    `;
-
-  const btnNovoConteudo =
-    document.getElementById("btnNovoConteudo");
-
-  if (btnNovoConteudo) {
-    
-    btnNovoConteudo.addEventListener("click", () => {
-
-      conteudoSelecionadoId = null;
-
-      nomeConteudo.value = "";
-
-      statusConteudo.value = "nao_iniciado";
-
-      excluirConteudo.style.display = "none";
-
-      modalConteudo.classList.add("ativo");
-
-    });
-    
-  }
-
-  const btnNovaAtividade =
-    document.getElementById("btnNovaAtividade");
-
-  if (btnNovaAtividade) {
   
-    btnNovaAtividade.addEventListener("click", () => {
-
-        nomeAtividade.value = "";
-
-        dataAtividade.value = "";
-
-        statusAtividade.value = "pendente";
-
-        dashboardAtividade.value = "sim";
-
-        excluirAtividade.style.display = "none";
-
-        modalAtividade.classList.add("ativo");
-
-    });
-
+      `;
+  
+    const btnNovoConteudo =
+      document.getElementById("btnNovoConteudo");
+  
+    if (btnNovoConteudo) {
+      
+      btnNovoConteudo.addEventListener("click", () => {
+  
+        conteudoSelecionadoId = null;
+  
+        nomeConteudo.value = "";
+  
+        statusConteudo.value = "nao_iniciado";
+  
+        excluirConteudo.style.display = "none";
+  
+        modalConteudo.classList.add("ativo");
+  
+      });
+      
+    }
+  
+    const btnNovaAtividade =
+      document.getElementById("btnNovaAtividade");
+  
+    if (btnNovaAtividade) {
+    
+      btnNovaAtividade.addEventListener("click", () => {
+  
+          nomeAtividade.value = "";
+  
+          dataAtividade.value = "";
+  
+          statusAtividade.value = "pendente";
+  
+          dashboardAtividade.value = "sim";
+  
+          excluirAtividade.style.display = "none";
+  
+          modalAtividade.classList.add("ativo");
+  
+      });
+  
+    }
   }
-}
-
-// ========================================
-// EDITAR ATIVIDADE
-// ========================================
-
-function abrirEdicaoAtividade(id) {
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === materiaSelecionadaId
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    const atividade = materia.atividades.find(
-        (item) => item.id === id
-    );
-
-    if (!atividade) {
-        return;
-    }
-
-    atividadeSelecionadaId = id;
-
-    excluirAtividade.style.display = "block";
-
-    nomeAtividade.value = atividade.nome;
-
-    dataAtividade.value = atividade.data;
-
-    statusAtividade.value = atividade.status;
-
-    dashboardAtividade.value =
-        atividade.mostrarDashboard
-        ? "sim"
-        : "nao";
-
-    modalAtividade.classList.add("ativo");
-
-}
-
-// ========================================
-// CHECAGEM
-// ========================================
-
-console.log("CHEGUEI NAS PRÓXIMAS ATIVIDADES");
-
-// ========================================
-// BUSCAR PRÓXIMAS ATIVIDADES
-// ========================================
-
-function obterProximasAtividades() {
-
-    const atividades = [];
-
-    console.log("ESTUDOS SALVOS:", estudos);
-
-    estudos.forEach((estudo) => {
-
-        estudo.materias.forEach((materia) => {
-
-            materia.atividades.forEach((atividade) => {
-
-                if (atividade.status !== "concluida") {
-
-                    atividades.push({
-
-                        ...atividade,
-
-                        estudoNome: estudo.nome,
-
-                        materiaNome: materia.nome
-
-                    });
-
-                }
-
-            });
-
-        });
-
-    });
-
-    atividades.sort((a, b) => {
-
-        return a.data.localeCompare(b.data);
-
-    });
-
-    return atividades;
-
-}
-
-// ========================================
-// RENDERIZAR PRÓXIMAS ATIVIDADES
-// ========================================
-
-function renderizarProximasAtividades() {
-
-    console.log("ENTREI NA FUNÇÃO RENDERIZAR");
-
-    const container =
-        document.getElementById("proximasAtividadesEstudos");
-
-    console.log("CONTAINER:", container);
-
-    if (!container) {
-        return;
-    }
-
-    const atividades = obterProximasAtividades();
-
-    console.log("ATIVIDADES ENCONTRADAS:", atividades);
-
-    if (atividades.length === 0) {
-
-        container.innerHTML = `
-            <p class="estado-vazio-estudos">
-                Nenhuma atividade próxima.
-            </p>
-        `;
-
-        return;
-    }
-
-    container.innerHTML = atividades.map((atividade) => `
-
-        <div class="card-conteudo-estudo">
-
-            <strong>
-                📝 ${atividade.nome}
-            </strong>
-
-            <small>
-                📚 ${atividade.materiaNome}
-            </small>
-
-            <small>
-                📅 ${
-                    atividade.data
-                    .split("-")
-                    .reverse()
-                    .join("/")
-                }
-            </small>
-
-        </div>
-
-    `).join("");
-
-}
-
-
-
-// ========================================
-// EDITAR CONTEÚDO
-// ========================================
-
-function abrirEdicaoConteudo(id) {
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === materiaSelecionadaId
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    const conteudo = materia.conteudos.find(
-        (item) => item.id === id
-    );
-
-    if (!conteudo) {
-        return;
-    }
-
-    conteudoSelecionadoId = id;
-
-    nomeConteudo.value = conteudo.nome;
-
-    statusConteudo.value = conteudo.status;
-
-    excluirConteudo.style.display = "block";
-
-    modalConteudo.classList.add("ativo");
-
-}
-
-// VOLTAR PARA MEUS ESTUDOS
-
-btnVoltarEstudos.addEventListener("click", () => {
-
-    if (materiaSelecionadaId !== null) {
-
-        materiaSelecionadaId = null;
-
-        abrirDetalheEstudo(estudoSelecionadoId);
-
-        return;
-    }
-
-    detalheEstudo.classList.remove("ativo");
-
-});
-
-
-// Criar novo estudo
-salvarEstudo.addEventListener("click", () => {
-
-    const nome = nomeEstudo.value.trim();
-
-    if (!nome) {
-
-        alert("Digite o nome do estudo.");
-
-        return;
-    }
-
-
-    if (
-        tipoEstudo.value === "faculdade" &&
-        !cursoFaculdade.value.trim()
-    ) {
-
-        alert("Digite o nome do curso.");
-
-        return;
-    }
-
-
-    if (
-        tipoEstudo.value === "faculdade" &&
-        !semestreFaculdade.value.trim()
-    ) {
-
-        alert("Digite o semestre.");
-
-        return;
-    }
-
-
-    const novoEstudo = {
-
-        id: Date.now(),
-
-        nome: nome,
-
-        tipo: tipoEstudo.value,
-
-        curso:
-            tipoEstudo.value === "faculdade"
-            ? cursoFaculdade.value.trim()
-            : "",
-
-        semestre:
-            tipoEstudo.value === "faculdade"
-            ? semestreFaculdade.value.trim()
-            : "",
-
-        progresso: 0,
-
-        materias: [],
-
-        atividades: []
-
-    };
-
-
-    estudos.push(novoEstudo);
-
-
-    localStorage.setItem(
-        "estudos",
-        JSON.stringify(estudos)
-    );
-
-
-    renderizarEstudos();
-
-
-    // Fechar modal
-    modalEstudo.classList.remove("ativo");
-
-
-    // Limpar formulário
-    nomeEstudo.value = "";
-    cursoFaculdade.value = "";
-    semestreFaculdade.value = "";
-
-});
-
-
-// Renderizar ao carregar
-renderizarEstudos();
-
-
-// CANCELAR MATÉRIA
-
-cancelarMateria.addEventListener("click", () => {
-
-    modalMateria.classList.remove("ativo");
-
-});
-
-// FECHAR CLICANDO FORA
-
-modalMateria.addEventListener("click", (evento) => {
-
-    if (evento.target === modalMateria) {
-
-        modalMateria.classList.remove("ativo");
-
-    }
-
-});
-
-// SALVAR MATÉRIA
-salvarMateria.addEventListener("click", () => {
-
-    const nome = nomeMateria.value.trim();
-
-    if (!nome) {
-
-        alert("Digite o nome da matéria.");
-
-        return;
-
-    }
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-
-        return;
-
-    }
-
-    const novaMateria = {
-
-        id: Date.now(),
-
-        nome: nome,
-
-        progresso: 0,
-
-        conteudos: [],
-
-        atividades: []
-
-    };
-
-    estudo.materias.push(novaMateria);
-
-    localStorage.setItem(
-        "estudos",
-        JSON.stringify(estudos)
-    );
-
-    modalMateria.classList.remove("ativo");
-
-    abrirDetalheEstudo(estudoSelecionadoId);
-
-});
-
-// ========================================
-// SALVAR CONTEÚDO
-// ========================================
-
-salvarConteudo.addEventListener("click", () => {
-
-    const nome = nomeConteudo.value.trim();
-
-    if (!nome) {
-        alert("Digite o nome do conteúdo.");
-        return;
-    }
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === materiaSelecionadaId
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    // EDITANDO CONTEÚDO EXISTENTE
-    if (conteudoSelecionadoId !== null) {
-
-        const conteudo = materia.conteudos.find(
-            (item) => item.id === conteudoSelecionadoId
-        );
-
-        if (!conteudo) {
-            return;
-        }
-
-        conteudo.nome = nome;
-        conteudo.status = statusConteudo.value;
-
-    }
-
-    // CRIANDO NOVO CONTEÚDO
-    else {
-
-        const novoConteudo = {
-            id: Date.now(),
-            nome: nome,
-            status: statusConteudo.value
-        };
-
-        materia.conteudos.push(novoConteudo);
-
-    }
-
-    localStorage.setItem(
-        "estudos",
-        JSON.stringify(estudos)
-    );
-
-    modalConteudo.classList.remove("ativo");
-
-    conteudoSelecionadoId = null;
-
-    abrirDetalheMateria(materiaSelecionadaId);
-
-});
-
-// ========================================
-// SALVAR ATIVIDADE
-// ========================================
-
-salvarAtividade.addEventListener("click", () => {
-
-    const nome = nomeAtividade.value.trim();
-    const data = dataAtividade.value;
-
-    if (!nome) {
-
-        alert("Digite o nome da atividade.");
-
-        return;
-
-    }
-
-    if (!data) {
-
-        alert("Informe a data da atividade.");
-
-        return;
-
-    }
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === materiaSelecionadaId
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    // EDITANDO ATIVIDADE EXISTENTE
-
-    if (atividadeSelecionadaId !== null) {
-
-        const atividade = materia.atividades.find(
-            (item) => item.id === atividadeSelecionadaId
-        );
-
-        if (!atividade) {
-            return;
-        }
-
-        atividade.nome = nome;
-
-        atividade.data = data;
-
-        atividade.status = statusAtividade.value;
-
-        atividade.mostrarDashboard =
-            dashboardAtividade.value === "sim";
-
-    }
-
-    // CRIANDO NOVA ATIVIDADE
-
-    else {
-
-        const novaAtividade = {
-
-            id: Date.now(),
-
-            nome: nome,
-
-            data: data,
-
-            status: statusAtividade.value,
-
-            mostrarDashboard:
-                dashboardAtividade.value === "sim"
-
-        };
-
-        materia.atividades.push(novaAtividade);
-
-    }
-
-    localStorage.setItem(
-        "estudos",
-        JSON.stringify(estudos)
-    );
-
-    renderizarProximasAtividades();
-
-    modalAtividade.classList.remove("ativo");
-
-    atividadeSelecionadaId = null;
-
-    abrirDetalheMateria(materiaSelecionadaId);
-
-});
-
-// ========================================
-// EXCLUIR ATIVIDADE
-// ========================================
-
-excluirAtividade.addEventListener("click", () => {
-
-    if (atividadeSelecionadaId === null) {
-        return;
-    }
-
-    const confirmar = confirm(
-        "Tem certeza que deseja excluir esta atividade?"
-    );
-
-    if (!confirmar) {
-        return;
-    }
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === materiaSelecionadaId
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    materia.atividades = materia.atividades.filter(
-        (item) => item.id !== atividadeSelecionadaId
-    );
-
-    localStorage.setItem(
-        "estudos",
-        JSON.stringify(estudos)
-    );
-
-    renderizarProximasAtividades();
-
-    modalAtividade.classList.remove("ativo");
-
-    atividadeSelecionadaId = null;
-
-    abrirDetalheMateria(materiaSelecionadaId);
-
-});
-
-// ========================================
-// EXCLUIR CONTEÚDO
-// ========================================
-
-excluirConteudo.addEventListener("click", () => {
-
-    if (conteudoSelecionadoId === null) {
-        return;
-    }
-
-    const confirmar = confirm(
-        "Tem certeza que deseja excluir este conteúdo?"
-    );
-
-    if (!confirmar) {
-        return;
-    }
-
-    const estudo = estudos.find(
-        (item) => item.id === estudoSelecionadoId
-    );
-
-    if (!estudo) {
-        return;
-    }
-
-    const materia = estudo.materias.find(
-        (item) => item.id === materiaSelecionadaId
-    );
-
-    if (!materia) {
-        return;
-    }
-
-    materia.conteudos = materia.conteudos.filter(
-        (item) => item.id !== conteudoSelecionadoId
-    );
-
-    localStorage.setItem(
-        "estudos",
-        JSON.stringify(estudos)
-    );
-
-    modalConteudo.classList.remove("ativo");
-
-    conteudoSelecionadoId = null;
-
-    abrirDetalheMateria(materiaSelecionadaId);
-
-});
-
-// ========================================
-// TESTE — PRÓXIMAS ATIVIDADES
-// ========================================
-
-console.log("TESTE PRÓXIMAS ATIVIDADES");
-
-renderizarProximasAtividades();
-
-
+  
+  // ========================================
+  // EDITAR ATIVIDADE
+  // ========================================
+  
+  function abrirEdicaoAtividade(id) {
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === materiaSelecionadaId
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      const atividade = materia.atividades.find(
+          (item) => item.id === id
+      );
+  
+      if (!atividade) {
+          return;
+      }
+  
+      atividadeSelecionadaId = id;
+  
+      excluirAtividade.style.display = "block";
+  
+      nomeAtividade.value = atividade.nome;
+  
+      dataAtividade.value = atividade.data;
+  
+      statusAtividade.value = atividade.status;
+  
+      dashboardAtividade.value =
+          atividade.mostrarDashboard
+          ? "sim"
+          : "nao";
+  
+      modalAtividade.classList.add("ativo");
+  
+  }
+  
+  // ========================================
+  // CHECAGEM
+  // ========================================
+  
+  console.log("CHEGUEI NAS PRÓXIMAS ATIVIDADES");
+  
+  // ========================================
+  // BUSCAR PRÓXIMAS ATIVIDADES
+  // ========================================
+  
+  function obterProximasAtividades() {
+  
+      const atividades = [];
+  
+      console.log("ESTUDOS SALVOS:", estudos);
+  
+      estudos.forEach((estudo) => {
+  
+          estudo.materias.forEach((materia) => {
+  
+              materia.atividades.forEach((atividade) => {
+  
+                  if (atividade.status !== "concluida") {
+  
+                      atividades.push({
+  
+                          ...atividade,
+  
+                          estudoNome: estudo.nome,
+  
+                          materiaNome: materia.nome
+  
+                      });
+  
+                  }
+  
+              });
+  
+          });
+  
+      });
+  
+      atividades.sort((a, b) => {
+  
+          return a.data.localeCompare(b.data);
+  
+      });
+  
+      return atividades;
+  
+  }
+  
+  // ========================================
+  // RENDERIZAR PRÓXIMAS ATIVIDADES
+  // ========================================
+  
+  function renderizarProximasAtividades() {
+  
+      console.log("ENTREI NA FUNÇÃO RENDERIZAR");
+  
+      const container =
+          document.getElementById("proximasAtividadesEstudos");
+  
+      console.log("CONTAINER:", container);
+  
+      if (!container) {
+          return;
+      }
+  
+      const atividades = obterProximasAtividades();
+  
+      console.log("ATIVIDADES ENCONTRADAS:", atividades);
+  
+      if (atividades.length === 0) {
+  
+          container.innerHTML = `
+              <p class="estado-vazio-estudos">
+                  Nenhuma atividade próxima.
+              </p>
+          `;
+  
+          return;
+      }
+  
+      container.innerHTML = atividades.map((atividade) => `
+  
+          <div class="card-conteudo-estudo">
+  
+              <strong>
+                  📝 ${atividade.nome}
+              </strong>
+  
+              <small>
+                  📚 ${atividade.materiaNome}
+              </small>
+  
+              <small>
+                  📅 ${
+                      atividade.data
+                      .split("-")
+                      .reverse()
+                      .join("/")
+                  }
+              </small>
+  
+          </div>
+  
+      `).join("");
+  
+  }
+  
+  
+  
+  // ========================================
+  // EDITAR CONTEÚDO
+  // ========================================
+  
+  function abrirEdicaoConteudo(id) {
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === materiaSelecionadaId
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      const conteudo = materia.conteudos.find(
+          (item) => item.id === id
+      );
+  
+      if (!conteudo) {
+          return;
+      }
+  
+      conteudoSelecionadoId = id;
+  
+      nomeConteudo.value = conteudo.nome;
+  
+      statusConteudo.value = conteudo.status;
+  
+      excluirConteudo.style.display = "block";
+  
+      modalConteudo.classList.add("ativo");
+  
+  }
+  
+  // VOLTAR PARA MEUS ESTUDOS
+  
+  btnVoltarEstudos.addEventListener("click", () => {
+  
+      if (materiaSelecionadaId !== null) {
+  
+          materiaSelecionadaId = null;
+  
+          abrirDetalheEstudo(estudoSelecionadoId);
+  
+          return;
+      }
+  
+      detalheEstudo.classList.remove("ativo");
+  
+  });
+  
+  
+  // Criar novo estudo
+  salvarEstudo.addEventListener("click", () => {
+  
+      const nome = nomeEstudo.value.trim();
+  
+      if (!nome) {
+  
+          alert("Digite o nome do estudo.");
+  
+          return;
+      }
+  
+  
+      if (
+          tipoEstudo.value === "faculdade" &&
+          !cursoFaculdade.value.trim()
+      ) {
+  
+          alert("Digite o nome do curso.");
+  
+          return;
+      }
+  
+  
+      if (
+          tipoEstudo.value === "faculdade" &&
+          !semestreFaculdade.value.trim()
+      ) {
+  
+          alert("Digite o semestre.");
+  
+          return;
+      }
+  
+  
+      const novoEstudo = {
+  
+          id: Date.now(),
+  
+          nome: nome,
+  
+          tipo: tipoEstudo.value,
+  
+          curso:
+              tipoEstudo.value === "faculdade"
+              ? cursoFaculdade.value.trim()
+              : "",
+  
+          semestre:
+              tipoEstudo.value === "faculdade"
+              ? semestreFaculdade.value.trim()
+              : "",
+  
+          progresso: 0,
+  
+          materias: [],
+  
+          atividades: []
+  
+      };
+  
+  
+      estudos.push(novoEstudo);
+  
+  
+      localStorage.setItem(
+          "estudos",
+          JSON.stringify(estudos)
+      );
+  
+  
+      renderizarEstudos();
+  
+  
+      // Fechar modal
+      modalEstudo.classList.remove("ativo");
+  
+  
+      // Limpar formulário
+      nomeEstudo.value = "";
+      cursoFaculdade.value = "";
+      semestreFaculdade.value = "";
+  
+  });
+  
+  
+  // Renderizar ao carregar
+  renderizarEstudos();
+  
+  
+  // CANCELAR MATÉRIA
+  
+  cancelarMateria.addEventListener("click", () => {
+  
+      modalMateria.classList.remove("ativo");
+  
+  });
+  
+  // FECHAR CLICANDO FORA
+  
+  modalMateria.addEventListener("click", (evento) => {
+  
+      if (evento.target === modalMateria) {
+  
+          modalMateria.classList.remove("ativo");
+  
+      }
+  
+  });
+  
+  // SALVAR MATÉRIA
+  salvarMateria.addEventListener("click", () => {
+  
+      const nome = nomeMateria.value.trim();
+  
+      if (!nome) {
+  
+          alert("Digite o nome da matéria.");
+  
+          return;
+  
+      }
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+  
+          return;
+  
+      }
+  
+      const novaMateria = {
+  
+          id: Date.now(),
+  
+          nome: nome,
+  
+          progresso: 0,
+  
+          conteudos: [],
+  
+          atividades: []
+  
+      };
+  
+      estudo.materias.push(novaMateria);
+  
+      localStorage.setItem(
+          "estudos",
+          JSON.stringify(estudos)
+      );
+  
+      modalMateria.classList.remove("ativo");
+  
+      abrirDetalheEstudo(estudoSelecionadoId);
+  
+  });
+  
+  // ========================================
+  // SALVAR CONTEÚDO
+  // ========================================
+  
+  salvarConteudo.addEventListener("click", () => {
+  
+      const nome = nomeConteudo.value.trim();
+  
+      if (!nome) {
+          alert("Digite o nome do conteúdo.");
+          return;
+      }
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === materiaSelecionadaId
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      // EDITANDO CONTEÚDO EXISTENTE
+      if (conteudoSelecionadoId !== null) {
+  
+          const conteudo = materia.conteudos.find(
+              (item) => item.id === conteudoSelecionadoId
+          );
+  
+          if (!conteudo) {
+              return;
+          }
+  
+          conteudo.nome = nome;
+          conteudo.status = statusConteudo.value;
+  
+      }
+  
+      // CRIANDO NOVO CONTEÚDO
+      else {
+  
+          const novoConteudo = {
+              id: Date.now(),
+              nome: nome,
+              status: statusConteudo.value
+          };
+  
+          materia.conteudos.push(novoConteudo);
+  
+      }
+  
+      localStorage.setItem(
+          "estudos",
+          JSON.stringify(estudos)
+      );
+  
+      modalConteudo.classList.remove("ativo");
+  
+      conteudoSelecionadoId = null;
+  
+      abrirDetalheMateria(materiaSelecionadaId);
+  
+  });
+  
+  // ========================================
+  // SALVAR ATIVIDADE
+  // ========================================
+  
+  salvarAtividade.addEventListener("click", () => {
+  
+      const nome = nomeAtividade.value.trim();
+      const data = dataAtividade.value;
+  
+      if (!nome) {
+  
+          alert("Digite o nome da atividade.");
+  
+          return;
+  
+      }
+  
+      if (!data) {
+  
+          alert("Informe a data da atividade.");
+  
+          return;
+  
+      }
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === materiaSelecionadaId
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      // EDITANDO ATIVIDADE EXISTENTE
+  
+      if (atividadeSelecionadaId !== null) {
+  
+          const atividade = materia.atividades.find(
+              (item) => item.id === atividadeSelecionadaId
+          );
+  
+          if (!atividade) {
+              return;
+          }
+  
+          atividade.nome = nome;
+  
+          atividade.data = data;
+  
+          atividade.status = statusAtividade.value;
+  
+          atividade.mostrarDashboard =
+              dashboardAtividade.value === "sim";
+  
+      }
+  
+      // CRIANDO NOVA ATIVIDADE
+  
+      else {
+  
+          const novaAtividade = {
+  
+              id: Date.now(),
+  
+              nome: nome,
+  
+              data: data,
+  
+              status: statusAtividade.value,
+  
+              mostrarDashboard:
+                  dashboardAtividade.value === "sim"
+  
+          };
+  
+          materia.atividades.push(novaAtividade);
+  
+      }
+  
+      localStorage.setItem(
+          "estudos",
+          JSON.stringify(estudos)
+      );
+  
+      renderizarProximasAtividades();
+  
+      modalAtividade.classList.remove("ativo");
+  
+      atividadeSelecionadaId = null;
+  
+      abrirDetalheMateria(materiaSelecionadaId);
+  
+  });
+  
+  // ========================================
+  // EXCLUIR ATIVIDADE
+  // ========================================
+  
+  excluirAtividade.addEventListener("click", () => {
+  
+      if (atividadeSelecionadaId === null) {
+          return;
+      }
+  
+      const confirmar = confirm(
+          "Tem certeza que deseja excluir esta atividade?"
+      );
+  
+      if (!confirmar) {
+          return;
+      }
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === materiaSelecionadaId
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      materia.atividades = materia.atividades.filter(
+          (item) => item.id !== atividadeSelecionadaId
+      );
+  
+      localStorage.setItem(
+          "estudos",
+          JSON.stringify(estudos)
+      );
+  
+      renderizarProximasAtividades();
+  
+      modalAtividade.classList.remove("ativo");
+  
+      atividadeSelecionadaId = null;
+  
+      abrirDetalheMateria(materiaSelecionadaId);
+  
+  });
+  
+  // ========================================
+  // EXCLUIR CONTEÚDO
+  // ========================================
+  
+  excluirConteudo.addEventListener("click", () => {
+  
+      if (conteudoSelecionadoId === null) {
+          return;
+      }
+  
+      const confirmar = confirm(
+          "Tem certeza que deseja excluir este conteúdo?"
+      );
+  
+      if (!confirmar) {
+          return;
+      }
+  
+      const estudo = estudos.find(
+          (item) => item.id === estudoSelecionadoId
+      );
+  
+      if (!estudo) {
+          return;
+      }
+  
+      const materia = estudo.materias.find(
+          (item) => item.id === materiaSelecionadaId
+      );
+  
+      if (!materia) {
+          return;
+      }
+  
+      materia.conteudos = materia.conteudos.filter(
+          (item) => item.id !== conteudoSelecionadoId
+      );
+  
+      localStorage.setItem(
+          "estudos",
+          JSON.stringify(estudos)
+      );
+  
+      modalConteudo.classList.remove("ativo");
+  
+      conteudoSelecionadoId = null;
+  
+      abrirDetalheMateria(materiaSelecionadaId);
+  
+  });
+  
+  // ========================================
+  // TESTE — PRÓXIMAS ATIVIDADES
+  // ========================================
+  
+  console.log("TESTE PRÓXIMAS ATIVIDADES");
+  
+  renderizarProximasAtividades();
 
 
 // ==========================================
-// MODULO DE FINANÇAS
+// MÓDULO DE FINANÇAS
 // ==========================================
 
 let transacoes =
