@@ -1190,15 +1190,15 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 }
 
 /* ==========================================
-   TREINO
+   MÓDULO DE TREINO
 ========================================== */
-#listaTreinos {
+  #listaTreinos {
     display: flex;
     flex-direction: column;
     gap: 12px;
-}
-
-.card-treino {
+  }
+  
+  .card-treino {
     padding: 18px;
 
     background: white;
@@ -1206,139 +1206,139 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     border-radius: 12px;
 
     cursor: pointer;
-}
-
-.card-treino h3 {
+  }
+  
+  .card-treino h3 {
     margin: 0 0 5px;
     font-size: 17px;
-}
-
-.card-treino p {
+  }
+  
+  .card-treino p {
     margin: 0;
     color: #6b7280;
     font-size: 13px;
-}
-
-.card-treino:hover {
+  }
+  
+  .card-treino:hover {
     background: #f9fafb;
     transform: translateY(-1px);
-}
-
-.treino-hoje-inicio {
+  }
+  
+  .treino-hoje-inicio {
     cursor: pointer;
-}
-
-.treino-hoje-inicio strong {
+  }
+  
+  .treino-hoje-inicio strong {
     display: block;
     font-size: 18px;
     margin-bottom: 4px;
-}
-
-.treino-hoje-inicio p {
+  }
+  
+  .treino-hoje-inicio p {
     margin: 0;
     color: #6b7280;
     font-size: 13px;
-}
-
-.treino-hoje-inicio:hover {
+  }
+  
+  .treino-hoje-inicio:hover {
     opacity: 0.75;
-}
-
-.modo-treino {
+  }
+  
+  .modo-treino {
     display: none;
-}
-
-.modo-treino-cabecalho {
+  }
+  
+  .modo-treino-cabecalho {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 20px;
-}
-
-.modo-treino-cabecalho button {
+  }
+  
+  .modo-treino-cabecalho button {
     margin: 0;
-}
-
-.modo-treino-cabecalho h2 {
+  }
+  
+  .modo-treino-cabecalho h2 {
     margin: 0;
-}
-
-.modo-treino-cabecalho p {
+  }
+  
+  .modo-treino-cabecalho p {
     margin: 4px 0 0;
     color: #6b7280;
     font-size: 13px;
-}
-
-.progresso-treino {
-    margin-bottom: 20px;
-}
-
-.progresso-treino > span {
+  }
+  
+  .progresso-treino {
+    margin-bottom: 20px;eu 
+  }
+  
+  .progresso-treino > span {
     display: block;
     margin-bottom: 7px;
     font-size: 13px;
     color: #6b7280;
-}
-
-.barra-progresso-treino {
+  }
+  
+  .barra-progresso-treino {
     width: 100%;
     height: 7px;
     background: #e5e7eb;
     border-radius: 10px;
     overflow: hidden;
-}
-
-#barraProgressoTreino {
+  }
+  
+  #barraProgressoTreino {
     width: 0%;
     height: 100%;
     background: #111827;
     border-radius: 10px;
-}
-
-.exercicio-treino {
+  }
+  
+  .exercicio-treino {
     padding: 18px;
     margin-bottom: 12px;
 
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-}
-
-.cabecalho-exercicio {
+  }
+  
+  .cabecalho-exercicio {
     display: flex;
     align-items: center;
-}
-
-.cabecalho-exercicio > div {
+  }
+  
+  .cabecalho-exercicio > div {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.status-exercicio {
+  }
+  
+  .status-exercicio {
     font-size: 16px;
-}
-
-.planejado-exercicio {
+  }
+  
+  .planejado-exercicio {
     margin: 10px 0 5px;
     font-size: 13px;
     color: #6b7280;
-}
-
-.ultimo-treino {
+  }
+  
+  .ultimo-treino {
     margin: 0 0 15px;
     font-size: 13px;
     color: #6b7280;
-}
-
-.area-series {
+  }
+  
+  .area-series {
     display: flex;
     flex-direction: column;
     gap: 6px;
     margin-bottom: 15px;
-}
-
-.serie {
+  }
+  
+  .serie {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1349,29 +1349,29 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     border-radius: 8px;
 
     font-size: 13px;
-}
-
-.exercicio-treino.bloqueado {
+  }
+  
+  .exercicio-treino.bloqueado {
     opacity: 0.55;
-}
-
-.aguardando-exercicio {
+  }
+  
+  .aguardando-exercicio {
     margin: 8px 0 0;
     font-size: 12px;
     color: #9ca3af;
-}
-
-.btn-concluir-exercicio {
+  }
+  
+  .btn-concluir-exercicio {
     width: 100%;
     margin-top: 5px;
-}
-
-.btn-finalizar-treino {
+  }
+  
+  .btn-finalizar-treino {
     width: 100%;
     margin-top: 10px;
-}
-
-.modal-treino {
+  }
+  
+  .modal-treino {
     display: none;
 
     position: fixed;
@@ -1383,9 +1383,9 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     justify-content: center;
 
     z-index: 1000;
-}
-
-.modal-treino-caixa {
+  }
+  
+  .modal-treino-caixa {
     background: white;
 
     padding: 25px;
@@ -1394,10 +1394,10 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 
     width: 90%;
     max-width: 400px;
-}
-
-/* BOTÕES DO MODAL DE TREINO */
-.modal-treino-caixa button {
+  }
+  
+  /* BOTÕES DO MODAL DE TREINO */
+  .modal-treino-caixa button {
     display: block;
     width: 100%;
 
@@ -1411,17 +1411,17 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 
     cursor: pointer;
     font-size: 16px;
-}
-
-.modal-treino-caixa button:hover {
+  }
+  
+  .modal-treino-caixa button:hover {
     background: #f3f4f6;
-}
-
-.modal-treino-caixa .btn-cancelar-treino {
+  }
+  
+  .modal-treino-caixa .btn-cancelar-treino {
     margin-top: 10px;
-}
-
-.ficha-treino {
+  }
+  
+  .ficha-treino {
     display: none;
     position: fixed;
     inset: 0;
@@ -1429,9 +1429,9 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     align-items: center;
     justify-content: center;
     z-index: 1000;
-}
-
-.ficha-treino-caixa {
+  }
+  
+  .ficha-treino-caixa {
     width: 90%;
     max-width: 600px;
     max-height: 85vh;
@@ -1441,98 +1441,98 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     box-sizing: border-box;
-}
-
-.ficha-treino-cabecalho {
+  }
+  
+  .ficha-treino-cabecalho {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 25px;
-}
-
-.ficha-treino-cabecalho button {
+  }
+  
+  .ficha-treino-cabecalho button {
     margin: 0;
-}
-
-.ficha-treino-cabecalho h2 {
+  }
+  
+  .ficha-treino-cabecalho h2 {
     margin: 0;
-}
-
-.ficha-treino-cabecalho p {
+  }
+  
+  .ficha-treino-cabecalho p {
     margin: 4px 0 0;
     color: #6b7280;
     font-size: 13px;
-}
-
-.grupo-muscular {
+  }
+  
+  .grupo-muscular {
     margin-bottom: 20px;
-}
-
-.grupo-muscular h3 {
+  }
+  
+  .grupo-muscular h3 {
     margin: 0 0 10px;
     font-size: 13px;
     color: #6b7280;
     letter-spacing: 0.5px;
-}
-
-.exercicio-ficha {
+  }
+  
+  .exercicio-ficha {
     padding: 18px;
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-}
-
-.exercicio-ficha > strong {
+  }
+  
+  .exercicio-ficha > strong {
     display: block;
     margin-bottom: 15px;
     font-size: 15px;
-}
-
-.campos-ficha {
+  }
+  
+  .campos-ficha {
     display: flex;
     align-items: end;
     gap: 8px;
-}
-
-.campos-ficha > div {
+  }
+  
+  .campos-ficha > div {
     display: flex;
     flex-direction: column;
     gap: 5px;
-}
-
-.campos-ficha label {
+  }
+  
+  .campos-ficha label {
     font-size: 11px;
     color: #6b7280;
-}
-
-.campos-ficha input {
+  }
+  
+  .campos-ficha input {
     width: 70px;
     padding: 9px;
     border: 1px solid #d1d5db;
     border-radius: 7px;
     box-sizing: border-box;
-}
-
-.campos-ficha > span {
+  }
+  
+  .campos-ficha > span {
     padding-bottom: 9px;
     color: #6b7280;
-}
-
-.campo-carga {
+  }
+  
+  .campo-carga {
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
     gap: 5px;
-}
-
-.campo-carga input {
+  }
+  
+  .campo-carga input {
     width: 70px;
-}
-
-.campo-carga span {
+  }
+  
+  .campo-carga span {
     font-size: 13px;
     color: #6b7280;
-}
+  }
 
 /* ==========================================
    DASHBOARD PRINCIPAL
