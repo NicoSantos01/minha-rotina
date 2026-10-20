@@ -13,6 +13,8 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 
+console.log("Supabase conectado:", !!supabaseClient);
+
 // ==========================================
 // CARREGAR HÁBITOS
 // ==========================================
