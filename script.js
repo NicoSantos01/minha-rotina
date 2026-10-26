@@ -6476,145 +6476,205 @@ function atualizarResumoContas() {
       )}`;
   }
   
-  // HISTÓRICO DA JORNADA
+  
+  // MÊS QUE ESTÁ SENDO EXIBIDO NO HISTÓRICO
+  let mesHistoricoAtual = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
+
+  // HISTÓRICO DA JORNADA EM FORMATO DE CALENDÁRIO
   function renderizarHistoricoJornada() {
-    const container =
-      document.getElementById(
-        "listaHistoricoJornada"
-      );
-    if (!container) {
-      return;
-    }
+    const container = document.getElementById(
+      "listaHistoricoJornada"
+    );
+
+    if (!container) return;
+
     container.innerHTML = "";
 
-    // NENHUM REGISTRO
-    if (jornadasTrabalho.length === 0) {
-      container.innerHTML = `
-        <p>📭 Nenhuma jornada registrada.</p>
-      `;
-      return;
+    const ano = mesHistoricoAtual.getFullYear();
+    const mes = mesHistoricoAtual.getMonth();
+
+    const nomeMes = mesHistoricoAtual.toLocaleDateString(
+      "pt-BR",
+      {
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+    // CABEÇALHO E NAVEGAÇÃO ENTRE MESES
+    const cabecalho = document.createElement("div");
+    cabecalho.className = "calendario-jornada-cabecalho";
+
+    cabecalho.innerHTML = `
+      <button type="button"
+        class="btn-mes-jornada"
+        data-mes="-1"
+        aria-label="Mês anterior">
+        &#8249;
+      </button>
+
+      <h3>${nomeMes}</h3>
+
+      <button type="button"
+        class="btn-mes-jornada"
+        data-mes="1"
+        aria-label="Próximo mês">
+        &#8250;
+      </button>
+    `;
+
+    container.appendChild(cabecalho);
+
+    // LEGENDA
+    const legenda = document.createElement("div");
+    legenda.className = "legenda-calendario-jornada";
+
+    legenda.innerHTML = `
+      <span><i class="legenda-cor jornada-completa"></i> Finalizada</span>
+      <span><i class="legenda-cor jornada-pendente"></i> Em andamento</span>
+      <span><i class="legenda-cor jornada-vazia"></i> Sem registro</span>
+    `;
+
+    container.appendChild(legenda);
+
+    // DIAS DA SEMANA
+    const calendario = document.createElement("div");
+    calendario.className = "calendario-jornada";
+
+    ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]
+      .forEach(dia => {
+        const titulo = document.createElement("div");
+        titulo.className = "calendario-dia-semana";
+        titulo.textContent = dia;
+        calendario.appendChild(titulo);
+      });
+
+    // PRIMEIRO DIA DO MÊS
+    // JavaScript: domingo = 0; calendário: segunda = 0
+    const primeiroDia = new Date(ano, mes, 1);
+    const deslocamento = (primeiroDia.getDay() + 6) % 7;
+
+    // ESPAÇOS ANTES DO DIA 1
+    for (let i = 0; i < deslocamento; i++) {
+      const vazio = document.createElement("div");
+      vazio.className = "calendario-dia calendario-dia-vazio";
+      vazio.setAttribute("aria-hidden", "true");
+      calendario.appendChild(vazio);
     }
 
-    // ORDENAR DO MAIS RECENTE PARA O MAIS ANTIGO
-    const jornadasOrdenadas =
-        [...jornadasTrabalho].sort(
-            (a, b) =>
-                new Date(b.data) -
-                new Date(a.data)
-        );
-  
-    // RENDERIZAR
-    jornadasOrdenadas.forEach(
-      jornada => {
-        const item =
-          document.createElement("div");
-        item.className =
-          "item-historico-jornada";
+    const totalDias = new Date(ano, mes + 1, 0).getDate();
 
-        // DATA
-        const [ano, mes, dia] =
-          jornada.data.split("-");
-        const dataFormatada =
-          `${dia}/${mes}/${ano}`;
+    for (let dia = 1; dia <= totalDias; dia++) {
+      const data = [
+        ano,
+        String(mes + 1).padStart(2, "0"),
+        String(dia).padStart(2, "0")
+      ].join("-");
 
-        // STATUS
-        let status = "⚪ Não finalizada";
-        if (
-          jornada.entrada &&
-          jornada.saida
-        ) {
-          status =
-              "🟢 Finalizada";
-        } else if (
-            jornada.entrada
-        ) {
-          status =
-            "🟡 Em andamento";
-        }
-  
-        // HTML
-        const resultadoHoraExtra =
-          calcularHoraExtra(
-            jornada.entrada,
-            jornada.saida
-          );
-        
-        const textoHoraExtra =
-          resultadoHoraExtra.passou
-            ? `☑ Passou das 14:10? — ⏱️ Hora extra: ${formatarHoraExtra(
-                resultadoHoraExtra.minutos
-              )}`
-            : `☐ Passou das 14:10? — ⏱️ Hora extra: 0min`;
-      
-        item.innerHTML = `
-          <div class="historico-jornada-data">
-            <strong>
-              ${dataFormatada}
-            </strong>
-          </div>
-        
-          <div class="historico-jornada-info">
-            <span>
-              🟢 Entrada:
-              ${formatarHorario(jornada.entrada)}
-            </span>
-    
-            <span>
-              🔴 Saída:
-              ${formatarHorario(jornada.saida)}
-            </span>
-          </div>
-        
-          <div class="historico-jornada-status">
-            ${status}
-          </div>
-          
-          <div class="historico-jornada-extra">
-            ${textoHoraExtra}
-          </div>
-      
-          <div class="menu-historico-jornada">
-            <button
-              type="button"
-              class="btn-menu-pontos btn-menu-historico"
-              aria-label="Opções desta jornada"
-              aria-expanded="false"
-              data-data="${jornada.data}"
-            >
-              ⋮
+      const jornada = jornadasTrabalho.find(
+        item => item.data === data
+      );
+
+      const quadrado = document.createElement("div");
+      quadrado.className = "calendario-dia";
+
+      if (!jornada) {
+        quadrado.classList.add("jornada-vazia");
+      } else if (jornada.entrada && jornada.saida) {
+        quadrado.classList.add("jornada-completa");
+      } else if (jornada.entrada) {
+        quadrado.classList.add("jornada-pendente");
+      } else {
+        quadrado.classList.add("jornada-vazia");
+      }
+
+      const numeroDia = document.createElement("strong");
+      numeroDia.className = "calendario-numero-dia";
+      numeroDia.textContent = dia;
+      quadrado.appendChild(numeroDia);
+
+      if (jornada) {
+        const entrada = document.createElement("span");
+        entrada.className = "calendario-horario";
+        entrada.textContent = jornada.entrada
+          ? `Entrada ${formatarHorario(jornada.entrada)}`
+          : "Sem entrada";
+
+        const saida = document.createElement("span");
+        saida.className = "calendario-horario";
+        saida.textContent = jornada.saida
+          ? `Saída ${formatarHorario(jornada.saida)}`
+          : "Sem saída";
+
+        quadrado.appendChild(entrada);
+        quadrado.appendChild(saida);
+
+        const menu = document.createElement("div");
+        menu.className = "menu-historico-jornada";
+
+        menu.innerHTML = `
+          <button
+            type="button"
+            class="btn-menu-pontos btn-menu-historico"
+            aria-label="Opções da jornada"
+            aria-expanded="false"
+            data-data="${data}">
+            ⋮
+          </button>
+
+          <div
+            class="opcoes-menu-pontos opcoes-menu-historico"
+            style="display: none;">
+            <button type="button"
+              class="btn-editar-jornada"
+              data-data="${data}">
+              ✏️ Editar
             </button>
-          
-            <div
-              class="opcoes-menu-pontos opcoes-menu-historico"
-              style="display: none;"
-            >
-              <button
-                type="button"
-                class="btn-editar-jornada"
-                data-data="${jornada.data}"
-              >
-                ✏️ Editar
-              </button>
-          
-              <button
-                type="button"
-                class="btn-excluir-jornada"
-                data-data="${jornada.data}"
-              >
-                🗑️ Excluir
-              </button>
-            </div>
+
+            <button type="button"
+              class="btn-excluir-jornada"
+              data-data="${data}">
+              🗑️ Excluir
+            </button>
           </div>
         `;
 
-        container.appendChild(item);
-  
-          }
-      );
-  
+        quadrado.appendChild(menu);
+      } else {
+        const semRegistro = document.createElement("span");
+        semRegistro.className = "calendario-sem-registro";
+        semRegistro.textContent = "—";
+        quadrado.appendChild(semRegistro);
+      }
+
+      calendario.appendChild(quadrado);
+    }
+
+    container.appendChild(calendario);
   }
 
-  
+  // NAVEGAR ENTRE OS MESES
+  document.getElementById("listaHistoricoJornada")
+  ?.addEventListener("click", evento => {
+    const botao = evento.target.closest(".btn-mes-jornada");
+
+    if (!botao) return;
+
+    const quantidade = Number(botao.dataset.mes);
+
+    mesHistoricoAtual = new Date(
+      mesHistoricoAtual.getFullYear(),
+      mesHistoricoAtual.getMonth() + quantidade,
+      1
+    );
+
+    renderizarHistoricoJornada();
+  });
+
    // MENU DE TRES PONTINHOS - JORNADA
    const btnMenuJornada =
     document.getElementById("btnMenuJornada");
