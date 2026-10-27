@@ -18,396 +18,274 @@ console.log("Supabase conectado:", !!supabaseClient);
 // ==========================================
 // CARREGAR HÁBITOS
 // ==========================================
-
-let habitos =
-JSON.parse(localStorage.getItem("habitos")) || [];
+let habitos = JSON.parse(localStorage.getItem("habitos")) || [];
 
 // ==========================================
 // CARREGAR SONO
 // ==========================================
-
-let sono =
-JSON.parse(localStorage.getItem("sono")) || {};
+let sono = JSON.parse(localStorage.getItem("sono")) || {};
 
 // ==========================================
 // CARREGAR ROTINA DA MANHÃ
 // ==========================================
-
-let rotinaManha =
-    JSON.parse(
-        localStorage.getItem("rotinaManha")
-    ) || {};
+let rotinaManha = JSON.parse(localStorage.getItem("rotinaManha")) || {};
 
 // ==========================================
 // DATA DE HOJE
 // ==========================================
+const agora = new Date();
 
-const agora =
-new Date();
-
-const hoje =
-`${agora.getFullYear()}-${String(
-    agora.getMonth() + 1
-).padStart(2, "0")}-${String(
-    agora.getDate()
-).padStart(2, "0")}`;
+const hoje = `${agora.getFullYear()}-${String(agora.getMonth() + 1).padStart(2, "0")}-${String(agora.getDate()).padStart(2, "0")}`;
 
 // ==========================================
 // ELEMENTOS
 // ==========================================
-
-const lista =
-document.getElementById("listaHabitos");
-const modal =
-document.getElementById("modal");
-const input =
-document.getElementById("nomeHabito");
-const categoria =
-document.getElementById("categoriaHabito");
-const telaHoje =
-document.getElementById("telaHoje");
-const telaHistorico =
-document.getElementById("telaHistorico");
-const diasCalendario =
-document.getElementById("diasCalendario");
-const detalhesDia =
-document.getElementById("detalhesDia");
-const resumoHabitosDashboard =
-document.getElementById("resumoHabitosDashboard");
-const resumoAlimentacaoDashboard =
-document.getElementById("resumoAlimentacaoDashboard");
+const lista = document.getElementById("listaHabitos");
+const modal = document.getElementById("modal");
+const input = document.getElementById("nomeHabito");
+const categoria = document.getElementById("categoriaHabito");
+const telaHoje = document.getElementById("telaHoje");
+const telaHistorico = document.getElementById("telaHistorico");
+const diasCalendario = document.getElementById("diasCalendario");
+const detalhesDia = document.getElementById("detalhesDia");
+const resumoHabitosDashboard = document.getElementById("resumoHabitosDashboard");
+const resumoAlimentacaoDashboard = document.getElementById("resumoAlimentacaoDashboard");
 
 // ==========================================
 // SONO
 // ==========================================
-
-const horaDormiu =
-document.getElementById("horaDormiu");
-const horaAcordou =
-document.getElementById("horaAcordou");
-const resultadoSono =
-document.getElementById("resultadoSono");
+const horaDormiu = document.getElementById("horaDormiu");
+const horaAcordou = document.getElementById("horaAcordou");
+const resultadoSono = document.getElementById("resultadoSono");
 
 console.log("SONO:", horaDormiu, horaAcordou, resultadoSono);
 
-// ==========================================
-// CALCULAR SONO
-// ==========================================
-
-function calcularSono() {
-
+  // CALCULAR SONO
+  function calcularSono() {
     console.log("CALCULANDO SONO");
-
+  
     const inicio =
     horaDormiu.value;
     const fim =
     horaAcordou.value;
-
+  
     if (!inicio || !fim) {
-
-        resultadoSono.textContent =
-            "⏱️ —";
-
-        return;
+      resultadoSono.textContent =
+        "⏱️ —";
+      return;
     }
-
-    let [horaInicio, minutoInicio] =
-    inicio.split(":").map(Number);
-    let [horaFim, minutoFim] =
-    fim.split(":").map(Number);
-    let minutosInicio =
-    horaInicio * 60 + minutoInicio;
-    let minutosFim =
-    horaFim * 60 + minutoFim;
-
+  
+    let [horaInicio, minutoInicio] = inicio.split(":").map(Number);
+    let [horaFim, minutoFim] = fim.split(":").map(Number);
+    let minutosInicio = horaInicio * 60 + minutoInicio;
+    let minutosFim = horaFim * 60 + minutoFim;
+  
     // Se acordou no dia seguinte
     if (minutosFim <= minutosInicio) {
-
-        minutosFim += 24 * 60;
-
+      minutosFim += 24 * 60;
     }
-
-    const duracao =
-    minutosFim - minutosInicio;
   
-    const horas =
-    Math.floor(duracao / 60);
+    const duracao = minutosFim - minutosInicio;
+    const horas = Math.floor(duracao / 60);
+    const minutos = duracao % 60;
   
-    const minutos =
-    duracao % 60;
-
-    // ==========================================
     // SALVAR SONO
-    // ==========================================
-    
     sono[hoje] = {
-    
-        dormiu: inicio,
-    
-        acordou: fim,
-    
-        duracao: duracao
-    
+      dormiu: inicio,
+      acordou: fim,
+      duracao: duracao
     };
     
-    localStorage.setItem(
-        "sono",
-        JSON.stringify(sono)
-    );
-
+    localStorage.setItem("sono",JSON.stringify(sono));
+  
     console.log("Sono salvo:", sono[hoje]);
-
+  
     resultadoSono.textContent =
     `⏱️ ${horas}h ${minutos}min`;
-
-    const metaSono =
-        8 * 60;
-    
-    const minutosDormidos =
-        duracao;
-    
-    if (minutosDormidos >= metaSono) {
-    
-        resultadoSono.textContent +=
-            " — ✅ Meta atingida";
-    
+  
+    const metaSono = 8 * 60;
+    const minutosDormidos = duracao;
+  
+    if (minutosDormidos >= metaSono) {  
+      resultadoSono.textContent +=
+        " — ✅ Meta atingida";
     } else {
-    
-        const faltam =
-            metaSono - minutosDormidos;
-    
-        const horasFaltam =
-            Math.floor(faltam / 60);
-    
-        const minutosFaltam =
-            faltam % 60;
-    
-        resultadoSono.textContent +=
-            ` — ⚠️ Faltam ${horasFaltam}h ${minutosFaltam}min`;
+      const faltam = metaSono - minutosDormidos;
+      const horasFaltam = Math.floor(faltam / 60);
+      const minutosFaltam = faltam % 60;
+  
+      resultadoSono.textContent += ` — ⚠️ Faltam ${horasFaltam}h ${minutosFaltam}min`;
     }
-
-}
-
-horaDormiu.addEventListener(
+  
+  }
+  
+  horaDormiu.addEventListener(
     "change",
     calcularSono
-);
-
-horaAcordou.addEventListener(
+  );
+  
+  horaAcordou.addEventListener(
     "change",
     calcularSono
-);
-
-// ==========================================
-// CARREGAR SONO DE HOJE
-// ==========================================
-
-const sonoHoje =
-    sono[hoje];
-
-if (sonoHoje) {
-
-    horaDormiu.value =
-        sonoHoje.dormiu;
-
-    horaAcordou.value =
-        sonoHoje.acordou;
-
+  );
+  
+  // CARREGAR SONO DE HOJE
+  const sonoHoje = sono[hoje];
+  
+  if (sonoHoje) {
+    horaDormiu.value = sonoHoje.dormiu;
+    horaAcordou.value = sonoHoje.acordou;
     calcularSono();
-}
+  }
 
 // ==========================================
 // ROTINA DA MANHÃ
 // ==========================================
-
-const blocoHigieneManha =
-    document.getElementById("blocoHigieneManha");
-
-const abrirHigieneManha =
-    document.getElementById("abrirHigieneManha");
-
-const modalHigieneManha =
-    document.getElementById("modalHigieneManha");
-
-const fecharHigieneManha =
-    document.getElementById("fecharHigieneManha");
+const blocoHigieneManha = document.getElementById("blocoHigieneManha");
+const abrirHigieneManha = document.getElementById("abrirHigieneManha");
+const modalHigieneManha = document.getElementById("modalHigieneManha");
+const fecharHigieneManha = document.getElementById("fecharHigieneManha");
 
 // ==========================================
 // BOTÃO ABRIR HIGIENE MANHÃ
 // ==========================================
 abrirHigieneManha.addEventListener(
-    "click",
-    () => {
-
-        modalHigieneManha.classList.add(
-            "ativo"
-        );
-
-    }
+  "click",
+  () => {
+    modalHigieneManha.classList.add(
+      "ativo"
+    );
+  }
 );
 
 // ==========================================
 // BOTÃO FECHAR HIGIENE MANHÃ
 // ==========================================
 fecharHigieneManha.addEventListener(
-    "click",
-    () => {
-
-        modalHigieneManha.classList.remove(
-            "ativo"
-        );
-
-    }
+  "click",
+  () => {
+    modalHigieneManha.classList.remove(
+      "ativo"
+    );
+  }
 );
 
 // ==========================================
 // CHECKLIST DA ROTINA DA MANHÃ
 // ==========================================
-
 const itensHigiene =
-    document.querySelectorAll(
-        ".itemHigiene"
-    );
+  document.querySelectorAll(
+    ".itemHigiene"
+  );
 
 const progressoHigieneManha =
-    document.getElementById(
-        "progressoHigieneManha"
-    );
+  document.getElementById(
+    "progressoHigieneManha"
+  );
 
 const resumoHigieneManha =
-    document.getElementById(
-        "abrirHigieneManha"
-    );
+  document.getElementById(
+    "abrirHigieneManha"
+  );
 
 // ==========================================
 // CONTADOR
 // ==========================================
 function atualizarProgressoHigiene() {
+  const concluidos =
+    document.querySelectorAll(
+      ".itemHigiene:checked"
+    ).length;
 
-    const concluidos =
-        document.querySelectorAll(
-            ".itemHigiene:checked"
-        ).length;
+  const total =
+    itensHigiene.length;
 
-    const total =
-        itensHigiene.length;
-
-    const porcentagem =
-        (concluidos / total) * 100;
-    
-    if (porcentagem >= 60) {
-    
-        progressoHigieneManha.textContent =
-            `${concluidos}/${total} concluídos ✅`;
-    
-    } else {
-    
-        progressoHigieneManha.textContent =
-            `${concluidos}/${total} concluídos`;
-    
-    }
-    
-    if (porcentagem >= 60) {
-
-        resumoHigieneManha.textContent =
-            `${concluidos}/${total} concluídos ✅`;
-    
-    } else {
-    
-        resumoHigieneManha.textContent =
-            `${concluidos}/${total} concluídos`;
-    
-    }
+  const porcentagem =
+    (concluidos / total) * 100;
   
-  // ==========================================
+  if (porcentagem >= 60) {
+    progressoHigieneManha.textContent =
+      `${concluidos}/${total} concluídos ✅`;
+  } else {
+    progressoHigieneManha.textContent =
+      `${concluidos}/${total} concluídos`;
+  }
+  
+  if (porcentagem >= 60) {
+    resumoHigieneManha.textContent =
+      `${concluidos}/${total} concluídos ✅`;
+  } else {
+    resumoHigieneManha.textContent =
+      `${concluidos}/${total} concluídos`;
+  }
+  
   // SALVAR ROTINA DO DIA
-  // ==========================================
   rotinaManha[hoje] =
-      {};
+    {};
   
   itensHigiene.forEach(
-      (item) => {
-  
-          rotinaManha[hoje][
-              item.dataset.item
-          ] = item.checked;
-  
-      }
+    (item) => {
+      rotinaManha[hoje][
+          item.dataset.item
+      ] = item.checked;
+    }
   );
   
   localStorage.setItem(
-      "rotinaManha",
-      JSON.stringify(rotinaManha)
+    "rotinaManha",
+    JSON.stringify(rotinaManha)
   );
 }
-
-
 
 // ==========================================
 // CHECKBOX ATUALIZAR
 // ==========================================
 itensHigiene.forEach(
-    (item) => {
-
-        item.addEventListener(
-            "change",
-            atualizarProgressoHigiene
-        );
-
-    }
+  (item) => {
+    item.addEventListener(
+        "change",
+        atualizarProgressoHigiene
+    );
+  }
 );
 
 // ==========================================
 // ALIMENTAÇÃO — SISTEMA DE ROTINA
 // ==========================================
-
-const statusCafeRotina =
-    document.getElementById("statusCafeRotina");
+const statusCafeRotina = document.getElementById("statusCafeRotina");
 
 // ==========================================
 // ATUALIZAR ALIMENTAÇÃO NA ROTINA
 // ==========================================
-
 function atualizarAlimentacaoRotina() {
+  const alimentacao =
+    JSON.parse(
+      localStorage.getItem("alimentacao")
+    ) || {};
 
-    const alimentacao =
-        JSON.parse(
-            localStorage.getItem("alimentacao")
-        ) || {};
+  const refeicoesHoje =
+    alimentacao[hoje] || {};
 
-    const refeicoesHoje =
-        alimentacao[hoje] || {};
+  const refeicoes = {
+    cafe:
+      statusCafeRotina,
+  };
 
-    const refeicoes = {
-
-        cafe:
-            statusCafeRotina,
-
-    };
-
-    Object.keys(refeicoes).forEach(
-        (refeicao) => {
-
-            const alimentos =
-                refeicoesHoje[refeicao];
-
-            if (
-                Array.isArray(alimentos) &&
-                alimentos.length > 0
-            ) {
-
-                refeicoes[refeicao].textContent =
-                    `✓ ${alimentos.length}`;
-
-            } else {
-
-                refeicoes[refeicao].textContent =
-                    "—";
-
-            }
-
-        }
-    );
+  Object.keys(refeicoes).forEach(
+    (refeicao) => {
+      const alimentos = refeicoesHoje[refeicao];
+      if (
+        Array.isArray(alimentos) &&
+        alimentos.length > 0
+      ) {
+        refeicoes[refeicao].textContent =
+          `✓ ${alimentos.length}`;
+      } else {
+        refeicoes[refeicao].textContent =
+          "—";
+      }
+    }
+  );
 }
 
 atualizarAlimentacaoRotina();
@@ -415,134 +293,92 @@ atualizarAlimentacaoRotina();
 // ==========================================
 // CARREGAR ROTINA DA MANHÃ DE HOJE
 // ==========================================
-
-const rotinaManhaHoje =
-    rotinaManha[hoje];
+const rotinaManhaHoje = rotinaManha[hoje];
 
 if (rotinaManhaHoje) {
+  itensHigiene.forEach(
+    (item) => {
+      item.checked =
+        rotinaManhaHoje[
+          item.dataset.item
+        ] === true;
+    }
+  );
 
-    itensHigiene.forEach(
-        (item) => {
-
-            item.checked =
-                rotinaManhaHoje[
-                    item.dataset.item
-                ] === true;
-
-        }
-    );
-
-    atualizarProgressoHigiene();
+  atualizarProgressoHigiene();
 }
 
 // ==========================================
 // VARIÁVEL DE EDIÇÃO
 // ==========================================
-
 let habitoEditando = null;
-
 
 // ==========================================
 // DATA DE HOJE
 // ==========================================
-
 function dataHoje() {
-
-    const hoje = new Date();
-
-    const ano =
-        hoje.getFullYear();
-
-    const mes =
-        String(hoje.getMonth() + 1)
-        .padStart(2, "0");
-
-    const dia =
-        String(hoje.getDate())
-        .padStart(2, "0");
-
-    return `${ano}-${mes}-${dia}`;
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+  const dia = String(hoje.getDate()).padStart(2, "0");
+  return `${ano}-${mes}-${dia}`;
 }
-
 
 // ==========================================
 // CRIAR DATA
 // ==========================================
-
 function criarData(ano, mes, dia) {
-
-    return `${ano}-${String(mes + 1).padStart(2, "0")}-${String(dia).padStart(2, "0")}`;
-
+  return `${ano}-${String(mes + 1).padStart(2, "0")}-${String(dia).padStart(2, "0")}`;
 }
-
 
 // ==========================================
 // SALVAR
 // ==========================================
-
 function salvarHabitos() {
-
-    localStorage.setItem(
-        "habitos",
-        JSON.stringify(habitos)
-    );
-
+  localStorage.setItem(
+    "habitos",
+    JSON.stringify(habitos)
+  );
 }
 
 // ==========================================
 // SISTEMA DE DIAS
 // ==========================================
-
-let dias =
-    JSON.parse(localStorage.getItem("dias")) || [];
-
+let dias = JSON.parse(localStorage.getItem("dias")) || [];
 
 // ==========================================
 // SALVAR DIAS
 // ==========================================
-
 function salvarDias() {
-
-    localStorage.setItem(
-        "dias",
-        JSON.stringify(dias)
-    );
-
+  localStorage.setItem(
+    "dias",
+    JSON.stringify(dias)
+  );
 }
-
 
 // ==========================================
 // OBTER DIA
 // ==========================================
-
 function obterDia(data) {
+  let dia =
+    dias.find(
+      item => item.data === data
+    );
 
-    let dia =
-        dias.find(
-            item => item.data === data
-        );
+  if (!dia) {
+    dia = {
+      data: data,
+      manha: {},
+      tarde: {},
+      noite: {}
+    };
 
-    if (!dia) {
+    dias.push(dia);
 
-        dia = {
+    salvarDias();
+  }
 
-            data: data,
-
-            manha: {},
-
-            tarde: {},
-
-            noite: {}
-
-        };
-
-        dias.push(dia);
-
-        salvarDias();
-
-    }
-
-    return dia;
+  return dia;
 
 }
 
@@ -6613,43 +6449,45 @@ function atualizarResumoContas() {
         quadrado.appendChild(entrada);
         quadrado.appendChild(saida);
 
-        const menu = document.createElement("div");
-        menu.className = "menu-historico-jornada";
-
-        menu.innerHTML = `
-          <button
-            type="button"
-            class="btn-menu-pontos btn-menu-historico"
-            aria-label="Opções da jornada"
-            aria-expanded="false"
-            data-data="${data}">
-            ⋮
-          </button>
-
-          <div
-            class="opcoes-menu-pontos opcoes-menu-historico"
-            style="display: none;">
-            <button type="button"
-              class="btn-editar-jornada"
-              data-data="${data}">
-              ✏️ Editar
-            </button>
-
-            <button type="button"
-              class="btn-excluir-jornada"
-              data-data="${data}">
-              🗑️ Excluir
-            </button>
-          </div>
-        `;
-
-        quadrado.appendChild(menu);
       } else {
         const semRegistro = document.createElement("span");
         semRegistro.className = "calendario-sem-registro";
         semRegistro.textContent = "—";
         quadrado.appendChild(semRegistro);
       }
+      
+      // MENU DISPONÍVEL EM TODOS OS DIAS
+      const menu = document.createElement("div");
+      menu.className = "menu-historico-jornada";
+
+      menu.innerHTML = `
+        <button
+          type="button"
+          class="btn-menu-pontos btn-menu-historico"
+          aria-label="Opções da jornada"
+          aria-expanded="false"
+          data-data="${data}">
+          ⋮
+        </button>
+
+        <div
+          class="opcoes-menu-pontos opcoes-menu-historico"
+          style="display: none;">
+          <button type="button"
+            class="btn-editar-jornada"
+            data-data="${data}">
+              Editar
+          </button>
+
+          <button type="button"
+            class="btn-excluir-jornada"
+            data-data="${data}">
+              Excluir
+          </button>
+        </div>
+      `;
+
+        quadrado.appendChild(menu);
 
       calendario.appendChild(quadrado);
     }
@@ -6676,40 +6514,33 @@ function atualizarResumoContas() {
   });
 
    // MENU DE TRES PONTINHOS - JORNADA
-   const btnMenuJornada =
-    document.getElementById("btnMenuJornada");
-   const opcoesMenuJornada =
-    document.getElementById("opcoesMenuJornada");
+   const btnMenuJornada = document.getElementById("btnMenuJornada");
+   const opcoesMenuJornada = document.getElementById("opcoesMenuJornada");
 
   // ABRIR E FECHAR MENU
   btnMenuJornada.addEventListener("click", (evento) => {
-    evento.stopPropagation();
-  
-      const estaAberto =
-        opcoesMenuJornada.style.display !== "none";
-  
-      opcoesMenuJornada.style.display =
-        estaAberto ? "none" : "block";
-  
-      btnMenuJornada.setAttribute(
-        "aria-expanded",
-        String(!estaAberto)
-      );
+  evento.stopPropagation();
+    const estaAberto = opcoesMenuJornada.style.display !== "none";
+    opcoesMenuJornada.style.display = estaAberto ? "none" : "block";
+    btnMenuJornada.setAttribute(
+      "aria-expanded",
+      String(!estaAberto)
+    );
   });
   
   // FECHAR AO CLICAR FORA
   document.addEventListener("click", (evento) => {
-       if (
-           !evento.target.closest(".menu-jornada")
-       ) {
-           opcoesMenuJornada.style.display = "none";
-  
-           btnMenuJornada.setAttribute(
-               "aria-expanded",
-               "false"
-           );
-       }
-   });
+     if (
+       !evento.target.closest(".menu-jornada")
+     ) {
+       opcoesMenuJornada.style.display = "none";
+
+       btnMenuJornada.setAttribute(
+         "aria-expanded",
+         "false"
+       );
+     }
+  });
   
   // FECHAR AO ESCOLHER UMA OPÇÃO
   opcoesMenuJornada.addEventListener("click", (evento) => {
@@ -6725,22 +6556,21 @@ function atualizarResumoContas() {
 
   // ABRIR HISTÓRICO DA JORNADA
   const btnAbrirHistoricoJornada =
-      document.getElementById(
-          "btnAbrirHistoricoJornada"
-      );
+    document.getElementById(
+      "btnAbrirHistoricoJornada"
+    );
   const btnVoltarHistoricoJornada =
-      document.getElementById(
-          "btnVoltarHistoricoJornada"
-      );
+    document.getElementById(
+      "btnVoltarHistoricoJornada"
+    );
   const telaHistoricoJornada =
-      document.getElementById(
-          "telaHistoricoJornada"
-      );
+    document.getElementById(
+      "telaHistoricoJornada"
+    );
   
   // ==========================================
   // TODAS AS TAREFAS
   // ==========================================
-  
   const btnVerTarefasTrabalho =
       document.getElementById(
           "btnVerTarefasTrabalho"
@@ -6825,97 +6655,85 @@ function atualizarResumoContas() {
       }
   );
   
-  // ==========================================
   // EDITAR JORNADA
-  // ==========================================
-  
   let dataJornadaEditando = null;
   
   const modalEditarJornada =
-      document.getElementById(
-          "modalEditarJornada"
-      );
+  document.getElementById(
+    "modalEditarJornada"
+  );
   
   const dataEditarJornada =
-      document.getElementById(
-          "dataEditarJornada"
-      );
+  document.getElementById(
+    "dataEditarJornada"
+  );
   
   const editarEntradaJornada =
-      document.getElementById(
-          "editarEntradaJornada"
-      );
+  document.getElementById(
+    "editarEntradaJornada"
+  );
   
   const editarSaidaJornada =
-      document.getElementById(
-          "editarSaidaJornada"
-      );
+  document.getElementById(
+    "editarSaidaJornada"
+  );
   
   const btnCancelarEdicaoJornada =
-      document.getElementById(
-          "btnCancelarEdicaoJornada"
-      );
+  document.getElementById(
+    "btnCancelarEdicaoJornada"
+  );
   
   const btnSalvarEdicaoJornada =
-      document.getElementById(
-          "btnSalvarEdicaoJornada"
-      );
+  document.getElementById(
+    "btnSalvarEdicaoJornada"
+  );
   
-  // ==========================================
   // CONVERTER HORÁRIO PARA INPUT
-  // ==========================================
   function obterHoraParaInput(data) {
-  
-      if (!data) {
-          return "";
+    if (!data) {
+      return "";
+    }
+
+    const horario = new Date(data);
+
+    return horario.toLocaleTimeString(
+      "pt-BR",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
       }
-  
-      const horario =
-          new Date(data);
-  
-      return horario.toLocaleTimeString(
-          "pt-BR",
-          {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false
-          }
-      );
+    );
   }
   
-  // ==========================================
   // ABRIR EDIÇÃO DA JORNADA
-  // ==========================================
   function abrirEdicaoJornada(data) {
     const jornada =
       jornadasTrabalho.find(
         item => item.data === data
       );
-    if (!jornada) {
-      return;
-    }
+  
     dataJornadaEditando = data;
-
+  
     const [ano, mes, dia] =
       data.split("-");
-
+  
     dataEditarJornada.textContent =
       `${dia}/${mes}/${ano}`;
-
+  
     editarEntradaJornada.value =
       obterHoraParaInput(
-        jornada.entrada
+        jornada?.entrada || ""
       );
-
+  
     editarSaidaJornada.value =
       obterHoraParaInput(
-        jornada.saida
+        jornada?.saida || ""
       );
-
+  
     modalEditarJornada.style.display =
       "flex";
   }
-  
   
   document.addEventListener("click", evento => {
     // ABRIR OU FECHAR MENU DOS TRES PONTINHOS
@@ -7039,23 +6857,30 @@ function atualizarResumoContas() {
     }
   );
   
-  // ==========================================
+  
   // BOTÃO SALVAR EDIÇÃO JORNADA
-  // ==========================================
   btnSalvarEdicaoJornada.addEventListener(
     "click",
     () => {
       if (!dataJornadaEditando) {
         return;
       }
-      const jornada =
+
+      let jornada =
         jornadasTrabalho.find(
           item =>
-            item.data ===
-            dataJornadaEditando
+            item.data === dataJornadaEditando
         );
+
+      // CRIA UMA NOVA JORNADA SE NÃO EXISTIR
       if (!jornada) {
-        return;
+        jornada = {
+          data: dataJornadaEditando,
+          entrada: null,
+          saida: null
+        };
+
+        jornadasTrabalho.push(jornada);
       }
 
       // ATUALIZA ENTRADA
@@ -7081,16 +6906,13 @@ function atualizarResumoContas() {
       // SALVA HISTÓRICO
       localStorage.setItem(
         "jornadasTrabalho",
-        JSON.stringify(
-          jornadasTrabalho
-        )
+        JSON.stringify(jornadasTrabalho)
       );
 
       // SE FOR O DIA ATUAL,
       // ATUALIZA A JORNADA PRINCIPAL
       if (
-        dataJornadaEditando ===
-        obterDataHoje()
+        dataJornadaEditando === obterDataHoje()
       ) {
         jornadaTrabalho = {
           data: jornada.data,
@@ -7100,15 +6922,13 @@ function atualizarResumoContas() {
 
         localStorage.setItem(
           "jornadaTrabalho",
-          JSON.stringify(
-            jornadaTrabalho
-          )
+          JSON.stringify(jornadaTrabalho)
         );
 
         renderizarJornada();
       }
-      modalEditarJornada.style.display =
-          "none";
+
+      modalEditarJornada.style.display = "none";
       dataJornadaEditando = null;
 
       renderizarHistoricoJornada();
