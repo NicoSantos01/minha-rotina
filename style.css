@@ -197,39 +197,233 @@ ROTINA DA MANHÃ
 }
 
 /* ==========================================
-ALIMENTAÇÃO — SISTEMA DE ROTINA
+MÓDULO DE ALIMENTAÇÃO — SISTEMA DE ROTINA
 ========================================== */
-
-#blocoAlimentacaoRotina {
+  #blocoAlimentacaoRotina {
     margin-top: 15px;
-}
-
-#blocoAlimentacaoRotina h3 {
+  }
+  
+  #blocoAlimentacaoRotina h3 {
     margin: 0 0 10px 0;
-}
-
-#resumoAlimentacaoRotina {
+  }
+  
+  #resumoAlimentacaoRotina {
     display: flex;
     flex-direction: column;
     gap: 6px;
-}
-
-.refeicao-rotina {
+  }
+  
+  .refeicao-rotina {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 9px 10px;
     border-radius: 8px;
     background: #f8f8f8;
-}
-
-.refeicao-rotina span:first-child {
+  }
+  
+  .refeicao-rotina span:first-child {
     font-size: 14px;
-}
-
-.refeicao-rotina span:last-child {
+  }
+  
+  .refeicao-rotina span:last-child {
     font-weight: bold;
-}
+  }
+  
+  /* ALIMENTAÇÃO — CONTROLE DE ÁGUA */
+  .bloco-agua {
+    margin-top: 24px;
+    padding: 24px;
+    background: #f8fbf9;
+    border: 1px solid #dce8e0;
+    border-radius: 20px;
+    box-shadow: 0 5px 16px rgba(34, 70, 50, 0.06);
+    color: #26372e;
+  }
+  
+  .cabecalho-agua {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  
+  .icone-agua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    background: #dff2ff;
+    border-radius: 16px;
+    font-size: 28px;
+  }
+  
+  .cabecalho-agua h3 {
+    margin: 0 0 5px;
+    font-size: 20px;
+    color: #26372e;
+  }
+  
+  .cabecalho-agua p {
+    margin: 0;
+    color: #738078;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .resumo-agua {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  #totalAgua {
+    color: #1687c9;
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+  }
+  
+  #metaAguaTexto {
+    color: #738078;
+    font-size: 14px;
+  }
+  
+  .barra-progresso-agua {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    background: #e1e9e5;
+    border-radius: 999px;
+  }
+  
+  .barra-agua-preenchimento {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #50bce8, #1687c9);
+    border-radius: inherit;
+    transition: width 0.35s ease;
+  }
+  
+  .percentual-agua {
+    margin: 9px 0 24px;
+    color: #1687c9;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .titulo-adicionar-agua {
+    margin: 0 0 12px;
+    color: #38483e;
+    font-size: 14px;
+    font-weight: 650;
+  }
+  
+  .botoes-agua {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  
+  .btn-adicionar-agua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 48px;
+    padding: 12px 10px;
+    border: 1px solid #c9e4f2;
+    border-radius: 12px;
+    background: #edf8ff;
+    color: #1678ad;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease,
+      border-color 0.2s ease;
+  }
+  
+  .btn-adicionar-agua:hover {
+    background: #d9f0ff;
+    border-color: #8ccbe9;
+    transform: translateY(-2px);
+  }
+  
+  .btn-adicionar-agua:active {
+    transform: scale(0.97);
+  }
+  
+  .btn-adicionar-agua:focus-visible,
+  .btn-desfazer-agua:focus-visible {
+    outline: 3px solid #1687c9;
+    outline-offset: 3px;
+  }
+  
+  .mensagem-agua {
+    margin: 18px 0 0;
+    color: #65756b;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .btn-desfazer-agua {
+    margin-top: 12px;
+    padding: 9px 12px;
+    border: 1px solid #dce4df;
+    border-radius: 9px;
+    background: transparent;
+    color: #65756b;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .btn-desfazer-agua:hover {
+    background: #edf2ee;
+  }
+  
+  /* Ajustes para celular */
+  @media (max-width: 480px) {
+    .bloco-agua {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .cabecalho-agua {
+      gap: 11px;
+      margin-bottom: 20px;
+    }
+
+    .icone-agua {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      font-size: 24px;
+    }
+
+    .cabecalho-agua h3 {
+      font-size: 18px;
+    }
+
+    #totalAgua {
+      font-size: 26px;
+    }
+
+    .botoes-agua {
+      gap: 7px;
+    }
+
+    .btn-adicionar-agua {
+      min-height: 46px;
+      padding: 10px 4px;
+      font-size: 12px;
+    }
+  }
 
 /* ==========================================
    NAVEGAÇÃO
@@ -943,55 +1137,49 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 
 }
 
-.area-arquivados {
-    display: none;
-}
-
 /* ==========================================
    AÇÕES DO HÁBITO
 ========================================== */
-
-.acoes-habito {
+  .acoes-habito {
     display: flex;
     gap: 5px;
     margin-left: auto;
-}
-
-.acoes-habito button {
+  }
+  
+  .acoes-habito button {
     margin-top: 0;
     padding: 6px 8px;
-}
+  }
 
 /* ==========================================
    NAVEGAÇÃO PRINCIPAL DO APP
 ========================================== */
-
-.cabecalho {
+  .cabecalho {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-}
-
-.titulo-dashboard h1 {
+  }
+  
+  .titulo-dashboard h1 {
     margin: 0;
     font-size: 28px;
     font-weight: 700;
-}
-
-.titulo-dashboard p {
+  }
+  
+  .titulo-dashboard p {
     margin: 4px 0 0 0;
     font-size: 14px;
-}
-
-.navegacao-app {
+  }
+  
+  .navegacao-app {
     display: flex;
     gap: 8px;
     overflow-x: auto;
     padding-bottom: 8px;
     margin-bottom: 25px;
-}
-
-.item-navegacao {
+  }
+  
+  .item-navegacao {
     flex: 0 0 auto;
     margin-top: 0;
     padding: 10px 14px;
@@ -999,22 +1187,21 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
     color: #374151;
     border: 1px solid #e5e7eb;
     white-space: nowrap;
-}
-
-.item-navegacao:hover {
+  }
+  
+  .item-navegacao:hover {
     background: #e5e7eb;
-}
-
-.item-navegacao.ativo {
+  }
+  
+  .item-navegacao.ativo {
     background: #111827;
     color: white;
     border-color: #111827;
-}
+  }
 
 /* ==========================================
    TELA INÍCIO
 ========================================== */
-
 .inicio-cabecalho {
     margin-bottom: 25px;
 }
@@ -1032,7 +1219,6 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 /* ==========================================
    RESUMO DA HOME
 ========================================== */
-
 .resumo-inicio {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1068,7 +1254,6 @@ ALIMENTAÇÃO — SISTEMA DE ROTINA
 /* ==========================================
    BLOCOS DA HOME
 ========================================== */
-
 .bloco-inicio {
     padding: 18px;
     margin-bottom: 15px;
@@ -3150,33 +3335,343 @@ select {
 
   /* BOTÃO */
   .btn-atualizar-progresso-leitura {
-      margin-top: 8px;
-      padding: 10px 14px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    margin-top: 8px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
   }
 
   /* HISTÓRICO DE LEITURA */
   .bloco-historico-livro {
-      padding: 14px 0;
+    padding: 14px 0;
   }
   
   .bloco-historico-livro h4 {
-      margin: 0 0 10px 0;
+    margin: 0 0 10px 0;
   }
   
   .item-historico-leitura {
-      padding: 10px 0;
-      border-bottom: 1px solid #e5e7eb;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
   }
   
   .item-historico-leitura:last-child {
-      border-bottom: none;
+    border-bottom: none;
   }
   
   .item-historico-leitura p {
-      margin: 4px 0 0 0;
-      font-size: 14px;
-      opacity: 0.7;
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    opacity: 0.7;
   }
+
+  /* MENU DE OPÇÕES DOS LIVROS */
+  .acoes-livro-leitura {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+  
+  .item-livro-leitura {
+    position: relative;
+  }
+  
+  .btn-menu-livro-leitura {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: #e5e9e5;
+    color: #26312c;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .btn-menu-livro-leitura:hover {
+    background: #d4e3d7;
+  }
+  
+  .menu-livro-leitura {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    z-index: 20;
+    min-width: 140px;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid #d4dad5;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+  
+  .menu-livro-leitura[hidden] {
+    display: none;
+  }
+  
+  .menu-livro-leitura .btn-editar-livro-leitura {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #26312c;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .menu-livro-leitura .btn-editar-livro-leitura:hover {
+    background: #edf3ee;
+  }
+
+  /* MODAL DE EDIÇÃO DOS LIVROS */
+  .modal-livro-leitura {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(20, 28, 23, 0.55);
+    box-sizing: border-box;
+  }
+  
+  .modal-livro-leitura[hidden] {
+    display: none;
+  }
+  
+  .conteudo-modal-livro-leitura {
+    width: 100%;
+    max-width: 460px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    background: #f0f2f0;
+    border: 1px solid #d4dad5;
+    border-radius: 18px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+  }
+  
+  .cabecalho-modal-livro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  
+  .cabecalho-modal-livro h2 {
+    margin: 0;
+    color: #26312c;
+  }
+  
+  .fechar-modal-livro {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: #e0e5e0;
+    color: #26312c;
+    font-size: 26px;
+    cursor: pointer;
+  }
+  
+  #formEditarLivroLeitura {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  
+  #formEditarLivroLeitura label {
+    margin-top: 8px;
+    color: #34443a;
+    font-weight: 600;
+  }
+  
+  #formEditarLivroLeitura input {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #cbd5cd;
+    border-radius: 10px;
+    background: #fff;
+    color: #26312c;
+    font: inherit;
+    box-sizing: border-box;
+  }
+  
+  #formEditarLivroLeitura input:focus {
+    outline: 2px solid #479765;
+    border-color: #479765;
+  }
+  
+  .botoes-modal-livro {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .botoes-modal-livro button {
+    min-height: 42px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-cancelar-edicao-livro {
+    background: #e0e5e0;
+    color: #26312c;
+  }
+  
+  .btn-salvar-edicao-livro {
+    background: #479765;
+    color: #fff;
+  }
+  
+  @media (max-width: 480px) {
+    .conteudo-modal-livro-leitura {
+      padding: 18px;
+      border-radius: 15px;
+    }
+
+    .botoes-modal-livro {
+      flex-direction: column-reverse;
+    }
+
+    .botoes-modal-livro button {
+      width: 100%;
+    }
+}
+
+/* ==========================================
+   NOVO VISUAL — MINHA ROTINA
+   ETAPA 1: FUNDO E CONTÊINER
+========================================== */
+body {
+    background: #62676b;
+    color: #26312c;
+}
+
+.app {
+    background: #e5e7e5;
+    max-width: 1100px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Melhor espaçamento nos títulos principais */
+.app h1 {
+    color: #26312c;
+    margin-bottom: 12px;
+}
+
+.app h2 {
+    color: #26312c;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 600px) {
+    .app {
+        width: auto;
+        margin: 10px;
+        padding: 18px;
+        border-radius: 16px;
+    }
+}
+
+/* ==========================================
+   RESUMOS DOS MÓDULOS EM TRÊS COLUNAS
+========================================== */
+#blocoLeituraRotina,
+#blocoAlimentacaoRotina,
+#blocoTrabalhoRotina {
+    box-sizing: border-box;
+    min-width: 0;
+    margin-top: 14px;
+    padding: 16px;
+    background: #e5e9e5;
+    border: 1px solid #d4dad5;
+    border-radius: 14px;
+}
+
+/* Evita que o conteúdo ultrapasse o card */
+#blocoLeituraRotina *,
+#blocoAlimentacaoRotina *,
+#blocoTrabalhoRotina * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   CARDS RESUMO DOS MÓDULOS
+========================================== */
+.resumos-modulos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+    align-items: stretch;
+}
+
+.resumos-modulos > div {
+    min-width: 0;
+    margin-top: 0;
+    padding: 16px;
+    background: #e5e9e5;
+    border: 1px solid #cbd5cd;
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.resumos-modulos > div > div {
+    min-width: 0;
+}
+
+.leitura-rotina,
+.refeicao-rotina,
+.trabalho-rotina {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.resumos-modulos span {
+    overflow-wrap: anywhere;
+}
+
+.resumos-modulos span:first-child {
+    font-weight: 600;
+}
+
+.resumos-modulos span:last-child {
+    color: #397a50;
+    font-size: 13px;
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+    .resumos-modulos {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .resumos-modulos > div {
+        padding: 14px;
+    }
+}
