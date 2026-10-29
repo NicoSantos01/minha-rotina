@@ -1720,121 +1720,47 @@ function renderizar() {
 
 }
 
-function renderizarArquivados() {
-
-    const listaArquivados =
-        document.getElementById(
-            "listaArquivados"
-        );
-
-    listaArquivados.innerHTML = "";
-
-    habitos.forEach(
-        (habito) => {
-
-            if (!habito.arquivado) {
-                return;
-            }
-
-            const div =
-                document.createElement("div");
-
-            div.className =
-                "habito";
-
-            div.innerHTML = `
-                <div class="conteudo-habito">
-
-                    <div class="nome">
-                        ${habito.nome}
-                    </div>
-
-                </div>
-
-                <div class="acoes-habito">
-
-                    <button class="desarquivar-habito">
-                        ↩️
-                    </button>
-
-                </div>
-            `;
-
-          div.querySelector(
-              ".desarquivar-habito"
-          ).addEventListener(
-              "click",
-              () => {
-          
-                  habito.arquivado = false;
-          
-                  salvarHabitos();
-          
-                  renderizar();
-          
-                  renderizarArquivados();
-          
-              }
-          );
-
-            listaArquivados.appendChild(div);
-
-        }
-    );
-}
-
 // ==========================================
 // PROGRESSO
 // ==========================================
-
 function atualizarProgresso() {
+  const hoje = dataHoje();
 
-    const hoje =
-        dataHoje();
+  const total = habitos.length;
 
+  const concluidos =
+  habitos.filter(
+    habito =>
+    habito.conclucoes &&
+    habito.conclucoes[hoje]
+  ).length;
 
-    const total =
-        habitos.length;
+  const porcentagem =
+  total === 0
+  ? 0
+  : Math.round(
+    (concluidos / total) * 100
+  );
 
+  document.getElementById(
+    "progressText"
+  ).textContent =
+  `${porcentagem}%`;
 
-    const concluidos =
-        habitos.filter(
-            habito =>
-                habito.conclucoes &&
-                habito.conclucoes[hoje]
-        ).length;
+  document.getElementById(
+    "inicioProgresso"
+  ).textContent =
+  `${porcentagem}%`;
 
-
-    const porcentagem =
-        total === 0
-            ? 0
-            : Math.round(
-                (concluidos / total) * 100
-            );
-
-
-    document.getElementById(
-        "progressText"
-    ).textContent =
-        `${porcentagem}%`;
-
-    document.getElementById(
-        "inicioProgresso"
-    ).textContent =
-        `${porcentagem}%`;
-
-    document.getElementById(
-        "progressBar"
-    ).style.width =
-        `${porcentagem}%`;
-
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+  `${porcentagem}%`;
 }
-
 
 // ==========================================
 // VARIÁVEL DO MÊS
 // ==========================================
-
 let mesVisualizado =
     new Date(
         new Date().getFullYear(),
@@ -2192,42 +2118,6 @@ document.getElementById(
 );
 
 // ==========================================
-// NOVO HÁBITO
-// ==========================================
-
-document.getElementById(
-    "btnNovoHabito"
-).addEventListener(
-    "click",
-    () => {
-
-        // Garante que estamos criando
-        // um hábito novo
-        habitoEditando = null;
-
-        // Limpa o campo
-        input.value = "";
-
-        // Volta a categoria para a primeira opção
-        categoria.selectedIndex = 0;
-
-        // Volta o título do modal
-        document.getElementById(
-            "tituloModal"
-        ).textContent =
-            "Novo hábito";
-
-        // Abre o modal
-        modal.classList.add(
-            "ativo"
-        );
-
-        input.focus();
-
-    }
-);
-
-// ==========================================
 // CANCELAR NOVO HÁBITO
 // ==========================================
 
@@ -2270,44 +2160,8 @@ modal.addEventListener(
 );
 
 // ==========================================
-// ARQUIVADOS
-// ==========================================
-
-document.getElementById(
-    "btnArquivados"
-).addEventListener(
-    "click",
-    () => {
-
-        const area =
-            document.getElementById(
-                "areaArquivados"
-            );
-
-        if (
-            area.style.display === "none" ||
-            area.style.display === ""
-        ) {
-
-            area.style.display =
-                "block";
-
-            renderizarArquivados();
-
-        } else {
-
-            area.style.display =
-                "none";
-
-        }
-
-    }
-);
-
-// ==========================================
 // SALVAR HÁBITO
 // ==========================================
-
 document.getElementById(
     "salvarHabito"
 ).addEventListener(
@@ -2724,112 +2578,97 @@ document.querySelectorAll(
     }
 );
 
-let refeicaoAtual = null;
-
-let alimentosRefeicao = [];
-
-const formularioRefeicao = document.getElementById(
+// ==========================================
+// MÓDULO DE ALIMENTAÇÃO
+// ==========================================
+  let refeicaoAtual = null;
+  
+  let alimentosRefeicao = [];
+  
+  const formularioRefeicao = document.getElementById(
     "formularioRefeicao"
-);
-
-const modalRefeicao = document.getElementById(
+  );
+  
+  const modalRefeicao = document.getElementById(
     "modalRefeicao"
-);
-
-const botaoCancelarRefeicao =
-    document.getElementById("cancelarRefeicao");
-
-botaoCancelarRefeicao.addEventListener(
+  );
+  
+  const botaoCancelarRefeicao = document.getElementById("cancelarRefeicao");
+  
+  botaoCancelarRefeicao.addEventListener(
     "click",
     () => {
-
-        modalRefeicao.style.display =
-            "none";
-
+      modalRefeicao.style.display = "none";
     }
-);
+  );
 
-modalRefeicao.addEventListener(
+  modalRefeicao.addEventListener(
     "click",
     (evento) => {
-
-        if (
-            evento.target === modalRefeicao
-        ) {
-
-            modalRefeicao.style.display =
-                "none";
-
-        }
-
+      if (
+        evento.target === modalRefeicao
+      ) {
+        modalRefeicao.style.display = "none";
+      }
     }
-);
+  );
 
-console.log("Modal refeição:", modalRefeicao);
-
-const tituloRefeicao = document.getElementById(
+  console.log("Modal refeição:", modalRefeicao);
+  
+  const tituloRefeicao = document.getElementById(
     "tituloRefeicao"
-);
+  );
 
-document.querySelectorAll(
+  document.querySelectorAll(
     ".card-refeicao"
-).forEach(
+  ).forEach(
     card => {
+      card.addEventListener(
+        "click",
+        () => {
+          const refeicao = card.dataset.refeicao;
 
-        card.addEventListener(
-            "click",
-            () => {
+          refeicaoAtual = refeicao;
 
-                const refeicao =
-                    card.dataset.refeicao;
+          const nomeRefeicao = {
+            cafe: "Café da manhã",
+            lanche: "Lanche da manhã",
+            almoco: "Almoço",
+            pre_treino: "Pré-treino",
+            jantar: "Jantar",
+            ceia: "Ceia"
+          };
 
-                refeicaoAtual = refeicao;
+          tituloRefeicao.textContent = nomeRefeicao[refeicao];
 
-                const nomeRefeicao = {
-                    cafe: "Café da manhã",
-                    lanche: "Lanche da manhã",
-                    almoco: "Almoço",
-                    pre_treino: "Pré-treino",
-                    jantar: "Jantar",
-                    ceia: "Ceia"
-                };
-
-                tituloRefeicao.textContent =
-                    nomeRefeicao[refeicao];
-
-                modalRefeicao.style.display =
-                    "flex";
-
-            }
-        );
-
+          modalRefeicao.style.display = "flex";
+        }
+      );
     }
-);
+  );
 
-const botaoSalvarRefeicao = document.getElementById(
+  const botaoSalvarRefeicao = document.getElementById(
     "salvarRefeicao"
-);
-
-const campoComidaRefeicao = document.getElementById(
+  );
+  
+  const campoComidaRefeicao = document.getElementById(
     "comidaRefeicao"
-);
-
-const botaoAdicionarAlimento = document.getElementById(
+  );
+  
+  const botaoAdicionarAlimento = document.getElementById(
     "adicionarAlimento"
-);
-
-const listaAlimentosRefeicao = document.getElementById(
+  );
+  
+  const listaAlimentosRefeicao = document.getElementById(
     "listaAlimentosRefeicao"
-);
+  );
 
-botaoAdicionarAlimento.addEventListener("click", () => {
-
-    const alimento =
-        campoComidaRefeicao.value.trim();
+  botaoAdicionarAlimento.addEventListener("click", () => {
+    const alimento = campoComidaRefeicao.value.trim();
 
     if (alimento === "") {
-        alert("Digite um alimento.");
-        return;
+      alert("Digite um alimento.");
+      return;
     }
 
     alimentosRefeicao.push(alimento);
@@ -2839,318 +2678,487 @@ botaoAdicionarAlimento.addEventListener("click", () => {
     listaAlimentosRefeicao.innerHTML = "";
 
     alimentosRefeicao.forEach((alimento, indice) => {
+      const item = document.createElement("div");
+  
+      item.className = "item-alimento";
+  
+      item.innerHTML = `
+        <span>• ${alimento}</span>
 
-        const item =
-            document.createElement("div");
-    
-        item.className =
-            "item-alimento";
-    
-        item.innerHTML = `
-            <span>• ${alimento}</span>
-    
-            <span
-                class="remover-alimento"
-                data-indice="${indice}">
-                ×
-            </span>
-        `;
-    
-        listaAlimentosRefeicao.appendChild(item);
-    
+        <span
+            class="remover-alimento"
+            data-indice="${indice}">
+            ×
+        </span>
+      `;
+
+      listaAlimentosRefeicao.appendChild(item);
     });
+  });
 
-});
+  listaAlimentosRefeicao.addEventListener(
+      "click",
+      evento => {
+  
+          if (
+              !evento.target.classList.contains(
+                  "remover-alimento"
+              )
+          ) {
+              return;
+          }
+  
+          const indice =
+              Number(
+                  evento.target.dataset.indice
+              );
+  
+          alimentosRefeicao.splice(
+              indice,
+              1
+          );
+  
+          listaAlimentosRefeicao.innerHTML = "";
+  
+          alimentosRefeicao.forEach(
+              (alimento, indice) => {
+  
+                  const item =
+                      document.createElement("div");
+  
+                  item.className =
+                      "item-alimento";
+  
+                  item.innerHTML = `
+                      <span>• ${alimento}</span>
+  
+                      <span
+                          class="remover-alimento"
+                          data-indice="${indice}">
+                          ×
+                      </span>
+                  `;
+  
+                  listaAlimentosRefeicao.appendChild(
+                      item
+                  );
+  
+              }
+          );
+  
+      }
+  );
 
-listaAlimentosRefeicao.addEventListener(
-    "click",
-    evento => {
-
-        if (
-            !evento.target.classList.contains(
-                "remover-alimento"
-            )
-        ) {
-            return;
-        }
-
-        const indice =
-            Number(
-                evento.target.dataset.indice
-            );
-
-        alimentosRefeicao.splice(
-            indice,
-            1
-        );
-
-        listaAlimentosRefeicao.innerHTML = "";
-
-        alimentosRefeicao.forEach(
-            (alimento, indice) => {
-
+  botaoSalvarRefeicao.addEventListener("click", () => {
+  
+      if (alimentosRefeicao.length === 0) {
+          alert("Adicione pelo menos um alimento.");
+          return;
+      }
+  
+      const hoje = dataHoje();
+  
+      let alimentacao = JSON.parse(
+          localStorage.getItem("alimentacao")
+      ) || {};
+  
+      if (!alimentacao[hoje]) {
+          alimentacao[hoje] = {};
+      }
+  
+      alimentacao[hoje][refeicaoAtual] = alimentosRefeicao;
+  
+      localStorage.setItem(
+          "alimentacao",
+          JSON.stringify(alimentacao)
+      );
+  
+      atualizarResumosAlimentacao();
+  
+      alert("Refeição salva!");
+  
+      alimentosRefeicao = [];
+  
+      campoComidaRefeicao.value = "";
+  
+      listaAlimentosRefeicao.innerHTML = "";
+  
+      modalRefeicao.style.display =
+      "none";
+  
+  });
+  
+  const listasAlimentacao = {
+      cafe: "listaCafe",
+      lanche: "listaLanche",
+      almoco: "listaAlmoco",
+      pre_treino: "listaPreTreino",
+      jantar: "listaJantar",
+      ceia: "listaCeia"
+  };
+  
+  function atualizarResumosAlimentacao() {
+  
+      const hoje = dataHoje();
+  
+      const alimentacao = JSON.parse(
+          localStorage.getItem("alimentacao")
+      ) || {};
+  
+      const refeicoesHoje =
+          alimentacao[hoje] || {};
+  
+      const resumos = {
+          cafe: "Comece o dia com uma boa refeição.",
+          lanche: "Uma opção rápida para o meio da manhã.",
+          almoco: "Registre sua principal refeição do dia.",
+          pre_treino: "Energia para o seu treino.",
+          jantar: "Registre sua refeição da noite.",
+          ceia: "Uma opção antes de dormir, se necessário."
+      };
+  
+      const elementos = {
+          cafe: document.getElementById("resumoCafe"),
+          lanche: document.getElementById("resumoLanche"),
+          almoco: document.getElementById("resumoAlmoco"),
+          pre_treino: document.getElementById("resumoPreTreino"),
+          jantar: document.getElementById("resumoJantar"),
+          ceia: document.getElementById("resumoCeia")
+      };
+  
+      Object.keys(elementos).forEach(
+          refeicao => {
+      
+              const alimentos =
+                  refeicoesHoje[refeicao];
+      
+              if (alimentos) {
+      
+                  elementos[refeicao].textContent =
+                      `✓ ${alimentos.length} ${
+                          alimentos.length === 1
+                              ? "item"
+                              : "itens"
+                      } registrado${alimentos.length === 1 ? "" : "s"}`
+      
+              } else {
+      
+                  elementos[refeicao].textContent =
+                      resumos[refeicao];
+      
+              }
+      
+          }
+      );
+  
+      Object.keys(listasAlimentacao).forEach(
+        refeicao => {
+      
+            const lista =
+                document.getElementById(
+                    listasAlimentacao[refeicao]
+                );
+      
+            lista.innerHTML = "";
+      
+            const alimentos =
+                refeicoesHoje[refeicao];
+            
+            if (!alimentos) {
+                return;
+            }
+            
+            const listaAlimentos =
+                Array.isArray(alimentos)
+                    ? alimentos
+                    : [alimentos];
+            
+            listaAlimentos.forEach((alimento, indice) => {
+      
                 const item =
                     document.createElement("div");
-
-                item.className =
-                    "item-alimento";
-
+            
+                item.className = "item-alimento";
+            
                 item.innerHTML = `
                     <span>• ${alimento}</span>
-
+            
                     <span
                         class="remover-alimento"
                         data-indice="${indice}">
                         ×
                     </span>
                 `;
-
-                listaAlimentosRefeicao.appendChild(
-                    item
-                );
-
-            }
-        );
-
-    }
-);
-
-botaoSalvarRefeicao.addEventListener("click", () => {
-
-    if (alimentosRefeicao.length === 0) {
-        alert("Adicione pelo menos um alimento.");
-        return;
-    }
-
-    const hoje = dataHoje();
-
-    let alimentacao = JSON.parse(
-        localStorage.getItem("alimentacao")
-    ) || {};
-
-    if (!alimentacao[hoje]) {
-        alimentacao[hoje] = {};
-    }
-
-    alimentacao[hoje][refeicaoAtual] = alimentosRefeicao;
-
-    localStorage.setItem(
-        "alimentacao",
-        JSON.stringify(alimentacao)
-    );
-
-    atualizarResumosAlimentacao();
-
-    alert("Refeição salva!");
-
-    alimentosRefeicao = [];
-
-    campoComidaRefeicao.value = "";
-
-    listaAlimentosRefeicao.innerHTML = "";
-
-    modalRefeicao.style.display =
-    "none";
-
-});
-
-const listasAlimentacao = {
-    cafe: "listaCafe",
-    lanche: "listaLanche",
-    almoco: "listaAlmoco",
-    pre_treino: "listaPreTreino",
-    jantar: "listaJantar",
-    ceia: "listaCeia"
-};
-
-function atualizarResumosAlimentacao() {
-
-    const hoje = dataHoje();
-
-    const alimentacao = JSON.parse(
-        localStorage.getItem("alimentacao")
-    ) || {};
-
-    const refeicoesHoje =
-        alimentacao[hoje] || {};
-
-    const resumos = {
-        cafe: "Comece o dia com uma boa refeição.",
-        lanche: "Uma opção rápida para o meio da manhã.",
-        almoco: "Registre sua principal refeição do dia.",
-        pre_treino: "Energia para o seu treino.",
-        jantar: "Registre sua refeição da noite.",
-        ceia: "Uma opção antes de dormir, se necessário."
-    };
-
-    const elementos = {
-        cafe: document.getElementById("resumoCafe"),
-        lanche: document.getElementById("resumoLanche"),
-        almoco: document.getElementById("resumoAlmoco"),
-        pre_treino: document.getElementById("resumoPreTreino"),
-        jantar: document.getElementById("resumoJantar"),
-        ceia: document.getElementById("resumoCeia")
-    };
-
-    Object.keys(elementos).forEach(
-        refeicao => {
-    
-            const alimentos =
-                refeicoesHoje[refeicao];
-    
-            if (alimentos) {
-    
-                elementos[refeicao].textContent =
-                    `✓ ${alimentos.length} ${
-                        alimentos.length === 1
-                            ? "item"
-                            : "itens"
-                    } registrado${alimentos.length === 1 ? "" : "s"}`
-    
-            } else {
-    
-                elementos[refeicao].textContent =
-                    resumos[refeicao];
-    
-            }
-    
+            
+                lista.appendChild(item);
+            });
         }
-    );
-
-    Object.keys(listasAlimentacao).forEach(
-      refeicao => {
-    
-          const lista =
-              document.getElementById(
-                  listasAlimentacao[refeicao]
-              );
-    
-          lista.innerHTML = "";
-    
-          const alimentos =
-              refeicoesHoje[refeicao];
-          
-          if (!alimentos) {
-              return;
+      );
+  }
+  
+  atualizarResumosAlimentacao();
+  
+  document.querySelectorAll(
+      ".lista-alimentos"
+  ).forEach(
+    lista => {
+      lista.addEventListener(
+        "click",
+        evento => {
+          if (
+            !evento.target.classList.contains(
+              "remover-alimento"
+            )
+          ) {
+            return;
           }
+
+          const indice =
+            Number(
+              evento.target.dataset.indice
+            );
+
+          const refeicao =
+            Object.keys(
+                listasAlimentacao
+            ).find(
+              chave =>
+              listasAlimentacao[chave] ===
+              lista.id
+            );
+
+          const hoje = dataHoje();
+
+          let alimentacao =
+            JSON.parse(
+              localStorage.getItem(
+                "alimentacao"
+              )
+            ) || {};
+
+          const alimentosSalvos = alimentacao[hoje][refeicao];
           
           const listaAlimentos =
-              Array.isArray(alimentos)
-                  ? alimentos
-                  : [alimentos];
+          Array.isArray(alimentosSalvos)
+          ? alimentosSalvos
+          : [alimentosSalvos];
           
-          listaAlimentos.forEach((alimento, indice) => {
-    
-              const item =
-                  document.createElement("div");
+          listaAlimentos.splice(
+            indice,
+            1
+          );
           
-              item.className = "item-alimento";
-          
-              item.innerHTML = `
-                  <span>• ${alimento}</span>
-          
-                  <span
-                      class="remover-alimento"
-                      data-indice="${indice}">
-                      ×
-                  </span>
-              `;
-          
-              lista.appendChild(item);
-          
-          });
-    
-      }
-    );
+          if (listaAlimentos.length === 0) {
+            delete alimentacao[hoje][refeicao];
+          } else {
+            alimentacao[hoje][refeicao] = listaAlimentos;
+          }
 
-}
+          localStorage.setItem(
+            "alimentacao",
+            JSON.stringify(
+              alimentacao
+            )
+          );
 
-atualizarResumosAlimentacao();
-
-document.querySelectorAll(
-    ".lista-alimentos"
-).forEach(
-    lista => {
-
-        lista.addEventListener(
-            "click",
-            evento => {
-
-                if (
-                    !evento.target.classList.contains(
-                        "remover-alimento"
-                    )
-                ) {
-                    return;
-                }
-
-                const indice =
-                    Number(
-                        evento.target.dataset.indice
-                    );
-
-                const refeicao =
-                    Object.keys(
-                        listasAlimentacao
-                    ).find(
-                        chave =>
-                            listasAlimentacao[chave] ===
-                            lista.id
-                    );
-
-                const hoje =
-                    dataHoje();
-
-                let alimentacao =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "alimentacao"
-                        )
-                    ) || {};
-
-                const alimentosSalvos =
-                    alimentacao[hoje][refeicao];
-                
-                const listaAlimentos =
-                    Array.isArray(alimentosSalvos)
-                        ? alimentosSalvos
-                        : [alimentosSalvos];
-                
-                listaAlimentos.splice(
-                    indice,
-                    1
-                );
-                
-                if (listaAlimentos.length === 0) {
-                
-                    delete alimentacao[hoje][refeicao];
-                
-                } else {
-                
-                    alimentacao[hoje][refeicao] =
-                        listaAlimentos;
-                
-                }
-
-                localStorage.setItem(
-                    "alimentacao",
-                    JSON.stringify(
-                        alimentacao
-                    )
-                );
-
-                atualizarResumosAlimentacao();
-
-            }
-        );
-
+          atualizarResumosAlimentacao();
+        }
+      );
     }
-);
+  );
+
+  // ÁGUA — CONTROLE DE HIDRATAÇÃO
+    const META_AGUA = 2000;
+
+    // Painel Alimentação
+    const totalAgua = document.getElementById("totalAgua");
+    const metaAguaTexto = document.getElementById("metaAguaTexto");
+    const progressoAgua = document.getElementById("progressoAgua");
+    const barraAgua = document.getElementById("barraAgua");
+    const percentualAgua = document.getElementById("percentualAgua");
+    const mensagemAgua = document.getElementById("mensagemAgua");
+    const btnDesfazerAgua = document.getElementById("btnDesfazerAgua");
+
+    // Painel Hábitos
+    const totalAguaHabitos = document.getElementById("totalAguaHabitos");
+    const metaAguaHabitos = document.getElementById("metaAguaHabitos");
+    const progressoAguaHabitos = document.getElementById("progressoAguaHabitos");
+    const barraAguaHabitos = document.getElementById("barraAguaHabitos");
+    const percentualAguaHabitos = document.getElementById("percentualAguaHabitos");
+    const mensagemAguaHabitos = document.getElementById("mensagemAguaHabitos");
+    const btnDesfazerAguaHabitos = document.getElementById("btnDesfazerAguaHabitos");
+
+    // Recupera os registros existentes sem apagar o histórico.
+    function obterRegistrosAgua() {
+        return JSON.parse(localStorage.getItem("registroAgua") || "{}");
+    }
+
+    // Atualiza os dois painéis com o mesmo registro.
+    function atualizarPainelAgua() {
+      const hoje = dataHoje();
+      const registros = obterRegistrosAgua();
+
+      if (!registros[hoje]) {
+        registros[hoje] = {
+          total: 0,
+          adicoes: []
+        };
+      }
+
+      const registro = registros[hoje];
+
+      // Proteção para registros antigos ou incompletos.
+      if (!Array.isArray(registro.adicoes)) {
+        registro.adicoes = [];
+      }
+
+      if (typeof registro.total !== "number") {
+        registro.total = 0;
+      }
+
+      const percentual = Math.round(
+        (registro.total / META_AGUA) * 100
+      );
+
+      const percentualVisual = Math.min(percentual, 100);
+
+      const mensagem = registro.total === 0
+      ? "Vamos começar a cuidar da sua hidratação!"
+      : registro.total >= META_AGUA
+      ? "Meta diária atingida! 💧"
+      : `Faltam ${META_AGUA - registro.total} ml para sua meta.`;
+
+      // Atualiza Alimentação e Hábitos, se os elementos existirem.
+      const paineis = [
+        {
+          total: totalAgua,
+          meta: metaAguaTexto,
+          progresso: progressoAgua,
+          barra: barraAgua,
+          percentual: percentualAgua,
+          mensagem: mensagemAgua,
+          desfazer: btnDesfazerAgua
+        },
+        {
+          total: totalAguaHabitos,
+          meta: metaAguaHabitos,
+          progresso: progressoAguaHabitos,
+          barra: barraAguaHabitos,
+          percentual: percentualAguaHabitos,
+          mensagem: mensagemAguaHabitos,
+          desfazer: btnDesfazerAguaHabitos
+        }
+      ];
+
+      paineis.forEach(painel => {
+        if (painel.total) {
+          painel.total.textContent = `${registro.total} ml`;
+        }
+
+        if (painel.meta) {
+          painel.meta.textContent =
+            `de ${META_AGUA.toLocaleString("pt-BR")} ml`;
+        }
+
+        if (painel.progresso) {
+          painel.progresso.setAttribute(
+            "aria-valuenow",
+            registro.total
+          );
+        }
+
+        if (painel.barra) {
+          painel.barra.style.width = `${percentualVisual}%`;
+        }
+
+        if (painel.percentual) {
+          painel.percentual.textContent = `${percentual}% da meta`;
+        }
+
+        if (painel.mensagem) {
+          painel.mensagem.textContent = mensagem;
+        }
+
+        if (painel.desfazer) {
+          painel.desfazer.hidden = registro.adicoes.length === 0;
+        }
+      });
+
+      localStorage.setItem("registroAgua", JSON.stringify(registros));
+    }
+
+    // Registra uma quantidade de água para o dia atual.
+    function adicionarAgua(quantidade) {
+      const hoje = dataHoje();
+      const registros = obterRegistrosAgua();
+
+      if (!registros[hoje]) {
+        registros[hoje] = {
+          total: 0,
+          adicoes: []
+        };
+      }
+
+      if (!Array.isArray(registros[hoje].adicoes)) {
+        registros[hoje].adicoes = [];
+      }
+
+      registros[hoje].total += quantidade;
+      registros[hoje].adicoes.push(quantidade);
+
+      localStorage.setItem("registroAgua", JSON.stringify(registros));
+
+      atualizarPainelAgua();
+    }
+
+    // Botões do painel Alimentação.
+    document.querySelectorAll(".btn-adicionar-agua").forEach(botao => {
+      botao.addEventListener("click", () => {
+        adicionarAgua(Number(botao.dataset.ml));
+      });
+    });
+
+    // Botões do painel Hábitos.
+    document.querySelectorAll(".btn-adicionar-agua-habitos").forEach(botao => {
+      botao.addEventListener("click", () => {
+        adicionarAgua(Number(botao.dataset.ml));
+      });
+    });
+
+    // Desfaz a última adição do dia, em qualquer um dos painéis.
+    function desfazerAgua() {
+      const hoje = dataHoje();
+      const registros = obterRegistrosAgua();
+      const registro = registros[hoje];
+
+      if (!registro || !Array.isArray(registro.adicoes) ||
+        registro.adicoes.length === 0) {
+        return;
+      }
+
+      const ultimaAdicao = registro.adicoes.pop();
+
+      registro.total = Math.max(0, registro.total - ultimaAdicao);
+
+      localStorage.setItem("registroAgua", JSON.stringify(registros));
+
+      atualizarPainelAgua();
+    }
+
+    if (btnDesfazerAgua) {
+      btnDesfazerAgua.addEventListener("click", desfazerAgua);
+    }
+  
+    if (btnDesfazerAguaHabitos) {
+      btnDesfazerAguaHabitos.addEventListener("click", desfazerAgua);
+    }
+  
+    // Inicializa os dois painéis.
+    atualizarPainelAgua();
 
 // ========================================
 // MÓDULO TREINO
 // ========================================
-
   // PARTE DE TREINO
   function atualizarTreinoHoje() {
     const diaSemana =
@@ -6057,6 +6065,9 @@ function atualizarResumoContas() {
   
   const statusTrabalho =
     document.getElementById("statusTrabalho");
+
+  const statusTrabalhoRotina =
+    document.getElementById("statusTrabalhoRotina");
   
   const btnIniciarJornada =
     document.getElementById("btnIniciarJornada");
@@ -6269,6 +6280,9 @@ function atualizarResumoContas() {
       statusTrabalho.textContent =
         "⚪ Não iniciada";
     
+      statusTrabalhoRotina.textContent =
+        "⚪ Não iniciada";
+    
       passouHorarioTrabalho.checked = false;
     
       horaExtraTrabalho.textContent =
@@ -6289,11 +6303,22 @@ function atualizarResumoContas() {
     if (!jornadaTrabalho.entrada) {
       statusTrabalho.textContent =
         "⚪ Não iniciada";
+    
+      statusTrabalhoRotina.textContent =
+        "⚪ Não iniciada";
+    
     } else if (!jornadaTrabalho.saida) {
       statusTrabalho.textContent =
         "🟡 Em andamento";
+    
+      statusTrabalhoRotina.textContent =
+        "🟡 Em andamento";
+    
     } else {
       statusTrabalho.textContent =
+        "🟢 Finalizada";
+    
+      statusTrabalhoRotina.textContent =
         "🟢 Finalizada";
     }
   
@@ -7685,6 +7710,7 @@ function atualizarResumoContas() {
         "none";
 
       renderizarLivrosLeitura();
+      atualizarResumoLeituraRotina();
 
     }
   );
@@ -7741,58 +7767,53 @@ function atualizarResumoContas() {
     if (livroAtualLeitura) {
       
       livroAtual.innerHTML = `
+        <div class="card-livro-atual">
+          <h3>
+            📖 ${livroAtualLeitura.nome}
+          </h3>
 
-          <div class="card-livro-atual">
+          ${
+            livroAtualLeitura.autor
+              ? `
+                  <p>
+                    ✍️ ${livroAtualLeitura.autor}
+                  </p>
+                `
+              : ""
+          }
 
-            <h3>
-              📖 ${livroAtualLeitura.nome}
-            </h3>
+          <p>
+            📄
+            ${livroAtualLeitura.paginaAtual}
+            /
+            ${livroAtualLeitura.totalPaginas}
+            páginas
+          </p>
 
-            ${
-              livroAtualLeitura.autor
-                ? `
-                    <p>
-                      ✍️ ${livroAtualLeitura.autor}
-                    </p>
-                  `
-                : ""
-            }
-
-            <p>
-              📄
-              ${livroAtualLeitura.paginaAtual}
-              /
-              ${livroAtualLeitura.totalPaginas}
-              páginas
-            </p>
-
-            <div class="progresso-leitura">
-              <div
-                class="barra-progresso-leitura"
-                style="
-                    width: ${livroAtualLeitura.progresso}%;
-                "
-              ></div>
-            </div>
-
-            <strong>
-              ${livroAtualLeitura.progresso}%
-              concluído
-            </strong>
-
-            <button
-              class="btn-atualizar-progresso-leitura"
-              data-id="${livroAtualLeitura.id}"
-            >
-              📖 Atualizar progresso
-            </button>
-            
+          <div class="progresso-leitura">
+            <div
+              class="barra-progresso-leitura"
+              style="
+                  width: ${livroAtualLeitura.progresso}%;
+              "
+            ></div>
           </div>
 
+          <strong>
+            ${livroAtualLeitura.progresso}%
+            concluído
+          </strong>
+
+          <button
+            class="btn-atualizar-progresso-leitura"
+            data-id="${livroAtualLeitura.id}"
+          >
+            📖 Atualizar progresso
+          </button>
+        </div>
       `;
 
     } else {
-
       livroAtual.innerHTML = `
         <p class="estado-vazio-leitura">
           Nenhum livro em andamento.
@@ -7800,221 +7821,543 @@ function atualizarResumoContas() {
       `;
     }
 
-
     // LISTA DE LIVROS
     livrosLeitura.forEach(
       livro => {
-
         const item =
-          document.createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
 
-        item.className =
-          "item-livro-leitura";
+        item.className = "item-livro-leitura";
 
-
-        let statusTexto =
-          "⚪ Não iniciado";
-
+        let statusTexto = "⚪ Não iniciado";
 
         if (
           livro.status ===
           "em_andamento"
         ) {
-
-            statusTexto =
-              "🟡 Em andamento";
-
+          statusTexto =
+            "🟡 Em andamento";
         } else if (
           livro.status ===
           "concluido"
         ) {
-
-            statusTexto =
-              "🟢 Concluído";
+          statusTexto = "🟢 Concluído";
         }
 
-
         item.innerHTML = `
-
           <div>
-
             <strong>
-                ${livro.nome}
+              ${livro.nome}
             </strong>
-
+  
             ${
               livro.autor
-                ? `
-                    <p>
-                      ${livro.autor}
-                    </p>
-                  `
-                : ""
+              ? `
+                  <p>
+                    ${livro.autor}
+                  </p>
+                `
+              : ""
             }
-
+  
             <p>
-                📄
-                ${livro.paginaAtual}
-                /
-                ${livro.totalPaginas}
-                páginas
-                ·
-                ${livro.progresso}%
+              📄
+              ${livro.paginaAtual}
+              /
+              ${livro.totalPaginas}
+              páginas
+              ·
+              ${livro.progresso}%
             </p>
-
+  
             <span>
-                ${statusTexto}
+              ${statusTexto}
             </span>
-
+             
+            <div class="acoes-livro-leitura">
+              <button
+                class="btn-menu-livro-leitura"
+                data-id="${livro.id}"
+                aria-label="Opções do livro"
+                aria-expanded="false"
+              >
+                ⋮
+              </button>
+            
+              <div
+                class="menu-livro-leitura"
+                hidden
+              >
+                <button
+                  class="btn-editar-livro-leitura"
+                  data-id="${livro.id}"
+                >
+                  Editar
+                </button>
+              </div>
+            </div>
           </div>
-
         `;
-
 
         lista.appendChild(
           item
         );
-
       }
     );
   }
 
-  // ATUALIZAR PROGRESSO DA LEITURA
-  document.addEventListener(
-      "click",
-      evento => {
-  
-          const botao =
-              evento.target.closest(
-                ".btn-atualizar-progresso-leitura"
-              );
-  
-          if (!botao) return;
-  
-          const id =
-            Number(
-              botao.dataset.id
-            );
-  
-          const livro =
-            livrosLeitura.find(
-              item =>
-                item.id === id
-            );
-  
-          if (!livro) return;
-  
-          const novaPagina =
-            prompt(
-              `Página atual de "${livro.nome}":`,
-              livro.paginaAtual
-            );
-  
-          if (novaPagina === null) {
-            return;
-          }
-  
-          const pagina =
-            Number(novaPagina);
-  
-          if (
-            !Number.isInteger(pagina) ||
-            pagina < 0 ||
-            pagina > livro.totalPaginas
-          ) {
-  
-            alert(
-              `Digite uma página entre 0 e ${livro.totalPaginas}.`
-            );
-  
-            return;
-          }
-  
-          livro.paginaAtual =
-            pagina;
-  
-          livro.progresso =
-            Math.round(
-              (
-                pagina /
-                livro.totalPaginas
-              ) * 100
-            );
+  // MENU DE OPÇÕES DOS LIVROS
+  document.addEventListener("click", evento => {
+    const botaoMenu = evento.target.closest(
+      ".btn-menu-livro-leitura"
+    );
 
-          const hoje =
-            obterDataHojeTrabalho();
+    // Clique nos três pontinhos
+    if (botaoMenu) {
+      const acoes = botaoMenu.closest(
+        ".acoes-livro-leitura"
+      );
 
-          if (!livro.historico) {
-            livro.historico = [];
-          }
-          
-          const registroExistente =
-            livro.historico.find(
-              registro =>
-                registro.data === hoje
-            );
-          
-          if (registroExistente) {
-          
-            registroExistente.pagina =
-              pagina;
-        
-            registroExistente.progresso =
-              livro.progresso;
-          
-          } else {
-          
-            livro.historico.push({
-        
-              data:
-                hoje,
-      
-              pagina:
-                pagina,
-      
-              progresso:
-                livro.progresso
-        
-            });
-          
-          }
-  
-          if (
-            pagina >=
-            livro.totalPaginas
-          ) {
-  
-            livro.status =
-              "concluido";
+      const menu = acoes.querySelector(
+        ".menu-livro-leitura"
+      );
 
-            livro.dataConclusao =
-              obterDataHojeTrabalho();
-  
-          } else if (pagina > 0) {
-  
-            livro.status =
-              "em_andamento";
-  
-          } else {
-  
-            livro.status =
-              "nao_iniciado";
-  
-          }
-  
-          localStorage.setItem(
-            "livrosLeitura",
-            JSON.stringify(
-              livrosLeitura
-            )
-          );
-  
-          renderizarLivrosLeitura();
-  
-      }
+      const vaiAbrir = menu.hidden;
+
+      // Fecha os outros menus
+      document.querySelectorAll(
+        ".menu-livro-leitura"
+      ).forEach(outroMenu => {
+        outroMenu.hidden = true;
+      });
+
+      document.querySelectorAll(
+        ".btn-menu-livro-leitura"
+      ).forEach(outroBotao => {
+        outroBotao.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+      });
+
+      // Abre ou fecha o menu clicado
+      menu.hidden = !vaiAbrir;
+
+      botaoMenu.setAttribute(
+        "aria-expanded",
+        String(vaiAbrir)
+      );
+
+      return;
+    }
+
+    // Fecha o menu ao clicar fora dele
+    if (!evento.target.closest(".acoes-livro-leitura")) {
+      document.querySelectorAll(
+        ".menu-livro-leitura"
+      ).forEach(menu => {
+        menu.hidden = true;
+      });
+
+      document.querySelectorAll(
+        ".btn-menu-livro-leitura"
+      ).forEach(botao => {
+        botao.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+      });
+    }
+  });
+
+
+  // ABRIR, FECHAR E SALVAR MODAL DE EDIÇÃO DO LIVRO
+
+  const modalEditarLivro = document.getElementById(
+    "modalEditarLivroLeitura"
   );
+
+  const formEditarLivro = document.getElementById(
+    "formEditarLivroLeitura"
+  );
+
+  function fecharModalLivroLeitura() {
+    modalEditarLivro.hidden = true;
+  }
+
+  // Abrir o modal ao clicar em Editar
+  document.addEventListener("click", evento => {
+    const botao = evento.target.closest(
+      ".btn-editar-livro-leitura"
+    );
+
+    if (!botao) return;
+
+    const id = Number(botao.dataset.id);
+
+    const livro = livrosLeitura.find(
+      item => item.id === id
+    );
+
+    if (!livro) return;
+
+    document.getElementById("editarLivroId").value =
+      livro.id;
+
+    document.getElementById("editarLivroNome").value =
+      livro.nome || "";
+
+    document.getElementById("editarLivroAutor").value =
+      livro.autor || "";
+
+    document.getElementById("editarLivroPaginaAtual").value =
+      livro.paginaAtual ?? 0;
+
+    document.getElementById("editarLivroTotalPaginas").value =
+      livro.totalPaginas ?? 1;
+
+    // Fecha o menu dos três pontinhos
+    document.querySelectorAll(
+      ".menu-livro-leitura"
+    ).forEach(menu => {
+      menu.hidden = true;
+    });
+
+    modalEditarLivro.hidden = false;
+
+    document.getElementById("editarLivroNome").focus();
+  });
+
+  // Fechar pelo botão X
+  document.getElementById(
+    "fecharModalEditarLivro"
+  ).addEventListener("click", fecharModalLivroLeitura);
+
+  // Fechar pelo botão Cancelar
+  document.getElementById(
+    "cancelarEdicaoLivro"
+  ).addEventListener("click", fecharModalLivroLeitura);
+
+  // Fechar clicando no fundo escuro
+  modalEditarLivro.addEventListener("click", evento => {
+    if (evento.target === modalEditarLivro) {
+      fecharModalLivroLeitura();
+    }
+  });
+
+  // Salvar alterações
+  formEditarLivro.addEventListener("submit", evento => {
+    evento.preventDefault();
+
+    const id = Number(
+      document.getElementById("editarLivroId").value
+    );
+
+    const livro = livrosLeitura.find(
+      item => item.id === id
+    );
+
+    if (!livro) return;
+
+    const nome = document.getElementById(
+      "editarLivroNome"
+    ).value.trim();
+
+    const autor = document.getElementById(
+      "editarLivroAutor"
+    ).value.trim();
+
+    const paginaAtual = Number(
+      document.getElementById("editarLivroPaginaAtual").value
+    );
+
+    const totalPaginas = Number(
+      document.getElementById("editarLivroTotalPaginas").value
+    );
+
+    if (
+      !nome ||
+      !Number.isInteger(paginaAtual) ||
+      !Number.isInteger(totalPaginas) ||
+      paginaAtual < 0 ||
+      totalPaginas < 1 ||
+      paginaAtual > totalPaginas
+    ) {
+      alert("Confira o nome e as páginas informadas.");
+      return;
+    }
+
+    livro.nome = nome;
+    livro.autor = autor;
+    livro.paginaAtual = paginaAtual;
+    livro.totalPaginas = totalPaginas;
+
+    livro.progresso = Math.round(
+      (paginaAtual / totalPaginas) * 100
+    );
+
+    // Atualiza o status conforme o progresso
+    if (paginaAtual >= totalPaginas) {
+      livro.status = "concluido";
+      livro.dataConclusao =
+        livro.dataConclusao || obterDataHojeTrabalho();
+    } else if (paginaAtual > 0) {
+      livro.status = "em_andamento";
+      delete livro.dataConclusao;
+    } else {
+      livro.status = "nao_iniciado";
+      delete livro.dataConclusao;
+    }
+
+    localStorage.setItem(
+      "livrosLeitura",
+      JSON.stringify(livrosLeitura)
+    );
+
+    // Atualiza o nome no card da última leitura, se for esse livro
+    const ultimaLeitura = JSON.parse(
+      localStorage.getItem("ultimaLeituraRotina") || "null"
+    );
+
+    if (ultimaLeitura?.livroId === livro.id) {
+      ultimaLeitura.nome = livro.nome;
+
+      localStorage.setItem(
+        "ultimaLeituraRotina",
+        JSON.stringify(ultimaLeitura)
+      );
+    }
+
+    renderizarLivrosLeitura();
+    atualizarResumoLeituraRotina();
+    fecharModalLivroLeitura();
+  });
+
+  
+  // ATUALIZAR PROGRESSO DA LEITURA COM MODAL
+  const modalProgressoLeitura = document.getElementById(
+    "modalProgressoLeitura"
+  );
+
+  const formProgressoLeitura = document.getElementById(
+    "formProgressoLeitura"
+  );
+
+  function fecharModalProgresso() {
+    modalProgressoLeitura.hidden = true;
+  }
+
+  function atualizarVisualProgressoModal(livro) {
+    const percentual = Math.round(
+      (livro.paginaAtual / livro.totalPaginas) * 100
+    );
+
+    document.getElementById(
+      "percentualProgressoModal"
+    ).textContent = `${percentual}%`;
+
+    document.getElementById(
+      "barraProgressoModal"
+    ).style.width = `${percentual}%`;
+
+    document.getElementById(
+      "paginasProgressoModal"
+    ).textContent =
+      `${livro.paginaAtual} de ${livro.totalPaginas} páginas`;
+
+    document.getElementById(
+      "novaPaginaProgresso"
+    ).max = livro.totalPaginas;
+
+    document.getElementById(
+      "ajudaPaginaProgresso"
+    ).textContent =
+      `Informe um número de 0 a ${livro.totalPaginas}.`;
+  }
+
+  // Abrir modal
+  document.addEventListener("click", evento => {
+    const botao = evento.target.closest(
+      ".btn-atualizar-progresso-leitura"
+    );
+
+    if (!botao) return;
+
+    const id = Number(botao.dataset.id);
+
+    const livro = livrosLeitura.find(
+      item => item.id === id
+    );
+
+    if (!livro) return;
+
+    document.getElementById(
+      "progressoLivroId"
+    ).value = livro.id;
+
+    document.getElementById(
+      "nomeLivroProgresso"
+    ).textContent = livro.nome;
+
+    document.getElementById(
+      "novaPaginaProgresso"
+    ).value = livro.paginaAtual;
+
+    atualizarVisualProgressoModal(livro);
+
+    modalProgressoLeitura.hidden = false;
+
+    document.getElementById(
+      "novaPaginaProgresso"
+    ).focus();
+  });
+
+  // Atualizar a prévia quando a página for alterada
+  document.getElementById(
+    "novaPaginaProgresso"
+  ).addEventListener("input", evento => {
+    const id = Number(
+      document.getElementById("progressoLivroId").value
+    );
+
+    const livro = livrosLeitura.find(
+      item => item.id === id
+    );
+
+    if (!livro) return;
+
+    const pagina = Number(evento.target.value);
+
+    if (
+      evento.target.value === "" ||
+      !Number.isInteger(pagina) ||
+      pagina < 0 ||
+      pagina > livro.totalPaginas
+    ) {
+      return;
+    }
+
+    const previa = {
+      ...livro,
+      paginaAtual: pagina,
+      progresso: Math.round(
+        (pagina / livro.totalPaginas) * 100
+      )
+    };
+
+    atualizarVisualProgressoModal(previa);
+  });
+
+  // Fechar modal
+  document.getElementById(
+    "fecharModalProgressoLeitura"
+  ).addEventListener("click", fecharModalProgresso);
+
+  document.getElementById(
+    "cancelarModalProgresso"
+  ).addEventListener("click", fecharModalProgresso);
+
+  modalProgressoLeitura.addEventListener("click", evento => {
+    if (evento.target === modalProgressoLeitura) {
+      fecharModalProgresso();
+    }
+  });
+
+  // Salvar progresso
+  formProgressoLeitura.addEventListener("submit", evento => {
+    evento.preventDefault();
+
+    const id = Number(
+      document.getElementById("progressoLivroId").value
+    );
+
+    const livro = livrosLeitura.find(
+      item => item.id === id
+    );
+
+    if (!livro) return;
+
+    const campoPagina = document.getElementById(
+      "novaPaginaProgresso"
+    );
+
+    const pagina = Number(campoPagina.value);
+
+    if (
+      campoPagina.value.trim() === "" ||
+      !Number.isInteger(pagina) ||
+      pagina < 0 ||
+      pagina > livro.totalPaginas
+    ) {
+      alert(
+        `Digite uma página entre 0 e ${livro.totalPaginas}.`
+      );
+      return;
+    }
+
+    livro.paginaAtual = pagina;
+
+    livro.progresso = Math.round(
+      (pagina / livro.totalPaginas) * 100
+    );
+
+    const hoje = obterDataHojeTrabalho();
+
+    if (!livro.historico) {
+      livro.historico = [];
+    }
+
+    const registroExistente = livro.historico.find(
+      registro => registro.data === hoje
+    );
+
+    if (registroExistente) {
+      registroExistente.pagina = pagina;
+      registroExistente.progresso = livro.progresso;
+    } else {
+      livro.historico.push({
+        data: hoje,
+        pagina: pagina,
+        progresso: livro.progresso
+      });
+    }
+
+    if (pagina >= livro.totalPaginas) {
+      livro.status = "concluido";
+      livro.dataConclusao = hoje;
+    } else if (pagina > 0) {
+      livro.status = "em_andamento";
+      delete livro.dataConclusao;
+    } else {
+      livro.status = "nao_iniciado";
+      delete livro.dataConclusao;
+    }
+
+    localStorage.setItem(
+      "ultimaLeituraRotina",
+      JSON.stringify({
+        livroId: livro.id,
+        nome: livro.nome,
+        data: hoje,
+        hora: new Date().toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      })
+    );
+
+    localStorage.setItem(
+      "livrosLeitura",
+      JSON.stringify(livrosLeitura)
+    );
+
+    renderizarLivrosLeitura();
+    atualizarResumoLeituraRotina();
+    fecharModalProgresso();
+  });
+
 
   // RENDERIZAR HISTÓRICO DE LEITURA
   function renderizarHistoricoLeitura() {
@@ -8051,99 +8394,97 @@ function atualizarResumoContas() {
       }
   
   
-      // MOSTRAR HISTÓRICO DE CADA LIVRO
-      livrosComHistorico.forEach(
-          livro => {
-  
-              const bloco =
-                  document.createElement(
-                      "div"
-                  );
-  
-              bloco.className =
-                  "bloco-historico-livro";
-  
-  
-              bloco.innerHTML = `
-  
-                  <h4>
-                      📖 ${livro.nome}
-                  </h4>
-  
-              `;
-  
-  
-              const registros =
-                  [...livro.historico].sort(
-                      (a, b) =>
-                          b.data.localeCompare(
-                              a.data
-                          )
-                  );
-  
-  
-              registros.forEach(
-                  registro => {
-  
-                      const item =
-                          document.createElement(
-                              "div"
-                          );
-  
-                      item.className =
-                          "item-historico-leitura";
-  
-  
-                      const [ano, mes, dia] =
-                          registro.data.split("-");
-  
-  
-                      const dataFormatada =
-                          `${dia}/${mes}/${ano}`;
-  
-  
-                      item.innerHTML = `
-  
-                          <div>
-  
-                              <strong>
-                                  📅 ${dataFormatada}
-                              </strong>
-  
-                              <p>
-                                  📄 Página
-                                  ${registro.pagina}
-                                  ·
-                                  ${registro.progresso}%
-                              </p>
-  
-                          </div>
-  
-                      `;
-  
-  
-                      bloco.appendChild(
-                          item
-                      );
-  
-                  }
-              );
-  
-  
-              container.appendChild(
-                  bloco
-              );
-  
-          }
-      );
-  
-  }
+    // MOSTRAR HISTÓRICO DE CADA LIVRO
+    livrosComHistorico.forEach(
+      livro => {
+        const bloco =
+        document.createElement(
+            "div"
+        );
 
+        bloco.className = "bloco-historico-livro";
+
+        bloco.innerHTML = `
+          <h4>
+            📖 ${livro.nome}
+          </h4>
+        `;
+
+        const registros =
+        [...livro.historico].sort(
+          (a, b) =>
+          b.data.localeCompare(
+            a.data
+          )
+        );
+
+        registros.forEach(
+          registro => {
+            const item =
+            document.createElement(
+              "div"
+            );
+
+            item.className = "item-historico-leitura";
+
+            const [ano, mes, dia] = registro.data.split("-");
+
+            const dataFormatada = `${dia}/${mes}/${ano}`;
+
+            item.innerHTML = `
+              <div>
+                <strong>
+                  📅 ${dataFormatada}
+                </strong>
+
+                <p>
+                  📄 Página
+                  ${registro.pagina}
+                  ·
+                  ${registro.progresso}%
+                </p>
+              </div>
+            `;
+
+            bloco.appendChild(
+              item
+            );
+          }
+        );
+
+        container.appendChild(
+            bloco
+        );
+      }
+    );  
+  }
   
   renderizarLivrosLeitura();
   renderizarHistoricoLeitura();
+  atualizarResumoLeituraRotina();
 
+  // RESUMO DE LEITURA NOS HÁBITOS
+  function atualizarResumoLeituraRotina() {
+    const resumo = document.getElementById(
+      "statusLeituraRotina"
+    );
 
+    if (!resumo) return;
+
+    const ultimaLeitura = JSON.parse(
+      localStorage.getItem("ultimaLeituraRotina") || "null"
+    );
+
+    if (!ultimaLeitura) {
+      resumo.textContent = "Nenhuma leitura registrada";
+      return;
+    }
+
+    resumo.textContent =
+      `${ultimaLeitura.nome} · ${ultimaLeitura.hora}`;
+  }
+  
+  atualizarResumoLeituraRotina();
 
 // ==========================================
 // METAS
@@ -9310,7 +9651,6 @@ function renderizarFichaMeta() {
       });
 
 }
-
 
 // ==========================================
 // SALVAR METAS
