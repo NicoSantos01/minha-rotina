@@ -315,123 +315,186 @@
           0/13 concluídos
         </button>
       </div>
-  
-      <!-- ALIMENTAÇÃO -->
-      <div id="blocoAlimentacaoRotina">
-        <div id="resumoAlimentacaoRotina">
-          <div class="refeicao-rotina">
-            <span>☕ Café da manhã</span>
-            <span id="statusCafeRotina">—</span>
+
+      <!-- MODAL HIGIENE DA MANHÃ -->
+      <div id="modalHigieneManha" class="modal">
+        <div class="modal-box">
+          <h2>☀️ Rotina da manhã</h2>
+          <div id="listaHigieneManha">
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="copo">
+              Copo d'água
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="cama">
+              Arrumar a cama
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="cafe">
+              Preparar o café da manhã
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="mochila">
+              Organizar a mochila
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="banho">
+              Tomar banho
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="roupa">
+              Trocar de roupa
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="dentes">
+              Escovar os dentes
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="perfume">
+              Perfume
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="barba">
+              Tônico para barba
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="labial">
+              Protetor labial
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="dashboard">
+              Dashboard
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="fretado">
+              Pegar fretado
+            </label>
+          
+            <label>
+              <input type="checkbox" class="itemHigiene" data-item="moto">
+              Pegar a moto
+            </label>
+          </div>
+      
+          <div id="progressoHigieneManha">
+            0/13 concluídos
+          </div>
+      
+          <button id="fecharHigieneManha">
+            Fechar
+          </button>
+        </div>
+      </div>
+
+      <!-- RESUMO DOS MÓDULOS -->
+      <div class="resumos-modulos">
+        <!-- LEITURA -->
+        <div id="blocoLeituraRotina">
+          <div id="resumoLeituraRotina">
+            <div class="leitura-rotina">
+              <span>📚 Leitura</span>
+              <span id="statusLeituraRotina">—</span>
+            </div>
           </div>
         </div>
-      </div>
   
-      <!-- TRABALHO -->
-      <div id="blocoTrabalhoRotina">
-        <div id="resumoTrabalhoRotina">
-          <div class="trabalho-rotina">
-            <span>💼 Jornada de trabalho</span>
-            <span id="statusTrabalhoRotina">—</span>
+        <!-- ALIMENTAÇÃO -->
+        <div id="blocoAlimentacaoRotina">
+          <div id="resumoAlimentacaoRotina">
+            <div class="refeicao-rotina">
+              <span>☕ Café da manhã</span>
+              <span id="statusCafeRotina">—</span>
+            </div>
           </div>
         </div>
-      </div>
   
-      <div id="listaHabitos"></div>
-  
-      <div id="areaArquivados" class="area-arquivados">
-        <h2>📦 Hábitos arquivados</h2>
-        <div id="listaArquivados"></div>
-      </div>
-  
-      <button id="btnNovoHabito">
-        + Novo hábito
-      </button>
-  
-      <button id="btnArquivados">
-        📦 Arquivados
-      </button>
-    </section>
-  
-    <!-- MODAL HIGIENE DA MANHÃ -->
-    <div id="modalHigieneManha" class="modal">
-      <div class="modal-box">
-        <h2>☀️ Rotina da manhã</h2>
-        <div id="listaHigieneManha">
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="copo">
-            Copo d'água
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="cama">
-            Arrumar a cama
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="cafe">
-            Preparar o café da manhã
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="mochila">
-            Organizar a mochila
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="banho">
-            Tomar banho
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="roupa">
-            Trocar de roupa
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="dentes">
-            Escovar os dentes
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="perfume">
-            Perfume
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="barba">
-            Tônico para barba
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="labial">
-            Protetor labial
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="dashboard">
-            Dashboard
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="fretado">
-            Pegar fretado
-          </label>
-        
-          <label>
-            <input type="checkbox" class="itemHigiene" data-item="moto">
-            Pegar a moto
-          </label>
+        <!-- TRABALHO -->
+        <div id="blocoTrabalhoRotina">
+          <div id="resumoTrabalhoRotina">
+            <div class="trabalho-rotina">
+              <span>💼 Jornada de trabalho</span>
+              <span id="statusTrabalhoRotina">—</span>
+            </div>
+          </div>
         </div>
-    
-        <div id="progressoHigieneManha">
-          0/13 concluídos
+        <div id="listaHabitos"></div>
+      </div>
+
+      <!-- HIDRATAÇÃO NOS HÁBITOS -->
+      <div id="blocoAguaHabitos" class="bloco-agua">
+        <div class="cabecalho-agua">
+          <span class="icone-agua">💧</span>
+          <div>
+            <h3>Minha hidratação</h3>
+            <p>Acompanhe sua água ao longo do dia.</p>
+          </div>
         </div>
-    
-        <button id="fecharHigieneManha">
-          Fechar
+
+        <div class="resumo-agua">
+          <strong id="totalAguaHabitos">0 ml</strong>
+          <span id="metaAguaHabitos">de 2.000 ml</span>
+        </div>
+
+        <div
+          class="barra-progresso-agua"
+          role="progressbar"
+          aria-label="Progresso de hidratação"
+          aria-valuemin="0"
+          aria-valuemax="2000"
+          aria-valuenow="0"
+          id="progressoAguaHabitos"
+        >
+          <div
+            id="barraAguaHabitos"
+            class="barra-agua-preenchimento"
+          ></div>
+        </div>
+
+        <p id="percentualAguaHabitos" class="percentual-agua">
+          0% da meta
+        </p>
+
+        <p class="titulo-adicionar-agua">Adicionar água</p>
+
+        <div class="botoes-agua botoes-agua-habitos">
+          <button type="button" class="btn-adicionar-agua-habitos" data-ml="200">
+            💧 +200 ml
+          </button>
+
+          <button type="button" class="btn-adicionar-agua-habitos" data-ml="350">
+            💧 +350 ml
+          </button>
+
+          <button type="button" class="btn-adicionar-agua-habitos" data-ml="500">
+            💧 +500 ml
+          </button>
+        </div>
+
+        <p id="mensagemAguaHabitos" class="mensagem-agua">
+          Vamos começar a cuidar da sua hidratação!
+        </p>
+
+        <button
+          type="button"
+          id="btnDesfazerAguaHabitos"
+          class="btn-desfazer-agua"
+          hidden
+        >
+          Desfazer última adição
         </button>
       </div>
-    </div>
+    </section>
   
     <section id="telaHistorico">
       <div class="historico-header">
@@ -1134,75 +1197,71 @@
 <!-- ========================= -->
 <!-- MÓDULO DE LEITURA -->
 <!-- ========================= -->
-<section id="telaLeitura" class="tela-modulo">
-  <div class="modulo-cabecalho">
-    <h2>📖 Leitura</h2>
-    <p>
-      Acompanhe seus livros e seu progresso de leitura.
-    </p>
-  </div>
-
-  <!-- LIVRO ATUAL -->
-  <div class="bloco-leitura">
-    <div class="titulo-bloco-leitura">
-      <h3>📖 Livro atual</h3>
-    </div>
-
-    <div id="livroAtualLeitura">
-      <p class="estado-vazio-leitura">
-          Nenhum livro em andamento.
+  <section id="telaLeitura" class="tela-modulo">
+    <div class="modulo-cabecalho">
+      <h2>📖 Leitura</h2>
+      <p>
+        Acompanhe seus livros e seu progresso de leitura.
       </p>
     </div>
-  </div>
-
-  <!-- MEUS LIVROS -->
-  <div class="bloco-leitura">
-    <div class="titulo-bloco-leitura">
-      <h3>📚 Meus livros</h3>
-    </div>
-
-    <div id="listaLivrosLeitura">
-      <p class="estado-vazio-leitura">
-        Nenhum livro cadastrado.
-      </p>
-    </div>
-
-    <div class="acoes-leitura">
-      <button
-          id="btnNovoLivroLeitura"
-          class="btn-nova-tarefa-trabalho"
-      >
-          + Novo livro
-      </button>
-    </div>
-  </div>
-
-  <!-- HISTÓRICO DE LEITURA -->
-  <div class="bloco-leitura">
+  
+    <!-- LIVRO ATUAL -->
+    <div class="bloco-leitura">
       <div class="titulo-bloco-leitura">
-        <h3>📈 Histórico de leitura</h3>
+        <h3>📖 Livro atual</h3>
       </div>
   
-      <div id="historicoLeitura">
+      <div id="livroAtualLeitura">
         <p class="estado-vazio-leitura">
-          Nenhum registro de leitura.
+          Nenhum livro em andamento.
         </p>
       </div>
-  </div>
+    </div>
+  
+    <!-- MEUS LIVROS -->
+    <div class="bloco-leitura">
+      <div class="titulo-bloco-leitura">
+        <h3>📚 Meus livros</h3>
+      </div>
+  
+      <div id="listaLivrosLeitura">
+        <p class="estado-vazio-leitura">
+          Nenhum livro cadastrado.
+        </p>
+      </div>
+  
+      <div class="acoes-leitura">
+        <button
+          id="btnNovoLivroLeitura"
+          class="btn-nova-tarefa-trabalho"
+        >
+          + Novo livro
+        </button>
+      </div>
+    </div>
+  
+    <!-- HISTÓRICO DE LEITURA -->
+    <div class="bloco-leitura">
+        <div class="titulo-bloco-leitura">
+          <h3>📈 Histórico de leitura</h3>
+        </div>
+    
+        <div id="historicoLeitura">
+          <p class="estado-vazio-leitura">
+            Nenhum registro de leitura.
+          </p>
+        </div>
+    </div>
+  </section>
 
-</section>
-
-<!-- MODAL NOVO LIVRO -->
-<div
-  id="modalNovoLivroLeitura"
-  class="modal"
-  style="display: none;"
->
-
-  <div class="modal-conteudo">
-
+  <!-- MODAL NOVO LIVRO -->
+  <div
+    id="modalNovoLivroLeitura"
+    class="modal"
+    style="display: none;"
+  >
+    <div class="modal-conteudo">
       <h2>📖 Novo livro</h2>
-
       <div>
         <label for="nomeLivroLeitura">
           Nome do livro
@@ -1277,22 +1336,155 @@
           Salvar livro
         </button>
       </div>
-
+    </div>
   </div>
 
-</div>
+  <!-- MODAL DE EDIÇÃO DO LIVRO -->
+  <div id="modalEditarLivroLeitura" class="modal-livro-leitura" hidden>
+    <div class="conteudo-modal-livro-leitura">
+      <div class="cabecalho-modal-livro">
+        <h2>Editar livro</h2>
+        <button
+          type="button"
+          id="fecharModalEditarLivro"
+          class="fechar-modal-livro"
+          aria-label="Fechar"
+        >
+          &times;
+        </button>
+      </div>
+  
+      <form id="formEditarLivroLeitura">
+        <input type="hidden" id="editarLivroId">
+  
+        <label for="editarLivroNome">Nome do livro</label>
+        <input
+          type="text"
+          id="editarLivroNome"
+          required
+        >
+  
+        <label for="editarLivroAutor">Autor</label>
+        <input
+          type="text"
+          id="editarLivroAutor"
+        >
+  
+        <label for="editarLivroPaginaAtual">Página atual</label>
+        <input
+          type="number"
+          id="editarLivroPaginaAtual"
+          min="0"
+          required
+        >
+  
+        <label for="editarLivroTotalPaginas">Total de páginas</label>
+        <input
+          type="number"
+          id="editarLivroTotalPaginas"
+          min="1"
+          required
+        >
+  
+        <div class="botoes-modal-livro">
+          <button
+            type="button"
+            id="cancelarEdicaoLivro"
+            class="btn-cancelar-edicao-livro"
+          >
+            Cancelar
+          </button>
+  
+          <button
+            type="submit"
+            class="btn-salvar-edicao-livro"
+          >
+            Salvar alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE ATUALIZAÇÃO DE PROGRESSO -->
+  <div id="modalProgressoLeitura" class="modal-livro-leitura" hidden>
+    <div class="conteudo-modal-livro-leitura">
+  
+      <div class="cabecalho-modal-livro">
+        <h2>📖 Atualizar progresso</h2>
+        <button
+          type="button"
+          id="fecharModalProgressoLeitura"
+          class="fechar-modal-livro"
+          aria-label="Fechar"
+        >&times;</button>
+      </div>
+  
+      <form id="formProgressoLeitura">
+        <input type="hidden" id="progressoLivroId">
+  
+        <h3 id="nomeLivroProgresso"></h3>
+  
+        <div class="resumo-progresso-modal">
+          <div class="resumo-progresso-texto">
+            <span>Progresso atual</span>
+            <strong id="percentualProgressoModal">0%</strong>
+          </div>
+  
+          <div class="progresso-leitura">
+            <div
+              id="barraProgressoModal"
+              class="barra-progresso-leitura"
+              style="width: 0%"
+            ></div>
+          </div>
+  
+          <p id="paginasProgressoModal"></p>
+        </div>
+  
+        <label for="novaPaginaProgresso">
+          Em qual página você parou?
+        </label>
+  
+        <input
+          type="number"
+          id="novaPaginaProgresso"
+          min="0"
+          required
+        >
+  
+        <p id="ajudaPaginaProgresso" class="ajuda-progresso-modal"></p>
+  
+        <div class="botoes-modal-livro">
+          <button
+            type="button"
+            id="cancelarModalProgresso"
+            class="btn-cancelar-edicao-livro"
+          >
+            Cancelar
+          </button>
+  
+          <button
+            type="submit"
+            class="btn-salvar-edicao-livro"
+          >
+            Salvar progresso
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
 <!-- ========================= -->
 <!-- MÓDULO DE SAÚDE MENTAL -->
 <!-- ========================= -->
-
 <section id="telaSaudeMental" class="tela-modulo">
-    <div class="modulo-cabecalho">
-        <h2>🧠 Saúde Mental</h2>
-        <p>
-            Acompanhe seu bem-estar e seu estado emocional.
-        </p>
-    </div>
+  <div class="modulo-cabecalho">
+    <h2>🧠 Saúde Mental</h2>
+    <p>
+      Acompanhe seu bem-estar e seu estado emocional.
+    </p>
+  </div>
 </section>
 
 <!-- ========================= -->
@@ -1515,108 +1707,158 @@
 <!-- ========================= -->
 <!-- MÓDULO DE ALIMENTAÇÃO -->
 <!-- ========================= -->
-<section id="telaAlimentacao" class="tela-modulo">
-  <div class="modulo-cabecalho">
-    <h2>🍽️ Alimentação</h2>
-    <p>Organize suas refeições do dia.</p>
-  </div>
-
-  <div class="refeicoes">
-    <div class="card-refeicao" data-refeicao="cafe">
-      <span class="icone-refeicao">🍳</span>
-      <div>
-        <h3>Café da manhã</h3>
-        <p id="resumoCafe">
-          Comece o dia com uma boa refeição.
-        </p>
-        <div id="listaCafe" class="lista-alimentos"></div>
+  <section id="telaAlimentacao" class="tela-modulo">
+    <div class="modulo-cabecalho">
+      <h2>🍽️ Alimentação</h2>
+      <p>Organize suas refeições do dia.</p>
+    </div>
+  
+    <div class="refeicoes">
+      <div class="card-refeicao" data-refeicao="cafe">
+        <span class="icone-refeicao">🍳</span>
+        <div>
+          <h3>Café da manhã</h3>
+          <p id="resumoCafe">
+            Comece o dia com uma boa refeição.
+          </p>
+          <div id="listaCafe" class="lista-alimentos"></div>
+        </div>
+      </div>
+  
+      <div class="card-refeicao" data-refeicao="lanche">
+        <span class="icone-refeicao">🍌</span>
+        <div>
+          <h3>Lanche da manhã</h3>
+          <p id="resumoLanche">
+              Uma opção rápida para o meio da manhã.
+          </p>
+          <div id="listaLanche" class="lista-alimentos"></div>
+        </div>
+      </div>
+  
+      <div class="card-refeicao" data-refeicao="almoco">
+        <span class="icone-refeicao">🍛</span>
+        <div>
+          <h3>Almoço</h3>
+          <p id="resumoAlmoco">
+            Registre sua principal refeição do dia.
+          </p>
+          <div id="listaAlmoco" class="lista-alimentos"></div>
+        </div>
+      </div>
+  
+      <div class="card-refeicao" data-refeicao="pre_treino">
+        <span class="icone-refeicao">🥪</span>
+        <div>
+          <h3>Pré-treino</h3>
+          <p id="resumoPreTreino">
+            Energia para o seu treino.
+          </p>
+          <div id="listaPreTreino" class="lista-alimentos"></div>
+        </div>
+      </div>
+  
+      <div class="card-refeicao" data-refeicao="jantar">
+        <span class="icone-refeicao">🍽️</span>
+        <div>
+          <h3>Jantar</h3>
+          <p id="resumoJantar">
+            Registre sua refeição da noite.
+          </p>
+          <div id="listaJantar" class="lista-alimentos"></div>
+        </div>
+      </div>
+  
+      <div class="card-refeicao" data-refeicao="ceia">
+        <span class="icone-refeicao">🌙</span>
+        <div>
+          <h3>Ceia</h3>
+          <p id="resumoCeia">
+            Uma opção antes de dormir, se necessário.
+          </p>
+          <div id="listaCeia" class="lista-alimentos"></div>
+        </div>
       </div>
     </div>
 
-    <div class="card-refeicao" data-refeicao="lanche">
-      <span class="icone-refeicao">🍌</span>
-      <div>
-        <h3>Lanche da manhã</h3>
-        <p id="resumoLanche">
-            Uma opção rápida para o meio da manhã.
-        </p>
-        <div id="listaLanche" class="lista-alimentos"></div>
+    <!-- CONTROLE DE HIDRATAÇÃO -->
+    <div id="blocoAgua" class="bloco-agua">
+      <div class="cabecalho-agua">
+        <span class="icone-agua">💧</span>
+        <div>
+          <h3>Minha hidratação</h3>
+          <p>Acompanhe sua água ao longo do dia.</p>
+        </div>
       </div>
-    </div>
 
-    <div class="card-refeicao" data-refeicao="almoco">
-      <span class="icone-refeicao">🍛</span>
-      <div>
-        <h3>Almoço</h3>
-        <p id="resumoAlmoco">
-          Registre sua principal refeição do dia.
-        </p>
-        <div id="listaAlmoco" class="lista-alimentos"></div>
+      <div class="resumo-agua">
+        <strong id="totalAgua">0 ml</strong>
+        <span id="metaAguaTexto">de 2.000 ml</span>
       </div>
-    </div>
 
-    <div class="card-refeicao" data-refeicao="pre_treino">
-      <span class="icone-refeicao">🥪</span>
-      <div>
-        <h3>Pré-treino</h3>
-        <p id="resumoPreTreino">
-          Energia para o seu treino.
-        </p>
-        <div id="listaPreTreino" class="lista-alimentos"></div>
-      </div>
-    </div>
-
-    <div class="card-refeicao" data-refeicao="jantar">
-      <span class="icone-refeicao">🍽️</span>
-      <div>
-        <h3>Jantar</h3>
-        <p id="resumoJantar">
-          Registre sua refeição da noite.
-        </p>
-        <div id="listaJantar" class="lista-alimentos"></div>
-      </div>
-    </div>
-
-    <div class="card-refeicao" data-refeicao="ceia">
-      <span class="icone-refeicao">🌙</span>
-      <div>
-        <h3>Ceia</h3>
-        <p id="resumoCeia">
-          Uma opção antes de dormir, se necessário.
-        </p>
-        <div id="listaCeia" class="lista-alimentos"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="modalRefeicao" class="modal-refeicao">
-
-    <div id="formularioRefeicao" class="formulario-refeicao">
-      <h3 id="tituloRefeicao">Café da manhã</h3>
-      <label for="comidaRefeicao">
-        O que você comeu?
-      </label>
-      <input
-        type="text"
-        id="comidaRefeicao"
-        placeholder="Ex: 1 ovo"
+      <div
+        class="barra-progresso-agua"
+        role="progressbar"
+        aria-label="Progresso de hidratação"
+        aria-valuemin="0"
+        aria-valuemax="2000"
+        aria-valuenow="0"
+        id="progressoAgua"
       >
-      <div id="listaAlimentosRefeicao"></div>
-      <button id="adicionarAlimento">
-        + Adicionar alimento
-      </button>
-      <button id="salvarRefeicao">
-        Salvar refeição
-      </button>
-      <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
-        Cancelar
+        <div id="barraAgua" class="barra-agua-preenchimento"></div>
+      </div>
+
+      <p id="percentualAgua" class="percentual-agua">0% da meta</p>
+
+      <p class="titulo-adicionar-agua">Adicionar água</p>
+
+      <div class="botoes-agua">
+        <button type="button" class="btn-adicionar-agua" data-ml="200">
+          💧 +200 ml
+        </button>
+
+        <button type="button" class="btn-adicionar-agua" data-ml="350">
+          💧 +350 ml
+        </button>
+
+        <button type="button" class="btn-adicionar-agua" data-ml="500">
+          💧 +500 ml
+        </button>
+      </div>
+
+      <p id="mensagemAgua" class="mensagem-agua">
+        Vamos começar a cuidar da sua hidratação!
+      </p>
+
+      <button type="button" id="btnDesfazerAgua" class="btn-desfazer-agua" hidden>
+        Desfazer última adição
       </button>
     </div>
   
-  </div>
-
-</section>
+    <div id="modalRefeicao" class="modal-refeicao">
+      <div id="formularioRefeicao" class="formulario-refeicao">
+        <h3 id="tituloRefeicao">Café da manhã</h3>
+        <label for="comidaRefeicao">
+          O que você comeu?
+        </label>
+        <input
+          type="text"
+          id="comidaRefeicao"
+          placeholder="Ex: 1 ovo"
+        >
+        <div id="listaAlimentosRefeicao"></div>
+        <button id="adicionarAlimento">
+          + Adicionar alimento
+        </button>
+        <button id="salvarRefeicao">
+          Salvar refeição
+        </button>
+        <button id="cancelarRefeicao" class="btn-cancelar-refeicao">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </section>
   
 <!-- ========================= -->
 <!-- MODULO DE FINANÇAS (TELA) -->
