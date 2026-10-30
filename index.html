@@ -399,22 +399,22 @@
 
       <!-- RESUMO DOS MÓDULOS -->
       <div class="resumos-modulos">
+        <!-- ALIMENTAÇÃO -->
+        <div id="blocoAlimentacaoRotina">
+          <div id="resumoAlimentacaoRotina">
+            <div class="refeicao-rotina">
+              <span>🍳 Café da manhã</span>
+              <span id="statusCafeRotina">—</span>
+            </div>
+          </div>
+        </div>
+
         <!-- LEITURA -->
         <div id="blocoLeituraRotina">
           <div id="resumoLeituraRotina">
             <div class="leitura-rotina">
               <span>📚 Leitura</span>
               <span id="statusLeituraRotina">—</span>
-            </div>
-          </div>
-        </div>
-  
-        <!-- ALIMENTAÇÃO -->
-        <div id="blocoAlimentacaoRotina">
-          <div id="resumoAlimentacaoRotina">
-            <div class="refeicao-rotina">
-              <span>☕ Café da manhã</span>
-              <span id="statusCafeRotina">—</span>
             </div>
           </div>
         </div>
@@ -428,7 +428,16 @@
             </div>
           </div>
         </div>
-        <div id="listaHabitos"></div>
+
+        <!-- ALIMENTAÇÃO -->
+        <div id="blocoAlimentacaoRotina">
+          <div id="resumoAlimentacaoRotina">
+            <div class="refeicao-rotina">
+              <span>🍌 Lanche da manhã</span>
+              <span id="statusLancheManhaRotina">—</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- HIDRATAÇÃO NOS HÁBITOS -->
@@ -494,6 +503,96 @@
           Desfazer última adição
         </button>
       </div>
+
+      <!-- ALIMENTAÇÃO -->
+      <div id="blocoAlimentacaoRotina">
+          <div id="resumoAlimentacaoRotina">
+            <div class="refeicao-rotina">
+              <span>🍛 Almoço</span>
+              <span id="statusAlmocoRotina">—</span>
+            </div>
+          </div>
+        </div>
+
+      <!-- ESTUDO A TARDE -->
+      <div class="atividade-estudo">
+        <strong>💻 Programação</strong>
+    
+        <span id="tempoProgramacao">0 min</span>
+    
+        <div class="botoes-tempo-estudo">
+          <button class="btn-tempo-estudo"
+            data-atividade="programacao" data-minutos="15">+15</button>
+  
+          <button class="btn-tempo-estudo"
+            data-atividade="programacao" data-minutos="30">+30</button>
+  
+          <button class="btn-tempo-estudo"
+            data-atividade="programacao" data-minutos="45">+45</button>
+  
+          <button class="btn-tempo-estudo"
+            data-atividade="programacao" data-minutos="60">+60</button>
+        </div>
+        <small>Meta diária: 60 minutos</small>
+      </div>
+
+      <div class="atividade-estudo">
+        <strong>⌨️ Digitação</strong>
+    
+        <span id="tempoDigitacao">0 min</span>
+    
+        <div class="botoes-tempo-estudo">
+          <button class="btn-tempo-estudo"
+            data-atividade="digitacao" data-minutos="5">+5</button>
+  
+          <button class="btn-tempo-estudo"
+            data-atividade="digitacao" data-minutos="10">+10</button>
+  
+          <button class="btn-tempo-estudo"
+              data-atividade="digitacao" data-minutos="15">+15</button>
+  
+          <button class="btn-tempo-estudo"
+            data-atividade="digitacao" data-minutos="20">+20</button>
+        </div>
+        <small>Meta diária: 20 minutos</small>
+      </div>
+
+      <div class="atividade-estudo">
+        <strong>🌎 Inglês — Duolingo</strong>
+      
+        <span id="tempoIngles">0 min</span>
+      
+        <div class="botoes-tempo-estudo">
+          <button class="btn-tempo-estudo"
+            data-atividade="ingles" data-minutos="5">+5</button>
+    
+          <button class="btn-tempo-estudo"
+            data-atividade="ingles" data-minutos="10">+10</button>
+    
+          <button class="btn-tempo-estudo"
+            data-atividade="ingles" data-minutos="15">+15</button>
+        </div>
+      
+        <small>Meta diária: 15 minutos</small>
+      </div>
+
+      <div class="resumo-estudos">
+        <strong>Tempo total:</strong>
+        <span id="tempoTotalEstudos">0 min</span>
+    
+        <strong>Atividades concluídas:</strong>
+        <span id="totalAtividadesEstudos">0/3</span>
+      </div>
+      
+      <!-- ALIMENTAÇÃO -->
+
+      <!-- ALIMENTAÇÃO -->
+
+      <!-- ALIMENTAÇÃO -->
+        
+      
+      
+      <div id="listaHabitos"></div>
     </section>
   
     <section id="telaHistorico">
