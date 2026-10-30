@@ -3618,7 +3618,7 @@ body {
 ========================================== */
 .resumos-modulos {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
     margin-top: 18px;
     align-items: stretch;
@@ -3675,3 +3675,77 @@ body {
         padding: 14px;
     }
 }
+
+/* ==========================================
+   ESTUDOS DA TARDE
+========================================== */
+  #blocoEstudosTarde {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+  }
+  
+  .atividade-estudo {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px;
+      background: #f1f4f1;
+      border-radius: 10px;
+  }
+  
+  .atividade-estudo > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+  }
+  
+  .atividade-estudo input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #cbd5cd;
+      border-radius: 8px;
+      box-sizing: border-box;
+  }
+  
+  .atividade-estudo label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+  }
+  
+  .resumo-estudos {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+  }
+  
+  #salvarEstudosTarde {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #397a50;
+      color: white;
+      cursor: pointer;
+  }
+
+  .botoes-tempo-estudo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .btn-tempo-estudo {
+      padding: 8px 14px;
+      border: 1px solid #cbd5cd;
+      border-radius: 8px;
+      background: #e5e9e5;
+      color: #397a50;
+      cursor: pointer;
+      font-weight: 600;
+  }
+  
+  .btn-tempo-estudo:hover {
+      background: #397a50;
+      color: white;
+  }
