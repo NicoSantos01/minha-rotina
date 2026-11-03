@@ -3,19 +3,27 @@
 
 <head>
 
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-    <title>Minha Rotina</title>
+  <title>Minha Rotina</title>
 
-	<link rel="icon" type="image/png" href="icon.png">
-	
-	<link rel="stylesheet" href="style.css">
-	<link rel="manifest" href="manifest.json">
+  <!-- Ícone do navegador -->
+  <link rel="icon" type="image/png" href="./icon-192.png">
+
+  <!-- Ícone da tela inicial do iPhone -->
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
+  <!-- Configuração PWA -->
+  <link rel="manifest" href="./manifest.json">
+
+  <meta name="theme-color" content="#111827">
+
+  <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -2508,27 +2516,114 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 
-  <script>
-	  if ("serviceWorker" in navigator) {
-  
-		  window.addEventListener("load", () => {
-  
-			  navigator.serviceWorker
-				  .register("./service-worker.js")
-				  .then(() => {
-					  console.log("Service Worker registrado.");
-				  })
-				  .catch(erro => {
-					  console.error(
-						  "Erro ao registrar Service Worker:",
-						  erro
-					  );
-				  });
-  
-		  });
-  
-	  }
-  </script>
+<script>
+(() => {
+
+  const botao = document.createElement("button");
+
+  botao.type = "button";
+  botao.textContent = "💾 Fazer backup";
+
+  botao.style.cssText = `
+    position: fixed;
+    right: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    z-index: 99999;
+    padding: 14px 20px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  `;
+
+  botao.addEventListener("click", async () => {
+
+    const dados = Object.fromEntries(
+      Object.keys(localStorage).map(chave => [
+        chave,
+        localStorage.getItem(chave)
+      ])
+    );
+
+    const backup = {
+      aplicativo: "Minha Rotina",
+      dataBackup: new Date().toISOString(),
+      origem: location.origin,
+      quantidadeChaves: Object.keys(dados).length,
+      dados: dados
+    };
+
+    const conteudo = JSON.stringify(backup, null, 2);
+
+    const nomeArquivo = `backup-minha-rotina-${new Date().toISOString().slice(0, 10)}.json`;
+
+    const arquivo = new File(
+      [conteudo],
+      nomeArquivo,
+      { type: "application/json" }
+    );
+
+    try {
+        if (
+          navigator.share &&
+          navigator.canShare &&
+          navigator.canShare({ files: [arquivo] })
+        ) {
+          await navigator.share({
+            files: [arquivo],
+            title: "Backup Minha Rotina",
+            text: "Backup dos dados do Minha Rotina."
+          });
+        } else {
+          const url = URL.createObjectURL(arquivo);
+          const link = document.createElement("a");
+
+          link.href = url;
+          link.download = nomeArquivo;
+          link.click();
+
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+          alert("Backup gerado! Confira os arquivos baixados.");
+        }
+
+    } catch (erro) {
+      if (erro.name !== "AbortError") {
+        console.error("Erro ao gerar backup:", erro);
+        alert("Não foi possível gerar o backup. Tente novamente.");
+      }
+    }
+  });
+
+  document.body.appendChild(botao);
+
+})();
+</script>
+
+<script>
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(() => {
+          console.log("Service Worker registrado.");
+        })
+        .catch(erro => {
+          console.error(
+            "Erro ao registrar Service Worker:",
+            erro
+          );
+        });
+
+    });
+
+  }
+</script>
 
 </body>
 
