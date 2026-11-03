@@ -16,6 +16,204 @@ const supabaseClient = window.supabase.createClient(
 console.log("Supabase conectado:", !!supabaseClient);
 
 // ==========================================
+// AUTENTICAÇÃO — MINHA ROTINA
+// ==========================================
+
+  // Elementos da tela de login
+  const telaAutenticacao =
+      document.getElementById("telaAutenticacao");
+
+  const formAutenticacao =
+      document.getElementById("formAutenticacao");
+
+  const authEmail =
+      document.getElementById("authEmail");
+
+  const authSenha =
+      document.getElementById("authSenha");
+
+  const btnEntrar =
+      document.getElementById("btnEntrar");
+
+  const btnCriarConta =
+      document.getElementById("btnCriarConta");
+
+  const mensagemAuth =
+      document.getElementById("mensagemAuth");
+
+  // Controle do modo de autenticação
+  let modoCadastro = false;
+
+// ==========================================
+// ALTERNAR ENTRE LOGIN E CADASTRO
+// ==========================================
+btnCriarConta.addEventListener("click", () => {
+  // Alterna entre login e cadastro
+  modoCadastro = !modoCadastro;
+
+  if (modoCadastro) {
+    btnEntrar.textContent = "Criar minha conta";
+
+    btnCriarConta.textContent = "Já tenho uma conta";
+
+    authSenha.setAttribute(
+      "autocomplete",
+      "new-password"
+    );
+
+  } else {
+    btnEntrar.textContent = "Entrar";
+
+    btnCriarConta.textContent = "Criar conta";
+
+    authSenha.setAttribute(
+      "autocomplete",
+      "current-password"
+    );
+  }
+
+  mensagemAuth.textContent = "";
+});
+
+// ==========================================
+// CADASTRO E LOGIN — SUPABASE
+// ==========================================
+formAutenticacao.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = authEmail.value.trim();
+  const senha = authSenha.value;
+
+  mensagemAuth.textContent = "";
+  btnEntrar.disabled = true;
+
+  const textoOriginal = btnEntrar.textContent;
+  btnEntrar.textContent = "Aguarde...";
+
+  try {
+    if (modoCadastro) {
+      // CADASTRAR NOVO USUÁRIO
+      const { data, error } =
+      await supabaseClient.auth.signUp({
+        email: email,
+        password: senha
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        mensagemAuth.textContent = "Conta criada! Você já está conectado.";
+      } else {
+        mensagemAuth.textContent = "Cadastro recebido! Confira seu e-mail para confirmar a conta.";
+      }
+  } else {
+      // ENTRAR EM UMA CONTA EXISTENTE
+      const { error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: senha
+      });
+
+      if (error) throw error;
+
+      mensagemAuth.textContent = "Login realizado com sucesso!";
+    }
+  } catch (error) {
+    console.error("Erro de autenticação:", error);
+
+    mensagemAuth.textContent =
+      "Não foi possível concluir a operação: " +
+      error.message;
+  } finally {
+    btnEntrar.disabled = false;
+    btnEntrar.textContent = textoOriginal;
+  }
+});
+
+// ==========================================
+// CONTROLE DE SESSÃO — SUPABASE
+// ==========================================
+const aplicativo = document.querySelector(".app");
+
+// Exibe a tela correta conforme a sessão
+function atualizarTelaAutenticacao(sessao) {
+  const conectado = !!sessao?.user;
+
+  const menuOpcoes = document.getElementById("menuOpcoesRotina");
+  if (menuOpcoes) {
+    menuOpcoes.hidden = !conectado;
+  }
+
+  if (conectado) {
+    telaAutenticacao.hidden = true;
+    aplicativo.hidden = false;
+  } else {
+    telaAutenticacao.hidden = false;
+    aplicativo.hidden = true;
+  }
+}
+
+// Verifica se já existe uma sessão salva
+async function verificarSessao() {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    console.error("Erro ao verificar sessão:", error);
+    return;
+  }
+
+  atualizarTelaAutenticacao(data.session);
+}
+
+// Acompanha login, logout e mudanças na sessão
+supabaseClient.auth.onAuthStateChange(
+  (evento, sessao) => {
+    atualizarTelaAutenticacao(sessao);
+  }
+);
+
+// Verificação inicial
+verificarSessao();
+
+// ==========================================
+// SINCRONIZAÇÃO — ETAPA DE VERIFICAÇÃO
+// ==========================================
+async function verificarDadosParaSincronizacao() {
+    // Identifica o usuário autenticado
+    const { data, error } = await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+      console.error("Usuário não autenticado:", error);
+      return;
+    }
+
+    // Conta quantas informações estão no localStorage
+    const chaves = Object.keys(localStorage);
+
+    console.log("Usuário autenticado:", data.user.id);
+    console.log("Quantidade de chaves locais:", chaves.length);
+    console.log("Chaves encontradas:", chaves);
+
+    console.log(
+      "Verificação concluída. Nenhum dado foi enviado ou alterado."
+    );
+}
+
+// ==========================================
+// TESTE TEMPORÁRIO DE LOGOUT
+// ==========================================
+window.sairDaConta = async function () {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    console.error("Erro ao sair da conta:", error);
+    return;
+  }
+
+  console.log("Logout realizado com sucesso!");
+};
+
+// ==========================================
 // CARREGAR HÁBITOS
 // ==========================================
 let habitos = JSON.parse(localStorage.getItem("habitos")) || [];
