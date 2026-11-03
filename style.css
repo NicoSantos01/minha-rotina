@@ -1455,7 +1455,7 @@ MÓDULO DE ALIMENTAÇÃO — SISTEMA DE ROTINA
   }
   
   .progresso-treino {
-    margin-bottom: 20px;eu 
+    margin-bottom: 20px;
   }
   
   .progresso-treino > span {
@@ -3749,3 +3749,174 @@ body {
       background: #397a50;
       color: white;
   }
+
+/* ==========================================
+   MINHA ROTINA — TELA DE AUTENTICAÇÃO
+========================================== */
+.tela-autenticacao {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ef;
+}
+
+/* Mantém a tela oculta quando necessário */
+.tela-autenticacao[hidden] {
+  display: none;
+}
+
+/* CARTÃO DE LOGIN */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 30px;
+  background: #ffffff;
+  border: 1px solid #e0e8e2;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(27, 62, 41, 0.08);
+  text-align: center;
+}
+
+/* LOGO */
+.auth-logo {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2e6;
+  color: #25834b;
+  border-radius: 18px;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+/* TÍTULO */
+.auth-card h1 {
+  margin: 0;
+  color: #26372e;
+  font-size: 28px;
+}
+
+.auth-subtitulo {
+  margin: 10px 0 30px;
+  color: #758379;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* FORMULÁRIO */
+#formAutenticacao {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+#formAutenticacao label {
+  margin-bottom: 7px;
+  color: #374b3e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#formAutenticacao input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid #d6e1d9;
+  border-radius: 11px;
+  background: #f9fbfa;
+  color: #26372e;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+#formAutenticacao input:focus {
+  border-color: #25834b;
+  box-shadow: 0 0 0 3px rgba(37, 131, 75, 0.1);
+}
+
+/* BOTÃO ENTRAR */
+#btnEntrar {
+  width: 100%;
+  margin-top: 5px;
+  padding: 15px;
+  border: none;
+  border-radius: 11px;
+  background: #25834b;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#btnEntrar:hover {
+  background: #1c693b;
+}
+
+/* MENSAGENS */
+#mensagemAuth {
+  margin: 15px 0;
+  color: #b45309;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#mensagemAuth:empty {
+  display: none;
+}
+
+/* CRIAR CONTA */
+.auth-alternar {
+  margin-top: 24px;
+  color: #758379;
+  font-size: 14px;
+}
+
+#btnCriarConta {
+  margin: 0;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  color: #25834b;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#btnCriarConta:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+
+/* RESPONSIVIDADE — IPHONE */
+@media (max-width: 480px) {
+  .tela-autenticacao {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 30px 22px;
+    border-radius: 18px;
+  }
+
+  .auth-card h1 {
+    font-size: 25px;
+  }
+}
+
+/* CONTROLE DE ACESSO */
+.app[hidden] {
+  display: none !important;
+}
+
+/* Ocultar o menu quando não estiver conectado */
+#menuOpcoesRotina[hidden] {
+    display: none !important;
+}
