@@ -29,6 +29,60 @@
 
 <body>
 
+<!-- ==========================================
+     TELA DE AUTENTICAÇÃO
+========================================== -->
+<section id="telaAutenticacao" class="tela-autenticacao" hidden>
+
+  <div class="auth-card">
+
+    <div class="auth-logo">✓</div>
+
+    <h1>Minha Rotina</h1>
+    <p class="auth-subtitulo">
+      Organize sua vida, acompanhe seu progresso.
+    </p>
+
+    <form id="formAutenticacao">
+
+      <label for="authEmail">E-mail</label>
+      <input
+        type="email"
+        id="authEmail"
+        placeholder="Digite seu e-mail"
+        autocomplete="email"
+        required
+      >
+
+      <label for="authSenha">Senha</label>
+      <input
+        type="password"
+        id="authSenha"
+        placeholder="Digite sua senha"
+        autocomplete="current-password"
+        minlength="6"
+        required
+      >
+
+      <button type="submit" id="btnEntrar">
+        Entrar
+      </button>
+
+    </form>
+
+    <p id="mensagemAuth" role="status" aria-live="polite"></p>
+
+    <p class="auth-alternar">
+      Ainda não tem uma conta?
+      <button type="button" id="btnCriarConta">
+        Criar conta
+      </button>
+    </p>
+
+  </div>
+
+</section>
+
 <div class="app">
   
   <div class="cabecalho">
@@ -2516,30 +2570,116 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 
+
 <script>
 (() => {
+  // ==========================================
+  // MENU DE OPÇÕES — MINHA ROTINA
+  // ==========================================
+  const container = document.createElement("div");
 
-  const botao = document.createElement("button");
-
-  botao.type = "button";
-  botao.textContent = "💾 Fazer backup";
-
-  botao.style.cssText = `
+  container.id = "menuOpcoesRotina";
+  // Oculta o menu até confirmar que existe uma sessão
+  container.hidden = true; 
+  
+  container.style.cssText = `
     position: fixed;
     right: 20px;
     bottom: calc(20px + env(safe-area-inset-bottom));
     z-index: 99999;
-    padding: 14px 20px;
+  `;
+
+  const botao = document.createElement("button");
+
+  botao.type = "button";
+  botao.textContent = "⋮";
+  botao.setAttribute("aria-label", "Abrir opções");
+  botao.setAttribute("aria-expanded", "false");
+
+  botao.style.cssText = `
+    width: 54px;
+    height: 54px;
     background: #16a34a;
     color: white;
     border: none;
-    border-radius: 30px;
-    font-size: 15px;
+    border-radius: 50%;
+    font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   `;
 
-  botao.addEventListener("click", async () => {
+  const menu = document.createElement("div");
+
+  menu.hidden = true;
+
+  menu.style.cssText = `
+    position: absolute;
+    right: 0;
+    bottom: 66px;
+    width: 210px;
+    padding: 8px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  `;
+
+  function criarOpcao(texto) {
+    const opcao = document.createElement("button");
+
+    opcao.type = "button";
+    opcao.textContent = texto;
+
+    opcao.style.cssText = `
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      color: #374151;
+      border: none;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 14px;
+      cursor: pointer;
+    `;
+
+    return opcao;
+  }
+
+  const btnBackup = criarOpcao("💾 Fazer backup");
+  const btnConfiguracoes = criarOpcao("⚙️ Configurações");
+  const btnSair = criarOpcao("🚪 Sair da conta");
+
+  // Configurações será implementado futuramente
+  btnConfiguracoes.disabled = true;
+  btnConfiguracoes.style.opacity = "0.45";
+  btnConfiguracoes.style.cursor = "not-allowed";
+
+  btnSair.style.color = "#b45353";
+
+  function alternarMenu(aberto) {
+    menu.hidden = !aberto;
+    botao.setAttribute("aria-expanded", String(aberto));
+  }
+
+  botao.addEventListener("click", () => {
+    alternarMenu(menu.hidden);
+  });
+
+  document.addEventListener("click", (evento) => {
+    if (!container.contains(evento.target)) {
+      alternarMenu(false);
+    }
+  });
+
+  // ==========================================
+  // BACKUP — FUNÇÃO ORIGINAL PRESERVADA
+  // ==========================================
+
+  btnBackup.addEventListener("click", async () => {
+
+    alternarMenu(false);
 
     const dados = Object.fromEntries(
       Object.keys(localStorage).map(chave => [
@@ -2558,7 +2698,8 @@
 
     const conteudo = JSON.stringify(backup, null, 2);
 
-    const nomeArquivo = `backup-minha-rotina-${new Date().toISOString().slice(0, 10)}.json`;
+    const nomeArquivo =
+      `backup-minha-rotina-${new Date().toISOString().slice(0, 10)}.json`;
 
     const arquivo = new File(
       [conteudo],
@@ -2567,41 +2708,119 @@
     );
 
     try {
-        if (
-          navigator.share &&
-          navigator.canShare &&
-          navigator.canShare({ files: [arquivo] })
-        ) {
-          await navigator.share({
-            files: [arquivo],
-            title: "Backup Minha Rotina",
-            text: "Backup dos dados do Minha Rotina."
-          });
-        } else {
-          const url = URL.createObjectURL(arquivo);
-          const link = document.createElement("a");
 
-          link.href = url;
-          link.download = nomeArquivo;
-          link.click();
+      if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare({ files: [arquivo] })
+      ) {
 
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        await navigator.share({
+          files: [arquivo],
+          title: "Backup Minha Rotina",
+          text: "Backup dos dados do Minha Rotina."
+        });
 
-          alert("Backup gerado! Confira os arquivos baixados.");
-        }
+      } else {
+
+        const url = URL.createObjectURL(arquivo);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = nomeArquivo;
+        link.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+        alert("Backup gerado! Confira os arquivos baixados.");
+      }
 
     } catch (erro) {
-      if (erro.name !== "AbortError") {
-        console.error("Erro ao gerar backup:", erro);
-        alert("Não foi possível gerar o backup. Tente novamente.");
+      if (erro.name === "AbortError") {
+        return;
+      }
+
+      console.warn(
+        "Compartilhamento não permitido. Tentando download:",
+        erro
+      );
+
+      try {
+        const url = URL.createObjectURL(arquivo);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = nomeArquivo;
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+        alert(
+          "Download solicitado! Confira a pasta Downloads."
+        );
+
+      } catch (erroDownload) {
+
+        console.error(
+          "Erro ao baixar backup:",
+          erroDownload
+        );
+
+        alert(
+          "Não foi possível baixar o backup."
+        );
       }
     }
   });
 
-  document.body.appendChild(botao);
+  // ==========================================
+  // SAIR DA CONTA
+  // ==========================================
+  btnSair.addEventListener("click", async () => {
+    alternarMenu(false);
 
+    if (typeof window.sairDaConta !== "function") {
+      alert("A função de logout não está disponível.");
+      return;
+    }
+
+    const confirmar = confirm(
+      "Deseja realmente sair da sua conta?"
+    );
+
+    if (!confirmar) return;
+
+    await window.sairDaConta();
+
+  });
+
+  menu.appendChild(btnBackup);
+  menu.appendChild(btnConfiguracoes);
+  menu.appendChild(btnSair);
+
+  container.appendChild(menu);
+  container.appendChild(botao);
+
+  document.body.appendChild(container);
+
+  // Verifica a sessão depois de criar o menu
+  if (typeof supabaseClient !== "undefined") {
+
+    supabaseClient.auth.getSession().then(({ data, error }) => {
+      if (error) {
+        console.error("Erro ao verificar sessão do menu:", error);
+        return;
+      }
+
+      container.hidden = !data.session?.user;
+    });
+  }
 })();
 </script>
+
 
 <script>
   if ("serviceWorker" in navigator) {
