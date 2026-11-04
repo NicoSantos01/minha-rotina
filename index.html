@@ -83,7 +83,7 @@
 
 </section>
 
-<div class="app">
+<div class="app" hidden>
   
   <div class="cabecalho">
     <nav class="navegacao-app">
@@ -2568,8 +2568,10 @@
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="sincronizacao.js"></script>
 <script src="script.js"></script>
-
+<script src="carregar-nuvem.js"></script>
 
 <script>
 (() => {
@@ -2682,10 +2684,19 @@
     alternarMenu(false);
 
     const dados = Object.fromEntries(
-      Object.keys(localStorage).map(chave => [
-        chave,
-        localStorage.getItem(chave)
-      ])
+      Object.keys(localStorage)
+        .filter(chave => {
+          const nome = chave.toLowerCase();
+
+          return (
+            !nome.startsWith("sb-") &&
+            !nome.includes("auth-token")
+          );
+        })
+        .map(chave => [
+          chave,
+          localStorage.getItem(chave)
+        ])
     );
 
     const backup = {
