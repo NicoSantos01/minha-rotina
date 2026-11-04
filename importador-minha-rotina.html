@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Minha Rotina — Conferir backup</title>
+
+    <style>
+      * {
+        box-sizing:border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: #edf3ef;
+        color: #26372e;
+        margin: 0;
+        padding: 28px 16px;
+      }
+      .card {
+        max-width:600px;
+        margin:40px auto;
+        background:white;
+        border:1px solid #dce8df;
+        border-radius:18px;
+        padding:28px;
+        box-shadow:0 8px 30px #17351d12;}
+      h1 {
+        font-size:24px;
+        margin:0 0 12px;
+      }
+      p {
+        line-height:1.6;
+        color:#5d6e63;
+      }
+      input {
+        width:100%;
+        padding:14px;
+        border:1px solid #cad7ce;
+        border-radius:10px;
+      }
+      #resultado {
+        margin-top:22px;
+        white-space:pre-wrap;
+        line-height:1.7;
+      } 
+      .ok {
+        color:#176b3a;
+      }
+      .erro {
+        color:#b42318;
+      }
+      small {
+        color:#607267;
+      }
+      code {
+        background:#eef4ef;
+        padding:2px 5px;
+        border-radius:4px;
+      }
+      /* LOGIN DO IMPORTADOR */
+      #areaLogin h2 {
+        font-size: 20px; 
+        margin-bottom: 12px;
+      }
+      #formLoginImportador {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #formLoginImportador label {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      #btnLoginImportador {
+        padding: 14px;
+        background: #25834b;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #btnLoginImportador:disabled {
+        opacity: 0.6;
+       cursor: wait;
+      }
+      #statusLogin {
+        font-size: 14px;
+      }
+      #btnImportarBackup {
+        width: 100%;
+        padding: 14px;
+        margin-top: 14px;
+        background: #25834b;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #btnImportarBackup:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Conferir backup — Minha Rotina</h1>
+      <p>Selecione o arquivo JSON salvo no iPhone. Esta ferramenta 
+        <strong>apenas lê o arquivo no seu navegador</strong>: não envia, apaga ou modifica dados.
+      </p>
+      <label for="arquivo">
+        <strong>Arquivo de backup (.json)</strong>
+      </label>
+      <input id="arquivo" type="file" accept=".json,application/json">
+      <div id="resultado" role="status" aria-live="polite">
+        <small>Aguardando seleção do arquivo.</small>
+      </div>
+    </main>
+    
+    <!-- ==========================================
+      LOGIN DO IMPORTADOR
+    ========================================== -->
+    <section class="card" id="areaLogin">
+      <h2>Conectar ao Supabase</h2>
+
+      <p>
+        Entre com a mesma conta que você criou
+        no aplicativo Minha Rotina.
+      </p>
+
+      <form id="formLoginImportador">
+        <label for="emailImportador">E-mail</label>
+        <input
+          type="email"
+          id="emailImportador"
+          autocomplete="email"
+          required
+        >
+
+        <label for="senhaImportador">Senha</label>
+        <input
+          type="password"
+          id="senhaImportador"
+          autocomplete="current-password"
+          required
+        >
+
+        <button type="submit" id="btnLoginImportador">
+          Entrar
+        </button>
+      </form>
+
+      <p id="statusLogin" role="status"></p>
+      
+      <button
+        type="button"
+        id="btnImportarBackup"
+        disabled
+      >
+        Importar backup para a nuvem
+      </button>
+
+      <p id="statusImportacao" role="status"></p>
+    </section>
+
+    <!-- Biblioteca oficial do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      // ==========================================
+      // CONEXÃO COM SUPABASE — IMPORTADOR
+      // ==========================================
+      const SUPABASE_URL =
+        "https://wlyijvjorhmcmjgdpzka.supabase.co";
+
+      const SUPABASE_KEY =
+        "sb_publishable_HEfjDacHGG2I3To_sPmPog_4KBtRkjr";
+
+      const clienteSupabase = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+            detectSessionInUrl: false
+          }
+        }
+      );
+
+      const formLoginImportador =
+        document.getElementById("formLoginImportador");
+
+      const statusLogin =
+        document.getElementById("statusLogin");
+
+      const btnLoginImportador =
+        document.getElementById("btnLoginImportador");
+
+      formLoginImportador.addEventListener("submit", async (evento) => {
+
+        evento.preventDefault();
+
+        const email =
+          document.getElementById("emailImportador").value.trim();
+
+        const senha =
+          document.getElementById("senhaImportador").value;
+
+        btnLoginImportador.disabled = true;
+        statusLogin.textContent = "Conectando...";
+
+        try {
+
+          const { data, error } =
+            await clienteSupabase.auth.signInWithPassword({
+              email,
+              password: senha
+            });
+
+          if (error) throw error;
+
+          statusLogin.textContent = "✓ Conectado ao Supabase com sucesso!";
+
+          statusLogin.className = "ok";
+
+          console.log(
+            "Autenticação do importador realizada:",
+            !!data.user
+          );
+
+          await verificarDadosNaNuvem();
+          await atualizarBotaoImportacao();
+
+        } catch (erro) {
+
+          statusLogin.className = "erro";
+          statusLogin.textContent =
+            "Erro ao entrar: " + erro.message;
+
+        } finally {
+
+          btnLoginImportador.disabled = false;
+
+        }
+
+      });
+      
+      // ==========================================
+      // VERIFICAR DADOS EXISTENTES NO SUPABASE
+      // ==========================================
+      async function verificarDadosNaNuvem() {
+        const { data: usuario, error: erroUsuario } =
+          await clienteSupabase.auth.getUser();
+
+        if (erroUsuario || !usuario.user) {
+          statusLogin.className = "erro";
+          statusLogin.textContent = "Faça login primeiro.";
+          return;
+        }
+
+        const { data, error } = await clienteSupabase
+          .from("dados_usuario")
+          .select("user_id, updated_at")
+          .eq("user_id", usuario.user.id)
+          .limit(1);
+
+        if (error) {
+          statusLogin.className = "erro";
+          statusLogin.textContent =
+            "Erro ao consultar a tabela: " + error.message;
+          return;
+        }
+
+        if (data.length === 0) {
+          statusLogin.className = "ok";
+          statusLogin.textContent =
+            "✓ Conectado! Nenhum backup encontrado na nuvem.";
+        } else {
+          statusLogin.className = "ok";
+          statusLogin.textContent =
+            "✓ Conectado! Já existe um registro na nuvem. Nenhum dado foi alterado.";
+        }
+      }
+      
+      // ==========================================
+      // IMPORTAÇÃO SEGURA DO BACKUP
+      // ==========================================
+      let backupValidado = null;
+
+      const btnImportarBackup = document.getElementById("btnImportarBackup");
+
+      const statusImportacao = document.getElementById("statusImportacao");
+
+      async function atualizarBotaoImportacao() {
+        const { data, error } =
+          await clienteSupabase.auth.getUser();
+
+        btnImportarBackup.disabled =
+          !!error || !data.user || !backupValidado;
+      }
+
+      btnImportarBackup.addEventListener("click", async () => {
+        btnImportarBackup.disabled = true;
+        statusImportacao.textContent = "Verificando segurança...";
+
+        try {
+          if (!backupValidado) {
+            throw new Error("Selecione um backup válido.");
+          }
+
+          const { data: autenticacao, error: erroAuth } =
+            await clienteSupabase.auth.getUser();
+
+          if (erroAuth || !autenticacao.user) {
+            throw new Error("Faça login novamente.");
+          }
+
+          const userId = autenticacao.user.id;
+
+          const { data: existente, error: erroConsulta } =
+            await clienteSupabase
+              .from("dados_usuario")
+              .select("user_id")
+              .eq("user_id", userId)
+              .limit(1);
+
+          if (erroConsulta) throw erroConsulta;
+
+          if (existente.length > 0) {
+            throw new Error(
+              "Já existem dados na nuvem. Importação bloqueada para evitar substituição."
+            );
+          }
+
+          const quantidade = Object.keys(backupValidado.dados).length;
+
+          const confirmado = window.confirm(
+            "Enviar " + quantidade +
+            " chaves do backup para sua conta Supabase?\n\n" +
+            "Esta operação não apaga os dados do iPhone."
+          );
+
+          if (!confirmado) {
+            statusImportacao.textContent = "Importação cancelada.";
+            return;
+          }
+
+          statusImportacao.textContent = "Enviando backup...";
+
+          const { error: erroInsert } =
+            await clienteSupabase
+              .from("dados_usuario")
+              .insert({
+                user_id: userId,
+                dados: backupValidado.dados
+              });
+
+          if (erroInsert) throw erroInsert;
+
+          const { data: registro, error: erroLeitura } =
+            await clienteSupabase
+              .from("dados_usuario")
+              .select("dados")
+              .eq("user_id", userId)
+              .single();
+
+          if (erroLeitura) throw erroLeitura;
+
+          const chavesEnviadas =
+            Object.keys(backupValidado.dados).sort();
+
+          const chavesRecebidas =
+            Object.keys(registro.dados || {}).sort();
+
+          if (
+            JSON.stringify(chavesEnviadas) !==
+            JSON.stringify(chavesRecebidas)
+          ) {
+            throw new Error(
+              "O envio ocorreu, mas a conferência das chaves falhou. Não tente importar novamente."
+            );
+          }
+
+          statusImportacao.className = "ok";
+          statusImportacao.textContent =
+            "✓ Backup enviado e conferido na nuvem! " +
+            quantidade + " chaves registradas.";
+
+          backupValidado = null;
+
+        } catch (erro) {
+          statusImportacao.className = "erro";
+          statusImportacao.textContent =
+            "Atenção: " + erro.message;
+
+        } finally {
+          await atualizarBotaoImportacao();
+        }
+      });
+
+      const input = document.getElementById('arquivo');
+      const resultado = document.getElementById('resultado');
+      input.addEventListener('change', async () => {
+        resultado.className = '';
+        resultado.textContent = 'Lendo arquivo...';
+        backupValidado = null;
+        btnImportarBackup.disabled = true;
+        statusImportacao.textContent = "";
+        const arquivo = input.files?.[0];
+        if (!arquivo) { resultado.textContent = 'Nenhum arquivo selecionado.'; return; }
+        try {
+          const backup = JSON.parse(await arquivo.text());
+          if (backup?.aplicativo !== 'Minha Rotina' || !backup.dados || typeof backup.dados !== 'object' || Array.isArray(backup.dados)) {
+            throw new Error('O arquivo não possui a estrutura esperada de backup do Minha Rotina.');
+          }
+          const chaves = Object.keys(backup.dados);
+          const proibidas = chaves.filter(k => k.startsWith('sb-') || k.toLowerCase().includes('auth-token'));
+          if (proibidas.length) throw new Error('O arquivo contém dados de autenticação. Não use este arquivo para sincronização.');
+          for (const [chave, valor] of Object.entries(backup.dados)) {
+            if (typeof valor !== 'string') throw new Error('Valor inesperado na chave ' + chave);
+            JSON.parse(valor);
+          }
+          backupValidado = backup;
+          await atualizarBotaoImportacao();
+          resultado.className = 'ok';
+          resultado.textContent = '✓ Backup válido\n\nArquivo: ' + arquivo.name + '\nChaves encontradas: ' + chaves.length + '\n\n' + chaves.join('\n') + '\n\nNenhum dado foi enviado ou alterado.';
+        } catch (erro) {
+          resultado.className = 'erro';
+          resultado.textContent = 'Não foi possível validar: ' + erro.message;
+        }
+      });
+    </script>
+  </body>
+</html>
