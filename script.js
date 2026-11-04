@@ -1,17 +1,7 @@
 // ==========================================
 // CONEXÃO COM O SUPABASE
 // ==========================================
-
-const SUPABASE_URL =
-    "https://wlyijvjorhmcmjgdpzka.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_HEfjDacHGG2I3To_sPmPog_4KBtRkjr";
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+const supabaseClient = window.supabaseClient;
 
 console.log("Supabase conectado:", !!supabaseClient);
 
@@ -179,24 +169,54 @@ verificarSessao();
 // SINCRONIZAÇÃO — ETAPA DE VERIFICAÇÃO
 // ==========================================
 async function verificarDadosParaSincronizacao() {
-    // Identifica o usuário autenticado
-    const { data, error } = await supabaseClient.auth.getUser();
+  // Confirma a identidade do usuário
+  const { data: autenticacao, error: erroAuth } =
+    await supabaseClient.auth.getUser();
 
-    if (error || !data.user) {
-      console.error("Usuário não autenticado:", error);
-      return;
-    }
+  if (erroAuth || !autenticacao.user) {
+    console.log("Nenhum usuário autenticado.");
+    return;
+  }
 
-    // Conta quantas informações estão no localStorage
-    const chaves = Object.keys(localStorage);
+  // Consulta os dados desse usuário no Supabase
+  const { data: registro, error: erroConsulta } =
+    await supabaseClient
+      .from("dados_usuario")
+      .select("dados, updated_at")
+      .eq("user_id", autenticacao.user.id)
+      .maybeSingle();
 
-    console.log("Usuário autenticado:", data.user.id);
-    console.log("Quantidade de chaves locais:", chaves.length);
-    console.log("Chaves encontradas:", chaves);
+  if (erroConsulta) {
+    console.error("Erro ao consultar Supabase:", erroConsulta);
+    return;
+  }
 
-    console.log(
-      "Verificação concluída. Nenhum dado foi enviado ou alterado."
-    );
+  if (!registro) {
+    console.log("Nenhum backup encontrado na nuvem.");
+    return;
+  }
+
+  // Confere a estrutura dos dados recebidos
+  const dadosNuvem = registro.dados;
+  if (
+    !dadosNuvem ||
+    typeof dadosNuvem !== "object" ||
+    Array.isArray(dadosNuvem)
+  ) {
+    console.error("Formato inesperado dos dados da nuvem.");
+    return;
+  }
+
+  const chavesNuvem = Object.keys(dadosNuvem);
+
+  console.log("☁️ Backup encontrado no Supabase!");
+  console.log("Quantidade de chaves:", chavesNuvem.length);
+  console.log("Chaves da nuvem:", chavesNuvem);
+  console.log("Última atualização:", registro.updated_at);
+
+  console.log(
+    "Verificação concluída. Nenhum dado local foi alterado."
+  );
 }
 
 // ==========================================
@@ -5550,8 +5570,8 @@ function renderizarTransacoes() {
   
   
       localStorage.setItem(
-          "contas",
-          JSON.stringify(contas)
+        "contas",
+        JSON.stringify(contas)
       );
   
   
@@ -8322,48 +8342,22 @@ function atualizarResumoContas() {
 // ==========================================
 // METAS
 // ==========================================
-
-let metas =
-    JSON.parse(localStorage.getItem("metas")) || [];
-
+let metas = JSON.parse(localStorage.getItem("metas")) || [];
 
 // ==========================================
 // ELEMENTOS
 // ==========================================
-
-const btnNovaMeta =
-    document.getElementById("btnNovaMeta");
-
-const modalNovaMeta =
-    document.getElementById("modalNovaMeta");
-
-const btnCancelarMeta =
-    document.getElementById("btnCancelarMeta");
-
-const btnCriarMeta =
-    document.getElementById("btnCriarMeta");
-
-const listaMetas =
-    document.getElementById("listaMetas");
-
-const tipoMeta =
-    document.getElementById("tipoMeta");
-
-const camposNumeroMeta =
-    document.getElementById("camposNumeroMeta");
-
-const campoPorcentagemMeta =
-    document.getElementById("campoPorcentagemMeta");
-
-const camposQuantidadeMeta =
-    document.getElementById("camposQuantidadeMeta");
-
-const btnAdicionarEtapa =
-    document.getElementById("btnAdicionarEtapa");
-
-const listaEtapasMeta =
-    document.getElementById("listaEtapasMeta");
-
+const btnNovaMeta = document.getElementById("btnNovaMeta");
+const modalNovaMeta = document.getElementById("modalNovaMeta");
+const btnCancelarMeta = document.getElementById("btnCancelarMeta");
+const btnCriarMeta = document.getElementById("btnCriarMeta");
+const listaMetas = document.getElementById("listaMetas");
+const tipoMeta = document.getElementById("tipoMeta");
+const camposNumeroMeta = document.getElementById("camposNumeroMeta");
+const campoPorcentagemMeta = document.getElementById("campoPorcentagemMeta");
+const camposQuantidadeMeta = document.getElementById("camposQuantidadeMeta");
+const btnAdicionarEtapa = document.getElementById("btnAdicionarEtapa");
+const listaEtapasMeta = document.getElementById("listaEtapasMeta");
 
 // ==========================================
 // ABRIR MODAL
@@ -9482,7 +9476,6 @@ function renderizarFichaMeta() {
         );
 
       });
-
 }
 
 // ==========================================
@@ -9493,5 +9486,4 @@ function salvarMetas() {
     "metas",
      JSON.stringify(metas)
   );
-
 }
