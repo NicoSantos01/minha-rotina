@@ -2772,9 +2772,794 @@ document.querySelectorAll(
 // ========================================
 // MÓDULO DE TRABALHO
 // ========================================
+  // TRABALHO - JORNADA
+  let jornadaTrabalho =
+    JSON.parse(localStorage.getItem("jornadaTrabalho")) || {};
+  
+  // HISTÓRICO DE JORNADAS
+  let jornadasTrabalho =
+    JSON.parse(localStorage.getItem("jornadasTrabalho")) || [];
+  
+  // MIGRAR JORNADA ATUAL PARA O HISTÓRICO
+  if (
+    jornadaTrabalho.data &&
+    jornadaTrabalho.entrada
+  ) {
+    const jaExiste =
+      jornadasTrabalho.some(
+        jornada =>
+          jornada.data === jornadaTrabalho.data
+      );
+    if (!jaExiste) {
+      jornadasTrabalho.push({
+        data: jornadaTrabalho.data,
+        entrada: jornadaTrabalho.entrada,
+        saida: jornadaTrabalho.saida || null
+      });
+
+      localStorage.setItem(
+        "jornadasTrabalho",
+        JSON.stringify(jornadasTrabalho)
+      );
+    }
+  }
+
+  // JORNADA
+  const entradaTrabalho = document.getElementById("entradaTrabalho");
+  const saidaTrabalho = document.getElementById("saidaTrabalho");
+  const statusTrabalho = document.getElementById("statusTrabalho");
+  const statusTrabalhoRotina = document.getElementById("statusTrabalhoRotina");
+  const btnIniciarJornada = document.getElementById("btnIniciarJornada");
+  const btnFinalizarJornada = document.getElementById("btnFinalizarJornada");
+
+  // DATA DE HOJE
+  function obterDataHoje() {
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoje.getDate()).padStart(2, "0");
+    return `${ano}-${mes}-${dia}`;
+  }
+
+  // FORMATAR HORÁRIO
+  function formatarHorario(data) {
+    if (!data) {
+      return "—";
+    }
+    const horario =
+      new Date(data);
+    
+    return horario.toLocaleTimeString(
+      "pt-BR",
+      {
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+    );
+  }
+
+  // INICIAR JORNADA
+  btnIniciarJornada.addEventListener("click", () => {
+    const hoje = obterDataHoje();
+
+    if (
+      jornadaTrabalho.data === hoje &&
+      jornadaTrabalho.entrada
+    ) {
+      return;
+    }
+
+    jornadaTrabalho = {
+      data: hoje,
+
+      entrada: new Date().toISOString(),
+
+      saida: null
+    };
+
+    // SALVA A JORNADA ATUAL
+    localStorage.setItem(
+      "jornadaTrabalho",
+      JSON.stringify(jornadaTrabalho)
+    );
+
+
+    // ATUALIZA O HISTÓRICO
+    const indice =
+      jornadasTrabalho.findIndex(
+        jornada =>
+          jornada.data === hoje
+      );
+  
+    if (indice === -1) {
+      jornadasTrabalho.push({
+        data: hoje,
+        entrada: jornadaTrabalho.entrada,
+        saida: null
+      });
+    } else {
+      jornadasTrabalho[indice] = {
+        data: hoje,
+        entrada: jornadaTrabalho.entrada,
+        saida: null
+      };
+    }
+  
+    localStorage.setItem(
+      "jornadasTrabalho",
+      JSON.stringify(jornadasTrabalho)
+    );
+
+    renderizarJornada();
+  });
+
+  // FINALIZAR JORNADA
+  btnFinalizarJornada.addEventListener("click", () => {
+    const hoje = obterDataHoje();
+    if (
+      jornadaTrabalho.data !== hoje ||
+      !jornadaTrabalho.entrada
+    ) {
+      alert("Inicie a jornada primeiro.");
+      return;
+    }
+
+    if (jornadaTrabalho.saida) {
+      return;
+    }
+
+    // Registra a saída
+    jornadaTrabalho.saida =
+      new Date().toISOString();
+
+    // Salva a jornada atual
+    localStorage.setItem(
+      "jornadaTrabalho",
+      JSON.stringify(jornadaTrabalho)
+    );
+
+    // ATUALIZA O HISTÓRICO
+    const indice =
+    jornadasTrabalho.findIndex(
+      jornada =>
+        jornada.data === hoje
+    );
+
+    if (indice !== -1) {
+      jornadasTrabalho[indice].saida = jornadaTrabalho.saida;
+    } else {
+      jornadasTrabalho.push({
+        data: hoje,
+        entrada: jornadaTrabalho.entrada,
+        saida: jornadaTrabalho.saida
+      });
+    }
+
+    localStorage.setItem(
+      "jornadasTrabalho",
+      JSON.stringify(jornadasTrabalho)
+    );
+
+    renderizarJornada();
+  });
+  
+  // CALCULO HORA EXTRA
+  function calcularHoraExtra(entrada, saida) {
+    if (!entrada || !saida) {
+      return {
+        passou: false,
+        minutos: 0
+      };
+    }
+
+    const inicio = new Date(entrada);
+    const fim = new Date(saida);
+    const minutosTrabalhados = Math.floor((fim - inicio) / 60000);
+    
+    // JORNADA NORMAL:
+      // 6 horas de trabalho + 30 min de intervalo
+      const jornadaNormal = 390;
+      const horaExtra = minutosTrabalhados - jornadaNormal;
+      return {
+        passou: horaExtra > 0,
+        minutos: Math.max(
+          0,
+          horaExtra
+        )
+      };
+  }
+  
+  // FORMATAR HORA EXTRA
+  function formatarHoraExtra(minutos) {
+    const horas = Math.floor(minutos / 60);
+    const minutosRestantes = minutos % 60;
+    if (horas === 0) {
+      return `${minutosRestantes}min`;
+    }
+    if (minutosRestantes === 0) {
+      return `${horas}h`;
+    }
+    return `${horas}h${String(
+      minutosRestantes
+    ).padStart(2, "0")}`;
+  }
+  
+  // RENDERIZAR JORNADA
+  function renderizarJornada() {
+    const hoje = obterDataHoje();
+    if (jornadaTrabalho.data !== hoje) {
+      entradaTrabalho.textContent = "—";
+      saidaTrabalho.textContent = "—";
+    
+      statusTrabalho.textContent = "⚪ Não iniciada";
+    
+      statusTrabalhoRotina.textContent = "⚪ Não iniciada";
+    
+      passouHorarioTrabalho.checked = false;
+    
+      horaExtraTrabalho.textContent = "⏱️ Hora extra: 0min";
+      return;
+    }
+  
+    entradaTrabalho.textContent = formatarHorario(jornadaTrabalho.totalEntradas);
+    saidaTrabalho.textContent = formatarHorario(jornadaTrabalho.saida);
+  
+    if (!jornadaTrabalho.entrada) {
+      statusTrabalho.textContent = "⚪ Não iniciada";
+      statusTrabalhoRotina.textContent = "⚪ Não iniciada";
+    
+    } else if (!jornadaTrabalho.saida) {
+      statusTrabalho.textContent = "🟡 Em andamento";
+      statusTrabalhoRotina.textContent = "🟡 Em andamento";
+    
+    } else {
+      statusTrabalho.textContent = "🟢 Finalizada";
+      statusTrabalhoRotina.textContent = "🟢 Finalizada";
+    }
+  
+    const resultadoHoraExtra = calcularHoraExtra(jornadaTrabalho.entrada, jornadaTrabalho.saida);
+
+    passouHorarioTrabalho.checked = resultadoHoraExtra.passou;
+
+    horaExtraTrabalho.textContent = `⏱️ Hora extra: ${formatarHoraExtra(resultadoHoraExtra.minutos)}`;
+  }
+  
+  // MÊS QUE ESTÁ SENDO EXIBIDO NO HISTÓRICO
+  let mesHistoricoAtual = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
+
+  // HISTÓRICO DA JORNADA EM FORMATO DE CALENDÁRIO
+  function renderizarHistoricoJornada() {
+    const container = document.getElementById(
+      "listaHistoricoJornada"
+    );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const ano = mesHistoricoAtual.getFullYear();
+    const mes = mesHistoricoAtual.getMonth();
+
+    const nomeMes = mesHistoricoAtual.toLocaleDateString(
+      "pt-BR",
+      {
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+    // CABEÇALHO E NAVEGAÇÃO ENTRE MESES
+    const cabecalho = document.createElement("div");
+    cabecalho.className = "calendario-jornada-cabecalho";
+
+    cabecalho.innerHTML = `
+      <button type="button"
+        class="btn-mes-jornada"
+        data-mes="-1"
+        aria-label="Mês anterior">
+        &#8249;
+      </button>
+
+      <h3>${nomeMes}</h3>
+
+      <button type="button"
+        class="btn-mes-jornada"
+        data-mes="1"
+        aria-label="Próximo mês">
+        &#8250;
+      </button>
+    `;
+
+    container.appendChild(cabecalho);
+
+    // LEGENDA
+    const legenda = document.createElement("div");
+    legenda.className = "legenda-calendario-jornada";
+
+    legenda.innerHTML = `
+      <span><i class="legenda-cor jornada-completa"></i> Finalizada</span>
+      <span><i class="legenda-cor jornada-pendente"></i> Em andamento</span>
+      <span><i class="legenda-cor jornada-vazia"></i> Sem registro</span>
+    `;
+
+    container.appendChild(legenda);
+
+    // DIAS DA SEMANA
+    const calendario = document.createElement("div");
+    calendario.className = "calendario-jornada";
+
+    ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]
+      .forEach(dia => {
+        const titulo = document.createElement("div");
+        titulo.className = "calendario-dia-semana";
+        titulo.textContent = dia;
+        calendario.appendChild(titulo);
+      });
+
+    // PRIMEIRO DIA DO MÊS
+    // JavaScript: domingo = 0; calendário: segunda = 0
+    const primeiroDia = new Date(ano, mes, 1);
+    const deslocamento = (primeiroDia.getDay() + 6) % 7;
+
+    // ESPAÇOS ANTES DO DIA 1
+    for (let i = 0; i < deslocamento; i++) {
+      const vazio = document.createElement("div");
+      vazio.className = "calendario-dia calendario-dia-vazio";
+      vazio.setAttribute("aria-hidden", "true");
+      calendario.appendChild(vazio);
+    }
+
+    const totalDias = new Date(ano, mes + 1, 0).getDate();
+
+    for (let dia = 1; dia <= totalDias; dia++) {
+      const data = [
+        ano,
+        String(mes + 1).padStart(2, "0"),
+        String(dia).padStart(2, "0")
+      ].join("-");
+
+      const jornada = jornadasTrabalho.find(
+        item => item.data === data
+      );
+
+      const quadrado = document.createElement("div");
+      quadrado.className = "calendario-dia";
+
+      if (!jornada) {
+        quadrado.classList.add("jornada-vazia");
+      } else if (jornada.entrada && jornada.saida) {
+        quadrado.classList.add("jornada-completa");
+      } else if (jornada.entrada) {
+        quadrado.classList.add("jornada-pendente");
+      } else {
+        quadrado.classList.add("jornada-vazia");
+      }
+
+      const numeroDia = document.createElement("strong");
+      numeroDia.className = "calendario-numero-dia";
+      numeroDia.textContent = dia;
+      quadrado.appendChild(numeroDia);
+
+      if (jornada) {
+        const entrada = document.createElement("span");
+        entrada.className = "calendario-horario";
+        entrada.textContent = jornada.entrada
+          ? `Entrada ${formatarHorario(jornada.entrada)}`
+          : "Sem entrada";
+
+        const saida = document.createElement("span");
+        saida.className = "calendario-horario";
+        saida.textContent = jornada.saida
+          ? `Saída ${formatarHorario(jornada.saida)}`
+          : "Sem saída";
+
+        quadrado.appendChild(entrada);
+        quadrado.appendChild(saida);
+
+      } else {
+        const semRegistro = document.createElement("span");
+        semRegistro.className = "calendario-sem-registro";
+        semRegistro.textContent = "—";
+        quadrado.appendChild(semRegistro);
+      }
+      
+      // MENU DISPONÍVEL EM TODOS OS DIAS
+      const menu = document.createElement("div");
+      menu.className = "menu-historico-jornada";
+
+      menu.innerHTML = `
+        <button
+          type="button"
+          class="btn-menu-pontos btn-menu-historico"
+          aria-label="Opções da jornada"
+          aria-expanded="false"
+          data-data="${data}">
+          ⋮
+        </button>
+
+        <div
+          class="opcoes-menu-pontos opcoes-menu-historico"
+          style="display: none;">
+          <button type="button"
+            class="btn-editar-jornada"
+            data-data="${data}">
+              Editar
+          </button>
+
+          <button type="button"
+            class="btn-excluir-jornada"
+            data-data="${data}">
+              Excluir
+          </button>
+        </div>
+      `;
+
+        quadrado.appendChild(menu);
+
+      calendario.appendChild(quadrado);
+    }
+
+    container.appendChild(calendario);
+  }
+
+  // NAVEGAR ENTRE OS MESES
+  document.getElementById("listaHistoricoJornada")
+  ?.addEventListener("click", evento => {
+    const botao = evento.target.closest(".btn-mes-jornada");
+
+    if (!botao) return;
+
+    const quantidade = Number(botao.dataset.mes);
+
+    mesHistoricoAtual = new Date(
+      mesHistoricoAtual.getFullYear(),
+      mesHistoricoAtual.getMonth() + quantidade,
+      1
+    );
+
+    renderizarHistoricoJornada();
+  });
+
+  // MENU DE TRES PONTINHOS - JORNADA
+  const btnMenuJornada = document.getElementById("btnMenuJornada");
+  const opcoesMenuJornada = document.getElementById("opcoesMenuJornada");
+
+  // ABRIR E FECHAR MENU
+  btnMenuJornada.addEventListener("click", (evento) => {
+  evento.stopPropagation();
+    const estaAberto = opcoesMenuJornada.style.display !== "none";
+    opcoesMenuJornada.style.display = estaAberto ? "none" : "block";
+    btnMenuJornada.setAttribute(
+      "aria-expanded",
+      String(!estaAberto)
+    );
+  });
+  
+  // FECHAR AO CLICAR FORA
+  document.addEventListener("click", (evento) => {
+    if (
+      !evento.target.closest(".menu-jornada")
+    ) {
+      opcoesMenuJornada.style.display = "none";
+
+      btnMenuJornada.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+  });
+  
+  // FECHAR AO ESCOLHER UMA OPÇÃO
+  opcoesMenuJornada.addEventListener("click", (evento) => {
+    if (evento.target.closest("#btnAbrirHistoricoJornada")) {
+      opcoesMenuJornada.style.display = "none";
+
+      btnMenuJornada.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+  });
+
+  // ABRIR HISTÓRICO DA JORNADA
+  const btnAbrirHistoricoJornada = document.getElementById("btnAbrirHistoricoJornada");
+  const btnVoltarHistoricoJornada = document.getElementById("btnVoltarHistoricoJornada");
+  const telaHistoricoJornada = document.getElementById("telaHistoricoJornada");
+  
+  // ABRIR
+  btnAbrirHistoricoJornada.addEventListener(
+    "click",
+    () => {
+      document.getElementById(
+        "telaTrabalho"
+      ).style.display = "none";
+
+      telaHistoricoJornada.style.display = "block";
+
+      renderizarHistoricoJornada();
+    }
+  );
+  
+  // VOLTAR
+  btnVoltarHistoricoJornada.addEventListener(
+      "click",
+      () => {
+  
+          telaHistoricoJornada.style.display =
+              "none";
+  
+          document.getElementById(
+              "telaTrabalho"
+          ).style.display = "block";
+  
+      }
+  );
+  
+  // EDITAR JORNADA
+  let dataJornadaEditando = null;
+  
+  const modalEditarJornada = document.getElementById("modalEditarJornada");
+  const dataEditarJornada = document.getElementById("dataEditarJornada");
+  const editarEntradaJornada = document.getElementById("editarEntradaJornada");
+  const editarSaidaJornada = document.getElementById("editarSaidaJornada");
+  const btnCancelarEdicaoJornada = document.getElementById("btnCancelarEdicaoJornada");
+  const btnSalvarEdicaoJornada = document.getElementById("btnSalvarEdicaoJornada");
+  
+  // CONVERTER HORÁRIO PARA INPUT
+  function obterHoraParaInput(data) {
+    if (!data) {
+      return "";
+    }
+
+    const horario = new Date(data);
+
+    return horario.toLocaleTimeString(
+      "pt-BR",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }
+    );
+  }
+  
+  // ABRIR EDIÇÃO DA JORNADA
+  function abrirEdicaoJornada(data) {
+    const jornada =
+      jornadasTrabalho.find(
+        item => item.data === data
+      );
+  
+    dataJornadaEditando = data;
+  
+    const [ano, mes, dia] =
+      data.split("-");
+  
+    dataEditarJornada.textContent =
+      `${dia}/${mes}/${ano}`;
+  
+    editarEntradaJornada.value =
+      obterHoraParaInput(
+        jornada?.entrada || ""
+      );
+  
+    editarSaidaJornada.value =
+      obterHoraParaInput(
+        jornada?.saida || ""
+      );
+  
+    modalEditarJornada.style.display =
+      "flex";
+  }
+  
+  document.addEventListener("click", evento => {
+    // ABRIR OU FECHAR MENU DOS TRES PONTINHOS
+    const botaoMenu = evento.target.closest(
+      ".btn-menu-historico"
+    );
+  
+    if (botaoMenu) {
+      evento.stopPropagation();
+  
+      const menu = botaoMenu.nextElementSibling;
+      const estaAberto = menu.style.display !== "none";
+  
+      // Fecha os outros menus do histórico
+      document.querySelectorAll(
+        ".opcoes-menu-historico"
+      ).forEach(outroMenu => {
+        outroMenu.style.display = "none";
+  
+        const outroBotao = outroMenu.previousElementSibling;
+  
+        if (outroBotao) {
+          outroBotao.setAttribute(
+          "aria-expanded",
+          "false"
+          );
+        }
+      });
+  
+      // Alterna o menu selecionado
+      menu.style.display = estaAberto ? "none" : "block";
+  
+      botaoMenu.setAttribute(
+        "aria-expanded",
+        String(!estaAberto)
+      );
+  
+      return;
+    }
+  
+    // EDITAR JORNADA
+    const botaoEditar = evento.target.closest(
+      ".btn-editar-jornada"
+    );
+  
+    if (botaoEditar) {
+      abrirEdicaoJornada(botaoEditar.dataset.data);
+      return;
+    }
+  
+    // EXCLUIR JORNADA
+    const botaoExcluir = evento.target.closest(
+      ".btn-excluir-jornada"
+    );
+  
+    if (botaoExcluir) {
+      const data = botaoExcluir.dataset.data;
+  
+      const confirmar = confirm(
+        "Deseja excluir o registro desta jornada? Essa ação não pode ser desfeita."
+      );
+  
+      if (!confirmar) {
+        return;
+      }
+  
+      jornadasTrabalho = jornadasTrabalho.filter(
+        jornada => jornada.data !== data
+      );
+  
+      localStorage.setItem(
+        "jornadasTrabalho",
+        JSON.stringify(jornadasTrabalho)
+      );
+  
+      // Sincroniza a jornada atual se for o dia de hoje
+      if (jornadaTrabalho.data === data) {
+        jornadaTrabalho = {};
+  
+        localStorage.setItem(
+          "jornadaTrabalho",
+          JSON.stringify(jornadaTrabalho)
+        );
+  
+        renderizarJornada();
+      }
+  
+      renderizarHistoricoJornada();
+    }
+  });
+
+  // FECHAR MENUS AO CLICAR FORA
+  document.addEventListener("click", evento => {
+    if (evento.target.closest(".menu-historico-jornada")) {
+      return;
+    }
+  
+    document.querySelectorAll(
+      ".opcoes-menu-historico"
+    ).forEach(menu => {
+      menu.style.display = "none";
+  
+      const botao = menu.previousElementSibling;
+  
+      if (botao) {
+        botao.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  // BOTÃO CANCELAR JORNADA
+  btnCancelarEdicaoJornada.addEventListener(
+    "click",
+    () => {
+      modalEditarJornada.style.display =
+        "none";
+
+      dataJornadaEditando = null;
+    }
+  );
+  
+  
+  // BOTÃO SALVAR EDIÇÃO JORNADA
+  btnSalvarEdicaoJornada.addEventListener(
+    "click",
+    () => {
+      if (!dataJornadaEditando) {
+        return;
+      }
+
+      let jornada =
+        jornadasTrabalho.find(
+          item =>
+            item.data === dataJornadaEditando
+        );
+
+      // CRIA UMA NOVA JORNADA SE NÃO EXISTIR
+      if (!jornada) {
+        jornada = {
+          data: dataJornadaEditando,
+          entrada: null,
+          saida: null
+        };
+
+        jornadasTrabalho.push(jornada);
+      }
+
+      // ATUALIZA ENTRADA
+      if (editarEntradaJornada.value) {
+        jornada.entrada =
+          new Date(
+            `${dataJornadaEditando}T${editarEntradaJornada.value}:00`
+          ).toISOString();
+      } else {
+        jornada.entrada = null;
+      }
+
+      // ATUALIZA SAÍDA
+      if (editarSaidaJornada.value) {
+        jornada.saida =
+          new Date(
+            `${dataJornadaEditando}T${editarSaidaJornada.value}:00`
+          ).toISOString();
+      } else {
+        jornada.saida = null;
+      }
+
+      // SALVA HISTÓRICO
+      localStorage.setItem(
+        "jornadasTrabalho",
+        JSON.stringify(jornadasTrabalho)
+      );
+
+      // SE FOR O DIA ATUAL,
+      // ATUALIZA A JORNADA PRINCIPAL
+      if (
+        dataJornadaEditando === obterDataHoje()
+      ) {
+        jornadaTrabalho = {
+          data: jornada.data,
+          entrada: jornada.entrada,
+          saida: jornada.saida
+        };
+
+        localStorage.setItem(
+          "jornadaTrabalho",
+          JSON.stringify(jornadaTrabalho)
+        );
+
+        renderizarJornada();
+      }
+
+      modalEditarJornada.style.display = "none";
+      dataJornadaEditando = null;
+
+      renderizarHistoricoJornada();
+    }
+  );
+  
+  // CARREGAR JORNADA
+  renderizarJornada();
+  renderizarHistoricoJornada();
 
 // ========================================
-// MÓDULO ESTUDOS — MODAL
+// MÓDULO DE ESTUDOS — MODAL
 // ========================================
   console.log("ESTUDOS FOI CARREGADO");
   
@@ -3725,7 +4510,7 @@ document.querySelectorAll(
   renderizarProximasAtividades();
 
 // ========================================
-// MÓDULO TREINO
+// MÓDULO DE TREINO
 // ========================================
   // PARTE DE TREINO
   function atualizarTreinoHoje() {
@@ -5877,1490 +6662,7 @@ function atualizarResumoContas() {
 // ==========================================
 // MÓDULO DE TRABALHO
 // ==========================================
-  // TRABALHO - JORNADA
-  let jornadaTrabalho =
-    JSON.parse(localStorage.getItem("jornadaTrabalho")) || {};
   
-  // HISTÓRICO DE JORNADAS
-  let jornadasTrabalho =
-    JSON.parse(localStorage.getItem("jornadasTrabalho")) || [];
-  
-  // MIGRAR JORNADA ATUAL PARA O HISTÓRICO
-  if (
-    jornadaTrabalho.data &&
-    jornadaTrabalho.entrada
-  ) {
-    const jaExiste =
-      jornadasTrabalho.some(
-        jornada =>
-          jornada.data === jornadaTrabalho.data
-      );
-    if (!jaExiste) {
-      jornadasTrabalho.push({
-        data: jornadaTrabalho.data,
-        entrada: jornadaTrabalho.entrada,
-        saida: jornadaTrabalho.saida || null
-      });
-
-      localStorage.setItem(
-        "jornadasTrabalho",
-        JSON.stringify(jornadasTrabalho)
-      );
-    }
-  }
-
-  // JORNADA
-  const entradaTrabalho =
-    document.getElementById("entradaTrabalho");
-  
-  const saidaTrabalho =
-    document.getElementById("saidaTrabalho");
-  
-  const statusTrabalho =
-    document.getElementById("statusTrabalho");
-
-  const statusTrabalhoRotina =
-    document.getElementById("statusTrabalhoRotina");
-  
-  const btnIniciarJornada =
-    document.getElementById("btnIniciarJornada");
-  
-  const btnFinalizarJornada =
-    document.getElementById("btnFinalizarJornada");
-
-  // DATA DE HOJE
-  function obterDataHoje() {
-    const hoje = new Date();
-    const ano = hoje.getFullYear();
-    const mes =
-      String(hoje.getMonth() + 1).padStart(2, "0");
-    const dia =
-      String(hoje.getDate()).padStart(2, "0");
-    return `${ano}-${mes}-${dia}`;
-  }
-
-
-  // FORMATAR HORÁRIO
-  function formatarHorario(data) {
-    if (!data) {
-      return "—";
-    }
-    const horario =
-      new Date(data);
-    
-    return horario.toLocaleTimeString(
-      "pt-BR",
-      {
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    );
-  }
-
-
-  // INICIAR JORNADA
-  btnIniciarJornada.addEventListener("click", () => {
-    const hoje = obterDataHoje();
-
-    if (
-      jornadaTrabalho.data === hoje &&
-      jornadaTrabalho.entrada
-    ) {
-      return;
-    }
-
-    jornadaTrabalho = {
-      data: hoje,
-
-      entrada: new Date().toISOString(),
-
-      saida: null
-    };
-
-    // SALVA A JORNADA ATUAL
-    localStorage.setItem(
-      "jornadaTrabalho",
-      JSON.stringify(jornadaTrabalho)
-    );
-
-
-    // ATUALIZA O HISTÓRICO
-    const indice =
-      jornadasTrabalho.findIndex(
-        jornada =>
-          jornada.data === hoje
-      );
-  
-    if (indice === -1) {
-      jornadasTrabalho.push({
-        data: hoje,
-        entrada: jornadaTrabalho.entrada,
-        saida: null
-      });
-    } else {
-      jornadasTrabalho[indice] = {
-        data: hoje,
-        entrada: jornadaTrabalho.entrada,
-        saida: null
-      };
-    }
-  
-    localStorage.setItem(
-      "jornadasTrabalho",
-      JSON.stringify(jornadasTrabalho)
-    );
-
-    renderizarJornada();
-  });
-
-  // ==========================================
-  // FINALIZAR JORNADA
-  // ==========================================
-  btnFinalizarJornada.addEventListener("click", () => {
-    const hoje = obterDataHoje();
-    if (
-      jornadaTrabalho.data !== hoje ||
-      !jornadaTrabalho.entrada
-    ) {
-      alert("Inicie a jornada primeiro.");
-      return;
-    }
-
-    if (jornadaTrabalho.saida) {
-      return;
-    }
-
-    // Registra a saída
-    jornadaTrabalho.saida =
-      new Date().toISOString();
-
-    // Salva a jornada atual
-    localStorage.setItem(
-      "jornadaTrabalho",
-      JSON.stringify(jornadaTrabalho)
-    );
-
-    // ==========================================
-    // ATUALIZA O HISTÓRICO
-    // ==========================================
-    const indice =
-      jornadasTrabalho.findIndex(
-        jornada =>
-          jornada.data === hoje
-      );
-    if (indice !== -1) {
-        jornadasTrabalho[indice].saida =
-            jornadaTrabalho.saida;
-    } else {
-      jornadasTrabalho.push({
-        data: hoje,
-        entrada: jornadaTrabalho.entrada,
-        saida: jornadaTrabalho.saida
-      });
-    }
-
-    localStorage.setItem(
-      "jornadasTrabalho",
-      JSON.stringify(jornadasTrabalho)
-    );
-
-    renderizarJornada();
-  });
-  
-  // ==========================================
-  // CALCULO HORA EXTRA
-  // ==========================================
-  function calcularHoraExtra(entrada, saida) {
-    if (!entrada || !saida) {
-      return {
-        passou: false,
-        minutos: 0
-      };
-    }
-
-    const inicio =
-      new Date(entrada);
-    const fim =
-      new Date(saida);
-    const minutosTrabalhados =
-      Math.floor(
-        (fim - inicio) / 60000
-      );
-    
-    // JORNADA NORMAL:
-    // 6 horas de trabalho + 30 min de intervalo
-    const jornadaNormal = 390;
-    const horaExtra =
-      minutosTrabalhados -
-      jornadaNormal;
-    return {
-      passou: horaExtra > 0,
-      minutos: Math.max(
-        0,
-        horaExtra
-      )
-    };
-  }
-  
-  // ==========================================
-  // FORMATAR HORA EXTRA
-  // ==========================================
-  function formatarHoraExtra(minutos) {
-    const horas =
-      Math.floor(minutos / 60);
-    const minutosRestantes =
-      minutos % 60;
-    if (horas === 0) {
-      return `${minutosRestantes}min`;
-    }
-    if (minutosRestantes === 0) {
-      return `${horas}h`;
-    }
-    return `${horas}h${String(
-      minutosRestantes
-    ).padStart(2, "0")}`;
-  }
-  
-  // ==========================================
-  // RENDERIZAR JORNADA
-  // ==========================================
-  function renderizarJornada() {
-    const hoje = obterDataHoje();
-    if (jornadaTrabalho.data !== hoje) {
-      entradaTrabalho.textContent = "—";
-      saidaTrabalho.textContent = "—";
-    
-      statusTrabalho.textContent =
-        "⚪ Não iniciada";
-    
-      statusTrabalhoRotina.textContent =
-        "⚪ Não iniciada";
-    
-      passouHorarioTrabalho.checked = false;
-    
-      horaExtraTrabalho.textContent =
-        "⏱️ Hora extra: 0min";
-      return;
-    }
-  
-    entradaTrabalho.textContent =
-      formatarHorario(
-        jornadaTrabalho.entrada
-      );
-
-    saidaTrabalho.textContent =
-      formatarHorario(
-        jornadaTrabalho.saida
-      );
-  
-    if (!jornadaTrabalho.entrada) {
-      statusTrabalho.textContent =
-        "⚪ Não iniciada";
-    
-      statusTrabalhoRotina.textContent =
-        "⚪ Não iniciada";
-    
-    } else if (!jornadaTrabalho.saida) {
-      statusTrabalho.textContent =
-        "🟡 Em andamento";
-    
-      statusTrabalhoRotina.textContent =
-        "🟡 Em andamento";
-    
-    } else {
-      statusTrabalho.textContent =
-        "🟢 Finalizada";
-    
-      statusTrabalhoRotina.textContent =
-        "🟢 Finalizada";
-    }
-  
-    const resultadoHoraExtra =
-      calcularHoraExtra(
-        jornadaTrabalho.entrada,
-        jornadaTrabalho.saida
-      );
-
-    passouHorarioTrabalho.checked =
-      resultadoHoraExtra.passou;
-
-    horaExtraTrabalho.textContent =
-      `⏱️ Hora extra: ${formatarHoraExtra(
-        resultadoHoraExtra.minutos
-      )}`;
-  }
-  
-  
-  // MÊS QUE ESTÁ SENDO EXIBIDO NO HISTÓRICO
-  let mesHistoricoAtual = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    1
-  );
-
-  // HISTÓRICO DA JORNADA EM FORMATO DE CALENDÁRIO
-  function renderizarHistoricoJornada() {
-    const container = document.getElementById(
-      "listaHistoricoJornada"
-    );
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    const ano = mesHistoricoAtual.getFullYear();
-    const mes = mesHistoricoAtual.getMonth();
-
-    const nomeMes = mesHistoricoAtual.toLocaleDateString(
-      "pt-BR",
-      {
-        month: "long",
-        year: "numeric"
-      }
-    );
-
-    // CABEÇALHO E NAVEGAÇÃO ENTRE MESES
-    const cabecalho = document.createElement("div");
-    cabecalho.className = "calendario-jornada-cabecalho";
-
-    cabecalho.innerHTML = `
-      <button type="button"
-        class="btn-mes-jornada"
-        data-mes="-1"
-        aria-label="Mês anterior">
-        &#8249;
-      </button>
-
-      <h3>${nomeMes}</h3>
-
-      <button type="button"
-        class="btn-mes-jornada"
-        data-mes="1"
-        aria-label="Próximo mês">
-        &#8250;
-      </button>
-    `;
-
-    container.appendChild(cabecalho);
-
-    // LEGENDA
-    const legenda = document.createElement("div");
-    legenda.className = "legenda-calendario-jornada";
-
-    legenda.innerHTML = `
-      <span><i class="legenda-cor jornada-completa"></i> Finalizada</span>
-      <span><i class="legenda-cor jornada-pendente"></i> Em andamento</span>
-      <span><i class="legenda-cor jornada-vazia"></i> Sem registro</span>
-    `;
-
-    container.appendChild(legenda);
-
-    // DIAS DA SEMANA
-    const calendario = document.createElement("div");
-    calendario.className = "calendario-jornada";
-
-    ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"]
-      .forEach(dia => {
-        const titulo = document.createElement("div");
-        titulo.className = "calendario-dia-semana";
-        titulo.textContent = dia;
-        calendario.appendChild(titulo);
-      });
-
-    // PRIMEIRO DIA DO MÊS
-    // JavaScript: domingo = 0; calendário: segunda = 0
-    const primeiroDia = new Date(ano, mes, 1);
-    const deslocamento = (primeiroDia.getDay() + 6) % 7;
-
-    // ESPAÇOS ANTES DO DIA 1
-    for (let i = 0; i < deslocamento; i++) {
-      const vazio = document.createElement("div");
-      vazio.className = "calendario-dia calendario-dia-vazio";
-      vazio.setAttribute("aria-hidden", "true");
-      calendario.appendChild(vazio);
-    }
-
-    const totalDias = new Date(ano, mes + 1, 0).getDate();
-
-    for (let dia = 1; dia <= totalDias; dia++) {
-      const data = [
-        ano,
-        String(mes + 1).padStart(2, "0"),
-        String(dia).padStart(2, "0")
-      ].join("-");
-
-      const jornada = jornadasTrabalho.find(
-        item => item.data === data
-      );
-
-      const quadrado = document.createElement("div");
-      quadrado.className = "calendario-dia";
-
-      if (!jornada) {
-        quadrado.classList.add("jornada-vazia");
-      } else if (jornada.entrada && jornada.saida) {
-        quadrado.classList.add("jornada-completa");
-      } else if (jornada.entrada) {
-        quadrado.classList.add("jornada-pendente");
-      } else {
-        quadrado.classList.add("jornada-vazia");
-      }
-
-      const numeroDia = document.createElement("strong");
-      numeroDia.className = "calendario-numero-dia";
-      numeroDia.textContent = dia;
-      quadrado.appendChild(numeroDia);
-
-      if (jornada) {
-        const entrada = document.createElement("span");
-        entrada.className = "calendario-horario";
-        entrada.textContent = jornada.entrada
-          ? `Entrada ${formatarHorario(jornada.entrada)}`
-          : "Sem entrada";
-
-        const saida = document.createElement("span");
-        saida.className = "calendario-horario";
-        saida.textContent = jornada.saida
-          ? `Saída ${formatarHorario(jornada.saida)}`
-          : "Sem saída";
-
-        quadrado.appendChild(entrada);
-        quadrado.appendChild(saida);
-
-      } else {
-        const semRegistro = document.createElement("span");
-        semRegistro.className = "calendario-sem-registro";
-        semRegistro.textContent = "—";
-        quadrado.appendChild(semRegistro);
-      }
-      
-      // MENU DISPONÍVEL EM TODOS OS DIAS
-      const menu = document.createElement("div");
-      menu.className = "menu-historico-jornada";
-
-      menu.innerHTML = `
-        <button
-          type="button"
-          class="btn-menu-pontos btn-menu-historico"
-          aria-label="Opções da jornada"
-          aria-expanded="false"
-          data-data="${data}">
-          ⋮
-        </button>
-
-        <div
-          class="opcoes-menu-pontos opcoes-menu-historico"
-          style="display: none;">
-          <button type="button"
-            class="btn-editar-jornada"
-            data-data="${data}">
-              Editar
-          </button>
-
-          <button type="button"
-            class="btn-excluir-jornada"
-            data-data="${data}">
-              Excluir
-          </button>
-        </div>
-      `;
-
-        quadrado.appendChild(menu);
-
-      calendario.appendChild(quadrado);
-    }
-
-    container.appendChild(calendario);
-  }
-
-  // NAVEGAR ENTRE OS MESES
-  document.getElementById("listaHistoricoJornada")
-  ?.addEventListener("click", evento => {
-    const botao = evento.target.closest(".btn-mes-jornada");
-
-    if (!botao) return;
-
-    const quantidade = Number(botao.dataset.mes);
-
-    mesHistoricoAtual = new Date(
-      mesHistoricoAtual.getFullYear(),
-      mesHistoricoAtual.getMonth() + quantidade,
-      1
-    );
-
-    renderizarHistoricoJornada();
-  });
-
-   // MENU DE TRES PONTINHOS - JORNADA
-   const btnMenuJornada = document.getElementById("btnMenuJornada");
-   const opcoesMenuJornada = document.getElementById("opcoesMenuJornada");
-
-  // ABRIR E FECHAR MENU
-  btnMenuJornada.addEventListener("click", (evento) => {
-  evento.stopPropagation();
-    const estaAberto = opcoesMenuJornada.style.display !== "none";
-    opcoesMenuJornada.style.display = estaAberto ? "none" : "block";
-    btnMenuJornada.setAttribute(
-      "aria-expanded",
-      String(!estaAberto)
-    );
-  });
-  
-  // FECHAR AO CLICAR FORA
-  document.addEventListener("click", (evento) => {
-     if (
-       !evento.target.closest(".menu-jornada")
-     ) {
-       opcoesMenuJornada.style.display = "none";
-
-       btnMenuJornada.setAttribute(
-         "aria-expanded",
-         "false"
-       );
-     }
-  });
-  
-  // FECHAR AO ESCOLHER UMA OPÇÃO
-  opcoesMenuJornada.addEventListener("click", (evento) => {
-    if (evento.target.closest("#btnAbrirHistoricoJornada")) {
-      opcoesMenuJornada.style.display = "none";
-
-      btnMenuJornada.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-    }
-  });
-
-  // ABRIR HISTÓRICO DA JORNADA
-  const btnAbrirHistoricoJornada =
-    document.getElementById(
-      "btnAbrirHistoricoJornada"
-    );
-  const btnVoltarHistoricoJornada =
-    document.getElementById(
-      "btnVoltarHistoricoJornada"
-    );
-  const telaHistoricoJornada =
-    document.getElementById(
-      "telaHistoricoJornada"
-    );
-  
-  // ==========================================
-  // TODAS AS TAREFAS
-  // ==========================================
-  const btnVerTarefasTrabalho =
-      document.getElementById(
-          "btnVerTarefasTrabalho"
-      );
-  
-  const btnVoltarTodasTarefas =
-      document.getElementById(
-          "btnVoltarTodasTarefas"
-      );
-  
-  const telaTodasTarefasTrabalho =
-      document.getElementById(
-          "telaTodasTarefasTrabalho"
-      );
-  
-  btnVerTarefasTrabalho.addEventListener(
-      "click",
-      () => {
-  
-          document.getElementById(
-              "telaTrabalho"
-          ).style.display = "none";
-  
-          telaTodasTarefasTrabalho.style.display =
-              "block";
-  
-          renderizarTodasTarefasTrabalho();
-      }
-  );
-  
-  btnVoltarTodasTarefas.addEventListener(
-      "click",
-      () => {
-  
-          telaTodasTarefasTrabalho.style.display =
-              "none";
-  
-          document.getElementById(
-              "telaTrabalho"
-          ).style.display = "block";
-  
-      }
-  );
-  
-  
-  // ==========================================
-  // ABRIR
-  // ==========================================
-  
-  btnAbrirHistoricoJornada.addEventListener(
-      "click",
-      () => {
-  
-          document.getElementById(
-              "telaTrabalho"
-          ).style.display = "none";
-  
-          telaHistoricoJornada.style.display =
-              "block";
-  
-          renderizarHistoricoJornada();
-  
-      }
-  );
-  
-  
-  // ==========================================
-  // VOLTAR
-  // ==========================================
-  
-  btnVoltarHistoricoJornada.addEventListener(
-      "click",
-      () => {
-  
-          telaHistoricoJornada.style.display =
-              "none";
-  
-          document.getElementById(
-              "telaTrabalho"
-          ).style.display = "block";
-  
-      }
-  );
-  
-  // EDITAR JORNADA
-  let dataJornadaEditando = null;
-  
-  const modalEditarJornada =
-  document.getElementById(
-    "modalEditarJornada"
-  );
-  
-  const dataEditarJornada =
-  document.getElementById(
-    "dataEditarJornada"
-  );
-  
-  const editarEntradaJornada =
-  document.getElementById(
-    "editarEntradaJornada"
-  );
-  
-  const editarSaidaJornada =
-  document.getElementById(
-    "editarSaidaJornada"
-  );
-  
-  const btnCancelarEdicaoJornada =
-  document.getElementById(
-    "btnCancelarEdicaoJornada"
-  );
-  
-  const btnSalvarEdicaoJornada =
-  document.getElementById(
-    "btnSalvarEdicaoJornada"
-  );
-  
-  // CONVERTER HORÁRIO PARA INPUT
-  function obterHoraParaInput(data) {
-    if (!data) {
-      return "";
-    }
-
-    const horario = new Date(data);
-
-    return horario.toLocaleTimeString(
-      "pt-BR",
-      {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      }
-    );
-  }
-  
-  // ABRIR EDIÇÃO DA JORNADA
-  function abrirEdicaoJornada(data) {
-    const jornada =
-      jornadasTrabalho.find(
-        item => item.data === data
-      );
-  
-    dataJornadaEditando = data;
-  
-    const [ano, mes, dia] =
-      data.split("-");
-  
-    dataEditarJornada.textContent =
-      `${dia}/${mes}/${ano}`;
-  
-    editarEntradaJornada.value =
-      obterHoraParaInput(
-        jornada?.entrada || ""
-      );
-  
-    editarSaidaJornada.value =
-      obterHoraParaInput(
-        jornada?.saida || ""
-      );
-  
-    modalEditarJornada.style.display =
-      "flex";
-  }
-  
-  document.addEventListener("click", evento => {
-    // ABRIR OU FECHAR MENU DOS TRES PONTINHOS
-    const botaoMenu = evento.target.closest(
-      ".btn-menu-historico"
-    );
-  
-    if (botaoMenu) {
-      evento.stopPropagation();
-  
-      const menu = botaoMenu.nextElementSibling;
-      const estaAberto = menu.style.display !== "none";
-  
-      // Fecha os outros menus do histórico
-      document.querySelectorAll(
-        ".opcoes-menu-historico"
-      ).forEach(outroMenu => {
-        outroMenu.style.display = "none";
-  
-        const outroBotao = outroMenu.previousElementSibling;
-  
-        if (outroBotao) {
-          outroBotao.setAttribute(
-          "aria-expanded",
-          "false"
-          );
-        }
-      });
-  
-      // Alterna o menu selecionado
-      menu.style.display = estaAberto ? "none" : "block";
-  
-      botaoMenu.setAttribute(
-        "aria-expanded",
-        String(!estaAberto)
-      );
-  
-      return;
-    }
-  
-    // EDITAR JORNADA
-    const botaoEditar = evento.target.closest(
-      ".btn-editar-jornada"
-    );
-  
-    if (botaoEditar) {
-      abrirEdicaoJornada(botaoEditar.dataset.data);
-      return;
-    }
-  
-    // EXCLUIR JORNADA
-    const botaoExcluir = evento.target.closest(
-      ".btn-excluir-jornada"
-    );
-  
-    if (botaoExcluir) {
-      const data = botaoExcluir.dataset.data;
-  
-      const confirmar = confirm(
-        "Deseja excluir o registro desta jornada? Essa ação não pode ser desfeita."
-      );
-  
-      if (!confirmar) {
-        return;
-      }
-  
-      jornadasTrabalho = jornadasTrabalho.filter(
-        jornada => jornada.data !== data
-      );
-  
-      localStorage.setItem(
-        "jornadasTrabalho",
-        JSON.stringify(jornadasTrabalho)
-      );
-  
-      // Sincroniza a jornada atual se for o dia de hoje
-      if (jornadaTrabalho.data === data) {
-        jornadaTrabalho = {};
-  
-        localStorage.setItem(
-          "jornadaTrabalho",
-          JSON.stringify(jornadaTrabalho)
-        );
-  
-        renderizarJornada();
-      }
-  
-      renderizarHistoricoJornada();
-    }
-  });
-
-  // FECHAR MENUS AO CLICAR FORA
-  document.addEventListener("click", evento => {
-    if (evento.target.closest(".menu-historico-jornada")) {
-      return;
-    }
-  
-    document.querySelectorAll(
-      ".opcoes-menu-historico"
-    ).forEach(menu => {
-      menu.style.display = "none";
-  
-      const botao = menu.previousElementSibling;
-  
-      if (botao) {
-        botao.setAttribute("aria-expanded", "false");
-      }
-    });
-  });
-
-  // ==========================================
-  // BOTÃO CANCELAR JORNADA
-  // ==========================================
-  btnCancelarEdicaoJornada.addEventListener(
-    "click",
-    () => {
-      modalEditarJornada.style.display =
-        "none";
-
-      dataJornadaEditando = null;
-    }
-  );
-  
-  
-  // BOTÃO SALVAR EDIÇÃO JORNADA
-  btnSalvarEdicaoJornada.addEventListener(
-    "click",
-    () => {
-      if (!dataJornadaEditando) {
-        return;
-      }
-
-      let jornada =
-        jornadasTrabalho.find(
-          item =>
-            item.data === dataJornadaEditando
-        );
-
-      // CRIA UMA NOVA JORNADA SE NÃO EXISTIR
-      if (!jornada) {
-        jornada = {
-          data: dataJornadaEditando,
-          entrada: null,
-          saida: null
-        };
-
-        jornadasTrabalho.push(jornada);
-      }
-
-      // ATUALIZA ENTRADA
-      if (editarEntradaJornada.value) {
-        jornada.entrada =
-          new Date(
-            `${dataJornadaEditando}T${editarEntradaJornada.value}:00`
-          ).toISOString();
-      } else {
-        jornada.entrada = null;
-      }
-
-      // ATUALIZA SAÍDA
-      if (editarSaidaJornada.value) {
-        jornada.saida =
-          new Date(
-            `${dataJornadaEditando}T${editarSaidaJornada.value}:00`
-          ).toISOString();
-      } else {
-        jornada.saida = null;
-      }
-
-      // SALVA HISTÓRICO
-      localStorage.setItem(
-        "jornadasTrabalho",
-        JSON.stringify(jornadasTrabalho)
-      );
-
-      // SE FOR O DIA ATUAL,
-      // ATUALIZA A JORNADA PRINCIPAL
-      if (
-        dataJornadaEditando === obterDataHoje()
-      ) {
-        jornadaTrabalho = {
-          data: jornada.data,
-          entrada: jornada.entrada,
-          saida: jornada.saida
-        };
-
-        localStorage.setItem(
-          "jornadaTrabalho",
-          JSON.stringify(jornadaTrabalho)
-        );
-
-        renderizarJornada();
-      }
-
-      modalEditarJornada.style.display = "none";
-      dataJornadaEditando = null;
-
-      renderizarHistoricoJornada();
-    }
-  );
-  
-  // ==========================================
-  // TRABALHO - TAREFAS
-  // ==========================================
-  let tarefasTrabalho =
-      JSON.parse(localStorage.getItem("tarefasTrabalho")) || [];
-  
-  // ==========================================
-  // ELEMENTOS
-  // ==========================================
-  const btnNovaTarefaTrabalho =
-    document.getElementById(
-      "btnNovaTarefaTrabalho"
-    );
-  const modalNovaTarefaTrabalho =
-    document.getElementById(
-      "modalNovaTarefaTrabalho"
-    );
-  const nomeTarefaTrabalho =
-    document.getElementById(
-      "nomeTarefaTrabalho"
-    );
-  const descricaoTarefaTrabalho =
-    document.getElementById(
-      "descricaoTarefaTrabalho"
-    );
-  const dataTarefaTrabalho =
-    document.getElementById(
-      "dataTarefaTrabalho"
-    );
-  const prioridadeTarefaTrabalho =
-    document.getElementById(
-      "prioridadeTarefaTrabalho"
-    );
-  const mostrarRotinaTarefaTrabalho =
-    document.getElementById(
-      "mostrarRotinaTarefaTrabalho"
-    );
-  const btnCancelarNovaTarefa =
-    document.getElementById(
-      "btnCancelarNovaTarefa"
-    );
-  const btnSalvarNovaTarefa =
-    document.getElementById(
-      "btnSalvarNovaTarefa"
-    );
-  const tituloModalTarefa =
-    document.getElementById(
-      "tituloModalTarefa"
-    );
-  let tarefaEditandoId = null;
-
-  // ==========================================
-  // DATA DE HOJE
-  // ==========================================
-  function obterDataHojeTrabalho() {
-    const hoje = new Date();
-    const ano =
-      hoje.getFullYear();
-    const mes =
-      String(
-        hoje.getMonth() + 1
-      ).padStart(2, "0");
-    const dia =
-      String(
-        hoje.getDate()
-      ).padStart(2, "0");
-    return `${ano}-${mes}-${dia}`;
-  }
-
-  // ==========================================
-  // ABRIR NOVA TAREFA
-  // ==========================================
-  btnNovaTarefaTrabalho.addEventListener(
-    "click",
-    () => {
-      nomeTarefaTrabalho.value = "";
-      descricaoTarefaTrabalho.value = "";
-      dataTarefaTrabalho.value =
-        obterDataHojeTrabalho();
-      prioridadeTarefaTrabalho.value =
-        "media";
-      mostrarRotinaTarefaTrabalho.checked =
-        false;
-      modalNovaTarefaTrabalho.style.display =
-        "flex";
-    }
-  );
-  
-  // ==========================================
-  // CANCELAR
-  // ==========================================
-  btnCancelarNovaTarefa.addEventListener(
-    "click",
-    () => {
-      modalNovaTarefaTrabalho.style.display =
-        "none";
-      tarefaEditandoId =
-        null;
-      tituloModalTarefa.textContent =
-        "📋 Nova tarefa";
-    }
-  );
-  
-  // ==========================================
-  // EDITAR TAREFA
-  // ==========================================
-  document.addEventListener(
-    "click",
-    evento => {
-      const botao =
-        evento.target.closest(
-          ".btn-editar-tarefa-trabalho"
-        );
-      if (!botao) return;
-      const id =
-        Number(
-          botao.dataset.id
-        );
-      const tarefa =
-        tarefasTrabalho.find(
-          item =>
-            item.id === id
-        );
-      if (!tarefa) return;
-
-      tarefaEditandoId = id;
-
-      tituloModalTarefa.textContent =
-        "✏️ Editar tarefa";
-
-      nomeTarefaTrabalho.value =
-        tarefa.nome;
-
-      descricaoTarefaTrabalho.value =
-        tarefa.descricao || "";
-
-      dataTarefaTrabalho.value =
-        tarefa.data;
-
-      prioridadeTarefaTrabalho.value =
-        tarefa.prioridade;
-
-      mostrarRotinaTarefaTrabalho.checked =
-        tarefa.mostrarNaRotina || false;
-
-      modalNovaTarefaTrabalho.style.display =
-        "flex";
-    }
-  );
-  
-  // ==========================================
-  // EXCLUIR TAREFA
-  // ==========================================
-  document.addEventListener(
-    "click",
-    evento => {
-      const botao =
-        evento.target.closest(
-          ".btn-excluir-tarefa-trabalho"
-        );
-      if (!botao) return;
-      const id =
-        Number(
-          botao.dataset.id
-        );
-      const tarefa =
-        tarefasTrabalho.find(
-          item =>
-            item.id === id
-        );
-      if (!tarefa) return;
-      const confirmar =
-        confirm(
-          `Deseja excluir a tarefa "${tarefa.nome}"?`
-        );
-      if (!confirmar) return;
-
-      tarefasTrabalho =
-        tarefasTrabalho.filter(
-          item =>
-            item.id !== id
-        );
-
-      localStorage.setItem(
-        "tarefasTrabalho",
-        JSON.stringify(
-          tarefasTrabalho
-        )
-      );
-
-      renderizarTarefasTrabalho();
-    }
-  );
-  
-  // ==========================================
-  // SALVAR NOVA TAREFA
-  // ==========================================
-  btnSalvarNovaTarefa.addEventListener(
-    "click",
-    () => {
-      const nome =
-          nomeTarefaTrabalho.value.trim();
-      if (!nome) {
-          alert(
-              "Digite o nome da tarefa."
-          );
-          return;
-      }
-
-      // EDITANDO UMA TAREFA EXISTENTE
-      if (tarefaEditandoId !== null) {
-          const tarefa =
-              tarefasTrabalho.find(
-                  item =>
-                      item.id ===
-                      tarefaEditandoId
-              );
-          if (!tarefa) return;
-        
-          tarefa.nome =
-              nome;
-
-          tarefa.descricao =
-              descricaoTarefaTrabalho.value.trim();
-
-          tarefa.data =
-              dataTarefaTrabalho.value;
-
-          tarefa.prioridade =
-              prioridadeTarefaTrabalho.value;
-
-          tarefa.mostrarNaRotina =
-              mostrarRotinaTarefaTrabalho.checked;
-
-          localStorage.setItem(
-              "tarefasTrabalho",
-              JSON.stringify(
-                  tarefasTrabalho
-              )
-          );
-
-          tarefaEditandoId =
-              null;
-
-          tituloModalTarefa.textContent =
-              "📋 Nova tarefa";
-
-          modalNovaTarefaTrabalho.style.display =
-              "none";
-
-          renderizarTarefasTrabalho();
-
-          return;
-      }
-
-      // CRIANDO UMA NOVA TAREFA
-      const novaTarefa = {
-        id:
-          Date.now(),
-        nome:
-          nome,
-        descricao:
-          descricaoTarefaTrabalho.value.trim(),
-        data:
-            dataTarefaTrabalho.value,
-        prioridade:
-          prioridadeTarefaTrabalho.value,
-        concluida:
-          false,
-        mostrarNaRotina:
-          mostrarRotinaTarefaTrabalho.checked
-      };
-
-      tarefasTrabalho.push(
-        novaTarefa
-      );
-
-      localStorage.setItem(
-        "tarefasTrabalho",
-        JSON.stringify(
-          tarefasTrabalho
-        )
-      );
-
-      modalNovaTarefaTrabalho.style.display =
-        "none";
-
-      renderizarTarefasTrabalho();
-    }
-  );
-  
-  // ==========================================
-  // RENDERIZAR TAREFAS DE HOJE
-  // ==========================================
-  function renderizarTarefasTrabalho() {
-    const container =
-      document.getElementById(
-        "listaTarefasTrabalho"
-      );
-    if (!container) return;
-    const hoje =
-      obterDataHojeTrabalho();
-    const tarefasHoje =
-      tarefasTrabalho.filter(
-        tarefa =>
-          tarefa.data === hoje
-      );
-  
-    container.innerHTML = "";
-  
-    if (tarefasHoje.length === 0) {
-      container.innerHTML = `
-        <p class="estado-vazio-trabalho">
-          Nenhuma tarefa para hoje.
-        </p>
-      `;
-        return;
-    }
-
-    tarefasHoje.forEach(
-      tarefa => {
-        const item =
-            document.createElement(
-                "div"
-            );
-        item.className =
-            "item-tarefa-trabalho";
-        item.innerHTML = `
-          <div class="tarefa-trabalho-conteudo">
-            <div class="tarefa-trabalho-linha">
-              <label class="tarefa-trabalho-check">
-                <input
-                  type="checkbox"
-                  class="checkbox-tarefa-trabalho"
-                  data-id="${tarefa.id}"
-                  ${tarefa.concluida ? "checked" : ""}
-                >
-
-                <span
-                  class="${tarefa.concluida ? "tarefa-concluida" : ""}"
-                >
-                  ${tarefa.nome}
-                </span>
-              </label>
-    
-              <div class="acoes-tarefa-trabalho">
-                <button
-                  class="btn-editar-tarefa-trabalho"
-                  data-id="${tarefa.id}"
-                  title="Editar tarefa"
-                >
-                  ✏️
-                </button>
-
-                <button
-                  class="btn-excluir-tarefa-trabalho"
-                  data-id="${tarefa.id}"
-                  title="Excluir tarefa"
-                >
-                  🗑️
-                </button>
-              </div>
-            </div>
-      
-            ${
-              tarefa.descricao
-                ? `
-                  <p>
-                    ${tarefa.descricao}
-                  </p>
-                `
-                : ""
-            }
-      
-          </div>
-        `;
-
-        container.appendChild(
-          item
-        );
-      }
-    );
-  }
-  
-  function renderizarTodasTarefasTrabalho() {
-    const container =
-      document.getElementById(
-        "listaTodasTarefasTrabalho"
-      );
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (tarefasTrabalho.length === 0) {
-        container.innerHTML = `
-            <p class="estado-vazio-trabalho">
-                📭 Nenhuma tarefa cadastrada.
-            </p>
-        `;
-        return;
-    }
-  
-    // ORDENAR POR DATA
-    const tarefasOrdenadas =
-        [...tarefasTrabalho].sort(
-            (a, b) =>
-                a.data.localeCompare(b.data)
-        );
-  
-    // AGRUPAR POR DATA
-    const tarefasPorData = {};
-    tarefasOrdenadas.forEach(
-      tarefa => {
-        if (!tarefasPorData[tarefa.data]) {
-          tarefasPorData[tarefa.data] = [];
-        }
-
-        tarefasPorData[tarefa.data].push(
-          tarefa
-        );
-      }
-    );
-  
-    // RENDERIZAR CADA DATA
-    Object.keys(tarefasPorData).forEach(
-      data => {
-        const grupo =
-          document.createElement("div");
-        grupo.className =
-          "grupo-tarefas-data";
-        const [ano, mes, dia] =
-          data.split("-");
-        const dataFormatada =
-          `${dia}/${mes}/${ano}`;
-        grupo.innerHTML = `
-          <h3 class="titulo-data-tarefas">
-            📅 ${dataFormatada}
-          </h3>
-        `;
-
-        tarefasPorData[data].forEach(
-          tarefa => {
-            const item =
-                document.createElement(
-                    "div"
-                );
-            item.className =
-                "item-tarefa-trabalho";
-
-
-            item.innerHTML = `
-              <div class="tarefa-trabalho-conteudo">
-                <div class="tarefa-trabalho-linha">
-                  <label class="tarefa-trabalho-check">
-                    <input
-                      type="checkbox"
-                      class="checkbox-tarefa-trabalho"
-                      data-id="${tarefa.id}"
-                      ${tarefa.concluida ? "checked" : ""}
-                    >
-                    <span
-                      class="${tarefa.concluida ? "tarefa-concluida" : ""}"
-                    >
-                      ${tarefa.nome}
-                    </span>
-                  </label>
-
-                  <div class="acoes-tarefa-trabalho">
-                    <button
-                      class="btn-editar-tarefa-trabalho"
-                      data-id="${tarefa.id}"
-                      title="Editar tarefa"
-                    >
-                      ✏️
-                    </button>
-
-                    <button
-                      class="btn-excluir-tarefa-trabalho"
-                      data-id="${tarefa.id}"
-                      title="Excluir tarefa"
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                </div>
-
-                ${
-                  tarefa.descricao
-                    ? `
-                      <p>
-                        ${tarefa.descricao}
-                      </p>
-                    `
-                  : ""
-                }
-              </div>
-            `;
-
-            grupo.appendChild(item);
-          }
-        );
-
-        container.appendChild(grupo);
-
-      }
-    );
-  }
-  
-  // CONCLUIR TAREFA
-  document.addEventListener(
-    "change",
-    evento => {
-      if (
-        !evento.target.classList.contains(
-          "checkbox-tarefa-trabalho"
-        )
-      ) {
-        return;
-      }
-      const id =
-        Number(
-          evento.target.dataset.id
-        );
-      const tarefa =
-        tarefasTrabalho.find(
-            item =>
-                item.id === id
-        );
-      if (!tarefa) return;
-
-      tarefa.concluida =
-        evento.target.checked;
-
-      localStorage.setItem(
-        "tarefasTrabalho",
-        JSON.stringify(
-            tarefasTrabalho
-        )
-      );
-
-      renderizarTarefasTrabalho();
-    }
-  );
-  
-  // CARREGAR JORNADA
-  renderizarJornada();
-  renderizarHistoricoJornada();
-  renderizarTarefasTrabalho();
 
 // ==========================================
 // MÓDULO DE LEITURA
