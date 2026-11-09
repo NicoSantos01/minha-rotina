@@ -33,18 +33,14 @@
      TELA DE AUTENTICAÇÃO
 ========================================== -->
 <section id="telaAutenticacao" class="tela-autenticacao" hidden>
-
   <div class="auth-card">
-
     <div class="auth-logo">✓</div>
-
     <h1>Minha Rotina</h1>
     <p class="auth-subtitulo">
       Organize sua vida, acompanhe seu progresso.
     </p>
 
     <form id="formAutenticacao">
-
       <label for="authEmail">E-mail</label>
       <input
         type="email"
@@ -67,7 +63,6 @@
       <button type="submit" id="btnEntrar">
         Entrar
       </button>
-
     </form>
 
     <p id="mensagemAuth" role="status" aria-live="polite"></p>
@@ -78,13 +73,10 @@
         Criar conta
       </button>
     </p>
-
   </div>
-
 </section>
 
 <div class="app" hidden>
-  
   <div class="cabecalho">
     <nav class="navegacao-app">
       <button
@@ -103,7 +95,7 @@
         <button
           class="item-navegacao"
           data-tela="habitos">
-          ✅ Hábitos
+          📅 Hábitos
         </button>
 
         <button
@@ -575,76 +567,6 @@
             </div>
           </div>
         </div>
-
-      <!-- ESTUDO A TARDE -->
-      <div class="atividade-estudo">
-        <strong>💻 Programação</strong>
-    
-        <span id="tempoProgramacao">0 min</span>
-    
-        <div class="botoes-tempo-estudo">
-          <button class="btn-tempo-estudo"
-            data-atividade="programacao" data-minutos="15">+15</button>
-  
-          <button class="btn-tempo-estudo"
-            data-atividade="programacao" data-minutos="30">+30</button>
-  
-          <button class="btn-tempo-estudo"
-            data-atividade="programacao" data-minutos="45">+45</button>
-  
-          <button class="btn-tempo-estudo"
-            data-atividade="programacao" data-minutos="60">+60</button>
-        </div>
-        <small>Meta diária: 60 minutos</small>
-      </div>
-
-      <div class="atividade-estudo">
-        <strong>⌨️ Digitação</strong>
-    
-        <span id="tempoDigitacao">0 min</span>
-    
-        <div class="botoes-tempo-estudo">
-          <button class="btn-tempo-estudo"
-            data-atividade="digitacao" data-minutos="5">+5</button>
-  
-          <button class="btn-tempo-estudo"
-            data-atividade="digitacao" data-minutos="10">+10</button>
-  
-          <button class="btn-tempo-estudo"
-              data-atividade="digitacao" data-minutos="15">+15</button>
-  
-          <button class="btn-tempo-estudo"
-            data-atividade="digitacao" data-minutos="20">+20</button>
-        </div>
-        <small>Meta diária: 20 minutos</small>
-      </div>
-
-      <div class="atividade-estudo">
-        <strong>🌎 Inglês — Duolingo</strong>
-      
-        <span id="tempoIngles">0 min</span>
-      
-        <div class="botoes-tempo-estudo">
-          <button class="btn-tempo-estudo"
-            data-atividade="ingles" data-minutos="5">+5</button>
-    
-          <button class="btn-tempo-estudo"
-            data-atividade="ingles" data-minutos="10">+10</button>
-    
-          <button class="btn-tempo-estudo"
-            data-atividade="ingles" data-minutos="15">+15</button>
-        </div>
-      
-        <small>Meta diária: 15 minutos</small>
-      </div>
-
-      <div class="resumo-estudos">
-        <strong>Tempo total:</strong>
-        <span id="tempoTotalEstudos">0 min</span>
-    
-        <strong>Atividades concluídas:</strong>
-        <span id="totalAtividadesEstudos">0/3</span>
-      </div>
       
       <!-- ALIMENTAÇÃO -->
 
@@ -778,171 +700,7 @@
         </button>
       </div>
     </div>
-
-    <!-- TAREFAS -->
-    <div class="bloco-trabalho">
-      <div class="titulo-bloco-trabalho">
-        <h3>📋 Tarefas de hoje</h3>
-      </div>
-  
-      <div
-        id="listaTarefasTrabalho"
-        class="lista-tarefas-trabalho"
-      >
-        <p class="estado-vazio-trabalho">
-          Nenhuma tarefa para hoje.
-        </p>
-      </div>
-  
-      <div class="acoes-tarefas-trabalho">
-        <button
-          id="btnNovaTarefaTrabalho"
-          class="btn-nova-tarefa-trabalho"
-        >
-          + Nova tarefa
-        </button>
-
-        <button
-          id="btnVerTarefasTrabalho"
-          class="btn-secundario-trabalho"
-        >
-          📅 Ver todas as tarefas
-        </button>
-      </div>
-    </div>
-  
-    <!-- ANOTAÇÕES -->
-    <div class="bloco-trabalho">
-      <div class="titulo-bloco-trabalho">
-        <h3>📝 Anotações</h3>
-      </div>
-
-      <textarea
-        id="anotacaoTrabalho"
-        class="anotacao-trabalho"
-        placeholder="Registre algo importante sobre seu dia..."
-      ></textarea>
-
-      <button
-        id="btnSalvarAnotacaoTrabalho"
-        class="btn-salvar-anotacao-trabalho"
-      >
-        Salvar anotação
-      </button>
-    </div>
   </section>
-  
-  <!-- TELA - TODAS AS TAREFAS -->
-  <section
-    id="telaTodasTarefasTrabalho"
-    class="tela-modulo"
-    style="display: none;"
-  >
-  
-    <button
-      id="btnVoltarTodasTarefas"
-      class="btn-secundario"
-    >
-      ← Voltar
-    </button>
-
-    <h2>📅 Todas as tarefas</h2>
-
-    <div id="listaTodasTarefasTrabalho"></div>
-  </section>
-  
-  <!-- MODAL - NOVA TAREFA -->
-  <div
-    id="modalNovaTarefaTrabalho"
-    class="modal"
-    style="display: none;"
-  >
-  
-    <div class="modal-conteudo">
-      <h2 id="tituloModalTarefa">
-        📋 Nova tarefa
-      </h2>
-
-      <div>
-        <label for="nomeTarefaTrabalho">
-          Nome da tarefa
-        </label>
-
-        <input
-          type="text"
-          id="nomeTarefaTrabalho"
-          placeholder="Ex: Resolver chamado do GLPI"
-        >
-      </div>
-
-      <div>
-        <label for="descricaoTarefaTrabalho">
-          Descrição
-        </label>
-
-        <textarea
-          id="descricaoTarefaTrabalho"
-          placeholder="Detalhes da tarefa..."
-        ></textarea>
-      </div>
-
-      <div>
-        <label for="dataTarefaTrabalho">
-          📅 Data
-        </label>
-
-        <input
-          type="date"
-          id="dataTarefaTrabalho"
-        >
-      </div>
-
-      <div>
-        <label for="prioridadeTarefaTrabalho">
-          Prioridade
-        </label>
-
-        <select id="prioridadeTarefaTrabalho">
-          <option value="baixa">
-            🟢 Baixa
-          </option>
-
-          <option value="media" selected>
-            🟡 Média
-          </option>
-
-          <option value="alta">
-            🔴 Alta
-          </option>
-        </select>
-      </div>
-
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            id="mostrarRotinaTarefaTrabalho"
-          >
-
-          Mostrar na rotina
-        </label>
-      </div>
-
-      <div class="acoes-modal">
-        <button
-          id="btnCancelarNovaTarefa"
-        >
-          Cancelar
-        </button>
-
-        <button
-          id="btnSalvarNovaTarefa"
-        >
-          Salvar tarefa
-        </button>
-      </div>
-    </div>
-  </div>
   
   <!-- TELA DE HISTORICO -->
   <section
@@ -1353,6 +1111,76 @@
       </div>
     </div>
   </div>
+
+  <!-- ESTUDO A TARDE -->
+  <div class="atividade-estudo">
+    <strong>💻 Programação</strong>
+
+    <span id="tempoProgramacao">0 min</span>
+
+    <div class="botoes-tempo-estudo">
+      <button class="btn-tempo-estudo"
+        data-atividade="programacao" data-minutos="15">+15</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="programacao" data-minutos="30">+30</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="programacao" data-minutos="45">+45</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="programacao" data-minutos="60">+60</button>
+    </div>
+    <small>Meta diária: 60 minutos</small>
+  </div>
+
+  <div class="atividade-estudo">
+    <strong>⌨️ Digitação</strong>
+
+    <span id="tempoDigitacao">0 min</span>
+
+    <div class="botoes-tempo-estudo">
+      <button class="btn-tempo-estudo"
+        data-atividade="digitacao" data-minutos="5">+5</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="digitacao" data-minutos="10">+10</button>
+
+      <button class="btn-tempo-estudo"
+          data-atividade="digitacao" data-minutos="15">+15</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="digitacao" data-minutos="20">+20</button>
+    </div>
+    <small>Meta diária: 20 minutos</small>
+  </div>
+
+  <div class="atividade-estudo">
+    <strong>🐦 Inglês — Duolingo</strong>
+  
+    <span id="tempoIngles">0 min</span>
+  
+    <div class="botoes-tempo-estudo">
+      <button class="btn-tempo-estudo"
+        data-atividade="ingles" data-minutos="5">+5</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="ingles" data-minutos="10">+10</button>
+
+      <button class="btn-tempo-estudo"
+        data-atividade="ingles" data-minutos="15">+15</button>
+    </div>
+  
+    <small>Meta diária: 15 minutos</small>
+  </div>
+
+  <div class="resumo-estudos">
+    <strong>Tempo total:</strong>
+    <span id="tempoTotalEstudos">0 min</span>
+
+    <strong>Atividades concluídas:</strong>
+    <span id="totalAtividadesEstudos">0/3</span>
+  </div>
 </section>
   
 <!-- ========================= -->
@@ -1394,7 +1222,7 @@
       <div class="acoes-leitura">
         <button
           id="btnNovoLivroLeitura"
-          class="btn-nova-tarefa-trabalho"
+          class="btn-novo-livro-leitura"
         >
           + Novo livro
         </button>
